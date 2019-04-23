@@ -9,6 +9,7 @@ import { HomeComponent } from '../../home/home.component';
 import { CrudAvionesComponent } from '../../crud-aviones/crud-aviones.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ModalModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    AlertModule.forRoot()
   ],
   declarations: [
     HomeComponent,

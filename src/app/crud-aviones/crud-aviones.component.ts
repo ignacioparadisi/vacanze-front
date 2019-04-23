@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef} from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { AlertComponent } from 'ngx-bootstrap/alert/alert.component';
 
 declare interface TableData {
   headerRow: string[];
@@ -15,6 +16,12 @@ export class CrudAvionesComponent implements OnInit {
 
   public tableData1: TableData;
   public tableData2: TableData;
+
+  alerts: any[] = [{
+    type: 'info',
+    msg: `¡Bienvenido al módulo para la gestión de aviones!`,
+    timeout: 4000
+  }];
 
   modalRef: BsModalRef;
   constructor(private modalService: BsModalService) {}
@@ -37,23 +44,16 @@ export class CrudAvionesComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  showNotification(from, align,numero) {
-    const type = ['','info','success','warning','danger'];
-    if (numero == 2) {
-      this.modalRef.hide();
-    }
-
-    $.notify({
-        icon: 'pe-7s-config',
-        message: 'La <b>acción</b> se realizó éxitosamente',
-      }, {
-        type: type[numero],
-        timer: 1000,
-        placement: {
-            from: from,
-            align: align
-        }
-      });
+  add(): void {
+    this.alerts.push({
+      type: 'warning',
+      msg: `¡La acción fue realizada éxitosamente!`,
+      timeout: 3000
+    });
+  }
+ 
+  onClosed(dismissedAlert: AlertComponent): void {
+    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
   }
 
 }
