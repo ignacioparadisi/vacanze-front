@@ -44,6 +44,11 @@ export class CrudAvionesComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  editar(){
+    this.modalRef.hide();
+    this.add();
+  }
+
   add(): void {
     this.alerts.push({
       type: 'warning',
