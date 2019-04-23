@@ -1,0 +1,22 @@
+.middle-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    .contenido{
+        h3{
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        form{
+            button.btn{
+                width: 100%;
+                margin: 10px 0 20px 0;
+            }
+            small{
+                color: #e04c1b;
+            }
+        }
+    }
+    
+}
