@@ -22,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-primary float-right" (click)="showNotification('top','right',2)">Editar</button>
+                <button class="btn btn-primary float-right">Editar</button>
             </div>
         </div>
     </div>
@@ -30,6 +30,13 @@
       
 <div class="main-content">
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+                <div *ngFor="let alert of alerts">
+                    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                     <div class="card">
@@ -53,7 +60,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-primary float-right" (click)="showNotification('top','right',1)">Agregar</button>
+                                        <button class="btn btn-primary float-right">Agregar</button>
                                     </div>
                                 </div>
                         </div>
@@ -78,7 +85,7 @@
                                                 <button type="button" class="btn btn-primary" (click)="openModal(template)" tooltip="Editar registro"><i class="pe-7s-pen"></i></button>
                                             </div>
                                             <div class="font-icon-detail">
-                                                <button type="button" class="btn btn-danger" (click)="showNotification('top','right',4)" tooltip="Eliminar registro"><i class="pe-7s-trash"></i></button>
+                                                <button type="button" class="btn btn-danger" (click)="add()" tooltip="Eliminar registro"><i class="pe-7s-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
