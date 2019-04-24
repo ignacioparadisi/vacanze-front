@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 ## Links:
 
 + [Live Preview](https://demos.creative-tim.com/light-bootstrap-dashboard-angular2/dashboard)
@@ -23,7 +21,3 @@
 2. Crear modulo con su respectivo routing: ng g m nombredelmodulo --routing
 3. Crear componente relacionado a su modulo: ng g c nombredelcomponente o haganlo a mano (a gusto del consumidor), si lo hacen usando el comando le creará la instancia del componente en app.module muevanlo a layouts.admin-layout.module aquí controlaremos cada componente que se encuentre dentro del dashboard :D
 
-
-=======
-# vacanze-front
->>>>>>> parent of 05762c3... Update README.md
