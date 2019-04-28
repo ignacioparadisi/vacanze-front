@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterUserComponent } from './register-user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ApiService } from 'src/app/services/api.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [RegisterUserComponent],
@@ -13,7 +15,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterUserRoutingModule,
     HttpClientModule,
     NgbModule,
-    SweetAlert2Module.forRoot()
-  ]
+    SweetAlert2Module.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [ApiService]
 })
 export class RegisterUserModule { }

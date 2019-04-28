@@ -1,3 +1,56 @@
-<p>
-  register-user works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-3">
+      <div class="card-header">
+        Información del usuario
+      </div>
+      <div class="card-body table-responsive">
+        <form [formGroup]="form">
+          <!-- Role Field -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <select class="form-control" formControlName="role">
+                  <option value="-1" disabled>Seleccione un rol</option>
+                  <option *ngFor="let role of roles" value="{{ role.id }}">{{ role.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Name Field -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="name">
+              </div>
+            </div>
+            <!-- Lastname Field -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Apellido" formControlName="lastname">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Email Field -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Correo Electrónico" formControlName="email">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <swal #addSwal title="Usuario creado de manera exitosa" type="success" showConfirmButton=false timer=2500>
+              </swal>
+              <button class="btn btn-success" [swal]="addSwal">Agregar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
