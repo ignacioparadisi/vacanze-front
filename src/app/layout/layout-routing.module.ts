@@ -11,6 +11,10 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: '../components/home/home.module#HomeModule'
+      },
+      {
+        path: 'grupo-uno',
+        loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
       }
     ]
   }
