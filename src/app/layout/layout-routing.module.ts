@@ -15,6 +15,10 @@ const routes: Routes = [
       {
         path: 'grupo-uno',
         loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
+      },
+      {
+        path: 'flight-reservations',
+        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
       }
     ]
   }
