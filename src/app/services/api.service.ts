@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class ApiService {
-    private apiName = environment.baseApiEndpoint;
+    private apiName = environment.baseApiUrl;
     private myInit = {
         /* headers: {
           'x-api-key': environment.apiKey
