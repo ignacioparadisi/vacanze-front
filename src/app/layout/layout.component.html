@@ -1,5 +1,9 @@
+<!-- Rendirizo el componente del header-->
 <app-header></app-header>
-<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
-<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
-    <router-outlet></router-outlet>
-</section>
+<!-- Rendirizo el componente del header-->
+
+<router-outlet></router-outlet>
+
+<!-- Renderizo el componente del footer-->
+<app-footer></app-footer>
+<!-- Renderizo el componente del footer-->

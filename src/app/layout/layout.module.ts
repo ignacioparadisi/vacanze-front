@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LayoutRoutingModule } from './layout-routing.module';
+// Rutas y componentes que siempre seran fijos y no cargaran Lazy (Header y Footer)
+import { LayoutRoutingModule } from './layout.routing.module';
 import { LayoutComponent } from './layout.component';
+import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+
 
 @NgModule({
   declarations: [
     LayoutComponent,
-    HeaderComponent,
-    SidebarComponent
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
