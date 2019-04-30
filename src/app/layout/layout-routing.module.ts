@@ -17,8 +17,8 @@ const routes: Routes = [
         loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
       },
       {
-        path: 'flight-reservations',
-        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
+        path: 'register-user',
+        loadChildren: '../components/register-user/register-user.module#RegisterUserModule'
       }
     ]
   }
@@ -27,4 +27,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }
