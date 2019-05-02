@@ -19,7 +19,7 @@ export class RegisterUserComponent implements OnInit {
   ngOnInit() {
     this.fetchRoles();
 
-    this.form = new FormGroup({
+    this.form= new FormGroup({
       role: new FormControl(-1, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
