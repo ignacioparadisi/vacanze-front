@@ -43,30 +43,32 @@
                         <input type="text" class="form-control" placeholder="Ciudad">
                       </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-
+                        <input type="text" class="form-control" placeholder="Fecha de Alquiler">
                     
                       </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Usuario">
+                        <input type="text" class="form-control" placeholder="Fecha de Devolucion">
+                    
+                      </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <swal
+                        #addSwal
+                        title="Desea eliminar el registro?"
+                        type="success"
+                        showConfirmButton=false
+                        timer=2500>
+                      </swal>
+                        <button class="btn btn-primary float-right" [swal]="addSwal">Buscar</button>
                       </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <swal
-                  #addSwal
-                  title="Desea eliminar el registro?"
-                  type="success"
-                  showConfirmButton=false
-                  timer=2500>
-                </swal>
-                <button class="btn btn-success float-right" [swal]="addSwal">Agregar</button>
-                </div>
-              </div>
+
             </form>
           </div>
       </div>
@@ -88,6 +90,23 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <tr>
+                        <td>Audi</td>
+                        <td>A4</td>
+                        <td>5</td>
+                        <td>69$</td>
+                        <td>
+                          <button (click)="open(content)" class="btn btn-primary">Ver Detalle</button>
+                          <swal
+                            #deleteSwal
+                            title="Desea eliminar el registro?"
+                            type="question"
+                            [showCancelButton]="true"
+                            [focusCancel]="true"
+                            (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          </swal>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Audi</td>
                         <td>A4</td>

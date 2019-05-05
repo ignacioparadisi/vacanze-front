@@ -43,30 +43,32 @@
                         <input type="text" class="form-control" placeholder="Ciudad">
                       </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-
+                        <input type="text" class="form-control" placeholder="Fecha Inicio">
                     
                       </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Usuario">
+                        <input type="text" class="form-control" placeholder="Fecha de Salida">
+                    
+                      </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <swal
+                        #addSwal
+                        title="Desea eliminar el registro?"
+                        type="success"
+                        showConfirmButton=false
+                        timer=2500>
+                      </swal>
+                        <button class="btn btn-primary float-right" [swal]="addSwal">Buscar</button>
                       </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <swal
-                  #addSwal
-                  title="Desea eliminar el registro?"
-                  type="success"
-                  showConfirmButton=false
-                  timer=2500>
-                </swal>
-                <button class="btn btn-success float-right" [swal]="addSwal">Agregar</button>
-                </div>
-              </div>
+              
             </form>
           </div>
       </div>
