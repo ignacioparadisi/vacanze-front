@@ -50,21 +50,23 @@
                         </select>
                       </div>
                 </div>
-                <div class="col-md-2">
+
                     <div class="form-group">
-                        <h6>Fecha de Inicio:</h6>
+                        <h6 style="padding-top:7%; text-align: right;">Fecha de inicio:</h6>
                       </div>
-                </div>
+
                 <div class="col-md-2">
                     <div class="form-group">
                         <input type="date" class="form-control" name="Fecha_Inicio">
                     
                       </div>
                 </div>
+                <div class="form-group">
+                    <h6 style="padding-top:7%; text-align: right;">Fecha de salida:</h6>
+                  </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Fecha de Salida">
-                    
+                        <input type="date" class="form-control" name="Fecha_Salida">
                       </div>
                 </div>
                 <div class="col-md-1">
@@ -102,6 +104,23 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <tr>
+                        <td>Hilton</td>
+                        <td>Estandar</td>
+                        <td>4</td>
+                        <td>109$</td>
+                        <td>
+                          <button (click)="open(content)" class="btn btn-primary">Ver Detalle</button>
+                          <swal
+                            #deleteSwal
+                            title="Desea eliminar el registro?"
+                            type="question"
+                            [showCancelButton]="true"
+                            [focusCancel]="true"
+                            (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          </swal>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Hilton</td>
                         <td>Estandar</td>
