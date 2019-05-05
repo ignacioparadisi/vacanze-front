@@ -33,7 +33,7 @@
   <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
-              Buscar Automovil
+              Buscar Habitacion
           </div>
           <div class="card-body table-responsive">
             <form action="">
@@ -50,23 +50,25 @@
                         </select>
                       </div>
                 </div>
-                <div class="form-group">
-                    <h6 style="padding-top:7%; text-align: right;">Fecha de alquiler:</h6>
-                  </div>
 
-            <div class="col-md-2">
+                    <div class="form-group">
+                        <h6 style="padding-top:7%; text-align: right;">Fecha de inicio:</h6>
+                      </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="Fecha_Inicio">
+                    
+                      </div>
+                </div>
                 <div class="form-group">
-                    <input type="date" class="form-control" name="Fecha_Alquiler">
+                    <h6 style="padding-top:7%; text-align: right;">Fecha de salida:</h6>
                   </div>
-            </div>
-            <div class="form-group">
-                <h6 style="padding-top:7%; text-align: right;">Fecha de devolucion:</h6>
-              </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <input type="date" class="form-control" name="Fecha_Devolucion">
-                  </div>
-            </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="Fecha_Salida">
+                      </div>
+                </div>
                 <div class="col-md-1">
                     <div class="form-group">
                         <swal
@@ -80,7 +82,7 @@
                       </div>
                 </div>
               </div>
-
+              
             </form>
           </div>
       </div>
@@ -94,21 +96,21 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Marca</th>
-                        <th>Modelo</th>
+                        <th>Hotel</th>
+                        <th>Tipo</th>
                         <th>Capacidad</th>
-                        <th>Precio por dia</th>
+                        <th>Precio por noche</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Audi</td>
-                        <td>A4</td>
-                        <td>5</td>
-                        <td>69$</td>
+                        <td>Hilton</td>
+                        <td>Estandar</td>
+                        <td>4</td>
+                        <td>109$</td>
                         <td>
-                          <button (click)="open('src\app\components\grupo-trece-automovil-detalle')" class="btn btn-primary">Ver Detalle</button>
+                          <button (click)="open(content)" class="btn btn-primary">Ver Detalle</button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"
@@ -120,10 +122,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Audi</td>
-                        <td>A4</td>
-                        <td>5</td>
-                        <td>69$</td>
+                        <td>Hilton</td>
+                        <td>Estandar</td>
+                        <td>4</td>
+                        <td>109$</td>
                         <td>
                           <button (click)="open(content)" class="btn btn-primary">Ver Detalle</button>
                           <swal
