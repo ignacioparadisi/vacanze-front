@@ -1,0 +1,268 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Editar registro</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form action="">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nombre">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Usuario">
+              </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Apellido">
+                </div>
+              </div>
+          </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Editar</button>
+    </div>
+</ng-template>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                Agregar Avión
+            </div>
+            <div class="card-body table-responsive">
+                <form action="">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Aerolínea">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Fabricante del avión">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Modelo del avión">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Cantidad de asientos">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Peso total del equipaje">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Autonomía del avión">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Origen de la ruta">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Destino de la ruta">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-outline-success w-100">Agregar</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-outline-danger w-100">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2 offset-md-10">
+                        <swal
+                        #addSwal
+                        title="Registro agregado con éxito"
+                        type="success"
+                        showConfirmButton=false
+                        timer=2500>
+                        </swal>
+                        <button class="btn btn-success float-right w-100" [swal]="addSwal">Agregar Avión</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                Listado de Aviones
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Aerolínea</th>
+                            <th scope="col">Fabricante del avión</th>
+                            <th scope="col">Modelo del avión</th>
+                            <th scope="col">Cantidad de asientos</th>
+                            <th scope="col">Peso total del equipaje</th>
+                            <th scope="col">Autonomía del avión</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <th scope="row">1</th>
+                        <td>Conviasa</td>
+                        <td>Boeing</td>
+                        <td>@737-800</td>
+                        <td>140</td>
+                        <td>3280 kg</td>
+                        <td>18 horas</td>
+                        <td>
+                            <button (click)="open(content)"><i class="fas fa-edit"></i></button>
+                            <swal
+                            #deleteSwal
+                            title="Desea eliminar el registro?"
+                            type="question"
+                            [showCancelButton]="true"
+                            [focusCancel]="true"
+                            (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                            </swal>
+                            <button [swal]="deleteSwal"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card mb-3">
+            <div class="card-header">
+                Agregar Rutas
+            </div>
+            <div class="card-body table-responsive">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="">Origen</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="País">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Ciudad">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Aeropuerto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="">Destino</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="País">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Ciudad">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Aeropuerto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Duración</p>
+                            <ngb-timepicker [(ngModel)]="time" name="time"></ngb-timepicker>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4 offset-md-8">
+                            <swal #addSwal title="Registro agregado con éxito" type="success" showConfirmButton=false timer=2500></swal>
+                            <button class="btn btn-success float-right w-100" [swal]="addSwal">Agregar Rutas</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="card mb-3">
+            <div class="card-header">
+                Listado de Rutas
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Origen</th>
+                            <th scope="col">Destino</th>
+                            <th scope="col">Duración</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Caracas, Venezuela | Simon Bolivar Internacional CCS</td>
+                            <td>Madrid, España | Adolfo Suarez Barajas MAD</td>
+                            <td>15 hrs 38 min</td>
+                            <td>
+                                <button (click)="open(content)"><i class="fas fa-edit"></i></button>
+                                <swal
+                                #deleteSwal
+                                title="Desea eliminar el registro?"
+                                type="question"
+                                [showCancelButton]="true"
+                                [focusCancel]="true"
+                                (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                </swal>
+                                <button [swal]="deleteSwal"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
