@@ -11,7 +11,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class RegisterUserComponent implements OnInit {
 
-  public form: FormGroup;
+  public submitted: boolean = false;
+  public formGroup: FormGroup;
   public roles: Role[] = [];
 
   constructor(private api: ApiService) { }
@@ -19,13 +20,20 @@ export class RegisterUserComponent implements OnInit {
   ngOnInit() {
     this.fetchRoles();
 
-    this.form = new FormGroup({
-      role: new FormControl(-1, [Validators.required]),
+    this.formGroup = new FormGroup({
+      role: new FormControl(-1, [Validators.required, Validators.min(0)]),
+      // TODO: Validar que sean solo números
+      documentId: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email])
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      // TODO: Validar el formato que debe tener la contraseña
+      password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+      confirmPassword: new FormControl(null, [Validators.required])
     });
   }
+
+  get form() { return this.formGroup.controls; }
 
   private fetchRoles(): Role[] {
     this.roles = [
@@ -36,6 +44,15 @@ export class RegisterUserComponent implements OnInit {
       new Role(4, 'Cargador')
     ];
     return this.roles;
+  }
+
+  public onSubmit() {
+    this.submitted = true;
+
+    if (this.formGroup.invalid) {
+      return;
+    }
+
   }
 
 }
