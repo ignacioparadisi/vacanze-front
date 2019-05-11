@@ -15,6 +15,10 @@ const routes: Routes = [
       {
         path: 'grupo-uno',
         loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
+      },
+      {
+        path: 'register-user',
+        loadChildren: '../components/register-user/register-user.module#RegisterUserModule'
       }
     ]
   }
@@ -23,4 +27,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }
