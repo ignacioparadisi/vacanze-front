@@ -28,10 +28,6 @@ const routes: Routes = [
       {
         path: 'register-user',
         loadChildren: '../components/register-user/register-user.module#RegisterUserModule'
-      },
-      {
-        path: 'flight-reservations',
-        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
       }
     ]
   }
