@@ -17,12 +17,17 @@ const routes: Routes = [
         loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
       },
       {
+
         path: 'grupo-trece-habitacion',
         loadChildren: '../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule'
       },
       {
         path: 'grupo-trece-automovil',
         loadChildren: '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
+      },
+      {
+        path: 'register-user',
+        loadChildren: '../components/register-user/register-user.module#RegisterUserModule'
       }
     ]
   }
@@ -31,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }
