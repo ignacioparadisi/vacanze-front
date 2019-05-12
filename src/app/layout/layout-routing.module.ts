@@ -17,7 +17,6 @@ const routes: Routes = [
         loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
       },
       {
-
         path: 'grupo-trece-habitacion',
         loadChildren: '../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule'
       },
@@ -28,6 +27,10 @@ const routes: Routes = [
       {
         path: 'register-user',
         loadChildren: '../components/register-user/register-user.module#RegisterUserModule'
+      },
+      {
+        path: 'register-hotel',
+        loadChildren: '../components/register-hotel/register-hotel.module#RegisterHotelModule'
       },
       {
         path: 'flight-reservations',
