@@ -31,6 +31,10 @@ const routes: Routes = [
       {
         path: 'register-hotel',
         loadChildren: '../components/register-hotel/register-hotel.module#RegisterHotelModule'
+      },
+      {
+        path: 'flight-reservations',
+        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
       }
     ]
   }

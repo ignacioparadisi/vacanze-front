@@ -20,6 +20,7 @@ export class RegisterUserComponent implements OnInit {
   ngOnInit() {
     this.fetchRoles();
 
+
     this.formGroup = new FormGroup({
       role: new FormControl(-1, [Validators.required, Validators.min(0)]),
       // TODO: Validar que sean solo números
