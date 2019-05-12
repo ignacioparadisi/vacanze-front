@@ -23,6 +23,8 @@
     "@ng-bootstrap/ng-bootstrap": "4.0.0",
     "@ng-select/ng-select": "^2.19.0",
     "@sweetalert2/ngx-sweetalert2": "^5.0.2",
+    "angular2-datetimepicker": "^1.1.1",
+    "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "ng2-charts": "1.6.0",

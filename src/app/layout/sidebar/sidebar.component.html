@@ -8,9 +8,25 @@
         <i class="fa fa-fw fa-dashboard"></i>&nbsp;
         <span>Grupo Uno</span>
       </a>
-      <a routerLink="/grupo-tres" [routerLinkActive]="['router-link-active']" class="list-group-item">
-        <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-        <span>Grupo Tres</span>
-      </a>
+      <div class="nested-menu">
+          <a class="list-group-item" (click)="addExpandClass('pages')">
+              <i class="fa fa-plus"></i>&nbsp;
+              <span>Grupo 3</span>
+          </a>
+          <li class="nested" [class.expand]="showMenu === 'pages'">
+              <ul class="submenu">
+                  <li>
+                      <a routerLink="/grupo-tres/creacion" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <span>Creación de vuelos</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a routerLink="/grupo-tres/listado" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <span>Listado de vuelos</span>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+      </div>
   </div>
 </nav>

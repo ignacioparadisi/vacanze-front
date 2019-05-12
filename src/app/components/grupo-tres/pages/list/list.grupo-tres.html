@@ -1,0 +1,149 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar vuelo</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="bloque my-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Origen</strong></p>
+                        <hr>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Destino</strong></p>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" placeholder="País" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" placeholder="Ciudad" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" placeholder="País" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" placeholder="Ciudad" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><strong>Características</strong></p>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option disabled selected>Seleccione un avión</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" placeholder="Precio" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" placeholder="Fecha de salida" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" placeholder="Fecha de llegada" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="" class="mb-3 d-block">Duración (Horas)</label>
+                        <select name="" id="" class="form-control select-menor float-left mr-4">
+                            <option value="">01</option>
+                            <option value="">02</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="mb-3 d-block">Duración (Minutos)</label>
+                        <select name="" id="" class="form-control select-menor float-left">
+                            <option value="">01</option>
+                            <option value="">02</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Editar</button>
+    </div>
+</ng-template>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                Listado de vuelos
+            </div>
+            <div class="card-body table-responsive">
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Número de vuelo</th>
+                                <th scope="col">Rutas</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>A356D3</td>
+                                <td>
+                                    <strong>Origen:</strong> Venezuela, Caracas - 13/06/2019 07:30 p.m - <strong>Destino:</strong> Colombia, Medellin - 14/06/2019 07:30 p.m <br>
+                                    <strong>Origen:</strong> Colombia, Medellin - 15/06/2019 07:30 a.m - <strong>Destino:</strong> Estados Unidos, New York - 15/06/2019 01:30 p.m <br>
+                                    <strong>Origen:</strong> Estados Unidos, New York - 15/06/2019 04:35 p.m - <strong>Destino:</strong> Estados Unidos, Miami - 15/06/2019 06:45 p.m
+                                </td>
+                                <td>$758</td>
+                                <td>
+                                    <button class="btn btn-outline-info float-left mr-3" (click)="openLg(content)"><i class="fas fa-edit"></i></button>
+                                    <swal
+                                        #deleteSwal
+                                        title="¿Desea eliminar el vuelo?"
+                                        type="question"
+                                        [showCancelButton]="true"
+                                        [focusCancel]="true"
+                                        (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                    </swal>
+                                    <button [swal]="deleteSwal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

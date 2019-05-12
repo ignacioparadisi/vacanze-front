@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GrupoTresComponent } from './grupo-tres.component';
+import { NewGrupoTres } from '../grupo-tres/pages/new/new.grupo-tres';
+import { ListGrupoTres } from '../grupo-tres/pages/list/list.grupo-tres';
 
 const routes: Routes = [
-  {
-      path: '',
-      component: GrupoTresComponent
-  }
+  { path: 'creacion', component: NewGrupoTres, pathMatch: 'full' },
+  { path: 'listado', component: ListGrupoTres, pathMatch: 'full' },
 ];
 
 @NgModule({

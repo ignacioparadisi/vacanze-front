@@ -1,31 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {NgSelectModule, NgOption} from '@ng-select/ng-select';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule, FormControl} from '@angular/forms';
+
 
 @Component({
-  selector: 'app-grupo-tres',
-  templateUrl: './grupo-tres.component.html',
-  styleUrls: ['./grupo-tres.component.scss']
+  selector: 'app-new-grupo-tres',
+  templateUrl: './new.grupo-tres.html',
+  styleUrls: ['./new.grupo-tres.scss']
 })
-export class GrupoTresComponent implements OnInit {
-  constructor(private modalService: NgbModal) { }
+export class NewGrupoTres implements OnInit {
+    closeResult: string;
+    time = {hour: 13, minute: 30};
 
-  closeResult: string;
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings = {};
-  time = {hour: 13, minute: 30};
+    constructor(private modalService: NgbModal) {
+    }
 
-  open(content) {
+    ngOnInit() {
+    }
+
+    open(content) {
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
-    }
-
-    ngOnInit() {
     }
 
     private getDismissReason(reason: any): string {
@@ -37,9 +35,5 @@ export class GrupoTresComponent implements OnInit {
             return  `with: ${reason}`;
         }
     }
-
-  deleteFile() {
-      console.log('Registro eliminado');
-  }
 
 }
