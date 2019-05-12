@@ -1,5 +1,5 @@
 import { ApiService } from 'src/app/services/api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { class_flight } from 'src/app/classes/class_flight';
 import { type_flight } from 'src/app/classes/type_flight';
 import Swal from 'sweetalert2';
@@ -19,13 +19,16 @@ export class FlightReservationsComponent implements OnInit {
   public kids_flight:people_flight[]=[];
   public adult_flight:people_flight[]=[];
 
-  constructor(private api: ApiService) { }
 
+  constructor(private api: ApiService) { }
+   isDisabled: boolean = true;
+   selectedTyp: string="";
+   
   ngOnInit() {
       this.fetchFlight();
       this.typeFlight();
       this.adultFlight();
-      this.kidsFlight();
+     
       this.form=new FormGroup({
         class_flight: new FormControl(-1, [Validators.required]),
         name: new FormControl(null, [Validators.required]),
@@ -57,22 +60,7 @@ export class FlightReservationsComponent implements OnInit {
     return this.type_flight; 
   }
 
-  private kidsFlight():people_flight[]{
-      this.kids_flight=[
-        new people_flight(1,'n'),
-        new people_flight(2,'n'),
-        new people_flight(3,'n'),
-        new people_flight(4,'n'),
-        new people_flight(5,'n'),
-        new people_flight(6,'n'),
-        new people_flight(7,'n'),
-        new people_flight(8,'n'),
-        new people_flight(9,'n'),
-        new people_flight(10,'n'),
-      ];
-      return this.kids_flight;
-  }
-
+ 
   private adultFlight():people_flight[]{
 
    
@@ -91,6 +79,39 @@ export class FlightReservationsComponent implements OnInit {
    
     return this.adult_flight;
   }
-  
+  radioChangeHandler(event: any){
+    this.selectedTyp = event.target.id ;
+    var input= document.getElementById("entry_id");
+    var output= document.getElementById("out_id");
+
+    var element =<HTMLInputElement> document.getElementById("date_id");
+    element.checked = null;
+    if (this.selectedTyp=="0") {
+      input.setAttribute("disabled","true");
+      output.removeAttribute("disabled");
+    }else{
+      input.removeAttribute("disabled");
+      output.removeAttribute("disabled");
+
+      console.log(2);
+    }
+  }
+  checkboxSelected(event: any){
+    var element =<HTMLInputElement> document.getElementById("date_id");
+    var isChecked= element.checked;
+    var input= document.getElementById("entry_id");
+    var output= document.getElementById("out_id");
+    if (isChecked) {
+      console.log(1);
+      input.setAttribute("disabled","true");
+      output.setAttribute("disabled","true");
+
+    }else{
+      input.removeAttribute("disabled");
+      output.removeAttribute("disabled");
+      console.log(2);
+    }
+
+  }
 
 }

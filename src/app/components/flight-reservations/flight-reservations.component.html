@@ -1,3 +1,19 @@
+
+<script type="text/javascript">
+    $(function(){
+      $("{{type.id}}").change(function(){
+          var st= "{{type.id}}".checked;
+          if (st) {
+            $("#entry_id").prop("disabled",false);
+          }else{
+            $("#entry_id").prop("disabled",true);
+          }
+
+
+      });
+    });
+    
+</script>
 <div class="row">
   <div class="col-md-12">
     <div class="card mb-3">
@@ -10,9 +26,9 @@
           <div class="row">
             
             
-            <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 16px;" >
+            <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 16px;"  >
               <div *ngFor="let type of type_flight" style="margin-right:15px">
-                <input  id="{{type.id}}" name="paymentMethod" type="radio" class="form-check-input">
+                <input  id="{{type.id}}" name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)"  >
                 <label class="form-check-label" for="type">{{type.name}}</label>
               </div> 
             </div>
@@ -36,12 +52,12 @@
             <div class="col-md-3">
                 <label for="">Fecha de Salida</label>
                 <div class="form-group">
-                  <input type="date" class="form-control" placeholder="FechaS" formControlName="FechaS">
+                  <input id="out_id" type="date" class="form-control" placeholder="FechaS" formControlName="FechaS">
                 </div>
             
               <div class="form-check" style="margin: -8px 47px 8px 3px;font-size: 15px;">
                 <label class="form-check-label">
-                  <input class="form-check-input" name="" id="" type="checkbox" value="checkedValue" aria-label="Text for screen reader">
+                  <input class="form-check-input" name="" id="date_id" type="checkbox" value="checkedValue" aria-label="Text for screen reader" (change)="checkboxSelected($event)" >
                   Todavia no tengo Fecha
                 </label>
               </div>
@@ -51,7 +67,7 @@
             <div class="col-md-3">
                 <label for="">Fecha de Entrada</label>
                 <div class="form-group">
-                  <input type="date" class="form-control" placeholder="FechaE" formControlName="fechaE">
+                  <input  id="entry_id" type="date" class="form-control" placeholder="FechaE" formControlName="fechaE">
                 </div>
             </div>
 
@@ -65,16 +81,7 @@
                   </div>
             </div> 
 
-            <div class="col-md-3" style="top:31px">
-                
-                  <div class="form-group">
-                    <select class="form-control" formControlName="class_flight">
-                       <option value="-1" disabled>Niños</option>
-                       <option *ngFor="let kids of kids_flight" value="{{ kids.id }}">{{ kids.id }}</option>
-                    </select>
-                    <label for="" ><strong style="font-size: 10px">Nota: Menores de 17 años</strong></label>
-                  </div>
-              </div> 
+           
 
             <div class="col-md-6">
               <div class="form-group">
@@ -94,6 +101,9 @@
           
          
           </div>
+         
+          
+          
         </form>
       </div>
     </div>
