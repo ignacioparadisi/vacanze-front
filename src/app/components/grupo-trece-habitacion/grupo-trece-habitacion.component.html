@@ -1,0 +1,159 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Detalle de reserva habitación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <form action="">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <h6>Hotel</h6>
+            </div>
+            <div class="form-group">
+              <h6>Tipo</h6> 
+            </div>
+            <div class="form-group">
+              <h6>Capacidad</h6> 
+            </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                <h6>Ciudad</h6>
+              </div>
+              <div class="form-group">
+                <h6>Fecha de entrada</h6>
+              </div>
+              <div class="form-group">
+                <h6>Fecha de salida</h6>
+              </div>
+              <div class="form-group">
+                <h4>Precio total</h4>
+              </div>
+            </div>
+        </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="c('Close click')">Reservar</button>
+  </div>
+  </ng-template>
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="card mb-3">
+          <div class="card-header">
+              Buscar Habitación
+          </div>
+          <div class="card-body table-responsive">
+            <form action="">
+              <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Ciudad...</option> 
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                </div>
+
+                    <div class="form-group">
+                        <h6 style="padding-top:7%; text-align: right;">Fecha de entrada:</h6>
+                      </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="Fecha_Inicio">
+                    
+                      </div>
+                </div>
+                <div class="form-group">
+                    <h6 style="padding-top:7%; text-align: right;">Fecha de salida:</h6>
+                  </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="Fecha_Salida">
+                      </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <swal
+                        #addSwal
+                        title="Desea eliminar el registro?"
+                        type="success"
+                        showConfirmButton=false
+                        timer=2500>
+                      </swal>
+                        <button class="btn btn-primary float-right" [swal]="addSwal">Buscar</button>
+                      </div>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+      </div>
+  </div>
+    <div class="col-lg-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                Listado de registros
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Hotel</th>
+                        <th>Tipo</th>
+                        <th>Capacidad</th>
+                        <th>Precio por noche</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Hilton</td>
+                        <td>Estandar</td>
+                        <td>4</td>
+                        <td>$109</td>
+                        <td>
+                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
+                          <swal
+                            #deleteSwal
+                            title="Desea eliminar el registro?"
+                            type="question"
+                            [showCancelButton]="true"
+                            [focusCancel]="true"
+                            (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          </swal>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Hilton</td>
+                        <td>Estandar</td>
+                        <td>4</td>
+                        <td>$109</td>
+                        <td>
+                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
+                          <swal
+                            #deleteSwal
+                            title="Desea eliminar el registro?"
+                            type="question"
+                            [showCancelButton]="true"
+                            [focusCancel]="true"
+                            (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          </swal>
+                        </td>
+                    </tr>
+                  
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
