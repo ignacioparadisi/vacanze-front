@@ -14,9 +14,9 @@ import { PeopleFlight } from 'src/app/classes/People_flight';
 export class FlightReservationsComponent implements OnInit {
 
   public form: FormGroup;
-  public ClassFlight: ClassFlight[] = [];
-  public TypeFlight: TypeFlight[]=[];
-  public adult_flight:PeopleFlight[]=[];
+  public classFlight: ClassFlight[] = [];
+  public typeFlights: TypeFlight[]=[];
+  public adultFlights:PeopleFlight[]=[];
 
 
   constructor(private api: ApiService) { }
@@ -40,29 +40,29 @@ export class FlightReservationsComponent implements OnInit {
   }
 
   private fetchFlight(): ClassFlight[] {
-    this.ClassFlight = [
+    this.classFlight = [
       new ClassFlight(0, 'Economy'),
       new ClassFlight(1, 'Premium Economy'),
       new ClassFlight(2, 'Ejecutiva'),
       new ClassFlight(3, 'Primera Clase'),
     ];
-    return this.ClassFlight;
+    return this.classFlight;
   }
 
   private typeFlight(): TypeFlight[]{
-    this.TypeFlight=[
+    this.typeFlights=[
       new TypeFlight(0,'Ida'),
       new TypeFlight(1,'Ida y Vuelta '),
       new TypeFlight(2,'Multidestinos'), 
     ];
-    return this.TypeFlight; 
+    return this.typeFlights; 
   }
 
  
   private adultFlight():PeopleFlight[]{
 
    
-      this.adult_flight=[
+      this.adultFlights=[
         new PeopleFlight(1,'a'),
         new PeopleFlight(2,'a'),
         new PeopleFlight(3,'a'),
@@ -75,7 +75,7 @@ export class FlightReservationsComponent implements OnInit {
         new PeopleFlight(10,'a'),
       ];
    
-    return this.adult_flight;
+    return this.adultFlights;
   }
   radioChangeHandler(event: any){
     this.selectedTyp = event.target.id ;
