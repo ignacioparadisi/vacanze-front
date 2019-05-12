@@ -11,8 +11,8 @@ export class GrupoTreceHabitacionComponent implements OnInit {
   closeResult: string;
   constructor(private modalService: NgbModal) { }
 
-  open(content) {
-      this.modalService.open(content).result.then((result) => {
+  openLg(content) {
+      this.modalService.open(content, { size: 'lg' }).result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

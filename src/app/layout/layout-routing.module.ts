@@ -23,14 +23,6 @@ const routes: Routes = [
       {
         path: 'grupo-trece-automovil',
         loadChildren: '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
-      },
-      {
-        path: 'grupo-trece-automovil-detalle',
-        loadChildren: '../components/grupo-trece-automovil-detalle/grupo-trece-automovil-detalle.module#GrupoTreceAutomovilDetalleModule'
-      },
-      {
-        path: 'grupo-trece-habitacion-detalle',
-        loadChildren: '../components/grupo-trece-habitacion-detalle/grupo-trece-habitacion-detalle.module#GrupoTreceHabitacionDetalleModule'
       }
     ]
   }

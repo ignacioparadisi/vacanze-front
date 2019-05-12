@@ -1,39 +1,51 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Editar registro</h4>
+        <h4 class="modal-title">Detalle de reserva habitación</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <form action="">
-          <div class="row">
-            <div class="col-md-6">
+      <form action="">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <h6>Hotel</h6>
+            </div>
+            <div class="form-group">
+              <h6>Tipo</h6> 
+            </div>
+            <div class="form-group">
+              <h6>Capacidad</h6> 
+            </div>
+          </div>
+          <div class="col-md-6">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nombre">
+                <h6>Ciudad</h6>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Usuario">
+                <h6>Fecha de entrada</h6>
+              </div>
+              <div class="form-group">
+                <h6>Fecha de salida</h6>
+              </div>
+              <div class="form-group">
+                <h4>Precio total</h4>
               </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Apellido">
-                </div>
-              </div>
-          </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Editar</button>
-    </div>
-</ng-template>
+        </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="c('Close click')">Reservar</button>
+  </div>
+  </ng-template>
 
 <div class="row">
   <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
-              Buscar Habitacion
+              Buscar Habitación
           </div>
           <div class="card-body table-responsive">
             <form action="">
@@ -52,7 +64,7 @@
                 </div>
 
                     <div class="form-group">
-                        <h6 style="padding-top:7%; text-align: right;">Fecha de inicio:</h6>
+                        <h6 style="padding-top:7%; text-align: right;">Fecha de entrada:</h6>
                       </div>
 
                 <div class="col-md-2">
@@ -108,9 +120,9 @@
                         <td>Hilton</td>
                         <td>Estandar</td>
                         <td>4</td>
-                        <td>109$</td>
+                        <td>$109</td>
                         <td>
-                          <a routerLink="/grupo-trece-habitacion-detalle" class="btn btn-primary">Ver Detalle</a>
+                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"
@@ -125,9 +137,9 @@
                         <td>Hilton</td>
                         <td>Estandar</td>
                         <td>4</td>
-                        <td>109$</td>
+                        <td>$109</td>
                         <td>
-                          <button (click)="open(content)" class="btn btn-primary">Ver Detalle</button>
+                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"

@@ -1,6 +1,6 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Editar registro</h4>
+        <h4 class="modal-title">Detalle de reserva automóvil</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -10,22 +10,37 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nombre">
+                <h6>Marca</h6>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Usuario">
+                <h6>Modelo</h6> 
+              </div>
+              <div class="form-group">
+                <h6>Capacidad</h6> 
+              </div>
+              <div class="form-group">
+                <h6>Precio por día</h6> 
               </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Apellido">
+                  <h6>Ciudad</h6>
+                </div>
+                <div class="form-group">
+                  <h6>Fecha de alquiler</h6>
+                </div>
+                <div class="form-group">
+                  <h6>Fecha de devolución</h6>
+                </div>
+                <div class="form-group">
+                  <h4>Precio total</h4>
                 </div>
               </div>
           </div>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Editar</button>
+        <button type="button" class="btn btn-success" (click)="c('Close click')">Reservar</button>
     </div>
 </ng-template>
 
@@ -33,7 +48,7 @@
   <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
-              Buscar Automovil
+              Buscar Automóvil
           </div>
           <div class="card-body table-responsive">
             <form action="">
@@ -60,7 +75,7 @@
                   </div>
             </div>
             <div class="form-group">
-                <h6 style="padding-top:7%; text-align: right;">Fecha de devolucion:</h6>
+                <h6 style="padding-top:7%; text-align: right;">Fecha de devolución:</h6>
               </div>
             <div class="col-md-2">
                 <div class="form-group">
@@ -97,7 +112,7 @@
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Capacidad</th>
-                        <th>Precio por dia</th>
+                        <th>Precio por día</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -106,9 +121,9 @@
                         <td>Audi</td>
                         <td>A4</td>
                         <td>5</td>
-                        <td>69$</td>
+                        <td>$69</td>
                         <td>
-                          <a routerLink="/grupo-trece-automovil-detalle" class="btn btn-primary">Ver Detalle</a>
+                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"
@@ -123,9 +138,9 @@
                         <td>Audi</td>
                         <td>A4</td>
                         <td>5</td>
-                        <td>69$</td>
+                        <td>$69</td>
                         <td>
-                          <button (click)="open(content)" class="btn btn-primary">Ver Detalle</button>
+                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"
