@@ -1,4 +1,4 @@
-export class Type_flight {
+export class TypeFlight {
     private _id: number;
     private _name: string;
   

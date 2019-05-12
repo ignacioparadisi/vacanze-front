@@ -1,4 +1,4 @@
-export class Class_flight {
+export class ClassFlight {
     private _id: number;
     private _name: string;
     
