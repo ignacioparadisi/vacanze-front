@@ -1,0 +1,96 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa fa-safari" aria-hidden="true"></i>
+        Reservas
+      </div>
+      <div class="card-body table-responsive">
+        <form [formGroup]="form">
+          <div class="row">
+            
+            
+            <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 16px;"  >
+              <div *ngFor="let type of type_flight" style="margin-right:15px">
+                <input  id="{{type.id}}" name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)"  >
+                <label class="form-check-label" for="type">{{type.name}}</label>
+              </div> 
+            </div>
+                
+            
+           <!-- Origin Field -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Origen" formControlName="origen">
+              </div>
+            </div>
+
+            <!-- Destiny Field -->
+            <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Destino" formControlName="destino">
+                </div>
+            </div>
+
+             
+            <div class="col-md-3">
+                <label for="">Fecha de Salida</label>
+                <div class="form-group">
+                  <input id="out_id" type="date" class="form-control" placeholder="FechaS" formControlName="FechaS">
+                </div>
+            
+              <div class="form-check" style="margin: -8px 47px 8px 3px;font-size: 15px;">
+                <label class="form-check-label">
+                  <input class="form-check-input" name="" id="date_id" type="checkbox" value="checkedValue" aria-label="Text for screen reader" (change)="checkboxSelected($event)" >
+                  Todavia no tengo Fecha
+                </label>
+              </div>
+            </div>
+            
+            <!-- Date Field -->
+            <div class="col-md-3">
+                <label for="">Fecha de Entrada</label>
+                <div class="form-group">
+                  <input  id="entry_id" type="date" class="form-control" placeholder="FechaE" formControlName="fechaE">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="">Pasajeros</label>
+                <div class="form-group">
+                  <select class="form-control" formControlName="class_flight">
+                     <option value="-1" disabled>Adulto</option>
+                     <option *ngFor="let adult of adult_flight" value="{{ adult.id }}">{{ adult.id }}</option>
+                  </select>
+                  </div>
+            </div> 
+
+           
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <select class="form-control" formControlName="class_flight">
+                   <option value="-1" disabled>Clase</option>
+                   <option *ngFor="let class of class_flight" value="{{ class.id }}">{{ class.name }}</option>
+                </select>
+              </div>
+            </div>  
+         
+            <div class="col-md-6" >
+                <button type="button" class="btn btn-primary" style="width: 141px;margin: auto;" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    Buscar
+                </button>
+            </div>
+               
+          
+         
+          </div>
+         
+          
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

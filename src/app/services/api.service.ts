@@ -95,12 +95,4 @@ export class ApiService {
         );
     }
 
-    public pruebaUrl<T>(url: string, parameter?: Array<string>): Promise<T> {
-        if (parameter && url && url.indexOf('{') !== -1) {
-            parameter.forEach(p => {
-                url = url.replace(/{[a-zA-Z_]*}/, p);
-            });
-        }
-        return <Promise<T>>this.http.get(this.apiName + url).toPromise();
-    }
 }
