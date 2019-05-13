@@ -12,7 +12,7 @@
             
             
             <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 16px;"  >
-              <div *ngFor="let type of type_flight" style="margin-right:15px">
+              <div *ngFor="let type of typeFlights" style="margin-right:15px">
                 <input  id="{{type.id}}" name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)"  >
                 <label class="form-check-label" for="type">{{type.name}}</label>
               </div> 
@@ -61,7 +61,7 @@
                 <div class="form-group">
                   <select class="form-control" formControlName="class_flight">
                      <option value="-1" disabled>Adulto</option>
-                     <option *ngFor="let adult of adult_flight" value="{{ adult.id }}">{{ adult.id }}</option>
+                     <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
                   </select>
                   </div>
             </div> 
@@ -72,7 +72,7 @@
               <div class="form-group">
                 <select class="form-control" formControlName="class_flight">
                    <option value="-1" disabled>Clase</option>
-                   <option *ngFor="let class of class_flight" value="{{ class.id }}">{{ class.name }}</option>
+                   <option *ngFor="let class of classFlight" value="{{ class.id }}">{{ class.name }}</option>
                 </select>
               </div>
             </div>  
