@@ -25,6 +25,12 @@ const routes: Routes = [
         path: 'grupo-trece-automovil',
         loadChildren: '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
       },
+      /* Ruta para Backoffice de Cruceros */
+      {
+        path: 'cruceros',
+        loadChildren: '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
+      },
+      /* Ruta para Backoffice de Cruceros */
       {
         path: 'register-user',
         loadChildren: '../components/register-user/register-user.module#RegisterUserModule'
