@@ -20,3 +20,23 @@
     line-height: 1.42857;
 }
 /* Clase para colocar el boton circular */
+
+.order {
+    line-height: 75px;
+    text-align:center;
+    opacity: 1;
+    color:#fff;
+    border-radius:50%;
+    -webkit-animation: bounce .3s infinite alternate;
+    -moz-animation: bounce .3s infinite alternate;
+    animation: bounce .3s infinite alternate;
+  }
+  @-webkit-keyframes bounce {
+    to { -webkit-transform: scale(1.2); }
+  }
+  @-moz-keyframes bounce {
+    to { -moz-transform: scale(1.2); }
+  }
+  @keyframes bounce {
+    to { transform: scale(1.2); }
+  }
