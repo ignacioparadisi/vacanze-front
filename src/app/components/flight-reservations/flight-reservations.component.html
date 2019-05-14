@@ -59,7 +59,7 @@
             <div class="col-md-3">
                 <label for="">Pasajeros</label>
                 <div class="form-group">
-                  <select class="form-control" formControlName="class_flight">
+                  <select class="form-control" formControlName="ClassFlight">
                      <option value="-1" disabled>Adulto</option>
                      <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
                   </select>
@@ -70,7 +70,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <select class="form-control" formControlName="class_flight">
+                <select class="form-control" formControlName="ClassFlight">
                    <option value="-1" disabled>Clase</option>
                    <option *ngFor="let class of classFlight" value="{{ class.id }}">{{ class.name }}</option>
                 </select>
