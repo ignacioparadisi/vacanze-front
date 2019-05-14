@@ -5,7 +5,7 @@ import { TypeFlight } from 'src/app/classes/type_flight';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
-import { PeopleFlight } from 'src/app/classes/People_flight';
+import { PeopleFlight } from 'src/app/classes/people_flight';
 @Component({
   selector: 'app-flight-reservations',
   templateUrl: './flight-reservations.component.html',
