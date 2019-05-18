@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+.body{
+    background-color: orange;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Rubik', sans-serif;
+    
+}
+.loginContainer{
+    background-color:  rgba(189, 189, 192, 0.753);
+    position: absolute;
+    top:30%;
+    left: 40%;
+    margin: 0;
+    width: 400px;
+    text-align: center;
+    border-radius: 10px;
+    height: 200px;
+}
+.loginContainer>button{
+    padding-bottom: 20px;
+}
+
+
+.titleLogin{
+    background-color: #3cd3f2;
+    
+    font-size: 24px;
+    text-align: center;
+    color: #ffffff;
+    
+    border-radius: 10px;
+}
+
+.containerSon{
+    background-color: rgb(0, 195, 255);
+    position: absolute;
+    top:70%;
+    left: 40%;
+    margin: 0;
+    width: 400px;
+    display: block;
+}
+.forgotP{
+    float: right;
+}
+.form{
+    padding: 10px;
+}
+.form>div{
+    padding: 5px;
+}
+input{
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button{
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color:  rgb(0, 195, 255);
+    border: none;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 7px;
+    color: #ffffff;
+  
+}
+
+
