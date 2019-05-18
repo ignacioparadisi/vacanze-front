@@ -41,6 +41,10 @@ const routes: Routes = [
       {
         path: 'flight-reservations',
         loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
+      },
+      {
+        path: 'view-hotels-backoffice',
+        loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       }
     ]
   }
