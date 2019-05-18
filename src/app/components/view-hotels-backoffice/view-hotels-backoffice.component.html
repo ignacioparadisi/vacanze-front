@@ -1,3 +1,7 @@
-<p>
-  view-hotels-backoffice works!
-</p>
+<app-table-responsive
+  [headerTitle]="getHeaderTitle()"
+  [tableData]="getHotels()"
+  [tableHeaders]="getHeaderHotels()"
+  [type]="'hoteles'"
+  >
+</app-table-responsive>
