@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegisterUserComponent } from './register-user.component';
-
+import { GrupoOncePagoComponent } from './grupo-once-pago.component';
 const routes: Routes = [
   {
-    path: '',
-    component: RegisterUserComponent
+      path: '',
+      component: GrupoOncePagoComponent
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class RegisterUserRoutingModule { }
+export class GrupoOncePagoRoutingModule { }
