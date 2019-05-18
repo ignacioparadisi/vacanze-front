@@ -17,8 +17,7 @@ export class FlightReservationsComponent implements OnInit {
   public classFlight: ClassFlight[] = [];
   public typeFlights: TypeFlight[]=[];
   public adultFlights:PeopleFlight[]=[];
-
-
+  
   constructor(private api: ApiService) { }
    private selectedTyp: string="";
    
