@@ -5,9 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { GrupoUnoRoutingModule } from './grupo-uno-routing.module';
 import { GrupoUnoComponent } from './grupo-uno.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [GrupoUnoComponent],
+  declarations: [GrupoUnoComponent, LoginComponent],
   imports: [
     CommonModule,
     GrupoUnoRoutingModule,
