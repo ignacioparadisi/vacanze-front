@@ -3,14 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from "./app-routing.module";
-import { GrupoOncePagoComponent } from './components/grupo-once-pago/grupo-once-pago.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    GrupoOncePagoComponent  ],
+    AppComponent],
     imports: [
     BrowserModule,
     AppRoutingModule

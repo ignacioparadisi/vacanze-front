@@ -41,7 +41,13 @@ const routes: Routes = [
         path: "flight-reservations",
         loadChildren:
           "../components/flight-reservations/flight-reservations.module#FlightReservationsModule"
+      },
+      {
+        path: "grupo-once-pago",
+        loadChildren:
+        "../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule"
       }
+
     ]
   }
 ];
