@@ -1,4 +1,7 @@
-<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+<nav
+  class="sidebar"
+  [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
+>
   <div class="list-group">
     <a routerLink="/" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
@@ -8,7 +11,7 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Grupo Uno</span>
     </a>
-    <a routerLink="/register-user" class="list-group-item">
+    <a (click)="openModal()" class="list-group-item">
       <i class="fa fa-fw fa-user"></i>&nbsp;
       <span>Registrar Usuario</span>
     </a>
@@ -19,7 +22,7 @@
     <a routerLink="/flight-reservations" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Reservar Vuelo</span>
-   </a>
+    </a>
     <a routerLink="/grupo-trece-habitacion" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Reservar Habitación</span>
@@ -28,7 +31,11 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Reservar Automóvil</span>
     </a>
-    <a routerLink="/cruceros" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a
+      routerLink="/cruceros"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
       <i class="fa fa-fw fa-ship"></i>&nbsp;
       <span>Cruceros</span>
     </a>

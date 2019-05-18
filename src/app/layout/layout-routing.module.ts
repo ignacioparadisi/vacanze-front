@@ -1,46 +1,46 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule, UrlSegment } from '@angular/router';
-import { LayoutComponent } from './layout.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule, UrlSegment } from "@angular/router";
+import { LayoutComponent } from "./layout.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: LayoutComponent,
     children: [
       /* Inicio */
       {
-        path: '',
-        loadChildren: '../components/home/home.module#HomeModule'
+        path: "",
+        loadChildren: "../components/home/home.module#HomeModule"
       },
       {
-        path: 'grupo-uno',
-        loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
+        path: "grupo-uno",
+        loadChildren: "../components/grupo-uno/grupo-uno.module#GrupoUnoModule"
       },
       {
-        path: 'grupo-trece-habitacion',
-        loadChildren: '../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule'
+        path: "grupo-trece-habitacion",
+        loadChildren:
+          "../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule"
       },
       {
-        path: 'grupo-trece-automovil',
-        loadChildren: '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
-      },
-      /* Ruta para Backoffice de Cruceros */
-      {
-        path: 'cruceros',
-        loadChildren: '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
+        path: "grupo-trece-automovil",
+        loadChildren:
+          "../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule"
       },
       /* Ruta para Backoffice de Cruceros */
       {
-        path: 'register-user',
-        loadChildren: '../components/register-user/register-user.module#RegisterUserModule'
+        path: "cruceros",
+        loadChildren:
+          "../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule"
       },
       {
-        path: 'register-hotel',
-        loadChildren: '../components/register-hotel/register-hotel.module#RegisterHotelModule'
+        path: "register-hotel",
+        loadChildren:
+          "../components/register-hotel/register-hotel.module#RegisterHotelModule"
       },
       {
-        path: 'flight-reservations',
-        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
+        path: "flight-reservations",
+        loadChildren:
+          "../components/flight-reservations/flight-reservations.module#FlightReservationsModule"
       }
     ]
   }
@@ -49,4 +49,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {}
