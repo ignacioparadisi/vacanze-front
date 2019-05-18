@@ -8,7 +8,7 @@
                     <th *ngFor="let header of tableHeaders">{{ header }}</th>
                 </tr>
               </thead>
-              <tbody *ngIf="type === 'cruceros'">
+              <tbody *ngIf="type === 'cruceros'; else hotelesElseBlock">
                 <tr *ngFor="let boat of tableData">
                   <td>{{ boat?.id }}</td>
                   <td>{{ boat?.name }}</td>
@@ -20,14 +20,32 @@
                     <span class="badge badge-success" *ngIf="boat?.status === 'Active'"> {{ boat?.status }}</span>
                     <span class="badge badge-danger" *ngIf="boat?.status === 'Inactive'">{{ boat?.status }}</span>
                   </td>
-                </tr>      
+                </tr>
               </tbody>
+              <ng-template #hotelesElseBlock>
+                <tbody *ngIf="type === 'hoteles'; else otroElseBlock">
+                  <tr *ngFor="let hotel of tableData">
+                    <td>{{ hotel?.id }}</td>
+                    <td>{{ hotel?.name }}</td>
+                    <td>{{ hotel?.capacity }}</td>
+                    <td>{{ hotel?.phone_number }}</td>
+                    <td>{{ hotel?.web_site }}</td>
+                    <td>
+                      <span class="badge badge-success" *ngIf="hotel?.status === 'Active'"> {{ hotel?.status }}</span>
+                      <span class="badge badge-danger" *ngIf="hotel?.status === 'Inactive'">{{ hotel?.status }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </ng-template>
+              <ng-template #otroElseBlock>
+                Aqui iría otro tipo de tabla
+              </ng-template>
           </table>
       </div>
   </div>
   <div class="d-flex justify-content-end align-items-end w-100 h-100">
     <div class="order">
-      <button type="button" class="btn btn-primary btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar crucero">
+      <button type="button" class="btn btn-primary btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
         <i class="fa fa-plus"></i>
       </button>
     </div>

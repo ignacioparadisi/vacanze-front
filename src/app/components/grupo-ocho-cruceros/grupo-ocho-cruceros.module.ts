@@ -15,6 +15,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     GrupoOchoCrucerosRoutingModule,
     SweetAlert2Module.forRoot()
   ],
-  providers: []
+  providers: [],
+
+  //exportar la tabla responsive para que otros modulos puedan usarla
+  exports: [TableResponsiveComponent]
 })
 export class GrupoOchoCrucerosModule {}
