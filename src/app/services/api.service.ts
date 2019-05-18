@@ -94,4 +94,5 @@ export class ApiService {
             this.http.delete(this.apiName + url, this.myInit).toPromise()
         );
     }
+
 }

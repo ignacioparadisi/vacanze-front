@@ -1,0 +1,35 @@
+<div class="col-lg-12">
+  <div class="card mb-3">
+      <div class="card-header" [innerHtml]="headerTitle"></div>
+      <div class="card-body table-responsive">
+          <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th *ngFor="let header of tableHeaders">{{ header }}</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="type === 'cruceros'">
+                <tr *ngFor="let boat of tableData">
+                  <td>{{ boat?.id }}</td>
+                  <td>{{ boat?.name }}</td>
+                  <td>{{ boat?.passangers_capacity }}</td>
+                  <td>{{ boat?.overload_capacity }} Kg.</td>
+                  <td>{{ boat?.model }}</td>
+                  <td>{{ boat?.line }}</td>
+                  <td>
+                    <span class="badge badge-success" *ngIf="boat?.status === 'Active'"> {{ boat?.status }}</span>
+                    <span class="badge badge-danger" *ngIf="boat?.status === 'Inactive'">{{ boat?.status }}</span>
+                  </td>
+                </tr>      
+              </tbody>
+          </table>
+      </div>
+  </div>
+  <div class="d-flex justify-content-end align-items-end w-100 h-100">
+    <div class="order">
+      <button type="button" class="btn btn-primary btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar crucero">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </div>
+</div>

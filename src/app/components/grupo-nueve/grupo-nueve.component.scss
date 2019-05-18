@@ -1,0 +1,15 @@
+.glyphicon{
+	position:relative;
+	top:1px;
+	display:inline-block;
+	font-family:'Arial Black';
+    font-style:normal;
+	font-weight:400;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale}
+    
+.glyphicon-minus:before{content:"\2212"}
+.glyphicon-minus-sign:before{content:"\e082"}
+.glyphicon-plus:before{content:"\2b"}
+.glyphicon-plus-sign:before{content:"\e081"}
