@@ -3,9 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from 'src/app/classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SweetAlertOptions } from 'sweetalert2';
 
 //tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
+//alertas reutilizables
+import { ActionAlerterComponent } from '../../blocks/action-alerter/action-alerter.component'
+
 
 @Component({
   selector: 'app-view-hotels-backoffice',
@@ -18,6 +22,13 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   private tableData: Array<Object>;
   private headerTitle: string;
 
+  //configuraciones de los sweetalert
+  private deleteAlertConfiguration:SweetAlertOptions = {};
+
+  //la accion que le llega de actionalerter para ejecutar sobre un registro
+  public actionAlert: string;
+
+
   ngOnInit() {
   }
 
@@ -25,8 +36,14 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     this.headerTitle = "Lista de hoteles";
     this.tableHotelsHeader = this.getTableHeaders();
     this.tableData = this.getExampleData();
+    this.deleteAlertConfiguration = this.deleteAlertParams();
   }
 
+
+  public getAlertAction(action: string) {
+    this.actionAlert = action;
+    console.log(this.actionAlert);
+  }
 
 
   private getExampleData(){
@@ -59,8 +76,6 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   }
 
 
-
-
   //despues se puede crear un servicio
   private getTableHeaders(){
     return [
@@ -73,6 +88,18 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     ];
   }
 
+  //opciones del popUp de eliminar
+  private deleteAlertParams(){
+    return {
+      title: 'Desea eliminar el hotel?',
+      confirmButtonText: 'Si, estoy seguro',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: 'true',
+      type: 'question',
+      focusCancel: 'true'
+    };
+  }
+
   public getHotels(){
     return this.tableData;
   }
@@ -83,6 +110,10 @@ export class ViewHotelsBackofficeComponent implements OnInit {
 
   public getHeaderTitle(){
     return this.headerTitle;
+  }
+
+  public getDeleteAlertConfiguration(){
+    return this.deleteAlertConfiguration;
   }
 
 }
