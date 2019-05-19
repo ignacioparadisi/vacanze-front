@@ -6,6 +6,7 @@
               <thead class="thead-dark">
                 <tr>
                     <th *ngFor="let header of tableHeaders">{{ header }}</th>
+                    <th>Acciones</th>
                 </tr>
               </thead>
               <tbody *ngIf="type === 'cruceros'; else hotelesElseBlock">
@@ -33,6 +34,13 @@
                     <td>
                       <span class="badge badge-success" *ngIf="hotel?.status === 'Active'"> {{ hotel?.status }}</span>
                       <span class="badge badge-danger" *ngIf="hotel?.status === 'Inactive'">{{ hotel?.status }}</span>
+                    </td>
+                    <td>
+                      <app-action-alerter
+                      (actionAlertEventEmitter)="messageAlert($event)"
+                      [configuration]="deleteAlertConfiguration"
+                      [action]="'delete'">
+                      </app-action-alerter>
                     </td>
                   </tr>
                 </tbody>
