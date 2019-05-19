@@ -1,0 +1,9 @@
+version: "2.3"
+
+services:
+  vacanze-front:
+    hostname: localhost
+    container_name: vacanze-front
+    build: .
+    ports:
+      - 4200:80
