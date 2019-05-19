@@ -51,7 +51,7 @@ const routes: Routes = [
         loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
       },
       {
-        path: 'view-hotels-backoffice',
+        path: 'administrar-hoteles',
         loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       },
       {
