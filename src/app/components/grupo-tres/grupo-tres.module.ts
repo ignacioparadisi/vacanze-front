@@ -5,7 +5,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { GrupoTresRoutingModule } from './grupo-tres-routing.module';
 import { NewGrupoTres } from '../grupo-tres/pages/new/new.grupo-tres';
 import { ListGrupoTres } from '../grupo-tres/pages/list/list.grupo-tres';
@@ -16,10 +15,9 @@ import { ListGrupoTres } from '../grupo-tres/pages/list/list.grupo-tres';
   imports: [
     CommonModule,
     FormsModule,
-    NgSelectModule,
     HttpClientModule,
     NgbModule,
-    AngularDateTimePickerModule,
+    NgSelectModule,
     SweetAlert2Module.forRoot(),
     GrupoTresRoutingModule
   ],

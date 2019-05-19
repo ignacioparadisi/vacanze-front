@@ -41,7 +41,7 @@
                         <button class="btn btn-outline-info w-100 mb-4"> <i class="fas fa-plus"></i> Agregar Ruta</button>
                     </div>
                 </div>
-                <form action="">
+                <form>
                     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
                         <ngb-panel title="Ruta 1">
                             <ng-template ngbPanelContent>
@@ -62,7 +62,10 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="País">
+                                            <select class="form-control">
+                                                <option disabled selected>Seleccione un país</option>
+                                                <option *ngFor="let country of countrys">{{country.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -72,7 +75,10 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="País">
+                                            <select class="form-control">
+                                                <option disabled selected>Seleccione un país</option>
+                                                <option *ngFor="let country of countrys">{{country.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -129,16 +135,14 @@
                                     </div>
                                     <div class="col-md-2">
                                         <label for="" class="mb-3 d-block">Duración (Horas)</label>
-                                        <select name="" id="" class="form-control select-menor float-left mr-4">
-                                            <option value="">01</option>
-                                            <option value="">02</option>
+                                        <select class="form-control select-menor float-left mr-4">
+                                            <option *ngFor="let hour of hours">{{hour.hour}}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2">
                                         <label for="" class="mb-3 d-block">Duración (Minutos)</label>
                                         <select name="" id="" class="form-control select-menor float-left">
-                                            <option value="">01</option>
-                                            <option value="">02</option>
+                                            <option *ngFor="let minute of minutes">{{minute.minute}}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
@@ -148,22 +152,24 @@
                             </ng-template>
                         </ngb-panel>
                     </ngb-accordion>
-                    <h3 class="my-4"><strong>Información del vuelo</strong></h3>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p><strong>Precio:</strong> $380</p>
+                    <div class="">
+                        <h3 class="my-4"><strong>Información del vuelo</strong></h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><strong>Precio:</strong> $380</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p><strong>Fecha de salida:</strong> 12/08/2019 08:30 p.m</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p><strong>Fecha de llegada:</strong> 12/08/2019 11:50 p.m</p>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <p><strong>Fecha de salida:</strong> 12/08/2019 08:30 p.m</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p><strong>Fecha de llegada:</strong> 12/08/2019 11:50 p.m</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-3 offset-md-9">
-                            <button class="btn btn-success w-100"> <i class="fas fa-plus"></i> Crear Vuelo</button>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3 offset-md-9">
+                                <button class="btn btn-success w-100"> <i class="fas fa-plus"></i> Crear Vuelo</button>
+                            </div>
                         </div>
                     </div>
                 </form>

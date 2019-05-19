@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule, FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { COUNTRYS, HOURS, MINUTES } from '../../../../utils/select.util';
 
 
 @Component({
@@ -11,6 +12,10 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule, F
 export class NewGrupoTres implements OnInit {
     closeResult: string;
     time = {hour: 13, minute: 30};
+    public countrys = COUNTRYS;
+    public hours = HOURS;
+    public minutes = MINUTES;
+    form: FormGroup;
 
     constructor(private modalService: NgbModal) {
     }
