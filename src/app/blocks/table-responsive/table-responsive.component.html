@@ -7,6 +7,7 @@
                 <tr>
                     <th *ngFor="let header of tableHeaders">{{ header }}</th>
                     <th>Acciones</th>
+                    <th>Activar / Desactivar </th>
                 </tr>
               </thead>
               <tbody *ngIf="type === 'cruceros'; else hotelesElseBlock">
@@ -20,6 +21,20 @@
                   <td>
                     <span class="badge badge-success" *ngIf="boat?.status === 'Active'"> {{ boat?.status }}</span>
                     <span class="badge badge-danger" *ngIf="boat?.status === 'Inactive'">{{ boat?.status }}</span>
+                  </td>
+                  <td>
+                    <i class="fa fa-trash" style="cursor: pointer;" (click)="openModalActions('eliminar', undefined)"></i> &nbsp;
+                    <i class="fa fa-edit" style="cursor: pointer;"></i>
+                  </td>
+                  <td class="d-flex ml-5">
+                    <input type="checkbox" 
+                      class="form-check-input align-self-start" 
+                      id="estatus-checkbox" 
+                      [checked]="boat?.active" 
+                      (click)="openModalActions($event, boat)"
+                    >
+                    <span *ngIf="boat?.status === 'Inactive'" class="align-self-start">Activar</span>
+                    <span *ngIf="boat?.status === 'Active'" class="align-self-start">Desactivar</span>
                   </td>
                 </tr>
               </tbody>
