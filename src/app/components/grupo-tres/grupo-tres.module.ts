@@ -8,6 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { GrupoTresRoutingModule } from './grupo-tres-routing.module';
 import { NewGrupoTres } from '../grupo-tres/pages/new/new.grupo-tres';
 import { ListGrupoTres } from '../grupo-tres/pages/list/list.grupo-tres';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ListGrupoTres } from '../grupo-tres/pages/list/list.grupo-tres';
     HttpClientModule,
     NgbModule,
     NgSelectModule,
+    ReactiveFormsModule,
     SweetAlert2Module.forRoot(),
     GrupoTresRoutingModule
   ],

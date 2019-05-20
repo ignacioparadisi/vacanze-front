@@ -17,10 +17,22 @@ export class NewGrupoTres implements OnInit {
     public minutes = MINUTES;
     form: FormGroup;
 
-    constructor(private modalService: NgbModal) {
+    constructor(private modalService: NgbModal, private fb: FormBuilder) {
+        this.form = this.fb.group({
+            published: true,
+            credentials: this.fb.array([]),
+        });
     }
 
     ngOnInit() {
+    }
+
+    addCreds() {
+    const creds = this.form.controls.credentials as FormArray;
+    creds.push(this.fb.group({
+        username: '',
+        password: '',
+    }));
     }
 
     open(content) {
