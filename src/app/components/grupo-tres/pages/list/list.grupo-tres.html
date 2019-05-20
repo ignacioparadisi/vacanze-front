@@ -128,7 +128,7 @@
                                 </td>
                                 <td>$758</td>
                                 <td>
-                                    <button class="btn btn-outline-info float-left mr-3" (click)="openLg(content)"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-outline-info float-left mr-3" (click)="openLg(content)"><i class="fa fa-edit"></i></button>
                                     <swal
                                         #deleteSwal
                                         title="¿Desea eliminar el vuelo?"
@@ -137,7 +137,7 @@
                                         [focusCancel]="true"
                                         (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                                     </swal>
-                                    <button [swal]="deleteSwal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                                    <button [swal]="deleteSwal" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>

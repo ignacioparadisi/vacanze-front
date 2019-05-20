@@ -33,10 +33,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   }
 
   constructor() {
-    this.headerTitle = "Lista de hoteles";
-    this.tableHotelsHeader = this.getTableHeaders();
-    this.tableData = this.getExampleData();
-    this.deleteAlertConfiguration = this.deleteAlertParams();
+
   }
 
 
