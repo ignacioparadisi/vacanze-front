@@ -42,7 +42,7 @@ export class TableResponsiveComponent implements OnChanges{
       this.actionAlertEventEmitter.emit(event);
     }
 
-    public openModalActions(action, boat?: Object){
+    public openModalActions(action, data: Object, type: string, deleted? : boolean){
       action.preventDefault();
       let config: SweetAlertOptions = {
         title: '',
@@ -53,15 +53,20 @@ export class TableResponsiveComponent implements OnChanges{
         focusCancel: true  
       }
 
-      if(boat){
-        boat['status'] === 'Active' ? config.title = 'Desea desactivar el crucero?' : config.title = 'Desea activar el crucero?';
+      if(deleted){
+        config.title = 'Desea eliminar el ' + type + '?';
       }
       else {
-        config.title = 'Desea eliminar el crucero?';
+        if(data && type === 'crucero'){
+          data['status'] === 'Active' ? config.title = 'Desea desactivar el crucero?' : config.title = 'Desea activar el crucero?';
+        }
+        else if(data && type === 'hotel'){
+          //Aqui haces tu logica Cesar
+        }
       }
-
+     
       Swal.fire(config).then(result => {
-        console.log("Aqui se maneja el result", result);
+        this.messageAlert(data);
       })
     }
 }
