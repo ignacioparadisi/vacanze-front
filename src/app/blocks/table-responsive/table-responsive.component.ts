@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnChanges, EventEmitter, OnInit} from '@angular/core';
 import { ActionAlerterComponent } from '../action-alerter/action-alerter.component';
-import { SweetAlertOptions } from 'sweetalert2';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: 'app-table-responsive',
@@ -26,11 +26,47 @@ export class TableResponsiveComponent implements OnChanges{
     }
 
     ngOnChanges(){
+      if(this.tableData.length !== 0){
+        this.tableData.forEach(b => {
+          if(b['status'] === 'Active'){
+            b['active'] = true;
+          }
+          else {
+            b['active'] = false;  
+          }
+        })  
+      }
     }
 
     public messageAlert(event: Object){
       this.actionAlertEventEmitter.emit(event);
     }
 
+    public openModalActions(action, data: Object, type: string, deleted? : boolean){
+      action.preventDefault();
+      let config: SweetAlertOptions = {
+        title: '',
+        confirmButtonText: 'Si, estoy seguro',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        type: 'question',
+        focusCancel: true  
+      }
 
+      if(deleted){
+        config.title = 'Desea eliminar el ' + type + '?';
+      }
+      else {
+        if(data && type === 'crucero'){
+          data['status'] === 'Active' ? config.title = 'Desea desactivar el crucero?' : config.title = 'Desea activar el crucero?';
+        }
+        else if(data && type === 'hotel'){
+          //Aqui haces tu logica Cesar
+        }
+      }
+     
+      Swal.fire(config).then(result => {
+        this.messageAlert(data);
+      })
+    }
 }

@@ -23,7 +23,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   private headerTitle: string;
 
   //configuraciones de los sweetalert
-  private deleteAlertConfiguration:SweetAlertOptions = {};
+  private deleteAlertConfiguration: SweetAlertOptions;
 
   //la accion que le llega de actionalerter para ejecutar sobre un registro
   public actionAlert: string;
@@ -33,11 +33,17 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   }
 
   constructor() {
-    /*
     this.headerTitle = "Lista de hoteles";
     this.tableHotelsHeader = this.getTableHeaders();
     this.tableData = this.getExampleData();
-    this.deleteAlertConfiguration = this.deleteAlertParams();*/
+    this.deleteAlertConfiguration =  {
+      title: 'Desea eliminar el hotel?',
+      confirmButtonText: 'Si, estoy seguro',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      type: 'question',
+      focusCancel: true
+    };
   }
 
 
@@ -87,18 +93,6 @@ export class ViewHotelsBackofficeComponent implements OnInit {
       "Sitio Web",
       "Status"
     ];
-  }
-
-  //opciones del popUp de eliminar
-  private deleteAlertParams(){
-    return {
-      title: 'Desea eliminar el hotel?',
-      confirmButtonText: 'Si, estoy seguro',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: 'true',
-      type: 'question',
-      focusCancel: 'true'
-    };
   }
 
   public getHotels(){
