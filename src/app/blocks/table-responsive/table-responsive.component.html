@@ -23,8 +23,12 @@
                     <span class="badge badge-danger" *ngIf="boat?.status === 'Inactive'">{{ boat?.status }}</span>
                   </td>
                   <td>
-                    <i class="fa fa-trash" style="cursor: pointer;" (click)="openModalActions($event, boat, 'crucero', true)"></i> &nbsp;
-                    <i class="fa fa-edit" style="cursor: pointer;"></i>
+                    <button class="btn btn-outline-danger"style="cursor: pointer;" (click)="openModalActions($event, boat, 'crucero', true)" data-toggle="tooltip" data-placement="top" title="Eliminar {{type}}">
+                      <i class="fa fa-trash"></i>
+                    </button>&nbsp;&nbsp;
+                    <button class="btn btn-outline-info" style="cursor: pointer; width: 39px;" data-toggle="tooltip" data-placement="top" title="Editar {{type}}">
+                      <i class="fa fa-edit"></i>
+                    </button>
                   </td>
                   <td class="d-flex ml-5">
                     <input type="checkbox" 
