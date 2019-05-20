@@ -1,50 +1,54 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule, UrlSegment } from "@angular/router";
-import { LayoutComponent } from "./layout.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule, UrlSegment } from '@angular/router';
+import { LayoutComponent } from './layout.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: LayoutComponent,
     children: [
       /* Inicio */
       {
-        path: "",
-        loadChildren: "../components/home/home.module#HomeModule"
+        path: '',
+        loadChildren: '../components/home/home.module#HomeModule'
       },
       {
-        path: "grupo-uno",
-        loadChildren: "../components/grupo-uno/grupo-uno.module#GrupoUnoModule"
+        path: 'grupo-uno',
+        loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
       },
       {
         path: 'grupo-nueve',
         loadChildren: '../components/grupo-nueve/grupo-nueve.module#GrupoNueveModule'
       },
       {
-        path: "grupo-trece-habitacion",
-        loadChildren:
-          "../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule"
+        path: 'grupo-tres',
+        loadChildren: '../components/grupo-tres/grupo-tres.module#GrupoTresModule'
       },
       {
-        path: "grupo-trece-automovil",
+        path: 'grupo-trece-habitacion',
         loadChildren:
-          "../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule"
+          '../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule'
+      },
+      {
+        path: 'grupo-trece-automovil',
+        loadChildren:
+          '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
       },
       /* Ruta para Backoffice de Cruceros */
       {
-        path: "cruceros",
+        path: 'cruceros',
         loadChildren:
-          "../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule"
+          '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },
       {
-        path: "register-hotel",
+        path: 'register-hotel',
         loadChildren:
-          "../components/register-hotel/register-hotel.module#RegisterHotelModule"
+          '../components/register-hotel/register-hotel.module#RegisterHotelModule'
       },
       {
-        path: "flight-reservations",
+        path: 'flight-reservations',
         loadChildren:
-          "../components/flight-reservations/flight-reservations.module#FlightReservationsModule"
+          '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
       },
       {
         path: 'flight-reservations',
@@ -55,9 +59,9 @@ const routes: Routes = [
         loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       },
       {
-        path: "grupo-once-pago",
+        path: 'grupo-once-pago',
         loadChildren:
-        "../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule"
+        '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
       }
     ]
   }
