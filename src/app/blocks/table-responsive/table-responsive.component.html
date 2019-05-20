@@ -23,7 +23,7 @@
                     <span class="badge badge-danger" *ngIf="boat?.status === 'Inactive'">{{ boat?.status }}</span>
                   </td>
                   <td>
-                    <i class="fa fa-trash" style="cursor: pointer;" (click)="openModalActions('eliminar', undefined)"></i> &nbsp;
+                    <i class="fa fa-trash" style="cursor: pointer;" (click)="openModalActions($event, undefined)"></i> &nbsp;
                     <i class="fa fa-edit" style="cursor: pointer;"></i>
                   </td>
                   <td class="d-flex ml-5">
