@@ -1,6 +1,7 @@
 import { Component, Input, Output, OnChanges, EventEmitter, OnInit} from '@angular/core';
 import { ActionAlerterComponent } from '../action-alerter/action-alerter.component';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table-responsive',
@@ -21,8 +22,9 @@ export class TableResponsiveComponent implements OnChanges{
 
     //generico de la interaccion con el alert
     @Output() public actionAlertEventEmitter = new EventEmitter();
+    @Output() public emitRouting = new EventEmitter();
 
-    constructor(){ // Agregando tooltip en boton de agregar
+    constructor(private router: Router){ // Agregando tooltip en boton de agregar
     }
 
     ngOnChanges(){
@@ -68,5 +70,12 @@ export class TableResponsiveComponent implements OnChanges{
       Swal.fire(config).then(result => {
         this.messageAlert(data);
       })
+    }
+
+    /*******************************************************************
+    * Metodo para redireccionar a la vista de habitaciones del crucero *
+    ********************************************************************/ 
+    public goToBoatRooms(){
+      this.emitRouting.emit('/habitaciones');
     }
 }

@@ -7,7 +7,6 @@
                 <tr>
                     <th *ngFor="let header of tableHeaders">{{ header }}</th>
                     <th>Acciones</th>
-                    <th>Activar / Desactivar </th>
                 </tr>
               </thead>
               <tbody *ngIf="type === 'cruceros'; else hotelesElseBlock">
@@ -18,19 +17,39 @@
                   <td>{{ boat?.overload_capacity }} Kg.</td>
                   <td>{{ boat?.model }}</td>
                   <td>{{ boat?.line }}</td>
-                  <td>
+                  <td class="d-flex ml-3">
                     <span class="badge badge-success" *ngIf="boat?.status === 'Active'"> {{ boat?.status }}</span>
                     <span class="badge badge-danger" *ngIf="boat?.status === 'Inactive'">{{ boat?.status }}</span>
+                    <input type="checkbox" 
+                      class="form-check-input align-self-start" 
+                      id="estatus-checkbox" 
+                      [checked]="boat?.active" 
+                      (click)="openModalActions($event, boat, 'crucero')"
+                    >
                   </td>
                   <td>
-                    <button class="btn btn-outline-danger"style="cursor: pointer;" (click)="openModalActions($event, boat, 'crucero', true)" data-toggle="tooltip" data-placement="top" title="Eliminar {{type}}">
+                    <button 
+                      class="btn btn-outline-danger"
+                      style="cursor: pointer;" 
+                      (click)="openModalActions($event, boat, 'crucero', true)" 
+                      data-toggle="tooltip" 
+                      data-placement="top" 
+                      title="Eliminar {{type}}"
+                    >
                       <i class="fa fa-trash"></i>
                     </button>&nbsp;&nbsp;
-                    <button class="btn btn-outline-info" style="cursor: pointer; width: 39px;" data-toggle="tooltip" data-placement="top" title="Editar {{type}}">
+                    <button 
+                      class="btn btn-outline-info" 
+                      style="cursor: pointer; width: 39px;" 
+                      data-toggle="tooltip" 
+                      data-placement="top" 
+                      title="Editar {{type}}"
+                      (click)="goToBoatRooms()"
+                    >
                       <i class="fa fa-edit"></i>
                     </button>
                   </td>
-                  <td class="d-flex ml-5">
+                 <!--  <td class="d-flex ml-5">
                     <input type="checkbox" 
                       class="form-check-input align-self-start" 
                       id="estatus-checkbox" 
@@ -39,7 +58,7 @@
                     >
                     <span *ngIf="boat?.status === 'Inactive'" class="align-self-start">Activar</span>
                     <span *ngIf="boat?.status === 'Active'" class="align-self-start">Desactivar</span>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
               <ng-template #hotelesElseBlock>
@@ -53,6 +72,12 @@
                     <td>
                       <span class="badge badge-success" *ngIf="hotel?.status === 'Active'"> {{ hotel?.status }}</span>
                       <span class="badge badge-danger" *ngIf="hotel?.status === 'Inactive'">{{ hotel?.status }}</span>
+                      <input type="checkbox" 
+                        class="form-check-input align-self-start" 
+                        id="estatus-checkbox" 
+                        [checked]="boat?.active" 
+                        (click)="openModalActions($event, boat, 'crucero')"
+                      >
                     </td>
                     <td>
                       <app-action-alerter
@@ -72,7 +97,7 @@
   </div>
   <div class="d-flex justify-content-end align-items-end w-100 h-100">
     <div class="order">
-      <button type="button" class="btn btn-primary btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
+      <button type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
         <i class="fa fa-plus"></i>
       </button>
     </div>
