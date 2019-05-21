@@ -5,12 +5,16 @@ import { GrupoOchoCrucerosComponent } from './grupo-ocho-cruceros.component';
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ActionAlerterComponent } from '../../blocks/action-alerter/action-alerter.component';
+import { HabitacionesComponent } from './habitaciones/habitaciones.component';
+import { CrucerosComponent } from './cruceros/cruceros.component';
 
 @NgModule({
   declarations: [
     GrupoOchoCrucerosComponent,
     TableResponsiveComponent,
-    ActionAlerterComponent
+    ActionAlerterComponent,
+    HabitacionesComponent,
+    CrucerosComponent
   ],
   imports: [
     CommonModule,
