@@ -20,29 +20,29 @@
                   <td class="d-flex ml-3">
                     <span class="badge badge-success" *ngIf="boat?.status === 'Active'"> {{ boat?.status }}</span>
                     <span class="badge badge-danger" *ngIf="boat?.status === 'Inactive'">{{ boat?.status }}</span>
-                    <input type="checkbox" 
-                      class="form-check-input align-self-start" 
-                      id="estatus-checkbox" 
-                      [checked]="boat?.active" 
+                    <input type="checkbox"
+                      class="form-check-input align-self-start"
+                      id="estatus-checkbox"
+                      [checked]="boat?.active"
                       (click)="openModalActions($event, boat, 'crucero')"
                     >
                   </td>
                   <td>
-                    <button 
+                    <button
                       class="btn btn-outline-danger"
-                      style="cursor: pointer;" 
-                      (click)="openModalActions($event, boat, 'crucero', true)" 
-                      data-toggle="tooltip" 
-                      data-placement="top" 
+                      style="cursor: pointer;"
+                      (click)="openModalActions($event, boat, 'crucero', true)"
+                      data-toggle="tooltip"
+                      data-placement="top"
                       title="Eliminar {{type}}"
                     >
                       <i class="fa fa-trash"></i>
                     </button>&nbsp;&nbsp;
-                    <button 
-                      class="btn btn-outline-info" 
-                      style="cursor: pointer; width: 39px;" 
-                      data-toggle="tooltip" 
-                      data-placement="top" 
+                    <button
+                      class="btn btn-outline-info"
+                      style="cursor: pointer; width: 39px;"
+                      data-toggle="tooltip"
+                      data-placement="top"
                       title="Editar {{type}}"
                       (click)="goToBoatRooms()"
                     >
@@ -50,10 +50,10 @@
                     </button>
                   </td>
                  <!--  <td class="d-flex ml-5">
-                    <input type="checkbox" 
-                      class="form-check-input align-self-start" 
-                      id="estatus-checkbox" 
-                      [checked]="boat?.active" 
+                    <input type="checkbox"
+                      class="form-check-input align-self-start"
+                      id="estatus-checkbox"
+                      [checked]="boat?.active"
                       (click)="openModalActions($event, boat, 'crucero')"
                     >
                     <span *ngIf="boat?.status === 'Inactive'" class="align-self-start">Activar</span>
@@ -72,10 +72,10 @@
                     <td>
                       <span class="badge badge-success" *ngIf="hotel?.status === 'Active'"> {{ hotel?.status }}</span>
                       <span class="badge badge-danger" *ngIf="hotel?.status === 'Inactive'">{{ hotel?.status }}</span>
-                      <input type="checkbox" 
-                        class="form-check-input align-self-start" 
-                        id="estatus-checkbox" 
-                        [checked]="boat?.active" 
+                      <input type="checkbox"
+                        class="form-check-input align-self-start"
+                        id="estatus-checkbox"
+                        [checked]="boat?.active"
                         (click)="openModalActions($event, boat, 'crucero')"
                       >
                     </td>
@@ -95,7 +95,7 @@
           </table>
       </div>
   </div>
-  <div class="d-flex justify-content-end align-items-end w-100" style="height: 295px;">
+  <div class="d-flex justify-content-end w-100" style="height: 295px;">
     <div class="kreep">
       <button type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
         <i class="fa fa-plus"></i>
