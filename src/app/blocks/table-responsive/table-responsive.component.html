@@ -60,7 +60,7 @@
                 </tr>
               </tbody>
               <ng-template #hotelesElseBlock>
-                <tbody *ngIf="type === 'hoteles'; else otroElseBlock">
+                <tbody *ngIf="type === 'hotel'; else otroElseBlock">
                   <tr *ngFor="let hotel of tableData">
                     <td>{{ hotel?.id }}</td>
                     <td>{{ hotel?.name }}</td>
@@ -74,13 +74,14 @@
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
                         [checked]="hotel?.active"
-                        (click)="openModalActions($event, hotel, 'hotel')"
+                        (click)="openModalActions($event, hotel, type)"
+                        title = "Desactivar/Activar {{type}}"
                       >
                     </td>
                     <td>
                     <button
                       class="btn btn-outline-danger"
-                      (click)="openModalActions($event, hotel, 'hotel', true)"
+                      (click)="openModalActions($event, hotel, type, true)"
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Eliminar {{type}}"
