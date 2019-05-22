@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ApiService} from 'src/app/services/api.service';
+import { HttpClient, HttpHeaders, HttpClientModule, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment as url} from '../../../environments/environment'
 
 @Component({
   selector: 'app-grupo-nueve',
@@ -11,7 +15,28 @@ export class GrupoNueveComponent implements OnInit {
 
   public form: FormGroup;
   closeResult: string;
-  constructor(private modalService: NgbModal) { }
+  
+  public reclamo = [
+    {titulo: 'Mr. Nice', descripcion: 'aaaa', status:'ABIERTO' }
+  ];
+
+  constructor(private modalService: NgbModal,
+     public http: HttpClient, 
+     private service: ApiService)
+  {}
+
+  ngOnInit() {
+    
+    //this.service.deleteReclamo({rec_titulo:'titulo', rec_descr:'elias y jorge', rec_status:'ABIERTO'});
+    
+    this.service.getUrl(url.endpoint.default._get.getReclamo).then(data =>{console.log(data)})
+
+    this.form = new FormGroup({
+        nacionalidad: new FormControl(-1, [Validators.required]),
+        pasaporte: new FormControl(null, [Validators.required]),
+        cedula: new FormControl(null, [Validators.required])
+      })
+  }
 
   open(content) {
       this.modalService.open(content).result.then((result) => {
@@ -19,6 +44,12 @@ export class GrupoNueveComponent implements OnInit {
       }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
+  }
+
+  postReclamo(){
+    this.service
+    .postUrl(url.endpoint.default._post.postReclamo,{titulo:'elias', descripcion:'ejdhs',status:'ABIERTO'}, ['1'])
+    .then(response => {console.log(response)});
   }
 
   pantallaAdmin(){
@@ -64,15 +95,6 @@ export class GrupoNueveComponent implements OnInit {
       } else {
           return  `with: ${reason}`;
       }
-  }
-
-  ngOnInit() {
-
-    this.form = new FormGroup({
-        nacionalidad: new FormControl(-1, [Validators.required]),
-        pasaporte: new FormControl(null, [Validators.required]),
-        cedula: new FormControl(null, [Validators.required])
-      })
   }
 
   checkeadoDocumento(event: any){
@@ -269,8 +291,7 @@ export class GrupoNueveComponent implements OnInit {
     }
   }
 
-  deleteFile(){
-      console.log("Registro eliminado")
-  }
+  
+  
 
 }

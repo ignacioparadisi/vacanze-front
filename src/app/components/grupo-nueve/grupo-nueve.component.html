@@ -23,6 +23,7 @@
     </div>
 </ng-template>
 
+<!--
 <div class="col-md-12 contenedor-tipo-usuario">
 
   <div id="li-admin" class="contenedor-usuario card" style="padding: 1.25rem; margin-right:5px">
@@ -33,8 +34,13 @@
   <div id="li-cliente" class="contenedor-usuario card" style="padding: 1.25rem; margin-left:5px">
     <li (click)="pantallaCliente()"> Cliente <br>
     <i class="fa fa-user-plus" aria-hidden="true"></i></li>
-  </div>
+  </div> </div> -->
 
+<div>  
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button class="btn btn-danger" (click)="postReclamo()">
+    Post
+  </button>
 </div>
 
 <div id = "paginaCliente" style = "display:none">
