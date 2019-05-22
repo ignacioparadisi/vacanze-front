@@ -30,7 +30,6 @@
                   <td>
                     <button
                       class="btn btn-outline-danger"
-                      style="cursor: pointer;"
                       (click)="openModalActions($event, boat, 'crucero', true)"
                       data-toggle="tooltip"
                       data-placement="top"
@@ -40,7 +39,6 @@
                     </button>&nbsp;&nbsp;
                     <button
                       class="btn btn-outline-info"
-                      style="cursor: pointer; width: 39px;"
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Editar {{type}}"
@@ -82,24 +80,20 @@
                     <td>
                     <button
                       class="btn btn-outline-danger"
-                      style="cursor: pointer;"
                       (click)="openModalActions($event, hotel, 'hotel', true)"
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Eliminar {{type}}"
                     ><i class="fa fa-trash"></i>
                     </button>&nbsp;&nbsp;
-                    <button class="btn btn-outline-info" style="cursor: pointer; width: 39px;" data-toggle="tooltip" data-placement="top" title="Editar {{type}}" (click)="goToBoatRooms()">
+                    <button
+                      class="btn btn-outline-info"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Editar {{type}}">
                       <i class="fa fa-edit"></i>
                     </button>
                     </td>
-                    <!--<td>
-                      <app-action-alerter
-                      (actionAlertEventEmitter)="messageAlert($event)"
-                      [configuration]="deleteAlertConfiguration"
-                      [action]="'delete'">
-                      </app-action-alerter>
-                    </td>-->
                   </tr>
                 </tbody>
               </ng-template>
