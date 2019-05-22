@@ -47,7 +47,7 @@ export class TableResponsiveComponent implements OnChanges{
     public openModalActions(action, data: Object, type: string, deleted? : boolean){
       action.preventDefault();
       let config: SweetAlertOptions = {
-        title: (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+        title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
         confirmButtonText: 'Confirmar',
         cancelButtonText: 'Cancelar',
         showCancelButton: true,
