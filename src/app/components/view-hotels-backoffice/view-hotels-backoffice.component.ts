@@ -7,8 +7,6 @@ import { SweetAlertOptions } from 'sweetalert2';
 
 //tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
-//alertas reutilizables
-import { ActionAlerterComponent } from '../../blocks/action-alerter/action-alerter.component'
 
 
 @Component({
@@ -22,12 +20,8 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   private tableData: Array<Object>;
   private headerTitle: string;
 
-  //configuraciones de los sweetalert
-  private deleteAlertConfiguration: SweetAlertOptions;
-
-  //la accion que le llega de actionalerter para ejecutar sobre un registro
+  //la accion que le llega de table-responsive
   public actionAlert: string;
-
 
   ngOnInit() {
   }
@@ -36,14 +30,6 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     this.headerTitle = "Lista de hoteles";
     this.tableHotelsHeader = this.getTableHeaders();
     this.tableData = this.getExampleData();
-    this.deleteAlertConfiguration =  {
-      title: 'Desea eliminar el hotel?',
-      confirmButtonText: 'Si, estoy seguro',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      type: 'question',
-      focusCancel: true
-    };
   }
 
 
@@ -82,13 +68,11 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     ];
   }
 
-
-  //despues se puede crear un servicio
   private getTableHeaders(){
     return [
       "#",
       "Nombre",
-      "Cap. de Huéspedes",
+      "Capacidad",
       "Teléfono",
       "Sitio Web",
       "Status"
@@ -105,10 +89,6 @@ export class ViewHotelsBackofficeComponent implements OnInit {
 
   public getHeaderTitle(){
     return this.headerTitle;
-  }
-
-  public getDeleteAlertConfiguration(){
-    return this.deleteAlertConfiguration;
   }
 
 }

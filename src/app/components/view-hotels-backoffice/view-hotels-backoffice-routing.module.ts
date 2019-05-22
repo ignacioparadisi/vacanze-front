@@ -5,7 +5,13 @@ import { ViewHotelsBackofficeComponent } from './view-hotels-backoffice.componen
 const routes: Routes = [
   {
     path: '',
-    component: ViewHotelsBackofficeComponent
+    component: ViewHotelsBackofficeComponent,
+    children: [
+      {
+        path: 'agregar-hotel',
+        loadChildren: '../register-hotel/register-hotel.module#RegisterHotelModule'
+      }
+    ]
   }
 ];
 

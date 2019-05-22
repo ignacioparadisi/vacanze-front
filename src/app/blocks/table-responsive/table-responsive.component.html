@@ -47,16 +47,6 @@
                       <i class="fa fa-edit"></i>
                     </button>
                   </td>
-                 <!--  <td class="d-flex ml-5">
-                    <input type="checkbox"
-                      class="form-check-input align-self-start"
-                      id="estatus-checkbox"
-                      [checked]="boat?.active"
-                      (click)="openModalActions($event, boat, 'crucero')"
-                    >
-                    <span *ngIf="boat?.status === 'Inactive'" class="align-self-start">Activar</span>
-                    <span *ngIf="boat?.status === 'Active'" class="align-self-start">Desactivar</span>
-                  </td> -->
                 </tr>
               </tbody>
               <ng-template #hotelesElseBlock>
@@ -75,8 +65,7 @@
                         id="estatus-checkbox"
                         [checked]="hotel?.active"
                         (click)="openModalActions($event, hotel, type)"
-                        title = "Desactivar/Activar {{type}}"
-                      >
+                        title = "Desactivar/Activar {{type}}">
                     </td>
                     <td>
                     <button
@@ -97,9 +86,6 @@
                     </td>
                   </tr>
                 </tbody>
-              </ng-template>
-              <ng-template #otroElseBlock>
-                Aqui iría otro tipo de tabla
               </ng-template>
           </table>
       </div>

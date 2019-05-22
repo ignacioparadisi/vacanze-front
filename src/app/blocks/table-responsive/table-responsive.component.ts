@@ -1,5 +1,4 @@
 import { Component, Input, Output, OnChanges, EventEmitter, OnInit} from '@angular/core';
-import { ActionAlerterComponent } from '../action-alerter/action-alerter.component';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -16,13 +15,9 @@ export class TableResponsiveComponent implements OnChanges{
     @Input() tableHeaders: Array<String>; // Array con los nombres de cada columna en la tabla
     @Input() type: string;
 
-    //para la configuracion de la alerta
-    //esta configuracion no se puede cambiar y debe ser individual
-    @Input() deleteAlertConfiguration: SweetAlertOptions = {};
-
-    //generico de la interaccion con el alert
     @Output() public actionAlertEventEmitter = new EventEmitter();
     @Output() public emitRouting = new EventEmitter();
+
 
     constructor(private router: Router){ // Agregando tooltip en boton de agregar
     }
@@ -40,10 +35,19 @@ export class TableResponsiveComponent implements OnChanges{
       }
     }
 
+
+
+    /**************************************************************************
+    * Metodo para enviar la confirmación de la alerta                         *
+    **************************************************************************/
     public messageAlert(event: Object){
       this.actionAlertEventEmitter.emit(event);
     }
 
+
+    /************************************************************************
+    * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
+    **************************************************************************/
     public openModalActions(action, data: Object, type: string, deleted? : boolean){
       action.preventDefault();
       let config: SweetAlertOptions = {
@@ -65,4 +69,5 @@ export class TableResponsiveComponent implements OnChanges{
     public goToBoatRooms(){
       this.emitRouting.emit('/habitaciones');
     }
+
 }
