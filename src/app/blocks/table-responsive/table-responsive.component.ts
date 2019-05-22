@@ -34,9 +34,9 @@ export class TableResponsiveComponent implements OnChanges{
             b['active'] = true;
           }
           else {
-            b['active'] = false;  
+            b['active'] = false;
           }
-        })  
+        })
       }
     }
 
@@ -47,26 +47,13 @@ export class TableResponsiveComponent implements OnChanges{
     public openModalActions(action, data: Object, type: string, deleted? : boolean){
       action.preventDefault();
       let config: SweetAlertOptions = {
-        title: '',
-        confirmButtonText: 'Si, estoy seguro',
+        title: (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+        confirmButtonText: 'Confirmar',
         cancelButtonText: 'Cancelar',
         showCancelButton: true,
         type: 'question',
-        focusCancel: true  
+        focusCancel: true
       }
-
-      if(deleted){
-        config.title = 'Desea eliminar el ' + type + '?';
-      }
-      else {
-        if(data && type === 'crucero'){
-          data['status'] === 'Active' ? config.title = 'Desea desactivar el crucero?' : config.title = 'Desea activar el crucero?';
-        }
-        else if(data && type === 'hotel'){
-          //Aqui haces tu logica Cesar
-        }
-      }
-     
       Swal.fire(config).then(result => {
         this.messageAlert(data);
       })
@@ -74,7 +61,7 @@ export class TableResponsiveComponent implements OnChanges{
 
     /*******************************************************************
     * Metodo para redireccionar a la vista de habitaciones del crucero *
-    ********************************************************************/ 
+    ********************************************************************/
     public goToBoatRooms(){
       this.emitRouting.emit('/habitaciones');
     }
