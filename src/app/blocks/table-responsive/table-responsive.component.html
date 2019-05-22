@@ -69,13 +69,13 @@
                     <td>{{ hotel?.capacity }}</td>
                     <td>{{ hotel?.phone_number }}</td>
                     <td>{{ hotel?.web_site }}</td>
-                    <td>
+                    <td class="d-flex ml-3">
                       <span class="badge badge-success" *ngIf="hotel?.status === 'Active'"> {{ hotel?.status }}</span>
                       <span class="badge badge-danger" *ngIf="hotel?.status === 'Inactive'">{{ hotel?.status }}</span>
                       <input type="checkbox"
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
-                        [checked]="boat?.active"
+                        [checked]="hotel?.active"
                         (click)="openModalActions($event, hotel, 'hotel')"
                       >
                     </td>
@@ -89,14 +89,8 @@
                       title="Eliminar {{type}}"
                     ><i class="fa fa-trash"></i>
                     </button>&nbsp;&nbsp;
-                    <button
-                      class="btn btn-outline-info"
-                      style="cursor: pointer; width: 39px;"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Editar {{type}}"
-                      (click)="goToBoatRooms()"
-                    ><i class="fa fa-edit"></i>
+                    <button class="btn btn-outline-info" style="cursor: pointer; width: 39px;" data-toggle="tooltip" data-placement="top" title="Editar {{type}}" (click)="goToBoatRooms()">
+                      <i class="fa fa-edit"></i>
                     </button>
                     </td>
                     <!--<td>
