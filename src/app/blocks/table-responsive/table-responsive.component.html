@@ -76,16 +76,36 @@
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
                         [checked]="boat?.active"
-                        (click)="openModalActions($event, boat, 'crucero')"
+                        (click)="openModalActions($event, hotel, 'hotel')"
                       >
                     </td>
                     <td>
+                    <button
+                      class="btn btn-outline-danger"
+                      style="cursor: pointer;"
+                      (click)="openModalActions($event, hotel, 'hotel', true)"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Eliminar {{type}}"
+                    ><i class="fa fa-trash"></i>
+                    </button>&nbsp;&nbsp;
+                    <button
+                      class="btn btn-outline-info"
+                      style="cursor: pointer; width: 39px;"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Editar {{type}}"
+                      (click)="goToBoatRooms()"
+                    ><i class="fa fa-edit"></i>
+                    </button>
+                    </td>
+                    <!--<td>
                       <app-action-alerter
                       (actionAlertEventEmitter)="messageAlert($event)"
                       [configuration]="deleteAlertConfiguration"
                       [action]="'delete'">
                       </app-action-alerter>
-                    </td>
+                    </td>-->
                   </tr>
                 </tbody>
               </ng-template>
