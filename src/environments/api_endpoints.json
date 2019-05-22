@@ -1,14 +1,14 @@
 {
     "_get": {
-
+        "getReclamo":"api/Reclamo"
     },
     "_post": {
-
+        "postReclamo":"api/Reclamo"
     },
     "_put": {
 
     },
     "_delete": {
-
+        "deleteReclamo":"api/Reclamo?id={id}"
     }
 }

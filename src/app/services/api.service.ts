@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
+   
+    public reclamo = [
+        {titulo: 'Mr. Nice', descripcion: 'aaaa', status:'ABIERTO' }
+    ];
+
     private apiName = environment.baseApiUrl;
+    
     private myInit = {
         /* headers: {
           'x-api-key': environment.apiKey
@@ -15,6 +25,20 @@ export class ApiService {
     };
 
     constructor(private http: HttpClient) { }
+
+    public getReclamo(): Observable<any>{
+        return this.http.get('https://localhost:5001/api/Reclamo');
+    }
+
+    public addReclamo (): Observable<any> {
+        return this.http.post<any>(
+            'https://localhost:5001/api/Reclamo', this.reclamo, httpOptions);
+    }
+
+    public deleteReclamo (data): Promise<any> {
+        this.myInit['body'] = data;
+        return this.http.delete('https://localhost:5001/api/Reclamo/40', this.myInit).toPromise();
+    }
 
     /*******************************************************
     * Metodo para realizar el consumo del API de tipo GET  *
@@ -42,7 +66,7 @@ export class ApiService {
 
         this.myInit['body'] = data;
         return <Promise<any>>(
-            this.http.post(this.apiName + url, data).toPromise()
+            this.http.post(this.apiName + url, data, httpOptions).toPromise()
         );
     }
 
