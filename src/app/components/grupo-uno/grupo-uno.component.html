@@ -93,7 +93,7 @@
                         <td>Otto</td>
                         <td>@mdo</td>
                         <td>
-                          <button (click)="open(content)"><i class="fas fa-edit"></i></button>
+                          <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"
@@ -102,7 +102,7 @@
                             [focusCancel]="true"
                             (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                           </swal>
-                          <button [swal]="deleteSwal"><i class="fas fa-trash-alt"></i></button>
+                          <button [swal]="deleteSwal"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                     <tr>
@@ -111,8 +111,8 @@
                         <td>Thornton</td>
                         <td>@fat</td>
                         <td>
-                          <button (click)="open(content)"><i class="fas fa-edit"></i></button>
-                          <button><i class="fas fa-trash-alt"></i></button>
+                          <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                          <button><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                     <tr>
@@ -121,8 +121,8 @@
                         <td>the Bird</td>
                         <td>@twitter</td>
                         <td>
-                          <button (click)="open(content)"><i class="fas fa-edit"></i></button>
-                          <button><i class="fas fa-trash-alt"></i></button>
+                          <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                          <button><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                     </tbody>

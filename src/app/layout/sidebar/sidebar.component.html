@@ -13,14 +13,38 @@
     </a>
     <a routerLink="/grupo-nueve" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-      <span>Reclamo Cliente</span>
+      <span>Reclamo de Equipaje</span>
     </a>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('pages')">
+          <i class="fa fa-plus"></i>&nbsp;
+          <span>Aviones y rutas</span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'pages'">
+          <ul class="submenu">
+              <li>
+                  <a routerLink="/grupo-tres/creacion" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <span>Creación de vuelos</span>
+                  </a>
+              </li>
+              <li>
+                  <a routerLink="/grupo-tres/listado" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <span>Listado de vuelos</span>
+                  </a>
+              </li>
+          </ul>
+      </li>
+  </div>
     <a (click)="openModal()" class="list-group-item">
       <i class="fa fa-fw fa-user"></i>&nbsp;
       <span>Registrar Usuario</span>
     </a>
+    <a routerLink="/administrar-hoteles" class="list-group-item">
+      <i class="fa fa-bed"></i>&nbsp;
+      <span>Hoteles</span>
+    </a>
     <a routerLink="/register-hotel" class="list-group-item">
-      <i class="fa fa-fw fa-user"></i>&nbsp;
+      <i class="fa fa-h-square"></i>&nbsp;
       <span>Registrar Hotel</span>
     </a>
     <a (click)="openRegisterRestaurant()" class="list-group-item">
