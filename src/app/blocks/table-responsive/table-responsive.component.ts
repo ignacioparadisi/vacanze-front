@@ -24,19 +24,19 @@ export class TableResponsiveComponent implements OnChanges{
     @Output() public actionAlertEventEmitter = new EventEmitter();
     @Output() public emitRouting = new EventEmitter();
 
-    constructor(private router: Router){ // Agregando tooltip en boton de agregar
+    constructor(private router: Router) { // Agregando tooltip en boton de agregar
     }
 
-    ngOnChanges(){
-      if(this.tableData.length !== 0){
+    ngOnChanges() {
+      if (this.tableData.length !== 0) {
         this.tableData.forEach(b => {
-          if(b['status'] === 'Active'){
+          if(b['status'] === 'Active') {
             b['active'] = true;
           }
           else {
-            b['active'] = false;  
+            b['active'] = false;
           }
-        })  
+        });
       }
     }
 

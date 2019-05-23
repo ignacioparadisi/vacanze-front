@@ -62,7 +62,7 @@
                 </tr>
               </tbody>
               <ng-template #hotelesElseBlock>
-                <tbody *ngIf="type === 'hoteles'; else otroElseBlock">
+                <tbody *ngIf="type === 'hoteles'; else restaurantesElseBlock">
                   <tr *ngFor="let hotel of tableData">
                     <td>{{ hotel?.id }}</td>
                     <td>{{ hotel?.name }}</td>
@@ -89,8 +89,56 @@
                   </tr>
                 </tbody>
               </ng-template>
-              <ng-template #otroElseBlock>
-                Aqui iría otro tipo de tabla
+              <ng-template #restaurantesElseBlock>
+                <tbody *ngIf="type === 'restaurantes'">
+                  <tr *ngFor="let restaurante of tableData">
+                    <td>{{ restaurante?.id }}</td>
+                    <td>{{ restaurante?.name }}</td>
+                    <td>{{ restaurante?.capacity }}</td>
+                    <td class="d-flex ml-3">
+                      <span class="badge badge-success" *ngIf="restaurante?.status === 'Active'"> {{ restaurante?.status }}</span>
+                      <span class="badge badge-danger" *ngIf="restaurante?.status === 'Inactive'">{{ restaurante?.status }}</span>
+                      <input type="checkbox" 
+                        class="form-check-input align-self-start" 
+                        id="estatus-checkbox" 
+                        [checked]="restaurante?.active" 
+                        (click)="openModalActions($event, restaurante, 'crucero')"
+                      >
+                    </td>
+                    <td>
+                      <button 
+                        class="btn btn-outline-danger"
+                        style="cursor: pointer;" 
+                        (click)="openModalActions($event, restaurante, 'crucero', true)" 
+                        data-toggle="tooltip" 
+                        data-placement="top" 
+                        title="Eliminar {{type}}"
+                      >
+                        <i class="fa fa-trash"></i>
+                      </button>&nbsp;&nbsp;
+                      <button 
+                        class="btn btn-outline-info" 
+                        style="cursor: pointer; width: 39px;" 
+                        data-toggle="tooltip" 
+                        data-placement="top" 
+                        title="Editar {{type}}"
+                        (click)="goToBoatRooms()"
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                    </td>
+                   <!--  <td class="d-flex ml-5">
+                      <input type="checkbox" 
+                        class="form-check-input align-self-start" 
+                        id="estatus-checkbox" 
+                        [checked]="boat?.active" 
+                        (click)="openModalActions($event, boat, 'crucero')"
+                      >
+                      <span *ngIf="boat?.status === 'Inactive'" class="align-self-start">Activar</span>
+                      <span *ngIf="boat?.status === 'Active'" class="align-self-start">Desactivar</span>
+                    </td> -->
+                  </tr>
+                </tbody>
               </ng-template>
           </table>
       </div>

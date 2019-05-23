@@ -1,0 +1,9 @@
+<app-table-responsive
+  [headerTitle]="getHeaderTitle()"
+  [tableData]="getHotels()"
+  [tableHeaders]="getHeaderHotels()"
+  [type]="'restaurantes'"
+  [deleteAlertConfiguration]="getDeleteAlertConfiguration()"
+  (actionAlertEventEmitter)="getAlertAction($event)"
+  >
+</app-table-responsive>
