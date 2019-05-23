@@ -22,6 +22,8 @@ export class TableResponsiveComponent implements OnChanges{
     constructor(private router: Router){ // Agregando tooltip en boton de agregar
     }
 
+
+
     ngOnChanges(){
       if(this.tableData.length !== 0){
         this.tableData.forEach(b => {
@@ -48,8 +50,8 @@ export class TableResponsiveComponent implements OnChanges{
     /************************************************************************
     * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
     **************************************************************************/
-    public openModalActions(action, data: Object, type: string, deleted? : boolean){
-      action.preventDefault();
+    public openModalActions(event, data: Object, type: string, deleted? : boolean){
+      event.preventDefault();
       let config: SweetAlertOptions = {
         title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
         confirmButtonText: 'Confirmar',
@@ -68,6 +70,24 @@ export class TableResponsiveComponent implements OnChanges{
     ********************************************************************/
     public goToBoatRooms(){
       this.emitRouting.emit('/habitaciones');
+    }
+
+
+    /**********************************************************************
+    * Metodo para redireccionar a la vista para agregar un hotel          *
+    ************************************************************************/
+    public goToAddHotel(){
+      this.emitRouting.emit('/agregar-hotel');
+    }
+
+
+    /**********************************************************************
+    * Metodo que es llamado por el boton añadir                           *
+    ***********************************************************************/
+    public gotoAdd(type: string){
+      if (type === 'hotel'){
+        this.goToAddHotel();
+      }
     }
 
 }
