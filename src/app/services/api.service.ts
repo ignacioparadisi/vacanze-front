@@ -4,7 +4,8 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Injectable({
@@ -37,9 +38,14 @@ export class ApiService {
 
     public deleteReclamo (data): Promise<any> {
         this.myInit['body'] = data;
-        return this.http.delete('https://localhost:5001/api/Reclamo/40', this.myInit).toPromise();
+        return this.http.delete('https://localhost:5001/api/Reclamo/73', this.myInit).toPromise();
     }
 
+    public putrReclamoStatus(data): Promise<any>
+    {
+        this.myInit['body'] = data;
+        return this.http.put('https://localhost:5001/api/Reclamo/status/56', this.myInit).toPromise();
+    }
     /*******************************************************
     * Metodo para realizar el consumo del API de tipo GET  *
     ********************************************************/

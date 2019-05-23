@@ -5,9 +5,9 @@
     "_post": {
         "postReclamo":"api/Reclamo"
     },
-    "_put": {
+    "_put": { "putReclamoStatus":"api/Reclamo/status/{id}"
     },
-    "_delete": {
+    "_delete": { 
         "deleteReclamo":"api/Reclamo/{id}"
     }
 }

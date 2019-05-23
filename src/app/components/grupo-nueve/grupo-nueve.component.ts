@@ -54,11 +54,18 @@ export class GrupoNueveComponent implements OnInit {
 
   deleteReclamo(/*id:number*/){
     var id: any;
-    id = 13;
+    id = 73;
     this.service.deleteUrl(url.endpoint.default._delete.deleteReclamo, [id])
     .then(response => {console.log(response)});
   }
 
+  putReclamoStatus(){
+    var id: any;
+    id=56;
+    this.service.putUrl(url.endpoint.default._put.putReclamoStatus,{status: 'CERRADO'},[id]).then(
+      response => {console.log(response)});
+
+  }
   pantallaAdmin(){
     var pagina, liCliente, liAdmin;
     pagina = document.getElementById('paginaAdmin');
