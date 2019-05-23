@@ -6,9 +6,8 @@
         "postReclamo":"api/Reclamo"
     },
     "_put": {
-
     },
     "_delete": {
-        "deleteReclamo":"api/Reclamo?id={id}"
+        "deleteReclamo":"api/Reclamo/{id}"
     }
 }
