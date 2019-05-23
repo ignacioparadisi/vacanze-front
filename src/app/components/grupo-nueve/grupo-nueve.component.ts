@@ -14,11 +14,10 @@ import { environment as url} from '../../../environments/environment'
 export class GrupoNueveComponent implements OnInit {
 
   public form: FormGroup;
-  closeResult: string;
-  
-  public reclamo = [
-    {titulo: 'Mr. Nice', descripcion: 'aaaa', status:'ABIERTO' }
-  ];
+  public closeResult: string;
+  public id;
+  public rec_titulo;
+  public rec_descr;
 
   constructor(private modalService: NgbModal,
      public http: HttpClient, 
@@ -29,7 +28,7 @@ export class GrupoNueveComponent implements OnInit {
     
     //this.service.deleteReclamo({rec_titulo:'titulo', rec_descr:'elias y jorge', rec_status:'ABIERTO'});
     
-    this.service.getUrl(url.endpoint.default._get.getReclamo).then(data =>{console.log(data)})
+    //this.service.getUrl(url.endpoint.default._get.getReclamo).then(data =>{console.log(data)})
 
     this.form = new FormGroup({
         nacionalidad: new FormControl(-1, [Validators.required]),
@@ -48,24 +47,24 @@ export class GrupoNueveComponent implements OnInit {
 
   postReclamo(){
     this.service
-    .postUrl(url.endpoint.default._post.postReclamo,{titulo:'elias', descripcion:'ejdhs',status:'ABIERTO'}, ['1'])
+    .postUrl(url.endpoint.default._post.postReclamo,{titulo:this.rec_titulo, descripcion:this.rec_descr,status:'ABIERTO'})
     .then(response => {console.log(response)});
   }
 
-  deleteReclamo(/*id:number*/){
-    var id: any;
-    id = 73;
-    this.service.deleteUrl(url.endpoint.default._delete.deleteReclamo, [id])
+  deleteReclamo(){
+    this.service.deleteUrl(url.endpoint.default._delete.deleteReclamo, [this.id])
     .then(response => {console.log(response)});
   }
 
   putReclamoStatus(){
     var id: any;
     id=56;
+
     this.service.putUrl(url.endpoint.default._put.putReclamoStatus,{status: 'CERRADO'},[id]).then(
       response => {console.log(response)});
 
   }
+  
   pantallaAdmin(){
     var pagina, liCliente, liAdmin;
     pagina = document.getElementById('paginaAdmin');
@@ -90,8 +89,8 @@ export class GrupoNueveComponent implements OnInit {
 
   listadoEquipaje(){
     var pagina;
-
-    pagina = document.getElementById('equipajeLista');
+pagina = document.getElementById('equipajeLista');
+    
 
     if(pagina.style.display == 'none'){
     pagina.style.display = 'block';

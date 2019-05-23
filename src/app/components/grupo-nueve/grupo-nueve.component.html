@@ -23,8 +23,8 @@
     </div>
 </ng-template>
 
+<!--
 <div class="col-md-12 contenedor-tipo-usuario">
-
   <div id="li-admin" class="contenedor-usuario card" style="padding: 1.25rem; margin-right:5px">
     <li (click) = "pantallaAdmin()"> Admin <br>
     <i class="fa fa-user-circle-o" aria-hidden="true"></i></li>
@@ -33,14 +33,23 @@
   <div id="li-cliente" class="contenedor-usuario card" style="padding: 1.25rem; margin-left:5px">
     <li (click)="pantallaCliente()"> Cliente <br>
     <i class="fa fa-user-plus" aria-hidden="true"></i></li>
-  </div> </div> -->
+  </div> 
+</div>
+-->
 
-<!--div>  
-   (click) passes input value to add() and then clears the input 
-  <button class="btn btn-danger" (click)="postReclamo()">
+
+    <input [(ngModel)]="rec_titulo" type="text" class="form-control input-lg"
+    placeholder="Introduzca titulo de reclamo">
+    <input [(ngModel)]="rec_descr" type="text" class="form-control input-lg"
+    placeholder="Introduzca descripcion">
+  <button style="margin-top:10px" class="btn btn-primary" (click)="postReclamo()">
     Post
   </button>
-</div>-->
+  <br> <br>
+
+   <input [(ngModel)]="id" type="text" class="form-control input-lg"
+    placeholder="Introduzca el id del Reclamo">
+  <button class="btn btn-danger" style="margin-top:10px" (click)="deleteReclamo()">Eliminar</button>
 
 <div id = "paginaCliente" style = "display:none">
 <div class="row">
