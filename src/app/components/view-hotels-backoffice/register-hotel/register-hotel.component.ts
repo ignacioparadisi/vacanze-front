@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from 'src/app/classes/role';
 import { Location } from "@angular/common";
 import Swal from 'sweetalert2';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register-hotel',
@@ -20,5 +20,5 @@ export class RegisterHotelComponent implements OnInit {
   public goToViewHotels(){
     this._location.back();
   }
-  
+
 }
