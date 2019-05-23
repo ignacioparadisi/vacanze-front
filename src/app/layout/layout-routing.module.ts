@@ -41,11 +41,6 @@ const routes: Routes = [
           '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },
       {
-        path: 'register-hotel',
-        loadChildren:
-          '../components/register-hotel/register-hotel.module#RegisterHotelModule'
-      },
-      {
         path: 'flight-reservations',
         loadChildren:
           '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
