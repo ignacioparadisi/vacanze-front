@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ViewHotelsBackofficeComponent } from './view-hotels-backoffice.component';
+import { RegisterHotelComponent } from './register-hotel/register-hotel.component';
 
 const routes: Routes = [
   {
@@ -9,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'agregar-hotel',
-        loadChildren: '../register-hotel/register-hotel.module#RegisterHotelModule'
+        component: RegisterHotelComponent
       }
     ]
   }

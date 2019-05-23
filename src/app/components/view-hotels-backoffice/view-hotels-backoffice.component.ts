@@ -4,6 +4,7 @@ import { Role } from 'src/app/classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
+import { Router } from '@angular/router';
 
 //tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
@@ -23,10 +24,13 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   //la accion que le llega de table-responsive
   public actionAlert: string;
 
+  //para saber si está editanto un hotel
+  public isEditingHotel: boolean;
+
   ngOnInit() {
   }
 
-  constructor() {
+  constructor(private router: Router) {
     this.headerTitle = "Lista de hoteles";
     this.tableHotelsHeader = this.getTableHeaders();
     this.tableData = this.getExampleData();
@@ -38,6 +42,20 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     console.log(this.actionAlert);
   }
 
+
+  public getCurrentRoute(route){
+    if(route === '/agregar-hotel'){
+      this.isEditingHotel = true;
+      this.router.navigate(['administrar-hoteles','agregar-hotel']);
+    }
+    else {
+      this.isEditingHotel = false;
+    }
+  }
+
+  public getDeactivatedComponent(component){
+    this.getCurrentRoute('/administrar-hoteles');
+  }
 
   private getExampleData(){
     return [
