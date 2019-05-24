@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActionAlerterComponent } from './action-alerter.component';
+import { EditRestaurantComponent } from './edit-restaurant.component';
 
-describe('ActionAlerterComponent', () => {
-  let component: ActionAlerterComponent;
-  let fixture: ComponentFixture<ActionAlerterComponent>;
+describe('EditRestaurantComponent', () => {
+  let component: EditRestaurantComponent;
+  let fixture: ComponentFixture<EditRestaurantComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActionAlerterComponent ]
+      declarations: [ EditRestaurantComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActionAlerterComponent);
+    fixture = TestBed.createComponent(EditRestaurantComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

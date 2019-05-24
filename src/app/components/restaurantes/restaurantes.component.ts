@@ -26,7 +26,7 @@ export class RestaurantesComponent implements OnInit {
   }
 
   constructor() {
-    this.headerTitle = "Lista de Restaurantes";
+    this.headerTitle = 'Lista de Restaurantes';
     this.tableRestaurantesHeader = this.getTableHeaders();
     this.tableData = this.getExampleData();
     this.deleteAlertConfiguration =  {
@@ -48,32 +48,48 @@ export class RestaurantesComponent implements OnInit {
   private getExampleData() {
     return [
       {
-        "id" : 1,
-        "name": "Mc Donalds",
-        "capacity": 5988,
-        "status": "Active"
+        id : 1,
+        name: 'Mc Donalds',
+        business: 'Mc Donalds',
+        qualify: 4.5,
+        price: 12,
+        capacity: 5988,
+        typeFood: 'Rapida',
+        status: 'Active'
       },
       {
-        "id" : 2,
-        "name": "Wendys",
-        "capacity": 5260,
-        "status": "Active"
+        id : 2,
+        name: 'Wendys',
+        business: 'Wendys',
+        qualify: 3.5,
+        price: 9,
+        capacity: 5260,
+        typeFood: 'Rapida',
+        status: 'Active'
       },
       {
-        "id" : 3,
-        "name": "Burger King",
-        "capacity": 1123,
-        "status": "Inactive"
+        id : 3,
+        name: 'Burger King',
+        business: 'Burger',
+        qualify: 4,
+        price: 10,
+        capacity: 1123,
+        typeFood: 'Rapida',
+        status: 'Inactive'
       },
     ];
   }
 
   private getTableHeaders() {
     return [
-      "#",
-      "Nombre",
-      "Cap. de Huéspedes",
-      "Status"
+      '#',
+      'Nombre',
+      'Razon Social',
+      'Caliificación',
+      'Precio',
+      'Cap. de Comesales',
+      'Tipo de Comida',
+      'Status'
     ];
   }
 
@@ -92,6 +108,5 @@ export class RestaurantesComponent implements OnInit {
   public getDeleteAlertConfiguration() {
     return this.deleteAlertConfiguration;
   }
-
 
 }

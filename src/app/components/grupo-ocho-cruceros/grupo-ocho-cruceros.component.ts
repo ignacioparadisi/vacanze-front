@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class GrupoOchoCrucerosComponent implements OnInit {
 
   public isRoomActive: boolean; // Variable para saber si cambio a la vista de habitaciones
-  
-  constructor(private router: Router){ 
+
+  constructor(private router: Router){
     this.isRoomActive = false;
   }
 

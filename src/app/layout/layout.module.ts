@@ -12,6 +12,7 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { RegisterUserComponent } from "../components/register-user/register-user.component";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { RegisterRestaurantComponent } from '../components/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from '../components/edit-restaurant/edit-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RegisterRestaurantComponent } from '../components/register-restaurant/r
     HeaderComponent,
     SidebarComponent,
     RegisterUserComponent,
-    RegisterRestaurantComponent
+    RegisterRestaurantComponent,
+    EditRestaurantComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,6 @@ import { RegisterRestaurantComponent } from '../components/register-restaurant/r
     HttpClientModule
   ],
   providers: [ApiService],
-  entryComponents: [RegisterUserComponent, RegisterRestaurantComponent],
+  entryComponents: [RegisterUserComponent, RegisterRestaurantComponent, EditRestaurantComponent],
 })
 export class LayoutModule {}
