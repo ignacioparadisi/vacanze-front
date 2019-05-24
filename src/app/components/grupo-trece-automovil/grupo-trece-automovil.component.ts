@@ -30,6 +30,22 @@ export class GrupoTreceAutomovilComponent implements OnInit {
   }
 
   ngOnInit() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    var de = '' +dd
+    var me = '' +mm
+     if(dd<10){
+            de='0'+dd
+        } 
+        if(mm<10){
+           var me='0'+mm
+        } 
+    
+   var todaye = yyyy+'-'+me+'-'+de;
+    document.getElementById("datefieldAlq").setAttribute("min", todaye);
+    document.getElementById("datefieldDev").setAttribute("min", todaye);
   }
 
   deleteFile(){
