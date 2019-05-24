@@ -14,7 +14,7 @@
                   <label class="form-check-label" for="type">{{type.name}}</label>
                 </div> 
               </div> 
-          <div class="row" *ngIf="selectMult==true">
+          <div class="row" *ngIf="selectMult">
         
            <!-- Origin Field -->
             <div class="col-md-2">
@@ -49,7 +49,7 @@
             
             <!-- Date Field -->
             <div class="col-md-3">
-                <label for="">Fecha de Entrada</label>
+                <label for="">Fecha de Regreso</label>
                 <div class="form-group">
                   <input  id="entry_id" type="date" class="form-control" placeholder="FechaE" formControlName="fechaE">
                 </div>
@@ -74,10 +74,10 @@
 
 
         <div class="row" *ngIf="selectMult==false" >
-          <ng-container *ngFor="let number of [0,1]">
+          <ng-container *ngFor="let number of arrayNumber">
             
             <div class="col-md-12">
-              <h4>Tramo {{number}}</h4>
+              <h4>Destino {{number}}</h4>
             </div>
 
                 <!-- Origin Field -->
@@ -105,6 +105,20 @@
             </div>
           </ng-container>
           
+          <div _ngcontent-lfs-c5="">
+            <button _ngcontent-lfs-c5="" class="btn btn-primary " data-placement="top" data-toggle="tooltip" 
+             type="button" style="width: 42px;margin-top: 31px;" (click)="clickPushMultidestino($event)">
+              <i _ngcontent-lfs-c5="" class="fa fa-plus"></i>
+            </button>
+          </div>
+
+
+          <div _ngcontent-lfs-c5="" *ngIf="active">
+            <button _ngcontent-lfs-c5="" class="btn btn-danger " data-placement="top" data-toggle="tooltip" 
+             type="button" style="width: 42px;margin-top: 31px; margin-left: 5px;" (click)="clickPopMultidestino($event)">
+              <i _ngcontent-lfs-c5="" class="fa fa-minus"></i>
+            </button>
+          </div>
 
             <div class="col-md-6">
               <label for="">Pasajeros</label>

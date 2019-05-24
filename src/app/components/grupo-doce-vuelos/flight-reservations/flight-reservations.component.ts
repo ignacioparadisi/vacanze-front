@@ -18,9 +18,11 @@ export class FlightReservationsComponent implements OnInit {
   public typeFlights: TypeFlight[]=[];
   public adultFlights:PeopleFlight[]=[];
   public selectMult:boolean=true;
+  public active:boolean=false;
   public selectMultSearch:number=2;
-  public numTram:number=1;
-
+  public cont:number=3;
+  public arrayNumber: number[] = [1,2];
+  public disabled:boolean=false;
 
 
   constructor(private api: ApiService) { }
@@ -85,26 +87,56 @@ export class FlightReservationsComponent implements OnInit {
     this.selectedTyp = event.target.id ;
     var input= document.getElementById("entry_id");
     var output= document.getElementById("out_id");
-    var element =<HTMLInputElement> document.getElementById("date_id");
-    element.checked = null;
+    //var element =<HTMLInputElement> document.getElementById("date_id");
+    
     if (this.selectedTyp=="0") {
       
       input.setAttribute("disabled","true");
       output.removeAttribute("disabled");
-      //this.selectMult=true;
+      console.log("Estoy en 0");
+      this.disabled=true;
+      this.selectMult=true;
+    
     }else{
       if(this.selectedTyp=="2"){
-        this.selectMultSearch;
         this.selectMult=false;
+  
+        this.arrayNumber;
         
       }else{
-        
-        input.removeAttribute("disabled");
-        output.removeAttribute("disabled");
-       // this.selectMult=true;
+
+        this.selectMult=true;
+        if(this.disabled==true){
+          this.disabled=false;
+          input.removeAttribute("disabled");
+          output.removeAttribute("disabled");
+          
+        }
+        this.disabled=false;
+       console.log("Estoy en 1");
+        // this.selectMult=true;
       }
+      
     }
   }
+
+  clickPushMultidestino(event: any){
+    
+     this.arrayNumber.push(this.cont++);
+     this.active=true;
+    
+  }
+
+  clickPopMultidestino(event: any){
+
+     this.arrayNumber.pop();
+     this.cont--;
+     if(this.cont==3){
+       this.active=false;
+     }
+    
+  }
+
   checkboxSelected(event: any){
     var element =<HTMLInputElement> document.getElementById("date_id");
     var isChecked= element.checked;
