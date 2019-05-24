@@ -1,6 +1,6 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Editar Reclamo</h4>
+        <h4 class="modal-title">Editar Claim</h4>
         
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
@@ -19,11 +19,11 @@
     </div>
     
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="putReclamoStatus()">Editar Reclamo</button>
+        <button type="button" class="btn btn-secondary" (click)="putClaimStatus()">Editar Claim</button>
     </div>
 </ng-template>
 
-<!--
+
 <div class="col-md-12 contenedor-tipo-usuario">
   <div id="li-admin" class="contenedor-usuario card" style="padding: 1.25rem; margin-right:5px">
     <li (click) = "pantallaAdmin()"> Admin <br>
@@ -35,21 +35,21 @@
     <i class="fa fa-user-plus" aria-hidden="true"></i></li>
   </div> 
 </div>
--->
+
 
 
     <input [(ngModel)]="rec_titulo" type="text" class="form-control input-lg"
-    placeholder="Introduzca titulo de reclamo">
+    placeholder="Introduzca titulo de Claim">
     <input [(ngModel)]="rec_descr" type="text" class="form-control input-lg"
     placeholder="Introduzca descripcion">
-  <button style="margin-top:10px" class="btn btn-primary" (click)="postReclamo()">
+  <button style="margin-top:10px" class="btn btn-primary" (click)="postClaim()">
     Post
   </button>
   <br> <br>
 
    <input [(ngModel)]="id" type="text" class="form-control input-lg"
-    placeholder="Introduzca el id del Reclamo">
-  <button class="btn btn-danger" style="margin-top:10px" (click)="deleteReclamo()">Eliminar</button>
+    placeholder="Introduzca el id del Claim">
+  <button class="btn btn-danger" style="margin-top:10px" (click)="deleteClaim()">Eliminar</button>
 
 <div id = "paginaCliente" style = "display:none">
 <div class="row">
@@ -232,7 +232,7 @@
             margin-top: 3px;
             margin-right: 3px" 
             src="../assets/images/crear.png" alt="">
-             Crear Reclamo
+             Crear Claim
           </div>
           
           <div class="card-body table-responsive">
@@ -266,7 +266,7 @@
                 <div class="col-md-12">
                   <swal
                   #addSwal1
-                  title="Reclamo Creado Satisfactoriamente"
+                  title="Claim Creado Satisfactoriamente"
                   type="success"
                   showConfirmButton=false
                   timer=2500>
@@ -288,7 +288,7 @@
               margin-top: 3px;
               margin-right: 3px" 
               src="../assets/images/lista.png" alt="">
-              Listado de Reclamos de Usuario
+              Listado de Claims de Usuario
           </div>
           <div class="card-body table-responsive">
               <table class="table">
@@ -303,21 +303,22 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                      <th scope="row">1</th>
-                      <td>XSY-219</td>
-                      <td>Aeropuerto</td>
-                      <td>002345678910</td>
-                      <td>Abierto</td>
+                      
+                  <tr *ngFor="let item of claim; let indice=index">
+                      <th scope="row">{{indice+1}}</th>
+                      <td >{{item.id}}</td>
+                      <td>{{item._title }}</td>
+                      <td>{{item._description}}</td>
+                      <td>{{item._status}}</td>
                       <td>
                         <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                         <swal
                           #deleteSwal
-                          title="¿Desea Eliminar el Reclamo?"
+                          title="¿Desea Eliminar el Claim?"
                           type="question"
                           [showCancelButton]="true"
                           [focusCancel]="true"
-                          (confirm)="deleteReclamo()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                         </swal>
                         <button style="margin-left:5px" [swal]="deleteSwal"><i class="fa fa-trash" ></i></button>
                       </td>
@@ -352,7 +353,7 @@
                     </div>
                     <swal
                     #mensaje
-                    title="Mensaje enviado al administrador de reclamos"
+                    title="Mensaje enviado al administrador de Claims"
                     type="success"
                     showConfirmButton=false
                     timer=2500>
@@ -407,7 +408,7 @@
                 <div class="col-md-12">
                   <swal
                   #addSwal5
-                  title="Reclamo Creado Satisfactoriamente"
+                  title="Claim Creado Satisfactoriamente"
                   type="success"
                   showConfirmButton=false
                   timer=2500>
@@ -588,10 +589,10 @@
                                 margin-top: 3px;
                                 margin-right: 3px" 
                                 src="../assets/images/lupa.png" alt="">
-                            <tr> Seleccionar Busqueda de Reclamos
+                            <tr> Seleccionar Busqueda de Claims
                         </div>
                         <div class="card-body table-responsive" style="text-align: justify">
-                          <p> Consultar lista de reclamos por caso:</p>
+                          <p> Consultar lista de Claims por caso:</p>
                           <label>
                               <input id="check_abierto" type="checkbox" 
                               (change)="checkeadoAbierto($event)" value="checkedValue"> Abierto 
@@ -606,12 +607,12 @@
                               <div class="col-md-12">
                                 <swal
                                 #addSwal6
-                                title="Reclamo Creado Satisfactoriamente"
+                                title="Claim Creado Satisfactoriamente"
                                 type="success"
                                 showConfirmButton=false
                                 timer=2500>
                               </swal>
-                      <button style="margin-right:45%" class="btn btn-success float-right" (click)="BusqEquipajeReclamo()">Buscar</button>
+                      <button style="margin-right:45%" class="btn btn-success float-right" (click)="BusqEquipajeClaim()">Buscar</button>
                         <!-- [swal]="addSwal6"-->
                     
                     </div>
@@ -631,7 +632,7 @@
                     margin-top: 3px;
                     margin-right: 3px" 
                     src="../assets/images/lista.png" alt="">
-                    Listado de Reclamos Abiertos
+                    Listado de Claims Abiertos
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -656,7 +657,7 @@
                               <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal1
-                                title="¿Desea Eliminar el Reclamo?"
+                                title="¿Desea Eliminar el Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
@@ -680,7 +681,7 @@
                     margin-top: 3px;
                     margin-right: 3px" 
                     src="../assets/images/lista.png" alt="">
-                    Listado de Reclamos Cerrados
+                    Listado de Claims Cerrados
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -705,11 +706,11 @@
                               <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal2
-                                title="¿Desea Eliminar el Reclamo?"
+                                title="¿Desea Eliminar el Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
-                                (confirm)="deleteReclamo()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
                               <button style="margin-left:5px" [swal]="deleteSwal2"><i class="fa fa-trash" ></i></button>
                             </td>

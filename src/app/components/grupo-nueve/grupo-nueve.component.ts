@@ -18,17 +18,16 @@ export class GrupoNueveComponent implements OnInit {
   public id;
   public rec_titulo;
   public rec_descr;
-
+  public claim : any = null;
   constructor(private modalService: NgbModal,
      public http: HttpClient, 
      private service: ApiService)
   {}
 
   ngOnInit() {
+    //this.service.deleteClaim({rec_titulo:'titulo', rec_descr:'elias y jorge', rec_status:'ABIERTO'});
     
-    //this.service.deleteReclamo({rec_titulo:'titulo', rec_descr:'elias y jorge', rec_status:'ABIERTO'});
-    
-    //this.service.getUrl(url.endpoint.default._get.getReclamo).then(data =>{console.log(data)})
+    this.service.getUrl(url.endpoint.default._get.getClaim).then(data =>{this.claim=data})
 
     this.form = new FormGroup({
         nacionalidad: new FormControl(-1, [Validators.required]),
@@ -45,22 +44,26 @@ export class GrupoNueveComponent implements OnInit {
       });
   }
 
-  postReclamo(){
+  getClaim(){
+    
+    this.claim={aja: 'aaass', pero: 'jejeje'};
+  }
+  postClaim(){
     this.service
-    .postUrl(url.endpoint.default._post.postReclamo,{titulo:this.rec_titulo, descripcion:this.rec_descr,status:'ABIERTO'})
+    .postUrl(url.endpoint.default._post.postClaim,{titulo:this.rec_titulo, descripcion:this.rec_descr,status:'ABIERTO'})
     .then(response => {console.log(response)});
   }
 
-  deleteReclamo(){
-    this.service.deleteUrl(url.endpoint.default._delete.deleteReclamo, [this.id])
+  deleteClaim(){
+    this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [this.id])
     .then(response => {console.log(response)});
   }
 
-  putReclamoStatus(){
+  putClaimStatus(){
     var id: any;
     id=56;
 
-    this.service.putUrl(url.endpoint.default._put.putReclamoStatus,{status: 'CERRADO'},[id]).then(
+    this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id]).then(
       response => {console.log(response)});
 
   }
@@ -284,7 +287,7 @@ pagina = document.getElementById('equipajeLista');
     }
   }
 
-  BusqEquipajeReclamo(){
+  BusqEquipajeClaim(){
     var ck_abierto =<HTMLInputElement> document.getElementById("check_abierto");
     var ck_cerrado =<HTMLInputElement> document.getElementById("check_cerrado");
 

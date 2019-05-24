@@ -1,13 +1,13 @@
 {
     "_get": {
-        "getReclamo":"api/Reclamo"
+        "getClaim":"api/Claim"
     },
     "_post": {
-        "postReclamo":"api/Reclamo"
+        "postClaim":"api/Claim"
     },
-    "_put": { "putReclamoStatus":"api/Reclamo/status/{id}"
+    "_put": { "putClaimStatus":"api/Claim/status/{id}"
     },
     "_delete": { 
-        "deleteReclamo":"api/Reclamo/{id}"
+        "deleteClaim":"api/Claim/{id}"
     }
 }

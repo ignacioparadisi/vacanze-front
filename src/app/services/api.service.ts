@@ -13,7 +13,7 @@ const httpOptions = {
 })
 export class ApiService {
    
-    public reclamo = [
+    public Claim = [
         {titulo: 'Mr. Nice', descripcion: 'aaaa', status:'ABIERTO' }
     ];
 
@@ -27,24 +27,24 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    public getReclamo(): Observable<any>{
-        return this.http.get('https://localhost:5001/api/Reclamo');
+    public getClaim(): Observable<any>{
+        return this.http.get('https://localhost:5001/api/Claim');
     }
 
-    public addReclamo (): Observable<any> {
+    public addClaim (): Observable<any> {
         return this.http.post<any>(
-            'https://localhost:5001/api/Reclamo', this.reclamo, httpOptions);
+            'https://localhost:5001/api/Claim', this.Claim, httpOptions);
     }
 
-    public deleteReclamo (data): Promise<any> {
+    public deleteClaim (data): Promise<any> {
         this.myInit['body'] = data;
-        return this.http.delete('https://localhost:5001/api/Reclamo/73', this.myInit).toPromise();
+        return this.http.delete('https://localhost:5001/api/Claim/73', this.myInit).toPromise();
     }
 
-    public putrReclamoStatus(data): Promise<any>
+    public putrClaimStatus(data): Promise<any>
     {
         this.myInit['body'] = data;
-        return this.http.put('https://localhost:5001/api/Reclamo/status/56', this.myInit).toPromise();
+        return this.http.put('https://localhost:5001/api/Claim/status/56', this.myInit).toPromise();
     }
     /*******************************************************
     * Metodo para realizar el consumo del API de tipo GET  *

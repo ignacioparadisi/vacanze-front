@@ -48,7 +48,7 @@ export class RegisterUserComponent implements OnInit {
       new Role(0, "Cliente"),
       new Role(1, "Administrador"),
       new Role(2, "Checkin"),
-      new Role(3, "Reclamo"),
+      new Role(3, "Claim"),
       new Role(4, "Cargador")
     ];
     return this.roles;
