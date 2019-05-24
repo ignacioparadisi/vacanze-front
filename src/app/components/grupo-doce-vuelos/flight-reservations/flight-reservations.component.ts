@@ -17,6 +17,10 @@ export class FlightReservationsComponent implements OnInit {
   public classFlight: ClassFlight[] = [];
   public typeFlights: TypeFlight[]=[];
   public adultFlights:PeopleFlight[]=[];
+  public selectMult:boolean=true;
+  public selectMultSearch:number=2;
+  public numTram:number=1;
+
 
 
   constructor(private api: ApiService) { }
@@ -84,13 +88,21 @@ export class FlightReservationsComponent implements OnInit {
     var element =<HTMLInputElement> document.getElementById("date_id");
     element.checked = null;
     if (this.selectedTyp=="0") {
+      
       input.setAttribute("disabled","true");
       output.removeAttribute("disabled");
+      //this.selectMult=true;
     }else{
-      input.removeAttribute("disabled");
-      output.removeAttribute("disabled");
-
-      console.log(2);
+      if(this.selectedTyp=="2"){
+        this.selectMultSearch;
+        this.selectMult=false;
+        
+      }else{
+        
+        input.removeAttribute("disabled");
+        output.removeAttribute("disabled");
+       // this.selectMult=true;
+      }
     }
   }
   checkboxSelected(event: any){
