@@ -50,7 +50,7 @@
                 </tr>
               </tbody>
               <ng-template #hotelesElseBlock>
-                <tbody *ngIf="type === 'hoteles'; else restaurantesElseBlock">
+                <tbody *ngIf="type === 'hotel'; else restaurantesElseBlock">
                   <tr *ngFor="let hotel of tableData">
                     <td>{{ hotel?.id }}</td>
                     <td>{{ hotel?.name }}</td>
