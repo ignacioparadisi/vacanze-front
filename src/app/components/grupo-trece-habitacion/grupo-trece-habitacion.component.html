@@ -50,7 +50,22 @@
           <div class="card-body table-responsive">
             <form action="">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
+                  
+                    <div class="form-group">
+                        
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Pais...</option> 
+                          <option>Afganistan</option>
+                          <option>Colombia</option>
+                          <option>Uruguay</option>
+                          <option>Venezuela</option>
+                        </select>
+                      </div>
+                </div>
+
+                <div class="col-md-2">
+                  
                     <div class="form-group">
                         
                         <select class="form-control" id="exampleFormControlSelect1">
@@ -90,7 +105,7 @@
                         showConfirmButton=false
                         timer=2500>
                       </swal>
-                        <button class="btn btn-primary float-right" [swal]="addSwal">Buscar</button>
+                        <button class="btn btn-success float-right" [swal]="addSwal">Buscar</button>
                       </div>
                 </div>
               </div>
@@ -102,27 +117,27 @@
     <div class="col-lg-12">
         <div class="card mb-3">
             <div class="card-header">
-                Listado de registros
+                Listado de habitaciones
             </div>
             <div class="card-body table-responsive">
                 <table class="table">
                     <thead>
                     <tr>
                         <th>Hotel</th>
-                        <th>Tipo</th>
                         <th>Capacidad</th>
                         <th>Precio por noche</th>
+                        <th>Disponibles</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>Hilton</td>
-                        <td>Estandar</td>
                         <td>4</td>
                         <td>$109</td>
+                        <td>10</td>
                         <td>
-                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
+                          <button (click)="openLg(content)" class="btn btn-success">Ver Detalle</button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"
@@ -135,11 +150,11 @@
                     </tr>
                     <tr>
                         <td>Hilton</td>
-                        <td>Estandar</td>
                         <td>4</td>
                         <td>$109</td>
+                        <td>10</td>
                         <td>
-                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
+                          <button (click)="openLg(content)" class="btn btn-success">Ver Detalle</button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"

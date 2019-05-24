@@ -53,7 +53,19 @@
           <div class="card-body table-responsive">
             <form action="">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Pais...</option> 
+                          <option>Afganistan</option>
+                          <option>Colombia</option>
+                          <option>Uruguay</option>
+                          <option>Venezuela</option>
+                        </select>
+                      </div>
+                </div>
+                <div class="col-md-2">
                     <div class="form-group">
                         
                         <select class="form-control" id="exampleFormControlSelect1">
@@ -86,12 +98,12 @@
                     <div class="form-group">
                         <swal
                         #addSwal
-                        title="Desea eliminar el registro?"
+                        title="Buscando"
                         type="success"
                         showConfirmButton=false
                         timer=2500>
                       </swal>
-                        <button class="btn btn-primary float-right" [swal]="addSwal">Buscar</button>
+                        <button class="btn btn-success float-right" [swal]="addSwal">Buscar</button>
                       </div>
                 </div>
               </div>
@@ -103,7 +115,7 @@
     <div class="col-lg-12">
         <div class="card mb-3">
             <div class="card-header">
-                Listado de registros
+                Listado de automoviles
             </div>
             <div class="card-body table-responsive">
                 <table class="table">
@@ -123,10 +135,10 @@
                         <td>5</td>
                         <td>$69</td>
                         <td>
-                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
+                          <button (click)="openLg(content)" class="btn btn-success">Ver Detalle</button>
                           <swal
                             #deleteSwal
-                            title="Desea eliminar el registro?"
+                            title="Buscando"
                             type="question"
                             [showCancelButton]="true"
                             [focusCancel]="true"
@@ -140,7 +152,7 @@
                         <td>5</td>
                         <td>$69</td>
                         <td>
-                          <button (click)="openLg(content)" class="btn btn-primary">Ver Detalle</button>
+                          <button (click)="openLg(content)" class="btn btn-success">Ver Detalle</button>
                           <swal
                             #deleteSwal
                             title="Desea eliminar el registro?"
