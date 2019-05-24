@@ -23,45 +23,17 @@ export class NewGrupoTres implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            contacts: this.fb.array([this.createContact()])
+            countryOrigen: [null, Validators.compose([Validators.required])],
+            cityOrigen: [null, Validators.compose([Validators.required])],
+            countryLlegada: [null, Validators.compose([Validators.required])],
+            cityLlegada: [null, Validators.compose([Validators.required])],
+            airplane: [null, Validators.compose([Validators.required])],
+            price: [null, Validators.compose([Validators.required])],
+            dateSalida: [null, Validators.compose([Validators.required])],
+            dateLlegada: [null, Validators.compose([Validators.required])],
+            durationHours: [null, Validators.compose([Validators.required])],
+            durationMinutes: [null, Validators.compose([Validators.required])],
         });
-
-        // set contactlist to the form control containing contacts
-        this.contactList = this.form.get('contacts') as FormArray;
-    }
-
-    get contactFormGroup() {
-    return this.form.get('contacts') as FormArray;
-    }
-
-    createContact(): FormGroup {
-    return this.fb.group({
-        countryOrigen: [null, Validators.compose([Validators.required])],
-        cityOrigen: [null, Validators.compose([Validators.required])],
-        countryLlegada: [null, Validators.compose([Validators.required])],
-        cityLlegada: [null, Validators.compose([Validators.required])],
-        airplane: [null, Validators.compose([Validators.required])],
-        price: [null, Validators.compose([Validators.required])],
-        dateSalida: [null, Validators.compose([Validators.required])],
-        dateLlegada: [null, Validators.compose([Validators.required])],
-        durationHours: [null, Validators.compose([Validators.required])],
-        durationMinutes: [null, Validators.compose([Validators.required])],
-    });
-    }
-
-    addContact() {
-    this.contactList.push(this.createContact());
-    }
-
-    removeContact(index) {
-    this.contactList.removeAt(index);
-    }
-
-    // get the formgroup under contacts form array
-    getContactsFormGroup(index): FormGroup {
-        // this.contactList = this.form.get('contacts') as FormArray;
-        const formGroup = this.contactList.controls[index] as FormGroup;
-        return formGroup;
     }
 
     submit() {
