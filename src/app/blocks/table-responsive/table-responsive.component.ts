@@ -92,6 +92,8 @@ export class TableResponsiveComponent implements OnChanges{
     public gotoAdd(type: string){
       if (type === 'hotel'){
         this.goToAddHotel();
+      } else if (type === 'restaurantes') {
+        const modalRef = this.modalService.open(RegisterRestaurantComponent);
       }
     }
 
