@@ -57,6 +57,11 @@ const routes: Routes = [
         path: 'grupo-once-pago',
         loadChildren:
         '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
+      },
+      {
+        path: 'restaurantes',
+        loadChildren:
+        '../components/restaurantes/restaurantes.module#RestaurantesModule'
       }
     ]
   }
