@@ -5,7 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { GrupoTreceAutomovilRoutingModule } from './grupo-trece-automovil-routing.module';
 import { GrupoTreceAutomovilComponent } from './grupo-trece-automovil.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-
+import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
+import { AutomovilesComponent } from './automoviles/automoviles.component';
+//Falta agregar estos 2 en las declarations
 @NgModule({
   declarations: [GrupoTreceAutomovilComponent],
   imports: [
