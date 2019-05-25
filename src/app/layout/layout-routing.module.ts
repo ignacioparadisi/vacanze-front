@@ -56,7 +56,11 @@ const routes: Routes = [
       {
         path: 'grupo-once-pago',
         loadChildren:
-        '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
+          '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
+      },
+      {
+        path: 'users',
+        loadChildren: '../components/users/users-list/users-list.module#UsersListModule'
       }
     ]
   }
@@ -65,4 +69,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }
