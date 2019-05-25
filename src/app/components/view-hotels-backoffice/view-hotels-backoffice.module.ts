@@ -12,11 +12,13 @@ import { RegisterHotelComponent } from './register-hotel/register-hotel.componen
 //importar el modulo de grupos ocho que es la que hace la declaracion principal
 //del componente tableresponsive y un componente no puede estar en dos declaraciones de modulo distintas
 import { GrupoOchoCrucerosModule  } from "../grupo-ocho-cruceros/grupo-ocho-cruceros.module";
+import { EditHotelComponent } from './edit-hotel/edit-hotel.component';
 
 @NgModule({
   declarations: [
     ViewHotelsBackofficeComponent,
-    RegisterHotelComponent
+    RegisterHotelComponent,
+    EditHotelComponent
   ],
   imports: [
     CommonModule,
