@@ -90,7 +90,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     return [
       "#",
       "Nombre",
-      "Capacidad",
+      "Habitaciones",
       "Teléfono",
       "Sitio Web",
       "Status"
