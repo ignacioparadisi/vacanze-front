@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 export class NewGrupoTres implements OnInit {
     closeResult: string;
     time = {hour: 13, minute: 30};
-    public countrys = COUNTRYS;
+    public countries = [];
     public hours = HOURS;
     public minutes = MINUTES;
     public airplanes = [];
@@ -45,14 +45,25 @@ export class NewGrupoTres implements OnInit {
 
     public getAirplanes() {
         // API URL
-        let requestURL = '/api/airplanes/';
-        let headers = new Headers({'Content-Type': 'application/json'});
+        let requestURL = '/posts';
         this.apiService.getUrl(requestURL).then(
             response => {
-            this.airplanes = response.result.airplanes;
+            this.airplanes = response;
+            console.log(response);
             },
             error => {
             console.log(error);
+            }
+        );
+    }
+
+    public getCountries() {
+        let requestURL = 'http://country.io/names.json';
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.countries = response;
+            }, error => {
+                console.log(error);
             }
         );
     }
@@ -84,20 +95,11 @@ export class NewGrupoTres implements OnInit {
         var fechas = this.compare(salida, llegada);
         if (fechas === 1) {
             if (this.form.valid) {
-            this.apiService.postUrl('api/blabla.', payload).then(
-                response => {
-                console.log('éxitoso');
-                },
-                error => {
-                console.error(this.form);
-                }
-            );
-            } else {
-                console.error(this.form);
-            }
+                console.log ('El formulario está completo');
+            } 
         } else {
-            this.notifier.notify( 'success', 'You are awesome! I mean it!' );
-            console.log('Fechas es falso');
+            this.notifier.notify( 'success', 'La fecha de llegada no puede ser anterior a la de salida.' );
+            console.log('La fecha de llegada no puede ser anterior a la de salida.');
         }
     }
 

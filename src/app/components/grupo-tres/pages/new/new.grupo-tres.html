@@ -27,7 +27,7 @@
                                             <label for="">País de origen</label>
                                             <select class="form-control" formControlName="countryOrigen" [ngClass]="{'is-invalid': invalid('countryOrigen', form), 'is-valid': valid('countryOrigen', form)}">
                                                 <option disabled selected>Seleccione un país</option>
-                                                <option *ngFor="let country of countrys">{{country.name}}</option>
+                                                <option *ngFor="let country of countries">{{country.name}}</option>
                                             </select>
                                             <div *ngIf="invalid('countryOrigen', form)" class="invalid-feedback">
                                                 Por favor seleccione un país
@@ -42,7 +42,7 @@
                                             <label for="">Ciudad de origen</label>
                                             <select class="form-control" formControlName="cityOrigen" [ngClass]="{'is-invalid': invalid('cityOrigen', form), 'is-valid': valid('cityOrigen', form)}">
                                                 <option disabled selected>Seleccione un país</option>
-                                                <option *ngFor="let country of countrys">{{country.name}}</option>
+                                                <option *ngFor="let airplane of airplanes">{{airplane.id}}</option>
                                             </select>
                                             <div *ngIf="invalid('cityOrigen', form)" class="invalid-feedback">
                                                 Por favor seleccione una ciudad
@@ -56,7 +56,7 @@
                                         <div class="form-group">
                                             <label for="">País de legada</label>
                                             <select class="form-control" formControlName="countryLlegada" [ngClass]="{'is-invalid': invalid('countryLlegada', form), 'is-valid': valid('countryLlegada', form)}">
-                                                <option *ngFor="let country of countrys">{{country.name}}</option>
+                                                <option *ngFor="let country of countries">{{country.name}}</option>
                                             </select>
                                             <div *ngIf="invalid('countryLlegada', form)" class="invalid-feedback">
                                                 Por favor seleccione un país
@@ -119,8 +119,14 @@
                                     <div class="col-md-3">
                                         <label for="" class="mb-3">Fecha de salida</label>
                                         <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="datetime-local" class="form-control" formControlName="dateSalida">
+                                            <div class="form-group">
+                                                <input type="datetime-local" class="form-control" formControlName="dateSalida" [ngClass]="{'is-invalid': invalid('dateSalida', form), 'is-valid': valid('dateSalida', form)}">
+                                                <div *ngIf="invalid('dateSalida', form)" class="invalid-feedback">
+                                                    Por favor seleccione una fecha de salida. Ejemplo: 25/05/2019 02:30 p.m.
+                                                </div>
+                                                <div *ngIf="valid('dateSalida', form)" class="valid-feedback">
+                                                    ¡Excelente!
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -128,21 +134,39 @@
                                         <label for="" class="mb-3">Fecha de llegada</label>
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input type="datetime-local" class="form-control" formControlName="dateLlegada">
+                                                <input type="datetime-local" class="form-control" formControlName="dateLlegada" [ngClass]="{'is-invalid': invalid('dateLlegada', form), 'is-valid': valid('dateLlegada', form)}">
+                                                <div *ngIf="invalid('dateLlegada', form)" class="invalid-feedback">
+                                                    Por favor seleccione una fecha de salida. Ejemplo: 28/05/2019 02:30 p.m.
+                                                </div>
+                                                <div *ngIf="valid('dateLlegada', form)" class="valid-feedback">
+                                                    ¡Excelente!
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="" class="mb-3 d-block">Duración (Horas)</label>
-                                        <select class="form-control select-menor float-left mr-4" formControlName="durationHours">
+                                        <select class="form-control select-menor float-left mr-4" formControlName="durationHours" [ngClass]="{'is-invalid': invalid('durationHours', form), 'is-valid': valid('durationHours', form)}">
                                             <option *ngFor="let hour of hours">{{hour.hour}}</option>
                                         </select>
+                                        <div *ngIf="invalid('durationHours', form)" class="invalid-feedback">
+                                            Por favor seleccione la duración en horas.
+                                        </div>
+                                        <div *ngIf="valid('durationHours', form)" class="valid-feedback">
+                                            ¡Excelente!
+                                        </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="" class="mb-3 d-block">Duración (Minutos)</label>
-                                        <select name="" id="" class="form-control select-menor float-left" formControlName="durationMinutes">
+                                        <select name="" id="" class="form-control select-menor float-left" formControlName="durationMinutes" [ngClass]="{'is-invalid': invalid('durationHours', form), 'is-valid': valid('durationHours', form)}">
                                             <option *ngFor="let minute of minutes">{{minute.minute}}</option>
                                         </select>
+                                        <div *ngIf="invalid('durationMinutes', form)" class="invalid-feedback">
+                                            Por favor seleccione la duración en minutos.
+                                        </div>
+                                        <div *ngIf="valid('durationMinutes', form)" class="valid-feedback">
+                                            ¡Excelente!
+                                        </div>
                                     </div>
                                 </div>
                             </div>
