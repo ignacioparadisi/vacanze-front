@@ -11,13 +11,17 @@ import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { RegisterUserComponent } from "../components/register-user/register-user.component";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
+import { RegisterRestaurantComponent } from '../components/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from '../components/edit-restaurant/edit-restaurant.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     HeaderComponent,
     SidebarComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    RegisterRestaurantComponent,
+    EditRestaurantComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +33,6 @@ import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
     HttpClientModule
   ],
   providers: [ApiService],
-  entryComponents: [RegisterUserComponent]
+  entryComponents: [RegisterUserComponent, RegisterRestaurantComponent, EditRestaurantComponent],
 })
 export class LayoutModule {}

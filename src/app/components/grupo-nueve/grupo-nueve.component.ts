@@ -43,14 +43,13 @@ export class GrupoNueveComponent implements OnInit {
   postClaim(){
     this.submitted = true;
     this.service
-    .postUrl(url.endpoint.default._post.postClaim,{titulo: this.formGroup.get('titulo').value,
-                                                   descripcion: this.formGroup.get('descripcion').value,
-                                                   status:'ABIERTO'})
+    .postUrl(url.endpoint.default._post.postClaim,{title: this.formGroup.get('titulo').value,
+                                                   description: this.formGroup.get('descripcion').value})
     .then(response => {console.log(response)});
   }
 
-  deleteClaim(){
-    this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, ['45'])
+  deleteClaim(id :any){
+    this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [id])
     .then(response => {console.log(response)});
   }
 
