@@ -23,16 +23,17 @@ export class FlightReservationsComponent implements OnInit {
   public cont:number=3;
   public arrayNumber: number[] = [1,2];
   public disabled:boolean=false;
+  public name="Hola";
 
 
   constructor(private api: ApiService) { }
    private selectedTyp: string="";
    
   ngOnInit() {
-      this.fetchFlight();
+      
       this.typeFlight();
       this.adultFlight();
-     
+      
       this.form=new FormGroup({
         ClassFlight: new FormControl(-1, [Validators.required]),
         name: new FormControl(null, [Validators.required]),
@@ -45,15 +46,6 @@ export class FlightReservationsComponent implements OnInit {
 
   }
 
-  private fetchFlight(): ClassFlight[] {
-    this.classFlight = [
-      new ClassFlight(0, 'Economy'),
-      new ClassFlight(1, 'Premium Economy'),
-      new ClassFlight(2, 'Ejecutiva'),
-      new ClassFlight(3, 'Primera Clase'),
-    ];
-    return this.classFlight;
-  }
 
   private typeFlight(): TypeFlight[]{
     this.typeFlights=[
@@ -90,12 +82,12 @@ export class FlightReservationsComponent implements OnInit {
     //var element =<HTMLInputElement> document.getElementById("date_id");
     
     if (this.selectedTyp=="0") {
-      
+      this.selectMult=true;
       input.setAttribute("disabled","true");
       output.removeAttribute("disabled");
       console.log("Estoy en 0");
       this.disabled=true;
-      this.selectMult=true;
+      
     
     }else{
       if(this.selectedTyp=="2"){

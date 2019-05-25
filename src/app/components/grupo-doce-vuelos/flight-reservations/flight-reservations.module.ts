@@ -7,9 +7,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {ListReservationsComponent} from '../list-reservations/list-reservations.component';
 @NgModule({
   declarations: [
-    FlightReservationsComponent],
+    FlightReservationsComponent,
+    ListReservationsComponent
+  ],
   imports: [
     FlightReservationsRoutingModule,
     CommonModule,
