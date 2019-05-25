@@ -7,7 +7,7 @@ import { ViewHotelsBackofficeComponent } from './view-hotels-backoffice.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { RegisterHotelComponent } from './register-hotel/register-hotel.component';
 
 //importar el modulo de grupos ocho que es la que hace la declaracion principal
 //del componente tableresponsive y un componente no puede estar en dos declaraciones de modulo distintas
@@ -15,7 +15,8 @@ import { GrupoOchoCrucerosModule  } from "../grupo-ocho-cruceros/grupo-ocho-cruc
 
 @NgModule({
   declarations: [
-    ViewHotelsBackofficeComponent
+    ViewHotelsBackofficeComponent,
+    RegisterHotelComponent
   ],
   imports: [
     CommonModule,

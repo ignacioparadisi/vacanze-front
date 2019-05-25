@@ -15,17 +15,41 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Equipment Claim</span>
     </a>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('pages')">
+          <i class="fa fa-plus"></i>&nbsp;
+          <span>Aviones y rutas</span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'pages'">
+          <ul class="submenu">
+              <li>
+                  <a routerLink="/grupo-tres/creacion" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <span>Creación de vuelos</span>
+                  </a>
+              </li>
+              <li>
+                  <a routerLink="/grupo-tres/listado" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <span>Listado de vuelos</span>
+                  </a>
+              </li>
+          </ul>
+      </li>
+  </div>
     <a (click)="openModal()" class="list-group-item">
       <i class="fa fa-fw fa-user"></i>&nbsp;
       <span>Registrar Usuario</span>
     </a>
-    <a routerLink="/view-hotels-backoffice" class="list-group-item">
+    <!-- <a (click)="openRegisterRestaurant()" class="list-group-item">
+      <i class="fa fa-fw fa-cutlery"></i>&nbsp;
+      <span>Registrar Restaurante</span>
+    </a> -->
+    <a routerLink="/administrar-hoteles" class="list-group-item">
       <i class="fa fa-bed"></i>&nbsp;
       <span>Hoteles</span>
     </a>
-    <a routerLink="/register-hotel" class="list-group-item">
-      <i class="fa fa-h-square"></i>&nbsp;
-      <span>Registrar Hotel</span>
+    <a routerLink="/restaurantes" class="list-group-item">
+      <i class="fa fa-fw fa-cutlery"></i>&nbsp;
+      <span>Restaurantes</span>
     </a>
     <a routerLink="/flight-reservations" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
@@ -46,6 +70,10 @@
     >
       <i class="fa fa-fw fa-ship"></i>&nbsp;
       <span>Cruceros</span>
+    </a>
+    <a routerLink="/travel" class="list-group-item">
+      <i class="fa fa-fw fa-calendar"></i>&nbsp;
+      <span>Viajes</span>
     </a>
   </div>
 </nav>
