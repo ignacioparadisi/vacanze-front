@@ -70,7 +70,7 @@
                                         <div class="form-group">
                                             <label for="">Ciudad de origen</label>
                                             <select class="form-control" formControlName="cityLlegada" [ngClass]="{'is-invalid': invalid('cityLlegada', form), 'is-valid': valid('cityLlegada', form)}">
-                                                <option *ngFor="let country of countrys">{{country.name}}</option>
+                                                <option *ngFor="let country of countries">{{country.name}}</option>
                                             </select>
                                             <div *ngIf="invalid('cityLlegada', form)" class="invalid-feedback">
                                                 Por favor seleccione una ciudad
@@ -85,7 +85,7 @@
                                             <div class="form-group">
                                                 <label for="">Avión</label>
                                                 <select class="form-control" formControlName="airplane" [ngClass]="{'is-invalid': invalid('airplane', form), 'is-valid': valid('airplane', form)}">
-                                                    <option *ngFor="let country of countrys">{{country.name}}</option>
+                                                    <option *ngFor="let country of countries">{{country.name}}</option>
                                                 </select>
                                                 <div *ngIf="invalid('airplane', form)" class="invalid-feedback">
                                                     Por favor seleccione un avión

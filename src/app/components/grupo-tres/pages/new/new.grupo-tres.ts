@@ -45,7 +45,7 @@ export class NewGrupoTres implements OnInit {
 
     public getAirplanes() {
         // API URL
-        let requestURL = '/posts';
+        const requestURL = '/posts';
         this.apiService.getUrl(requestURL).then(
             response => {
             this.airplanes = response;
@@ -58,7 +58,7 @@ export class NewGrupoTres implements OnInit {
     }
 
     public getCountries() {
-        let requestURL = 'http://country.io/names.json';
+        const requestURL = 'http://country.io/names.json';
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.countries = response;
@@ -96,7 +96,7 @@ export class NewGrupoTres implements OnInit {
         if (fechas === 1) {
             if (this.form.valid) {
                 console.log ('El formulario está completo');
-            } 
+            }
         } else {
             this.notifier.notify( 'success', 'La fecha de llegada no puede ser anterior a la de salida.' );
             console.log('La fecha de llegada no puede ser anterior a la de salida.');
@@ -106,7 +106,7 @@ export class NewGrupoTres implements OnInit {
     public invalid(controlName: string, form: FormGroup) {
         return form.get(controlName).touched && !form.get(controlName).valid;
     }
-    
+
     public valid(controlName: string, form: FormGroup) {
         return form.get(controlName).touched && form.get(controlName).valid;
     }
