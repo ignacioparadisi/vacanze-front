@@ -13,20 +13,18 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <p class=""><strong>Origen</strong></p>
-                                        <hr>
                                     </div>
                                     <div class="col-md-4">
                                         <p class=""><strong>Destino</strong></p>
-                                        <hr>
                                     </div>
                                     <div class="col-md-4">
                                         <p class=""><strong>Características</strong></p>
-                                        <hr>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
+                                            <label for="">País de origen</label>
                                             <select class="form-control" formControlName="countryOrigen" [ngClass]="{'is-invalid': invalid('countryOrigen', form), 'is-valid': valid('countryOrigen', form)}">
                                                 <option disabled selected>Seleccione un país</option>
                                                 <option *ngFor="let country of countrys">{{country.name}}</option>
@@ -41,6 +39,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
+                                            <label for="">Ciudad de origen</label>
                                             <select class="form-control" formControlName="cityOrigen" [ngClass]="{'is-invalid': invalid('cityOrigen', form), 'is-valid': valid('cityOrigen', form)}">
                                                 <option disabled selected>Seleccione un país</option>
                                                 <option *ngFor="let country of countrys">{{country.name}}</option>
@@ -55,16 +54,22 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <select class="form-control" formControlName="countryLlegada">
-                                                <option disabled selected>Seleccione un país</option>
+                                            <label for="">País de legada</label>
+                                            <select class="form-control" formControlName="countryLlegada" [ngClass]="{'is-invalid': invalid('countryLlegada', form), 'is-valid': valid('countryLlegada', form)}">
                                                 <option *ngFor="let country of countrys">{{country.name}}</option>
                                             </select>
+                                            <div *ngIf="invalid('countryLlegada', form)" class="invalid-feedback">
+                                                Por favor seleccione un país
+                                            </div>
+                                            <div *ngIf="valid('countryLlegada', form)" class="valid-feedback">
+                                                ¡Excelente!
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
+                                            <label for="">Ciudad de origen</label>
                                             <select class="form-control" formControlName="cityLlegada" [ngClass]="{'is-invalid': invalid('cityLlegada', form), 'is-valid': valid('cityLlegada', form)}">
-                                                <option disabled selected>Seleccione un país</option>
                                                 <option *ngFor="let country of countrys">{{country.name}}</option>
                                             </select>
                                             <div *ngIf="invalid('cityLlegada', form)" class="invalid-feedback">
@@ -78,19 +83,29 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <div class="form-group">
-                                                <select class="form-control" formControlName="airplane">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <label for="">Avión</label>
+                                                <select class="form-control" formControlName="airplane" [ngClass]="{'is-invalid': invalid('airplane', form), 'is-valid': valid('airplane', form)}">
+                                                    <option *ngFor="let country of countrys">{{country.name}}</option>
                                                 </select>
+                                                <div *ngIf="invalid('airplane', form)" class="invalid-feedback">
+                                                    Por favor seleccione un avión
+                                                </div>
+                                                <div *ngIf="valid('airplane', form)" class="valid-feedback">
+                                                    ¡Excelente!
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Precio" formControlName="price">
+                                            <label for="">Precio</label>
+                                            <input type="text" class="form-control" placeholder="Precio" formControlName="price" [ngClass]="{'is-invalid': invalid('price', form), 'is-valid': valid('price', form)}">
+                                            <div *ngIf="invalid('price', form)" class="invalid-feedback">
+                                                Por favor seleccione el precio
+                                            </div>
+                                            <div *ngIf="valid('price', form)" class="valid-feedback">
+                                                ¡Excelente!
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { COUNTRYS, HOURS, MINUTES } from '../../../../utils/select.util';
 import { ApiService } from '../../../../services/api.service';
 import * as moment from 'moment';
 import { NotifierService } from 'angular-notifier';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -43,7 +44,10 @@ export class NewGrupoTres implements OnInit {
     }
 
     public getAirplanes() {
-        this.apiService.getUrl('/api/airplanes/').subscribe(
+        // API URL
+        let requestURL = '/api/airplanes/';
+        let headers = new Headers({'Content-Type': 'application/json'});
+        this.apiService.getUrl(requestURL).then(
             response => {
             this.airplanes = response.result.airplanes;
             },
@@ -80,7 +84,7 @@ export class NewGrupoTres implements OnInit {
         var fechas = this.compare(salida, llegada);
         if (fechas === 1) {
             if (this.form.valid) {
-            this.apiService.postUrl('api/blabla.', payload).subscribe(
+            this.apiService.postUrl('api/blabla.', payload).then(
                 response => {
                 console.log('éxitoso');
                 },
@@ -93,7 +97,7 @@ export class NewGrupoTres implements OnInit {
             }
         } else {
             this.notifier.notify( 'success', 'You are awesome! I mean it!' );
-            console.log("Fechas es falso");
+            console.log('Fechas es falso');
         }
     }
 
