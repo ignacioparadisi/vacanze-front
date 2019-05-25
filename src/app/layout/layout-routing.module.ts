@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule, UrlSegment } from "@angular/router";
 import { LayoutComponent } from "./layout.component";
 
+
 const routes: Routes = [
   {
     path: "",
@@ -10,6 +11,11 @@ const routes: Routes = [
       /* Inicio */
       {
         path: "",
+        redirectTo: '/grupo-uno',
+        pathMatch: 'full'
+      },
+      {
+        path: "/home",
         loadChildren: "../components/home/home.module#HomeModule"
       },
       {
