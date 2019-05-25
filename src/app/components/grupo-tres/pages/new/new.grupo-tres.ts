@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { COUNTRYS, HOURS, MINUTES } from '../../../../utils/select.util';
 import { ApiService } from '../../../../services/api.service';
 import * as moment from 'moment';
-import { NotifierService } from 'angular-notifier';
 import { Subscription } from 'rxjs';
 
 
@@ -24,8 +23,7 @@ export class NewGrupoTres implements OnInit {
     public contactList: FormArray;
     private readonly notifier: NotifierService;
 
-    constructor(private modalService: NgbModal, private fb: FormBuilder, private apiService: ApiService, notifierService: NotifierService) {
-        this.notifier = notifierService;
+    constructor(private modalService: NgbModal, private fb: FormBuilder, private apiService: ApiService) {
     }
 
     ngOnInit() {
@@ -99,7 +97,6 @@ export class NewGrupoTres implements OnInit {
                 console.log ('El formulario está completo');
             }
         } else {
-            this.notifier.notify( 'success', 'La fecha de llegada no puede ser anterior a la de salida.' );
             console.log('La fecha de llegada no puede ser anterior a la de salida.');
         }
     }

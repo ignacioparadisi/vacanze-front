@@ -9,7 +9,7 @@ import { GrupoTresRoutingModule } from './grupo-tres-routing.module';
 import { NewGrupoTres } from '../grupo-tres/pages/new/new.grupo-tres';
 import { ListGrupoTres } from '../grupo-tres/pages/list/list.grupo-tres';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NotifierModule } from 'angular-notifier';
+
 
 
 
@@ -21,7 +21,6 @@ import { NotifierModule } from 'angular-notifier';
     HttpClientModule,
     NgbModule,
     NgSelectModule,
-    NotifierModule,
     ReactiveFormsModule,
     SweetAlert2Module.forRoot(),
     GrupoTresRoutingModule

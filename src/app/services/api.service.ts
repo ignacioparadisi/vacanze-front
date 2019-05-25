@@ -26,7 +26,7 @@ export class ApiService {
                 url = url.replace(/{[a-zA-Z_]*}/, p);
             });
         }
-        return <Promise<any>>this.http.get(this.apiName + url).toPromise();
+        return <Promise<any>>this.http.get(url).toPromise();
     }
 
     /*******************************************************
