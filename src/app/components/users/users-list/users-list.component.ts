@@ -27,6 +27,7 @@ export class UsersListComponent implements OnInit {
   openAddUserModal(user?: User) {
     const modalRef = this.modalService.open(RegisterUserComponent);
     modalRef.componentInstance.user = user;
+    modalRef.componentInstance.isClient = false;
   }
 
   /**************************************************************************

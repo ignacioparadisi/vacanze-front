@@ -7,7 +7,7 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="modal-body table-responsive">
     <!-- Role Field -->
-    <div class="row">
+    <div *ngIf="!isClient" class="row">
       <div class="col-md-12">
         <div class="form-group">
           <select class="form-control" formControlName="role" [ngClass]="{
@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <!-- <div class="row">
+    <div *ngIf="isClient" class="row">
       <div class="col-md-12">
         <div class="form-group">
           <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" [ngClass]="{
@@ -119,7 +119,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div *ngIf="isClient" class="row">
       <div class="col-md-12">
         <div class="form-group">
           <input type="password" class="form-control" placeholder="Confirmar Contraseña"
@@ -134,7 +134,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="row">
       <div class="col-md-12 text-center">

@@ -1,6 +1,6 @@
 import { ApiService } from 'src/app/services/api.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterUserComponent } from './components/users/register-user/register-user.component';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterUserComponent],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     NgbModalModule,

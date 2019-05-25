@@ -17,5 +17,6 @@ export class LoginComponent implements OnInit {
 
   openRegisterModal() {
     const modalRef = this.modalService.open(RegisterUserComponent);
+    modalRef.componentInstance.isClient = true;
   }
 }

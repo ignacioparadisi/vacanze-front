@@ -13,6 +13,7 @@ import { User } from 'src/app/classes/user';
 export class RegisterUserComponent implements OnInit {
 
   @Input() user: User;
+  @Input() isClient: boolean;
 
   public submitted: boolean = false;
   public formGroup: FormGroup;
@@ -55,13 +56,14 @@ export class RegisterUserComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      // TODO: Validar el formato que debe tener la contraseña
-      // password: new FormControl(null, [
-      //   Validators.required,
-      //   Validators.minLength(8)
-      // ]),
-      // confirmPassword: new FormControl(null, [Validators.required])
     });
+
+    if (this.isClient) {
+      // TODO: Validar el formato que debe tener la contraseña
+      this.formGroup.get('role').setValue(0);
+      this.formGroup.addControl('password', new FormControl(null, [Validators.required, Validators.minLength(8)]));
+      this.formGroup.addControl('confirmPassword', new FormControl(null, [Validators.required]));
+    }
   }
 
   private fillFormGroup() {
