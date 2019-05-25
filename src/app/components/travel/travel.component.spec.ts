@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActionAlerterComponent } from './action-alerter.component';
+import { TravelComponent } from './travel.component';
 
-describe('ActionAlerterComponent', () => {
-  let component: ActionAlerterComponent;
-  let fixture: ComponentFixture<ActionAlerterComponent>;
+describe('TravelComponent', () => {
+  let component: TravelComponent;
+  let fixture: ComponentFixture<TravelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActionAlerterComponent ]
+      declarations: [ TravelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActionAlerterComponent);
+    fixture = TestBed.createComponent(TravelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

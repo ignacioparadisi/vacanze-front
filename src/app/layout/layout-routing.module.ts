@@ -41,11 +41,6 @@ const routes: Routes = [
           '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },
       {
-        path: 'register-hotel',
-        loadChildren:
-          '../components/register-hotel/register-hotel.module#RegisterHotelModule'
-      },
-      {
         path: 'flight-reservations',
         loadChildren:
           '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
@@ -59,9 +54,18 @@ const routes: Routes = [
         loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       },
       {
+        path: 'travel',
+        loadChildren: '../components/travel/travel.module#TravelModule'
+      },
+      {
         path: 'grupo-once-pago',
         loadChildren:
         '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
+      },
+      {
+        path: 'restaurantes',
+        loadChildren:
+        '../components/restaurantes/restaurantes.module#RestaurantesModule'
       }
     ]
   }

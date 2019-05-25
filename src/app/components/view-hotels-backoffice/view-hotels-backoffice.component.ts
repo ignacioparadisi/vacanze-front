@@ -4,11 +4,10 @@ import { Role } from 'src/app/classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
+import { Router } from '@angular/router';
 
 //tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
-//alertas reutilizables
-import { ActionAlerterComponent } from '../../blocks/action-alerter/action-alerter.component'
 
 
 @Component({
@@ -22,22 +21,19 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   private tableData: Array<Object>;
   private headerTitle: string;
 
-  //configuraciones de los sweetalert
-  private deleteAlertConfiguration:SweetAlertOptions = {};
-
-  //la accion que le llega de actionalerter para ejecutar sobre un registro
+  //la accion que le llega de table-responsive
   public actionAlert: string;
 
+  //para saber si está editanto un hotel
+  public isEditingHotel: boolean;
 
   ngOnInit() {
   }
 
-  constructor() {
-    /*
+  constructor(private router: Router) {
     this.headerTitle = "Lista de hoteles";
     this.tableHotelsHeader = this.getTableHeaders();
     this.tableData = this.getExampleData();
-    this.deleteAlertConfiguration = this.deleteAlertParams();*/
   }
 
 
@@ -46,6 +42,20 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     console.log(this.actionAlert);
   }
 
+
+  public getCurrentRoute(route){
+    if(route === '/agregar-hotel'){
+      this.isEditingHotel = true;
+      this.router.navigate(['administrar-hoteles','agregar-hotel']);
+    }
+    else {
+      this.isEditingHotel = false;
+    }
+  }
+
+  public getDeactivatedComponent(component){
+    this.getCurrentRoute('/administrar-hoteles');
+  }
 
   private getExampleData(){
     return [
@@ -76,29 +86,15 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     ];
   }
 
-
-  //despues se puede crear un servicio
   private getTableHeaders(){
     return [
       "#",
       "Nombre",
-      "Cap. de Huéspedes",
+      "Habitaciones",
       "Teléfono",
       "Sitio Web",
       "Status"
     ];
-  }
-
-  //opciones del popUp de eliminar
-  private deleteAlertParams(){
-    return {
-      title: 'Desea eliminar el hotel?',
-      confirmButtonText: 'Si, estoy seguro',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: 'true',
-      type: 'question',
-      focusCancel: 'true'
-    };
   }
 
   public getHotels(){
@@ -111,10 +107,6 @@ export class ViewHotelsBackofficeComponent implements OnInit {
 
   public getHeaderTitle(){
     return this.headerTitle;
-  }
-
-  public getDeleteAlertConfiguration(){
-    return this.deleteAlertConfiguration;
   }
 
 }
