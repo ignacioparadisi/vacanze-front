@@ -54,6 +54,10 @@ const routes: Routes = [
         loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       },
       {
+        path: 'travel',
+        loadChildren: '../components/travel/travel.module#TravelModule'
+      },
+      {
         path: 'grupo-once-pago',
         loadChildren:
         '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
