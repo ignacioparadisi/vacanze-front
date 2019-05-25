@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-grupo-ocho-cruceros',
@@ -9,68 +10,25 @@ import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-r
 
 export class GrupoOchoCrucerosComponent implements OnInit {
 
-  private tableBoatsHeader: Array<String>;
-  private tableData: Array<Object>;
-  private headerTitle: string;
+  public isRoomActive: boolean; // Variable para saber si cambio a la vista de habitaciones
 
-  constructor() { 
-    this.headerTitle = "Lista de cruceros";
-
-    // Headers de la tabla dinamica
-    this.tableBoatsHeader = [
-      "#",
-      "Nombre",
-      "Cap. de pasajeros",
-      "Cap. de carga",
-      "Modelo",
-      "Linea",
-      "Status"
-    ];
-
-    this.tableData = [
-      {
-        "id" : 1,
-        "name": "Queen Elizabeth",
-        "passangers_capacity": 1500,
-        "overload_capacity": 5400,
-        "model": "Loyalty Tour",
-        "line": "Tourist C.A.",
-        "status": "Active"
-      },
-      {
-        "id" : 2,
-        "name": "Queen Mary",
-        "passangers_capacity": 1123,
-        "overload_capacity": 6350,
-        "model": "Loyalty Tour",
-        "line": "Anyone",
-        "status": "Active"
-      },
-      {
-        "id" : 3,
-        "name": "Liberty of the Seas",
-        "passangers_capacity": 1123,
-        "overload_capacity": 6350,
-        "model": "Loyalty Tour",
-        "line": "Another one",
-        "status": "Inactive"
-      },
-    ]
+  constructor(private router: Router){
+    this.isRoomActive = false;
   }
 
-  ngOnInit() {
+  ngOnInit(){ }
+
+  public getCurrentRoute(route){
+    if(route === '/habitaciones'){
+      this.isRoomActive = true;
+      this.router.navigate(['cruceros', 'habitaciones']);
+    }
+    else {
+      this.isRoomActive = false;
+    }
   }
 
-
-  public getBoats(){
-    return this.tableData;
-  }
-
-  public getHeaderBoats(){
-    return this.tableBoatsHeader;
-  }
-
-  public getHeaderTitle(){
-    return this.headerTitle;
+  public getDeactivatedComponent(component){
+    this.getCurrentRoute('/cruceros');
   }
 }
