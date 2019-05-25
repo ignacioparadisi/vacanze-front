@@ -9,6 +9,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
+
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="modal-body table-responsive">
     <!-- Role Field -->
@@ -55,10 +56,7 @@
               'is-valid': !form['documentId'].errors
             }"
           />
-          <div
-            *ngIf="submitted && form['documentId'].errors"
-            class="invalid-feedback"
-          >
+          <div *ngIf="submitted && form['documentId'].errors" class="invalid-feedback">
             <div *ngIf="form['documentId'].errors.required">
               La cédula de identidad es requerida
             </div>

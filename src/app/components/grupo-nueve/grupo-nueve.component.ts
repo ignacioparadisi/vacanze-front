@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService} from 'src/app/services/api.service';
-import { HttpClient, HttpHeaders, HttpClientModule, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment as url} from '../../../environments/environment'
+import { Claim } from "src/app/classes/claim";
+import { Role } from "src/app/classes/role";
+import { environment as url} from '../../../environments/environment';
 
 @Component({
   selector: 'app-grupo-nueve',
@@ -12,28 +12,24 @@ import { environment as url} from '../../../environments/environment'
   styleUrls: ['./grupo-nueve.component.scss']
 })
 export class GrupoNueveComponent implements OnInit {
-
-  public form: FormGroup;
+  public submitted: boolean = false;
+  public formGroup: FormGroup;
   public closeResult: string;
-  public id;
-  public rec_titulo;
-  public rec_descr;
-  public claim : any = null;
+  public claims : Claim[] = [];
+
   constructor(private modalService: NgbModal,
-     public http: HttpClient, 
      private service: ApiService)
   {}
 
   ngOnInit() {
     //this.service.deleteClaim({rec_titulo:'titulo', rec_descr:'elias y jorge', rec_status:'ABIERTO'});
     
-    this.service.getUrl(url.endpoint.default._get.getClaim).then(data =>{this.claim=data})
+    this.service.getUrl(url.endpoint.default._get.getClaim).then(data =>{this.claims=data})
 
-    this.form = new FormGroup({
-        nacionalidad: new FormControl(-1, [Validators.required]),
-        pasaporte: new FormControl(null, [Validators.required]),
-        cedula: new FormControl(null, [Validators.required])
-      })
+    this.formGroup = new FormGroup({
+      titulo: new FormControl(null, [Validators.required]),
+      descripcion: new FormControl(null, [Validators.required])
+    });
   }
 
   open(content) {
@@ -43,19 +39,18 @@ export class GrupoNueveComponent implements OnInit {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
   }
-
-  getClaim(){
-    
-    this.claim={aja: 'aaass', pero: 'jejeje'};
-  }
+  
   postClaim(){
+    this.submitted = true;
     this.service
-    .postUrl(url.endpoint.default._post.postClaim,{titulo:this.rec_titulo, descripcion:this.rec_descr,status:'ABIERTO'})
+    .postUrl(url.endpoint.default._post.postClaim,{titulo: this.formGroup.get('titulo').value,
+                                                   descripcion: this.formGroup.get('descripcion').value,
+                                                   status:'ABIERTO'})
     .then(response => {console.log(response)});
   }
 
   deleteClaim(){
-    this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [this.id])
+    this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, ['45'])
     .then(response => {console.log(response)});
   }
 
@@ -307,7 +302,7 @@ pagina = document.getElementById('equipajeLista');
     }
   }
 
-  
+ 
   
 
 }

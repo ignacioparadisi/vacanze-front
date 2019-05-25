@@ -36,21 +36,6 @@
   </div> 
 </div>
 
-
-
-    <input [(ngModel)]="rec_titulo" type="text" class="form-control input-lg"
-    placeholder="Introduzca titulo de Claim">
-    <input [(ngModel)]="rec_descr" type="text" class="form-control input-lg"
-    placeholder="Introduzca descripcion">
-  <button style="margin-top:10px" class="btn btn-primary" (click)="postClaim()">
-    Post
-  </button>
-  <br> <br>
-
-   <input [(ngModel)]="id" type="text" class="form-control input-lg"
-    placeholder="Introduzca el id del Claim">
-  <button class="btn btn-danger" style="margin-top:10px" (click)="deleteClaim()">Eliminar</button>
-
 <div id = "paginaCliente" style = "display:none">
 <div class="row">
 <div class="col-md-12">
@@ -87,14 +72,13 @@
             <p> Consultar lista de equipajes por:</p>
             <label>
                 <input id="check_documento" type="checkbox" 
-                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Documento(s) 
+                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Document 
             </label>
             <br>
             <label>
               <input id="check_serial" value="checkedValue" type="checkbox"
-              (change)="checkeadoSerial($event)"> Serial de Equipaje
-            </label>
-            
+              (change)="checkeadoSerial($event)"> Equipment Serial
+            </label>       
           </div>
       </div>
     </div>
@@ -104,10 +88,10 @@
       <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-body table-responsive" style="text-align: justify">
-              <form [formGroup]="form" >
+              <form [formGroup]="formGroup" >
                 <div class="col-lg-12 text-center">
                     <div class="form-group">
-                        <select class="form-control" formControlName="nacionalidad">
+                        <select class="form-control">
                           <option value="-1" disabled> Nacionalidad</option>
                           <option value="0">V</option>
                           <option value="1">E</option>
@@ -136,12 +120,12 @@
         </div>
       </div>
     </div>
-    
+   
     <div id = "serial" class="row" style="width: 50%; display:none">
       <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-body table-responsive" style="text-align: justify">
-              <form [formGroup]="form" >
+              <form>
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
                         <input type="text" class="form-control" 
@@ -155,7 +139,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
     <div id = "equipajeLista" class="row" style="display:none">
@@ -168,7 +151,7 @@
                 margin-top: 3px;
                 margin-right: 3px" 
                 src="../assets/images/lista.png" alt="">
-                Listado de Equipajes de Usuario
+                List of user equipment
             </div>
             <div class="card-body table-responsive">
                 <table class="table">
@@ -232,46 +215,37 @@
             margin-top: 3px;
             margin-right: 3px" 
             src="../assets/images/crear.png" alt="">
-             Crear Claim
-          </div>
-          
+             Create Claim
+          </div>     
           <div class="card-body table-responsive">
-            <form [formGroup]="form" class="form-group">
+            <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">       
               <div class="col text-center">
-                  <div class="form-group">
-                            <select class="form-control" formControlName="nacionalidad">
-                              <option value="-1">Nacionalidad</option>
-                              <option value="0">V</option>
-                              <option value="1">E</option>
-                            </select>
+                <div class="form-group">
+                  <input type="text" class="form-control input-lg" placeholder="Titulo" 
+                  formControlName="titulo" 
+                  [ngClass]="{
+                    'is-invalid': false,
+                    'is-valid': !formGroup.get('titulo').hasError('required')
+                  }">
+                </div>  
+                <div class="form-group">
+                  <input type="text" class="form-control input-lg" placeholder="Descripción" 
+                  formControlName="descripcion"
+                  [ngClass]="{
+                    'is-invalid': false,
+                    'is-valid': !formGroup.get('descripcion').hasError('required')
+                  }">
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-success" *ngIf="formGroup.invalid" type="submit" disabled>
+                                  Create Claim</button>
+                    <button class="btn btn-success" *ngIf="!formGroup.invalid" type="submit">
+                                  Create Claim</button>
                   </div>
-
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Titulo">
-                  </div>
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Pasaporte">
-                  </div>      
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Descripción">
-                  </div>
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Estado">
-                  </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <swal
-                  #addSwal1
-                  title="Claim Creado Satisfactoriamente"
-                  type="success"
-                  showConfirmButton=false
-                  timer=2500>
-                </swal>
-                <button style="margin-right:45%" class="btn btn-success float-right" [swal]="addSwal1">Crear</button>
+                </div>
+                <div style="color:green; margin-top:5px" *ngIf="submitted">
+                    Claim Registered Successful
                 </div>
               </div>
             </form>
@@ -304,12 +278,12 @@
                   </thead>
                   <tbody>
                       
-                  <tr *ngFor="let item of claim; let indice=index">
+                  <tr *ngFor="let claim of claims; let indice=index">
                       <th scope="row">{{indice+1}}</th>
-                      <td >{{item.id}}</td>
-                      <td>{{item._title }}</td>
-                      <td>{{item._description}}</td>
-                      <td>{{item._status}}</td>
+                      <td >{{claim.id}}</td>
+                      <td>{{claim._title }}</td>
+                      <td>{{claim._description}}</td>
+                      <td>{{claim._status}}</td>
                       <td>
                         <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                         <swal
