@@ -41,11 +41,12 @@ export class NewGrupoTres implements OnInit {
             durationHours: [null, Validators.compose([Validators.required])],
             durationMinutes: [null, Validators.compose([Validators.required])],
         });
+        this.getAirplanes();
     }
 
     public getAirplanes() {
         // API URL
-        const requestURL = '/posts';
+        const requestURL = '/api/airplanes';
         this.apiService.getUrl(requestURL).then(
             response => {
             this.airplanes = response;
@@ -94,7 +95,7 @@ export class NewGrupoTres implements OnInit {
         var llegada = parseInt(payload.llegada.date() + (payload.llegada.month() + 1), 10);
         var fechas = this.compare(salida, llegada);
         if (fechas === 1) {
-            if (this.form.valid) {
+            if (this.form.valid) { ///api/flights
                 console.log ('El formulario está completo');
             }
         } else {
