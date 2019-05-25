@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     font-family: 'Rubik', sans-serif;
-    
+
 }
 .loginContainer{
     background-color:  rgba(189, 189, 192, 0.753);
@@ -35,23 +35,23 @@
 
 .titleLogin{
     background-color: #3cd3f2;
-    
+
     font-size: 24px;
     text-align: center;
     color: #ffffff;
-    
+
     border-radius: 10px;
 }
 
 .containerSon{
-    
+
     position: absolute;
     top:70%;
     left: 40%;
     margin: 0;
     width: 400px;
-    
-    
+
+
 }
 .forgotP{
     float: right;
@@ -80,7 +80,7 @@ button{
     border-radius: 10px;
     padding: 7px;
     color: #ffffff;
-  
+
 }
 .annunciation{
     border-top: 3px solid #000;
@@ -91,7 +91,7 @@ button{
     color: #ffffff;
     font-weight: bold;
     font-size: 20px;
-    
+
 }
 .buttonLink{
     float: left;
@@ -104,5 +104,10 @@ button{
     padding: 7px;
     color:#ffffff;
     margin-top: 40px;
+}
+
+.clickable {
+  cursor: pointer;
+  color: blue;
 }
 

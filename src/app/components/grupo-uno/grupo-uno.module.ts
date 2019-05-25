@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { GrupoUnoRoutingModule } from './grupo-uno-routing.module';
@@ -18,4 +18,4 @@ import { LoginComponent } from './login/login.component';
   ],
   providers: []
 })
-export class GrupoUnoModule {}
+export class GrupoUnoModule { }

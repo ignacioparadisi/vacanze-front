@@ -4,8 +4,8 @@ import { GrupoUnoComponent } from './grupo-uno.component';
 
 const routes: Routes = [
   {
-      path: '',
-      component: GrupoUnoComponent
+    path: '',
+    component: GrupoUnoComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class GrupoUnoRoutingModule {}
+export class GrupoUnoRoutingModule { }

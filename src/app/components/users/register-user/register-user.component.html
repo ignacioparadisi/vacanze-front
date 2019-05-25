@@ -1,11 +1,6 @@
 <div class="modal-header">
   <h4>Registro</h4>
-  <button
-    type="button"
-    class="close"
-    aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"
-  >
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -15,23 +10,16 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <select
-            class="form-control"
-            formControlName="role"
-            [ngClass]="{
+          <select class="form-control" formControlName="role" [ngClass]="{
               'is-invalid': submitted && form['role'].errors,
               'is-valid': !form['role'].errors
-            }"
-          >
+            }">
             <option value="-1" disabled>Seleccione un rol</option>
             <option *ngFor="let role of roles" value="{{ role.id }}">{{
               role.name
             }}</option>
           </select>
-          <div
-            *ngIf="submitted && form['role'].errors"
-            class="invalid-feedback"
-          >
+          <div *ngIf="submitted && form['role'].errors" class="invalid-feedback">
             <div *ngIf="form['role'].errors.min">
               Se debe seleccionar un rol
             </div>
@@ -44,21 +32,12 @@
       <!-- Document ID Field -->
       <div class="col-md-12">
         <div class="form-group">
-          <input
-            mdbInput
-            type="number"
-            class="form-control"
-            placeholder="Cédula de indentidad"
-            formControlName="documentId"
-            [ngClass]="{
+          <input mdbInput type="number" class="form-control" placeholder="Cédula de indentidad"
+            formControlName="documentId" [ngClass]="{
               'is-invalid': submitted && form['documentId'].errors,
               'is-valid': !form['documentId'].errors
-            }"
-          />
-          <div
-            *ngIf="submitted && form['documentId'].errors"
-            class="invalid-feedback"
-          >
+            }" />
+          <div *ngIf="submitted && form['documentId'].errors" class="invalid-feedback">
             <div *ngIf="form['documentId'].errors.required">
               La cédula de identidad es requerida
             </div>
@@ -71,20 +50,11 @@
       <!-- Name Field -->
       <div class="col-md-12">
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Nombre"
-            formControlName="name"
-            [ngClass]="{
+          <input type="text" class="form-control" placeholder="Nombre" formControlName="name" [ngClass]="{
               'is-invalid': submitted && form['name'].errors,
               'is-valid': !form['name'].errors
-            }"
-          />
-          <div
-            *ngIf="submitted && form['name'].errors"
-            class="invalid-feedback"
-          >
+            }" />
+          <div *ngIf="submitted && form['name'].errors" class="invalid-feedback">
             <div *ngIf="form['name'].errors.required">
               El nombre es requerido
             </div>
@@ -97,20 +67,11 @@
       <!-- Lastname Field -->
       <div class="col-md-12">
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Apellido"
-            formControlName="lastname"
-            [ngClass]="{
+          <input type="text" class="form-control" placeholder="Apellido" formControlName="lastname" [ngClass]="{
               'is-invalid': submitted && form['lastname'].errors,
               'is-valid': !form['lastname'].errors
-            }"
-          />
-          <div
-            *ngIf="submitted && form['lastname'].errors"
-            class="invalid-feedback"
-          >
+            }" />
+          <div *ngIf="submitted && form['lastname'].errors" class="invalid-feedback">
             <div *ngIf="form['lastname'].errors.required">
               El apellido es requerido
             </div>
@@ -123,20 +84,11 @@
       <!-- Email Field -->
       <div class="col-md-12">
         <div class="form-group">
-          <input
-            type="email"
-            class="form-control"
-            placeholder="Correo Electrónico"
-            formControlName="email"
-            [ngClass]="{
+          <input type="email" class="form-control" placeholder="Correo Electrónico" formControlName="email" [ngClass]="{
               'is-invalid': submitted && form['email'].errors,
               'is-valid': !form['email'].errors
-            }"
-          />
-          <div
-            *ngIf="submitted && form['email'].errors"
-            class="invalid-feedback"
-          >
+            }" />
+          <div *ngIf="submitted && form['email'].errors" class="invalid-feedback">
             <div *ngIf="form['email'].errors.required">
               El correo electrónico es requerido
             </div>
@@ -148,24 +100,14 @@
       </div>
     </div>
 
-    <div class="row">
-      <!-- Password Field -->
+    <!-- <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <input
-            type="password"
-            class="form-control"
-            placeholder="Contraseña"
-            formControlName="password"
-            [ngClass]="{
+          <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" [ngClass]="{
               'is-invalid': submitted && form['password'].errors,
               'is-valid': !form['password'].errors
-            }"
-          />
-          <div
-            *ngIf="submitted && form['password'].errors"
-            class="invalid-feedback"
-          >
+            }" />
+          <div *ngIf="submitted && form['password'].errors" class="invalid-feedback">
             <div *ngIf="form['password'].errors.required">
               La contraseña es requerida
             </div>
@@ -178,40 +120,25 @@
     </div>
 
     <div class="row">
-      <!-- Confirm Password Field -->
       <div class="col-md-12">
         <div class="form-group">
-          <input
-            type="password"
-            class="form-control"
-            placeholder="Confirmar Contraseña"
-            formControlName="confirmPassword"
-            [ngClass]="{
+          <input type="password" class="form-control" placeholder="Confirmar Contraseña"
+            formControlName="confirmPassword" [ngClass]="{
               'is-invalid': submitted && form['confirmPassword'].errors,
               'is-valid': !form['confirmPassword'].errors
-            }"
-          />
-          <div
-            *ngIf="submitted && form['confirmPassword'].errors"
-            class="invalid-feedback"
-          >
+            }" />
+          <div *ngIf="submitted && form['confirmPassword'].errors" class="invalid-feedback">
             <div *ngIf="form['confirmPassword'].errors.required">
               La confirmación de la contraseña es requerida
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="row">
       <div class="col-md-12 text-center">
-        <swal
-          #addSwal
-          title="Usuario creado de manera exitosa"
-          type="success"
-          showConfirmButton="false"
-          timer="2500"
-        >
+        <swal #addSwal title="Usuario creado de manera exitosa" type="success" showConfirmButton="false" timer="2500">
         </swal>
 
         <!-- [swal]="addSwal" -->
