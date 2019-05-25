@@ -27,15 +27,30 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <select class="form-control" formControlName="countryOrigen">
+                                            <select class="form-control" formControlName="countryOrigen" [ngClass]="{'is-invalid': invalid('countryOrigen', form), 'is-valid': valid('countryOrigen', form)}">
                                                 <option disabled selected>Seleccione un país</option>
                                                 <option *ngFor="let country of countrys">{{country.name}}</option>
                                             </select>
+                                            <div *ngIf="invalid('countryOrigen', form)" class="invalid-feedback">
+                                                Por favor seleccione un país
+                                            </div>
+                                            <div *ngIf="valid('countryOrigen', form)" class="valid-feedback">
+                                                ¡Excelente!
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Ciudad" formControlName="cityOrigen">
+                                            <select class="form-control" formControlName="cityOrigen" [ngClass]="{'is-invalid': invalid('cityOrigen', form), 'is-valid': valid('cityOrigen', form)}">
+                                                <option disabled selected>Seleccione un país</option>
+                                                <option *ngFor="let country of countrys">{{country.name}}</option>
+                                            </select>
+                                            <div *ngIf="invalid('cityOrigen', form)" class="invalid-feedback">
+                                                Por favor seleccione una ciudad
+                                            </div>
+                                            <div *ngIf="valid('cityOrigen', form)" class="valid-feedback">
+                                                ¡Excelente!
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -48,7 +63,16 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Ciudad" formControlName="cityLlegada">
+                                            <select class="form-control" formControlName="cityLlegada" [ngClass]="{'is-invalid': invalid('cityLlegada', form), 'is-valid': valid('cityLlegada', form)}">
+                                                <option disabled selected>Seleccione un país</option>
+                                                <option *ngFor="let country of countrys">{{country.name}}</option>
+                                            </select>
+                                            <div *ngIf="invalid('cityLlegada', form)" class="invalid-feedback">
+                                                Por favor seleccione una ciudad
+                                            </div>
+                                            <div *ngIf="valid('cityLlegada', form)" class="valid-feedback">
+                                                ¡Excelente!
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -71,35 +95,35 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <p class=""><strong>Duración</strong></p>
                                         <hr>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="" class="mb-3">Fecha de salida</label>
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input type="datetime-local" value="2019-06-12T19:30" min="2019-05-10T00:00" class="form-control" formControlName="dateSalida">
+                                                <input type="datetime-local" class="form-control" formControlName="dateSalida">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="" class="mb-3">Fecha de llegada</label>
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input type="datetime-local" value="2019-06-13T19:30" min="2019-05-10T00:00" class="form-control" formControlName="dateLlegada">
+                                                <input type="datetime-local" class="form-control" formControlName="dateLlegada">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="" class="mb-3 d-block">Duración (Horas)</label>
                                         <select class="form-control select-menor float-left mr-4" formControlName="durationHours">
                                             <option *ngFor="let hour of hours">{{hour.hour}}</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="" class="mb-3 d-block">Duración (Minutos)</label>
                                         <select name="" id="" class="form-control select-menor float-left" formControlName="durationMinutes">
                                             <option *ngFor="let minute of minutes">{{minute.minute}}</option>
