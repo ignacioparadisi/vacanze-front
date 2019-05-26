@@ -1,0 +1,59 @@
+<div id="fondo"> 
+  <div class="container-fluid" >
+    <h1 class="page-header-title">Find your table for any occasion</h1>
+    <div class="row form-group ml-3 mr-3" id="center-form">
+      <div class="col ">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+          <input type="date" class="form-control" name="fechaReserva">  
+        </div>
+      </div>
+
+      <div class="col ">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-hourglass-half" aria-hidden="true"></i></div>
+          <select class="form-control custom-select mr-sm-2" id="horaReserva" >
+            <option value="-1" selected>Hora</option>
+            <option value="12">12:00 pm</option>
+            <option value="1" >1:00 pm</option>
+            <option value="2" >2:00 pm</option>
+            <option value="3" >3:00 pm</option>
+            <option value="4" >4:00 pm</option>
+            <option value="5" >5:00 pm</option>
+            <option value="6" >6:00 pm</option>
+            <option value="7" >7:00 pm</option>
+            <option value="8" >8:00 pm</option>
+            <option value="9" >9:00 pm</option>
+            <option value="10" >10:00 pm</option>
+            <option value="11" >11:00 pm</option>
+          </select>
+        </div> 
+      </div>
+
+      <div class="col ">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-users" aria-hidden="true"></i></div>
+          <select class="form-control custom-select mr-sm-2" id="cantidadPersonas">
+            <option value="-1" selected>Cantidad</option>
+            <option value="1">1 people</option>
+            <option value="2" >2 people</option>
+            <option value="3" >3 people</option>
+            <option value="4" >4 people</option>
+            <option value="5" >5 people</option>
+            <option value="Large party">Large party</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col mx-sm-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+          <input type="text" class="form-control" id="ciudad" placeholder="City" required>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-danger mb-3">Let's go</button>
+  </div>
+</div>
+
+<app-reservar-restaurant></app-reservar-restaurant>

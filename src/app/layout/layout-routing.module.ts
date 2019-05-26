@@ -66,6 +66,11 @@ const routes: Routes = [
         path: 'restaurantes',
         loadChildren:
         '../components/restaurantes/restaurantes.module#RestaurantesModule'
+      },
+      {
+        path: 'restaurant-reservation',
+        loadChildren: 
+        '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
       }
     ]
   }
