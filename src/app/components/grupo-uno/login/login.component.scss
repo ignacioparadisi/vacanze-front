@@ -1,7 +1,13 @@
-
+.padre {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
 
 
 .page-content{
     background-color: #6262b881;
     padding: 20px;
+    border-radius: 30px;
+    //display: inline-block;
 }
