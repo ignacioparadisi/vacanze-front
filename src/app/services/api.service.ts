@@ -10,7 +10,6 @@ export class ApiService {
     private apiName = environment.baseApiUrl;
     private myInit = {
         headers: {
-          'x-api-key': environment.apiKey,
             'Access-Control-Allow-Origin': 'http://localhost:4200'
         }
     };

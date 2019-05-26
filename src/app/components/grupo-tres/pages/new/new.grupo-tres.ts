@@ -32,9 +32,7 @@ export class NewGrupoTres implements OnInit {
             plane: [null, Validators.compose([Validators.required])],
             price: [null, Validators.compose([Validators.required])],
             departure: [null, Validators.compose([Validators.required])],
-            arrival: [null, Validators.compose([Validators.required])],
-            departureDate: [null, Validators.compose([Validators.required])],
-            arrivalDate: [null, Validators.compose([Validators.required])],
+            arrival: [null, Validators.compose([Validators.required])]
         });
         this.getAirplanes();
     }
@@ -71,12 +69,11 @@ export class NewGrupoTres implements OnInit {
         this.form.get('price').markAsTouched();
         this.form.get('departure').markAsTouched();
         this.form.get('arrival').markAsTouched();
-        this.form.get('departureDate').markAsTouched();
-        this.form.get('arrivalDate').markAsTouched();
     }
 
     /*Pregunto si la fecha de salida es menor o igual que la de llegada*/
     compare(salida: number, llegada: number) {
+        console.log(salida, llegada);
         if (salida <= llegada) { return 1; } else { return -1; }
     }
 
@@ -93,7 +90,6 @@ export class NewGrupoTres implements OnInit {
     }
 
     submit() {
-        console.log(this.form.value);
         this.markAllAsTouched();
         const payload = this.form.value;
         var fechas = this.transformarFechas(payload);
@@ -101,13 +97,14 @@ export class NewGrupoTres implements OnInit {
         if (fechas === 1) {
             payload.departure = moment(payload.departure).format('DD-MM-YYYY h:mm:ss');
             payload.arrival = moment(payload.arrival).format('DD-MM-YYYY h:mm:ss');
-            payload.plane = { id: payload.plane };
+            payload.plane = { id: parseInt(payload.plane, 10) };
+            payload.price = parseInt(payload.price, 10);
             payload.routes = [
                 {
-                    locDeparture: payload.locDeparture,
-                    locArrival: payload.locArrival,
-                    departureDate: payload.departureDate,
-                    arrivalDate: payload.arrivalDate
+                    locDeparture: parseInt(payload.locDeparture, 10),
+                    locArrival: parseInt(payload.locArrival, 10),
+                    departureDate: payload.departure,
+                    arrivalDate: payload.arrival
                 }
             ];
             delete payload.locDeparture;
@@ -117,6 +114,8 @@ export class NewGrupoTres implements OnInit {
             if (this.form.valid) {
                 this.apiService.postUrl('/api/flights', payload).then(
                     response => {
+                        console.log('Entró en el response de la petición');
+                        console.log(payload);
                         console.log(response);
                     }, error => {
                         console.log(error);
