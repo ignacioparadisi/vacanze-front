@@ -28,16 +28,14 @@ export class NewGrupoTres implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            countryOrigen: [null, Validators.compose([Validators.required])],
-            cityOrigen: [null, Validators.compose([Validators.required])],
-            countryLlegada: [null, Validators.compose([Validators.required])],
-            cityLlegada: [null, Validators.compose([Validators.required])],
-            airplane: [null, Validators.compose([Validators.required])],
+            locDeparture: [null, Validators.compose([Validators.required])],
+            locArrival: [null, Validators.compose([Validators.required])],
+            plane: [null, Validators.compose([Validators.required])],
             price: [null, Validators.compose([Validators.required])],
-            dateSalida: [null, Validators.compose([Validators.required])],
-            dateLlegada: [null, Validators.compose([Validators.required])],
-            durationHours: [null, Validators.compose([Validators.required])],
-            durationMinutes: [null, Validators.compose([Validators.required])],
+            departure: [null, Validators.compose([Validators.required])],
+            arrival: [null, Validators.compose([Validators.required])],
+            departureDate: [null, Validators.compose([Validators.required])],
+            arrivalDate: [null, Validators.compose([Validators.required])],
         });
         this.getAirplanes();
     }
