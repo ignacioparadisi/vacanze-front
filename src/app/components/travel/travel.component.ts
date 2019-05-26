@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-travel',
@@ -9,7 +10,7 @@ export class TravelComponent implements OnInit {
 
     private travels: Array<Object>;
 
-    constructor() {
+    constructor(private router: Router) {
     }
 
     ngOnInit() {
@@ -49,5 +50,13 @@ export class TravelComponent implements OnInit {
                 "description": "Fusce facilisis imperdiet feugiat. Nam blandit malesuada vehicula. Maecenas quis volutpat ex."
             }
         ];
+    }
+
+    private travelDetails( id: number ){
+        this.router.navigate(['travel', id])
+    }
+
+    private travelDelete( id: number){
+        //llamar al service para borrar el travel
     }
 }

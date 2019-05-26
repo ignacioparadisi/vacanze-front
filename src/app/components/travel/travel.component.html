@@ -7,14 +7,14 @@
         <div class="card-body">
           <div class="row">
             <div class="col-10">
-              <h5>{{travel.name}}</h5>
+              <h5 (click)="travelDetails(travel.id)">{{travel.name}}</h5>
             </div>
             <div class="col-1">
-              <a class="fa fa-xs fa-trash" style="color:red"></a>
+              <a class="fa fa-xs fa-trash" style="color:red" (click)="travelDelete(travel.id)"></a>
             </div>
           </div>
           <hr>
-          <p class="card-text">{{travel.description}}</p>
+          <p class="card-text" (click)="travelDetails(travel.id)">{{travel.description}}</p>
         </div>
       </div>
     </div>
