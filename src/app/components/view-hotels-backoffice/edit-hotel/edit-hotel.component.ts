@@ -15,20 +15,20 @@ export class EditHotelComponent implements OnInit {
 
 
     public registrationForm : FormGroup = new FormGroup({
-      nombre : new FormControl('',[
+      name : new FormControl('',[
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(100)
       ]),
-      capacidad : new FormControl('',[
+      capacity : new FormControl('',[
         Validators.required,
         Validators.min(1)
       ]),
-      cantidadHabitaciones : new FormControl('',[
+      rooms : new FormControl('',[
         Validators.required,
         Validators.min(1)
       ]),
-      telefono : new FormControl('',[
+      phone : new FormControl('',[
         Validators.required,
         Validators.pattern("^((\\+)|(00)|(\\*)|())[0-9]{3,14}((\\#)|())$")
       ]),
@@ -45,20 +45,20 @@ export class EditHotelComponent implements OnInit {
     ngOnInit() {
     }
 
-    get nombre(){
-      return this.registrationForm.get('nombre');
+    get name(){
+      return this.registrationForm.get('name');
     }
 
-    get telefono(){
-      return this.registrationForm.get('telefono');
+    get phone(){
+      return this.registrationForm.get('phone');
     }
 
-    get capacidad(){
-      return this.registrationForm.get('capacidad');
+    get capacity(){
+      return this.registrationForm.get('capacity');
     }
 
-    get cantidadHabitaciones(){
-      return this.registrationForm.get('cantidadHabitaciones');
+    get rooms(){
+      return this.registrationForm.get('rooms');
     }
 
     get web(){
