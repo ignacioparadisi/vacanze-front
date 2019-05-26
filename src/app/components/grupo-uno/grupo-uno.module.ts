@@ -6,6 +6,8 @@ import { GrupoUnoRoutingModule } from './grupo-uno-routing.module';
 import { GrupoUnoComponent } from './grupo-uno.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoginComponent } from './login/login.component';
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [GrupoUnoComponent, LoginComponent],
@@ -13,8 +15,11 @@ import { LoginComponent } from './login/login.component';
     CommonModule,
     GrupoUnoRoutingModule,
     HttpClientModule,
-    NgbModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
+    
   ],
   providers: []
 })

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 @Injectable({
     providedIn: 'root'
 })
@@ -14,7 +14,8 @@ export class ApiService {
         } */
     };
 
-    constructor(private http: HttpClient) { }
+    constructor(private fb: FormBuilder,private http: HttpClient) { }
+    readonly BaseURI='https://localhost:44362/api';
 
     /*******************************************************
     * Metodo para realizar el consumo del API de tipo GET  *
@@ -78,6 +79,10 @@ export class ApiService {
             this.http.delete(this.apiName + url).toPromise()
         );
     }
+    login(formData) {
+        return this.http.post(this.BaseURI + '/UserProfile/Login', formData);
+      }
+    
     /***************************************************************************
     * Metodo para realizar el consumo del API de tipo DELETE con body incluido *
     ****************************************************************************/
