@@ -3,7 +3,9 @@ import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ReactiveFormsModule } from '@angular/forms';
+import { LayoutComponent } from 'src/app/layout/layout.component';
+
+
 
 
 @Component({
@@ -12,11 +14,13 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+ 
+  StatusLogin=true;
   formModel={
     Email:'',
     Password:''
   }
-  constructor(private service: ApiService, private router: Router, private toastr: ToastrService) { }
+  constructor(private service: ApiService, private router: Router, private toastr: ToastrService,private father: LayoutComponent) { }
 
   ngOnInit() {
   }
@@ -25,7 +29,14 @@ export class LoginComponent implements OnInit {
       (res:any)=>{
         localStorage.setItem('token',res.token);
         if(res.role=="Cliente"){
-          this.router.navigateByUrl('/landing-page');
+          this.router.navigateByUrl('../../layout/home');
+          this.father.StatusHeader=true; 
+          this.StatusLogin=false;
+        }else if(res.role=="Admin"){
+          this.router.navigateByUrl('../../layout/home');
+          this.father.StatusHeader=true; 
+          this.father.StatusSideBar=true;
+          this.StatusLogin=false;
         }
         
       },

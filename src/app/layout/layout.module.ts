@@ -9,6 +9,7 @@ import { LayoutRoutingModule } from "./layout-routing.module";
 import { LayoutComponent } from "./layout.component";
 import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
+
 import { RegisterUserComponent } from "../components/register-user/register-user.component";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 

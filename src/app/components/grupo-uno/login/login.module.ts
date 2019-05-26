@@ -4,7 +4,7 @@ import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { FormsModule,FormBuilder } from '@angular/forms';
 import { NgForm } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -14,7 +14,8 @@ import { NgForm } from '@angular/forms';
     NgModule,
     FormsModule,
     NgForm,
-    FormBuilder
+    FormBuilder,
+    ToastrService
   ]
 })
 export class LoginModule { }
