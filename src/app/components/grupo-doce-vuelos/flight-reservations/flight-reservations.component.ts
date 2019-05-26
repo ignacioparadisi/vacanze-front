@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { PeopleFlight } from 'src/app/classes/people_flight';
+
 @Component({
   selector: 'app-flight-reservations',
   templateUrl: './flight-reservations.component.html',
@@ -22,9 +23,8 @@ export class FlightReservationsComponent implements OnInit {
   public selectMultSearch:number=2;
   public cont:number=3;
   public arrayNumber: number[] = [1,2];
-  public disabled:boolean=false;
-  public name="Hola";
-
+  public disabled:boolean=true;
+  public isChecked;
 
   constructor(private api: ApiService) { }
    private selectedTyp: string="";
@@ -83,29 +83,27 @@ export class FlightReservationsComponent implements OnInit {
     
     if (this.selectedTyp=="0") {
       this.selectMult=true;
-      input.setAttribute("disabled","true");
+      if (!this.isChecked) {
+        input.setAttribute("disabled","true");
       output.removeAttribute("disabled");
-      console.log("Estoy en 0");
       this.disabled=true;
-      
-    
-    }else{
+      }
+      this.disabled=true;
+      console.log("Estoy en 0");
+      }else{
       if(this.selectedTyp=="2"){
         this.selectMult=false;
-  
         this.arrayNumber;
-        
-      }else{
-
-        this.selectMult=true;
-        if(this.disabled==true){
-          this.disabled=false;
-          input.removeAttribute("disabled");
-          output.removeAttribute("disabled");
-          
-        }
         this.disabled=false;
-       console.log("Estoy en 1");
+       }else{
+           this.selectMult=true;
+           if (!this.isChecked && this.disabled==true) {
+           input.removeAttribute("disabled");
+           output.removeAttribute("disabled");
+           this.disabled=false;
+          }
+
+           console.log("Estoy en 1");
         // this.selectMult=true;
       }
       
@@ -131,17 +129,21 @@ export class FlightReservationsComponent implements OnInit {
 
   checkboxSelected(event: any){
     var element =<HTMLInputElement> document.getElementById("date_id");
-    var isChecked= element.checked;
+
+     this.isChecked= element.checked;
     var input= document.getElementById("entry_id");
     var output= document.getElementById("out_id");
-    if (isChecked) {
+    if (this.isChecked) {
       console.log(1);
       input.setAttribute("disabled","true");
       output.setAttribute("disabled","true");
 
     }else{
-      input.removeAttribute("disabled");
-      output.removeAttribute("disabled");
+      if (this.disabled==false || this.selectedTyp=="1") {
+        input.removeAttribute("disabled");
+      }
+        
+        output.removeAttribute("disabled");
       console.log(2);
     }
 

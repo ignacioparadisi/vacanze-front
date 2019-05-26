@@ -10,12 +10,23 @@
         <form [formGroup]="form">
             <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 16px;"  >
                 <div *ngFor="let type of typeFlights" style="margin-right:15px">
-                  <input  id="{{type.id}}" name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)"  >
+                  <ng-container *ngIf="type.id==0; then first else other">
+                    </ng-container>
+                      <ng-template #first>
+                  <input  id="{{type.id}}"  name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)" 
+                 checked >
+                </ng-template>
+                   <ng-template #other>
+                   
+                      <input  id="{{type.id}}"  name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)" 
+                         >
+                        </ng-template>
+                   
                   <label class="form-check-label" for="type">{{type.name}}</label>
                 </div> 
             </div> 
-          
-          <div class="row" *ngIf="selectMult">
+           
+          <div class="row" *ngIf="selectMult ">
             
             <div class="col-md-2">
                 <label for="">Origen</label>
@@ -48,7 +59,7 @@
             <div class="col-md-3">
                 <label for="">Fecha de Regreso</label>
                 <div class="form-group">
-                  <input  id="entry_id" type="date" class="form-control" placeholder="FechaE" formControlName="fechaE">
+                    <input  id="entry_id" type="date" class="form-control" placeholder="FechaE" formControlName="fechaE" [attr.disabled]="disabled ? '' : null">    
                 </div>
             </div>
 
@@ -99,7 +110,13 @@
                 </div>
               </div>
             </ng-container>
-          
+            <div class="col-md-3" style="display: none">
+              <label for="">Fecha de Regreso</label>
+              <div class="form-group">
+                <input  id="entry_id" type="date" class="form-control" placeholder="FechaE" formControlName="fechaE">
+              </div>
+          </div>
+            
             <div _ngcontent-lfs-c5="">
               <button _ngcontent-lfs-c5="" class="btn btn-primary " data-placement="top" data-toggle="tooltip" 
                 type="button" style="width: 42px;margin-top: 31px;" (click)="clickPushMultidestino($event)">
