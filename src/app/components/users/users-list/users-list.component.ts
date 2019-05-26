@@ -1,3 +1,4 @@
+import { ApiService } from 'src/app/services/api.service';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { RegisterUserComponent } from "../register-user/register-user.component";
@@ -10,19 +11,25 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
   styleUrls: ["./users-list.component.scss"]
 })
 export class UsersListComponent implements OnInit {
-  constructor(private modalService: NgbModal) { }
+  constructor(private apiService: ApiService, private modalService: NgbModal) { }
 
   @Output() public actionAlertEventEmitter = new EventEmitter();
 
   headerTitle = 'Usuarios';
-  tableHeaders = ['Cédula', 'Nombre', 'Apellido', 'Email']
-  users: User[] = [
-    new User(0, 12345678, 'Ignacio', 'Paradisi', 'ignaciotfw@gmail.com', 1),
-    new User(1, 12345678, 'Fernando', 'Consalvo', 'fercon997@gmail.com', 2),
-    new User(2, 12345678, 'Gabriel', 'Barón', 'gabrielbaron16@gmail.com', 3)
-  ];
+  tableHeaders = ['Cédula', 'Nombre', 'Apellido', 'Email'];
+  users: User[] = [];
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.fetchEmployees();
+  }
+
+  private fetchEmployees() {
+    this.apiService.getUrl<User[]>('users').then(users => {
+      this.users = users;
+    }).catch(error => {
+      console.log(error);
+    })
+  }
 
   openAddUserModal(user?: User) {
     const modalRef = this.modalService.open(RegisterUserComponent);
