@@ -5,6 +5,8 @@ import { Role } from "src/app/classes/role";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { User } from 'src/app/classes/user';
+import Swal from 'sweetalert2';
+import { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: "app-register-user",
@@ -15,6 +17,7 @@ export class RegisterUserComponent implements OnInit {
 
   @Input() user: User;
 
+  public state: string = 'none';
   public submitted: boolean = false;
   public formGroup: FormGroup;
   public roles: Role[] = [];
@@ -84,27 +87,27 @@ export class RegisterUserComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log(this.formGroup.controls);
     this.submitted = true;
+    this.state = 'loading';
 
     if (this.formGroup.invalid) {
+      this.state = 'error';
       return;
     }
+
+    const user: User = this.getUserFromForm();
+    this.createUser(user);
+
   }
 
   public isRoleSelected(): boolean {
     this.roles.forEach(role => {
-      if (this.formGroup.get('role' + role.id).value === true) {
+      const isSelected = this.formGroup.get('role' + role.id).value;
+      console.log(isSelected);
+      if (isSelected === true) {
         return true;
       }
     });
-    return false;
-  }
-
-  public isRoleDisabled(roleId): boolean {
-    if (this.formGroup.get('role' + Roles.ADMIN).value && roleId !== Roles.ADMIN) {
-      return true;
-    }
     return false;
   }
 
@@ -118,5 +121,53 @@ export class RegisterUserComponent implements OnInit {
     } else {
       this.formGroup.get('role' + Roles.ADMIN).setValue(false);
     }
+  }
+
+  private getUserFromForm(): User {
+    const id = 0;
+    const documentId = parseInt(this.formGroup.get('documentId').value);
+    const name = this.formGroup.get('name').value;
+    const lastname = this.formGroup.get('lastname').value;
+    const email = this.formGroup.get('email').value;
+    const password = "";
+
+    const roles: Role[] = [];
+    this.roles.forEach(role => {
+      if (this.formGroup.get('role' + role.id).value) {
+        roles.push(role);
+      }
+    })
+
+    const user = new User(id, documentId, name, lastname, email, password, roles);
+    return user;
+  }
+
+  private createUser(user: User) {
+    this.apiService.postUrl<User>('users', user).then(user => {
+      this.activeModal.close();
+      this.userCreatedSuccessfully();
+    }).catch(error => {
+      this.showErrorAlert(error.error);
+    });
+  }
+
+  private userCreatedSuccessfully() {
+    let config: SweetAlertOptions = {
+      title: 'Usuario creado de manera exitosa',
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
+  }
+
+  private showErrorAlert(error: string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
   }
 }
