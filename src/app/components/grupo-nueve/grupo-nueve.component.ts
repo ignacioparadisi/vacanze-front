@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService} from 'src/app/services/api.service';
 import { Claim } from "src/app/classes/claim";
-import { Role } from "src/app/classes/role";
 import { environment as url} from '../../../environments/environment';
 
 @Component({
@@ -24,7 +23,7 @@ export class GrupoNueveComponent implements OnInit {
   ngOnInit() {
     //this.service.deleteClaim({rec_titulo:'titulo', rec_descr:'elias y jorge', rec_status:'ABIERTO'});
     
-    this.service.getUrl(url.endpoint.default._get.getClaim).then(data =>{this.claims=data})
+    this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims=data; console.log(data)})
 
     this.formGroup = new FormGroup({
       titulo: new FormControl(null, [Validators.required]),
@@ -43,24 +42,22 @@ export class GrupoNueveComponent implements OnInit {
   postClaim(){
     this.submitted = true;
     this.service
-    .postUrl(url.endpoint.default._post.postClaim,{titulo: this.formGroup.get('titulo').value,
-                                                   descripcion: this.formGroup.get('descripcion').value,
-                                                   status:'ABIERTO'})
+    .postUrl(url.endpoint.default._post.postClaim,{title: this.formGroup.get('titulo').value,
+                                                   description: this.formGroup.get('descripcion').value})
     .then(response => {console.log(response)});
   }
 
-  deleteClaim(){
-    this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, ['45'])
-    .then(response => {console.log(response)});
+  deleteClaim(id : any){
+    this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [id])
+    .then(response => {console.log(response);
+    this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims=data; console.log(data)})});
   }
 
   putClaimStatus(){
     var id: any;
     id=56;
-
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id]).then(
       response => {console.log(response)});
-
   }
   
   pantallaAdmin(){

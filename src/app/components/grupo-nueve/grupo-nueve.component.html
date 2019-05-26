@@ -292,7 +292,7 @@
                           type="question"
                           [showCancelButton]="true"
                           [focusCancel]="true"
-                          (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          (confirm)="deleteClaim(claim.id)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                         </swal>
                         <button style="margin-left:5px" [swal]="deleteSwal"><i class="fa fa-trash" ></i></button>
                       </td>

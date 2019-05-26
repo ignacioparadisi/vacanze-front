@@ -5,7 +5,7 @@
     "_post": {
         "postClaim":"api/Claim"
     },
-    "_put": { "putClaimStatus":"api/Claim/status/{id}"
+    "_put": { "putClaimStatus":"api/Claim/{id}"
     },
     "_delete": { 
         "deleteClaim":"api/Claim/{id}"
