@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { COUNTRYS, HOURS, MINUTES } from '../../../../utils/select.util';
@@ -21,7 +21,6 @@ export class NewGrupoTres implements OnInit {
     public airplanes = [];
     public form: FormGroup;
     public contactList: FormArray;
-    private readonly notifier: NotifierService;
 
     constructor(private modalService: NgbModal, private fb: FormBuilder, private apiService: ApiService) {
     }
@@ -55,7 +54,7 @@ export class NewGrupoTres implements OnInit {
     }
 
     public getCountries() {
-        const requestURL = 'http://country.io/names.json';
+        const requestURL = '';
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.countries = response;
@@ -66,16 +65,14 @@ export class NewGrupoTres implements OnInit {
     }
 
     public markAllAsTouched() {
-        this.form.get('countryOrigen').markAsTouched();
-        this.form.get('cityOrigen').markAsTouched();
-        this.form.get('countryLlegada').markAsTouched();
-        this.form.get('airplane').markAsTouched();
+        this.form.get('locDeparture').markAsTouched();
+        this.form.get('locArrival').markAsTouched();
+        this.form.get('plane').markAsTouched();
         this.form.get('price').markAsTouched();
-        this.form.get('cityLlegada').markAsTouched();
-        this.form.get('dateSalida').markAsTouched();
-        this.form.get('dateLlegada').markAsTouched();
-        this.form.get('durationHours').markAsTouched();
-        this.form.get('durationMinutes').markAsTouched();
+        this.form.get('departure').markAsTouched();
+        this.form.get('arrival').markAsTouched();
+        this.form.get('departureDate').markAsTouched();
+        this.form.get('arrivalDate').markAsTouched();
     }
 
     compare(salida: number, llegada: number) {
@@ -83,16 +80,19 @@ export class NewGrupoTres implements OnInit {
     }
 
     submit() {
+        console.log(this.form.value);
         this.markAllAsTouched();
         const payload = this.form.value;
-        payload.salida = moment(new Date(payload.dateSalida), 'DD/MM/YYYY');
-        payload.llegada = moment(new Date(payload.dateLlegada), 'DD/MM/YYYY');
+        payload.salida = moment(new Date(payload.departure), 'DD/MM/YYYY');
+        payload.llegada = moment(new Date(payload.arrival), 'DD/MM/YYYY');
         var salida = parseInt(payload.salida.date() + (payload.salida.month() + 1), 10);
         var llegada = parseInt(payload.llegada.date() + (payload.llegada.month() + 1), 10);
         var fechas = this.compare(salida, llegada);
         if (fechas === 1) {
-            if (this.form.valid) { ///api/flights
-                console.log ('El formulario está completo');
+            delete payload.salida;
+            delete payload.llegada;
+            if (this.form.valid) {
+                console.log("exitoso")
             }
         } else {
             console.log('La fecha de llegada no puede ser anterior a la de salida.');

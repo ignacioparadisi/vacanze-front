@@ -65,13 +65,13 @@ export class ListGrupoTres implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
-    this.api.updateProduct(this._id, form)
+    /*this.api.updateProduct(this._id, form)
       .subscribe(response => {
 
         }, (err) => {
           console.log(err);
         }
-      );
+      );*/
   }
 
   openLg(content, id: number) {
