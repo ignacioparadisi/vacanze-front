@@ -17,8 +17,63 @@ const routes: Routes = [
         loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
       },
       {
-        path: 'register-user',
-        loadChildren: '../components/register-user/register-user.module#RegisterUserModule'
+        path: 'grupo-nueve',
+        loadChildren: '../components/grupo-nueve/grupo-nueve.module#GrupoNueveModule'
+      },
+      {
+        path: 'grupo-tres',
+        loadChildren: '../components/grupo-tres/grupo-tres.module#GrupoTresModule'
+      },
+      {
+        path: 'grupo-trece-habitacion',
+        loadChildren:
+          '../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule'
+      },
+      {
+        path: 'grupo-trece-automovil',
+        loadChildren:
+          '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
+      },
+      /* Ruta para Backoffice de Cruceros */
+      {
+        path: 'cruceros',
+        loadChildren:
+          '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
+      },
+      {
+        path: 'flight-reservations',
+        loadChildren:
+          '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
+      },
+      {
+        path: 'flight-reservations',
+        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
+      },
+      {
+        path: 'administrar-hoteles',
+        loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
+      },
+      {
+        path: 'travel',
+        loadChildren: '../components/travel/travel.module#TravelModule'
+      },
+      {
+        path: 'grupo-once-pago',
+        loadChildren:
+          '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
+      },
+      {
+        path: 'restaurantes',
+        loadChildren:
+          '../components/restaurantes/restaurantes.module#RestaurantesModule'
+      },
+      {
+        path: 'users',
+        loadChildren: '../components/users/users-list/users-list.module#UsersListModule'
+      },
+      {
+        path: 'ticket-sale',
+        loadChildren: '../components/ticket-sale/ticket-sale.module#TicketSaleModule'
       }
     ]
   }

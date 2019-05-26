@@ -1,16 +1,76 @@
-<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+<nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
   <div class="list-group">
-    <a routerLink="/" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a routerLink="/" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Dashboard</span>
     </a>
-    <a routerLink="/grupo-uno" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a routerLink="/grupo-uno" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Grupo Uno</span>
     </a>
-    <a routerLink="/register-user" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a routerLink="/grupo-nueve" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Reclamo de Equipaje</span>
+    </a>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('pages')">
+        <i class="fa fa-plus"></i>&nbsp;
+        <span>Aviones y rutas</span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'pages'">
+        <ul class="submenu">
+          <li>
+            <a routerLink="/grupo-tres/creacion" [routerLinkActive]="['router-link-active']" class="list-group-item">
+              <span>Creación de vuelos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/grupo-tres/listado" [routerLinkActive]="['router-link-active']" class="list-group-item">
+              <span>Listado de vuelos</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </div>
+    <a routerLink="/users" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-user"></i>&nbsp;
-      <span>Registrar Usuario</span>
+      <span>Usuarios</span>
+    </a>
+    <!-- <a (click)="openRegisterRestaurant()" class="list-group-item">
+      <i class="fa fa-fw fa-cutlery"></i>&nbsp;
+      <span>Registrar Restaurante</span>
+    </a> -->
+    <a routerLink="/administrar-hoteles" class="list-group-item">
+      <i class="fa fa-bed"></i>&nbsp;
+      <span>Hoteles</span>
+    </a>
+    <a routerLink="/restaurantes" class="list-group-item">
+      <i class="fa fa-fw fa-cutlery"></i>&nbsp;
+      <span>Restaurantes</span>
+    </a>
+    <a routerLink="/flight-reservations" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Reservar Vuelo</span>
+    </a>
+    <a routerLink="/grupo-trece-habitacion" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Reservar Habitación</span>
+    </a>
+    <a routerLink="/grupo-trece-automovil" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Reservar Automóvil</span>
+    </a>
+    <a routerLink="/cruceros" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-ship"></i>&nbsp;
+      <span>Cruceros</span>
+    </a>
+    <a routerLink="/travel" class="list-group-item">
+      <i class="fa fa-fw fa-calendar"></i>&nbsp;
+      <span>Viajes</span>
+    </a>
+    <a routerLink="/ticket-sale" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-ticket"></i>&nbsp;
+      <span>Venta de Boletos</span>
     </a>
     <a routerLink="/venta-boleto" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
