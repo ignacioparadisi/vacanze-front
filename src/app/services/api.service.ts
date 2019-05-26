@@ -9,9 +9,10 @@ import { Observable } from 'rxjs';
 export class ApiService {
     private apiName = environment.baseApiUrl;
     private myInit = {
-        /* headers: {
-          'x-api-key': environment.apiKey
-        } */
+        headers: {
+          'x-api-key': environment.apiKey,
+            'Access-Control-Allow-Origin': 'http://localhost:4200'
+        }
     };
 
     constructor(private http: HttpClient) { }
@@ -26,7 +27,7 @@ export class ApiService {
                 url = url.replace(/{[a-zA-Z_]*}/, p);
             });
         }
-        return <Promise<any>>this.http.get(url).toPromise();
+        return <Promise<any>>this.http.get(this.apiName + url).toPromise();
     }
 
     /*******************************************************
@@ -42,7 +43,7 @@ export class ApiService {
 
         this.myInit['body'] = data;
         return <Promise<any>>(
-            this.http.post(this.apiName + url, data).toPromise()
+            this.http.post(this.apiName + url, this.myInit).toPromise()
         );
     }
 

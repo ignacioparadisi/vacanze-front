@@ -67,7 +67,8 @@
                                             <div class="form-group">
                                                 <label for="">Avión</label>
                                                 <select class="form-control" formControlName="plane" [ngClass]="{'is-invalid': invalid('plane', form), 'is-valid': valid('plane', form)}">
-                                                    <option *ngFor="let airplane of airplanes">{{airplane.model}}</option>
+                                                    <option *ngFor="let airplane of airplanes let i = index;" [value]="airplane.id">
+                                                      {{airplane.model}}</option>
                                                 </select>
                                                 <div *ngIf="invalid('plane', form)" class="invalid-feedback">
                                                     Por favor seleccione un avión

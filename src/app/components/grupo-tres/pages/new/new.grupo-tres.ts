@@ -75,24 +75,53 @@ export class NewGrupoTres implements OnInit {
         this.form.get('arrivalDate').markAsTouched();
     }
 
+    /*Pregunto si la fecha de salida es menor o igual que la de llegada*/
     compare(salida: number, llegada: number) {
-        if (salida < llegada) { return 1; } else { return -1; }
+        if (salida <= llegada) { return 1; } else { return -1; }
+    }
+
+    /*Convierto las fechas a DD/MM/YYYY para luego realizar una comparación*/
+    transformarFechas(payload: any){
+        payload.salida = moment(new Date(payload.departure), 'DD/MM/YYYY');
+        payload.llegada = moment(new Date(payload.arrival), 'DD/MM/YYYY');
+        var salida = parseInt(payload.salida.date() + (payload.salida.month() + 1), 10);
+        var llegada = parseInt(payload.llegada.date() + (payload.llegada.month() + 1), 10);
+        var fechas = this.compare(salida, llegada);
+        delete payload.salida;
+        delete payload.llegada;
+        return fechas;
     }
 
     submit() {
         console.log(this.form.value);
         this.markAllAsTouched();
         const payload = this.form.value;
-        payload.salida = moment(new Date(payload.departure), 'DD/MM/YYYY');
-        payload.llegada = moment(new Date(payload.arrival), 'DD/MM/YYYY');
-        var salida = parseInt(payload.salida.date() + (payload.salida.month() + 1), 10);
-        var llegada = parseInt(payload.llegada.date() + (payload.llegada.month() + 1), 10);
-        var fechas = this.compare(salida, llegada);
+        var fechas = this.transformarFechas(payload);
+
         if (fechas === 1) {
-            delete payload.salida;
-            delete payload.llegada;
+            payload.departure = moment(payload.departure).format('DD-MM-YYYY h:mm:ss');
+            payload.arrival = moment(payload.arrival).format('DD-MM-YYYY h:mm:ss');
+            payload.plane = { id: payload.plane };
+            payload.routes = [
+                {
+                    locDeparture: payload.locDeparture,
+                    locArrival: payload.locArrival,
+                    departureDate: payload.departureDate,
+                    arrivalDate: payload.arrivalDate
+                }
+            ];
+            delete payload.locDeparture;
+            delete payload.locArrival;
+            delete payload.departureDate;
+            delete payload.arrivalDate;
             if (this.form.valid) {
-                console.log("exitoso")
+                this.apiService.postUrl('/api/flights', payload).then(
+                    response => {
+                        console.log(response);
+                    }, error => {
+                        console.log(error);
+                    }
+                );
             }
         } else {
             console.log('La fecha de llegada no puede ser anterior a la de salida.');
