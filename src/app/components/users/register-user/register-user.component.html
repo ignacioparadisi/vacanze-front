@@ -9,9 +9,8 @@
     <!-- Role Field -->
     <label>Roles</label><br />
     <div class="btn-group btn-group-toggle">
-      <label *ngFor="let role of roles" class="btn-outline-primary" ngbButtonLabel>
-        <input type="checkbox" [formControlName]="'role' + role.id" ngbButton [disabled]="isRoleDisabled(role.id)"
-          (change)="checkboxValueChanged(role.id)">
+      <label *ngFor="let role of roles" class="btn-outline-info" ngbButtonLabel>
+        <input type="checkbox" [formControlName]="'role' + role.id" ngbButton (change)="checkboxValueChanged(role.id)">
         {{ role.name }}
       </label>
     </div>

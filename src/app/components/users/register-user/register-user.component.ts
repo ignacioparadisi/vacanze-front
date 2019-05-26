@@ -1,3 +1,4 @@
+import { Roles } from './../../../classes/roles';
 import { ApiService } from "src/app/services/api.service";
 import { Component, OnInit, Input } from "@angular/core";
 import { Role } from "src/app/classes/role";
@@ -101,19 +102,21 @@ export class RegisterUserComponent implements OnInit {
   }
 
   public isRoleDisabled(roleId): boolean {
-    if (this.formGroup.get('role2').value && roleId !== 2) {
+    if (this.formGroup.get('role' + Roles.ADMIN).value && roleId !== Roles.ADMIN) {
       return true;
     }
     return false;
   }
 
   public checkboxValueChanged(roleId) {
-    if (roleId === 2) {
+    if (roleId === Roles.ADMIN) {
       this.roles.forEach(role => {
-        if (role.id !== 2) {
+        if (role.id !== Roles.ADMIN) {
           this.formGroup.get('role' + role.id).setValue(false);
         }
       })
+    } else {
+      this.formGroup.get('role' + Roles.ADMIN).setValue(false);
     }
   }
 }
