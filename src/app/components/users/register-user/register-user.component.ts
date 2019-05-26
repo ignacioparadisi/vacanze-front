@@ -37,13 +37,13 @@ export class RegisterUserComponent implements OnInit {
   }
 
   private fetchRoles(): Role[] {
-    this.roles = [
-      new Role(0, "Cliente"),
-      new Role(1, "Administrador"),
-      new Role(2, "Checkin"),
-      new Role(3, "Reclamo"),
-      new Role(4, "Cargador")
-    ];
+    this.apiService.getUrl<Role[]>('/roles').then(roles => {
+      this.roles = roles;
+    }).catch(error => {
+      if (error.status === 0) {
+        console.log('No se pudo conectar al servidor');
+      }
+    })
     return this.roles;
   }
 
@@ -55,12 +55,6 @@ export class RegisterUserComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      // TODO: Validar el formato que debe tener la contraseña
-      // password: new FormControl(null, [
-      //   Validators.required,
-      //   Validators.minLength(8)
-      // ]),
-      // confirmPassword: new FormControl(null, [Validators.required])
     });
   }
 
