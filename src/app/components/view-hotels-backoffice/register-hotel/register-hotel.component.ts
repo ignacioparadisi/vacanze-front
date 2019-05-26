@@ -4,6 +4,7 @@ import { Role } from 'src/app/classes/role';
 import { Location } from "@angular/common";
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
+import { environment as url } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-register-hotel',
@@ -39,7 +40,7 @@ export class RegisterHotelComponent implements OnInit {
 
 
 
-  constructor(private _location: Location){}
+  constructor(private _location: Location, private service: ApiService){}
 
   ngOnInit() {
   }
@@ -67,5 +68,18 @@ export class RegisterHotelComponent implements OnInit {
   public goToViewHotels(){
     this._location.back();
   }
+
+  public onSubmit(){
+    console.log(this.registrationForm.value);
+    console.log(url.endpoint.default._post.postHotel);
+    this.service
+    .postUrl(url.endpoint.default._post.postHotel,
+      {
+        title: this.registrationForm.get('name').value,
+        description: this.registrationForm.get('phone').value
+      })
+    .then(response => {console.log(response)});
+  }
+
 
 }

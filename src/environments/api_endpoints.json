@@ -3,7 +3,7 @@
 
     },
     "_post": {
-
+      "postHotel":"api/Hotel"
     },
     "_put": {
 
