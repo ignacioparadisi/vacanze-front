@@ -89,6 +89,13 @@ export class TableResponsiveComponent implements OnChanges{
     /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
+    public goToEditHotel(){
+      this.emitRouting.emit('/editar-hotel');
+    }
+
+    /**********************************************************************
+    * Metodo que es llamado por el boton añadir                           *
+    ***********************************************************************/
     public gotoAdd(type: string){
       if (type === 'hotel'){
         this.goToAddHotel();
@@ -96,6 +103,17 @@ export class TableResponsiveComponent implements OnChanges{
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
       }
     }
+
+
+    /**********************************************************************
+    * Metodo que es llamado por el boton añadir                           *
+    ***********************************************************************/
+    public goToEdit(type: string){
+      if (type === 'hotel'){
+        this.goToEditHotel();
+      }
+    }
+
 
     RegisterRestaurantModal() {
       const modalRef = this.modalService.open(RegisterRestaurantComponent);

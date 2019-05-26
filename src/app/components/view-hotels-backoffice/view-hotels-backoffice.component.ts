@@ -24,8 +24,10 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   //la accion que le llega de table-responsive
   public actionAlert: string;
 
-  //para saber si está editanto un hotel
+
   public isEditingHotel: boolean;
+  public isCreatingHotel: boolean;
+
 
   ngOnInit() {
   }
@@ -46,9 +48,16 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   public getCurrentRoute(route){
     if(route === '/agregar-hotel'){
       this.isEditingHotel = true;
+      this.isCreatingHotel = false;
       this.router.navigate(['administrar-hoteles','agregar-hotel']);
     }
-    else {
+    else if (route === '/editar-hotel'){
+      this.isCreatingHotel = true;
+      this.isEditingHotel = false;
+      this.router.navigate(['administrar-hoteles','editar-hotel']);
+    }
+    else{
+      this.isCreatingHotel = false;
       this.isEditingHotel = false;
     }
   }
