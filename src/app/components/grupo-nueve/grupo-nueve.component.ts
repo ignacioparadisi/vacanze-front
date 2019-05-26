@@ -12,52 +12,105 @@ import { environment as url} from '../../../environments/environment';
 })
 export class GrupoNueveComponent implements OnInit {
   public submitted: boolean = false;
+
+  //Variables de Peticiones
+  public formPut : FormGroup;
   public formGroup: FormGroup;
   public closeResult: string;
   public claims : Claim[] = [];
+  
+  //Elementos del put
+  public idPut : any;
+  public titlePut : any;
+  public descrPut : any;
 
   constructor(private modalService: NgbModal,
      private service: ApiService)
   {}
 
   ngOnInit() {
-    //this.service.deleteClaim({rec_titulo:'titulo', rec_descr:'elias y jorge', rec_status:'ABIERTO'});
-    
+
     this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims=data; console.log(data)})
 
     this.formGroup = new FormGroup({
       titulo: new FormControl(null, [Validators.required]),
       descripcion: new FormControl(null, [Validators.required])
     });
+
+    this.formPut = new FormGroup({
+      titulo: new FormControl(null, [Validators.required]),
+      descripcion: new FormControl(null, [Validators.required])
+    });
   }
 
-  open(content) {
+  open(content, id : any, title : any, descr : any) {
+      this.idPut = id;
+      this.titlePut = title;
+      this.descrPut = descr;
       this.modalService.open(content).result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
   }
+
+  getClaim(){
+    this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims=data; console.log(data)});
+  }
   
   postClaim(){
-    this.submitted = true;
+    
     this.service
     .postUrl(url.endpoint.default._post.postClaim,{title: this.formGroup.get('titulo').value,
                                                    description: this.formGroup.get('descripcion').value})
-    .then(response => {console.log(response)});
+    .then(response => {console.log(response); this.submitted = true});
   }
 
   deleteClaim(id : any){
     this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [id])
-    .then(response => {console.log(response);
-    this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims=data; console.log(data)})});
+    .then(response => {console.log(response); this.getClaim()});
   }
 
-  putClaimStatus(){
-    var id: any;
-    id=56;
+  putClaim(id : any){
+    if(!this.formPut.invalid && this.getCk_cambiar()){
+      this.putAll(id);
+    }
+    else
+    if(!this.formPut.invalid){
+      this.putClaimTD(id);
+    }else 
+    if(this.getCk_cambiar()){
+      this.putClaimStatus(id);
+    }
+  }
+
+  getCk_cambiar(){
+    var ck_cambiar =<HTMLInputElement> document.getElementById("check_cambiar");
+    if(ck_cambiar.checked){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  putAll(id : any){
+    this.service.putUrl(url.endpoint.default._put.putClaimStatus,
+                        {title: this.formPut.get('titulo').value,
+                         description: this.formPut.get('descripcion').value},[id]).then(
+    response => {console.log(response); this.putClaimStatus(id); this.getClaim()});
+  }
+
+  putClaimTD(id : any){
+    this.service.putUrl(url.endpoint.default._put.putClaimStatus,
+                        {title: this.formPut.get('titulo').value,
+                         description: this.formPut.get('descripcion').value},[id]).then(
+    response => {console.log(response); this.getClaim()});
+  }
+
+  putClaimStatus(id: any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id]).then(
-      response => {console.log(response)});
+      response => {console.log(response); this.getClaim()});
   }
   
   pantallaAdmin(){

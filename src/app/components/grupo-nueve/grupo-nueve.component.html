@@ -5,22 +5,37 @@
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
         </button>
+    </div>
     
-      </div>
     <div class="modal-body">
-        <form action="">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Titulo">
+        <form novalidate [formGroup]="formPut" (ngSubmit)="putClaim(idPut)">
+          <div class="col text-center">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Titulo" 
+              formControlName="titulo" value="{{titlePut}}">
+            </div>  
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Descripción" 
+              formControlName="descripcion" value="{{descrPut}}">
+            </div>
+            <div class="form-group">
+            <input id="check_cambiar" 
+                   type="checkbox" 
+                   value="checkedValue"> Cambiar (Cerrado/Abierto) status de este reclamo.
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn btn-success" *ngIf="formPut.invalid && !getCk_cambiar()" type="submit" disabled>
+                              Update Claim</button>
+                <button class="btn btn-success" *ngIf="!formPut.invalid || getCk_cambiar()" type="submit">
+                              Update Claim</button>
               </div>
-              <div class="form-group">
-                <textarea placeholder="Descripción..." class="form-control" rows="3"></textarea>
-              </div>
+            </div>
+          </div>
         </form>
     </div>
     
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="putClaimStatus()">Editar Claim</button>
-    </div>
+
 </ng-template>
 
 
@@ -285,7 +300,8 @@
                       <td>{{claim._description}}</td>
                       <td>{{claim._status}}</td>
                       <td>
-                        <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                        <button (click)="open(content, 
+                        claim.id, claim._title, claim._description)"><i class="fa fa-edit"></i></button>
                         <swal
                           #deleteSwal
                           title="¿Desea Eliminar el Claim?"
