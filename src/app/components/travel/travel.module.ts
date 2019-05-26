@@ -3,15 +3,19 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TravelRoutingModule } from './travel-routing.module';
 import { TravelComponent } from './travel.component';
+import { CreateTravelComponent } from './create-travel/create-travel';
+import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
-    TravelComponent
+    TravelComponent,
+    CreateTravelComponent
   ],
   imports: [
     CommonModule,
     TravelRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModalModule
   ]
 })
 export class TravelModule { }
