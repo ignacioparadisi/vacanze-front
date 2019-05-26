@@ -1,7 +1,4 @@
-<nav
-  class="sidebar"
-  [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
->
+<nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
   <div class="list-group">
     <a routerLink="/" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
@@ -17,31 +14,39 @@
     </a>
     <div class="nested-menu">
       <a class="list-group-item" (click)="addExpandClass('pages')">
-          <i class="fa fa-plus"></i>&nbsp;
-          <span>Aviones y rutas</span>
+        <i class="fa fa-plus"></i>&nbsp;
+        <span>Aviones y rutas</span>
       </a>
       <li class="nested" [class.expand]="showMenu === 'pages'">
-          <ul class="submenu">
-              <li>
-                  <a routerLink="/grupo-tres/creacion" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                    <span>Creación de vuelos</span>
-                  </a>
-              </li>
-              <li>
-                  <a routerLink="/grupo-tres/listado" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                    <span>Listado de vuelos</span>
-                  </a>
-              </li>
-          </ul>
+        <ul class="submenu">
+          <li>
+            <a routerLink="/grupo-tres/creacion" [routerLinkActive]="['router-link-active']" class="list-group-item">
+              <span>Creación de vuelos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/grupo-tres/listado" [routerLinkActive]="['router-link-active']" class="list-group-item">
+              <span>Listado de vuelos</span>
+            </a>
+          </li>
+        </ul>
       </li>
-  </div>
-    <a (click)="openModal()" class="list-group-item">
+    </div>
+    <a routerLink="/users" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-user"></i>&nbsp;
-      <span>Registrar Usuario</span>
+      <span>Usuarios</span>
     </a>
+    <!-- <a (click)="openRegisterRestaurant()" class="list-group-item">
+      <i class="fa fa-fw fa-cutlery"></i>&nbsp;
+      <span>Registrar Restaurante</span>
+    </a> -->
     <a routerLink="/administrar-hoteles" class="list-group-item">
       <i class="fa fa-bed"></i>&nbsp;
       <span>Hoteles</span>
+    </a>
+    <a routerLink="/restaurantes" class="list-group-item">
+      <i class="fa fa-fw fa-cutlery"></i>&nbsp;
+      <span>Restaurantes</span>
     </a>
     <a routerLink="/flight-reservations" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
@@ -55,11 +60,7 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Reservar Automóvil</span>
     </a>
-    <a
-      routerLink="/cruceros"
-      [routerLinkActive]="['router-link-active']"
-      class="list-group-item"
-    >
+    <a routerLink="/cruceros" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-ship"></i>&nbsp;
       <span>Cruceros</span>
     </a>

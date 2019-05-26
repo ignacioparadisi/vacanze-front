@@ -1,7 +1,7 @@
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { RegisterUserComponent } from "./../../components/register-user/register-user.component";
 import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { RegisterRestaurantComponent } from 'src/app/components/register-restaurant/register-restaurant.component';
 
 @Component({
   selector: "app-sidebar",
@@ -67,7 +67,7 @@ export class SidebarComponent implements OnInit {
     localStorage.removeItem("isLoggedin");
   }
 
-  openModal() {
-    const modalRef = this.modalService.open(RegisterUserComponent);
+  openRegisterRestaurant() {
+    const modalRef = this.modalService.open(RegisterRestaurantComponent);
   }
 }
