@@ -37,7 +37,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   private fetchRoles(): Role[] {
-    this.apiService.getUrl<Role[]>('/roles').then(roles => {
+    this.apiService.getUrl<Role[]>('roles').then(roles => {
       this.roles = roles;
     }).catch(error => {
       if (error.status === 0) {
@@ -59,7 +59,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   private fillFormGroup() {
-    this.formGroup.get('role').setValue(this.user.role);
+    this.formGroup.get('role').setValue(this.user.roles[0]);
     this.formGroup.get('documentId').setValue(this.user.documentId);
     this.formGroup.get('name').setValue(this.user.name);
     this.formGroup.get('lastname').setValue(this.user.lastname);
