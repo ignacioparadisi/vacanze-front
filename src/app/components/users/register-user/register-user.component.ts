@@ -24,8 +24,8 @@ export class RegisterUserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.createFormGroup()
     this.fetchRoles();
-    this.createFormGroup();
     if (this.user) {
       this.fillFormGroup();
     }
@@ -36,41 +36,84 @@ export class RegisterUserComponent implements OnInit {
     return this.formGroup.controls;
   }
 
-  private fetchRoles(): Role[] {
+  private fetchRoles() {
     this.apiService.getUrl<Role[]>('roles').then(roles => {
-      this.roles = roles;
+      this.roles = roles.filter(role => role.id !== 1);
+      this.addRolesToFormGroup();
+      if (this.user) {
+        this.fillFormGroupRoles();
+      }
     }).catch(error => {
       if (error.status === 0) {
         console.log('No se pudo conectar al servidor');
       }
-    })
-    return this.roles;
+    });
   }
 
   private createFormGroup() {
     this.formGroup = new FormGroup({
-      role: new FormControl(-1, [Validators.required, Validators.min(0)]),
       // TODO: Validar que sean solo números
       documentId: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      email: new FormControl(null, [Validators.required, Validators.email])
     });
   }
 
+  private addRolesToFormGroup() {
+    if (this.roles.length > 0) {
+      this.roles.forEach(role => {
+        this.formGroup.addControl('role' + role.id, new FormControl(false));
+      });
+    }
+  }
+
   private fillFormGroup() {
-    this.formGroup.get('role').setValue(this.user.roles[0]);
     this.formGroup.get('documentId').setValue(this.user.documentId);
     this.formGroup.get('name').setValue(this.user.name);
     this.formGroup.get('lastname').setValue(this.user.lastname);
     this.formGroup.get('email').setValue(this.user.email);
   }
 
+  private fillFormGroupRoles() {
+    const roles = this.user.roles;
+    roles.forEach(role => {
+      this.formGroup.get('role' + role.id).setValue(true);
+    })
+  }
+
   public onSubmit() {
+    console.log(this.formGroup.controls);
     this.submitted = true;
 
     if (this.formGroup.invalid) {
       return;
+    }
+  }
+
+  public isRoleSelected(): boolean {
+    this.roles.forEach(role => {
+      if (this.formGroup.get('role' + role.id).value === true) {
+        return true;
+      }
+    });
+    return false;
+  }
+
+  public isRoleDisabled(roleId): boolean {
+    if (this.formGroup.get('role2').value && roleId !== 2) {
+      return true;
+    }
+    return false;
+  }
+
+  public checkboxValueChanged(roleId) {
+    if (roleId === 2) {
+      this.roles.forEach(role => {
+        if (role.id !== 2) {
+          this.formGroup.get('role' + role.id).setValue(false);
+        }
+      })
     }
   }
 }

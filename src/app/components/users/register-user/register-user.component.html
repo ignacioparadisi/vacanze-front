@@ -7,25 +7,16 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="modal-body table-responsive">
     <!-- Role Field -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <select class="form-control" formControlName="role" [ngClass]="{
-              'is-invalid': submitted && form['role'].errors,
-              'is-valid': !form['role'].errors
-            }">
-            <option value="-1" disabled>Seleccione un rol</option>
-            <option *ngFor="let role of roles" value="{{ role.id }}">{{
-              role.name
-            }}</option>
-          </select>
-          <div *ngIf="submitted && form['role'].errors" class="invalid-feedback">
-            <div *ngIf="form['role'].errors.min">
-              Se debe seleccionar un rol
-            </div>
-          </div>
-        </div>
-      </div>
+    <label>Roles</label><br />
+    <div class="btn-group btn-group-toggle">
+      <label *ngFor="let role of roles" class="btn-outline-primary" ngbButtonLabel>
+        <input type="checkbox" [formControlName]="'role' + role.id" ngbButton [disabled]="isRoleDisabled(role.id)"
+          (change)="checkboxValueChanged(role.id)">
+        {{ role.name }}
+      </label>
+    </div>
+    <div *ngIf="submitted && !isRoleSelected()" class="role-required">
+      Se debe seleccionar un rol
     </div>
 
     <div class="row">
