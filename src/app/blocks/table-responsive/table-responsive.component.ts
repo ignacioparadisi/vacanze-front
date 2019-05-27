@@ -29,16 +29,17 @@ export class TableResponsiveComponent implements OnChanges{
 
 
     ngOnChanges(){
-      if(this.tableData.length !== 0){
-        this.tableData.forEach(b => {
-          if(b['status'] === 'Active') {
-            b['active'] = true;
-          }
-          else {
-            b['active'] = false;
-          }
-
-        })
+      if(this.tableData!= null){
+        if(this.tableData.length !== 0){
+          this.tableData.forEach(b => {
+            if(b['status'] === 'Active') {
+              b['active'] = true;
+            }
+            else {
+              b['active'] = false;
+            }
+          })
+        }
       }
     }
 
@@ -87,7 +88,7 @@ export class TableResponsiveComponent implements OnChanges{
 
 
     /**********************************************************************
-    * Metodo que es llamado por el boton añadir                           *
+    * Metodo para ir a editar el hotel                                    *
     ***********************************************************************/
     public goToEditHotel(){
       this.emitRouting.emit('/editar-hotel');
@@ -106,7 +107,7 @@ export class TableResponsiveComponent implements OnChanges{
 
 
     /**********************************************************************
-    * Metodo que es llamado por el boton añadir                           *
+    * Metodo que es llamado por el boton editar                           *
     ***********************************************************************/
     public goToEdit(type: string){
       if (type === 'hotel'){

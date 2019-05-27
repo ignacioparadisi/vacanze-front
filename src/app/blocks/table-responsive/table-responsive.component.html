@@ -54,16 +54,16 @@
                   <tr *ngFor="let hotel of tableData">
                     <td>{{ hotel?.id }}</td>
                     <td>{{ hotel?.name }}</td>
-                    <td>{{ hotel?.capacity }}</td>
-                    <td>{{ hotel?.phone_number }}</td>
-                    <td>{{ hotel?.web_site }}</td>
+                    <td>{{ hotel?.amountOfRooms }}</td>
+                    <td>{{ hotel?.phone }}</td>
+                    <td>{{ hotel?.website }}</td>
                     <td class="d-flex ml-3">
-                      <span class="badge badge-success" *ngIf="hotel?.status === 'Active'"> {{ hotel?.status }}</span>
-                      <span class="badge badge-danger" *ngIf="hotel?.status === 'Inactive'">{{ hotel?.status }}</span>
+                      <span class="badge badge-success" *ngIf="hotel?.isActive">Activo</span>
+                      <span class="badge badge-danger" *ngIf="!hotel?.isActive">Inactivo</span>
                       <input type="checkbox"
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
-                        [checked]="hotel?.active"
+                        [checked]="hotel?.isActive"
                         (click)="openModalActions($event, hotel, type)"
                         title = "Desactivar/Activar {{type}}">
                     </td>
