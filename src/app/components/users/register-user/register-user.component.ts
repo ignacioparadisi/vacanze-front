@@ -41,7 +41,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   private fetchRoles() {
-    this.apiService.getUrl<Role[]>('roles').then(roles => {
+    this.apiService.getUrl('roles').then(roles => {
       this.roles = roles.filter(role => role.id !== 1);
       this.addRolesToFormGroup();
       if (this.user) {
@@ -143,7 +143,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   private createUser(user: User) {
-    this.apiService.postUrl<User>('users', user).then(user => {
+    this.apiService.postUrl('users', user).then(user => {
       this.activeModal.close();
       this.userCreatedSuccessfully();
     }).catch(error => {
