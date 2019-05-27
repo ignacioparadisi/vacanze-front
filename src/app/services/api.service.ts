@@ -4,7 +4,6 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
-
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
@@ -25,20 +24,20 @@ export class ApiService {
   /*******************************************************
   * Metodo para realizar el consumo del API de tipo GET  *
   ********************************************************/
-  public getUrl<T>(url: string, parameter?: Array<string>): Promise<T> {
+  public getUrl(url: string, parameter?: Array<string>): Promise<any> {
     // Cuando la URL contiene uno o más parametros, sustituirlos por los elementos del arreglo parameter
     if (parameter && url && url.indexOf('{') !== -1) {
       parameter.forEach(p => {
         url = url.replace(/{[a-zA-Z_]*}/, p);
       });
     }
-    return <Promise<T>>this.http.get(this.apiName + url).toPromise();
+    return <Promise<any>>this.http.get(this.apiName + url).toPromise();
   }
 
   /*******************************************************
   * Metodo para realizar el consumo del API de tipo POST *
   ********************************************************/
-  public postUrl<T>(url, data, parameter?: Array<string>): Promise<T> {
+  public postUrl(url, data, parameter?: Array<string>): Promise<any> {
     // Cuando la URL contiene uno o más parametros, sustituirlos por los elementos del arreglo parameter
     if (parameter && url && url.indexOf('{') !== -1) {
       parameter.forEach(p => {
@@ -47,7 +46,7 @@ export class ApiService {
     }
 
     this.myInit['body'] = data;
-    return <Promise<T>>(
+    return <Promise<any>>(
       this.http.post(this.apiName + url, data).toPromise()
     );
   }
@@ -55,7 +54,7 @@ export class ApiService {
   /*******************************************************
   * Metodo para realizar el consumo del API de tipo PUT  *
   ********************************************************/
-  public putUrl<T>(url, data?, parameter?: Array<string>): Promise<T> {
+  public putUrl(url, data?, parameter?: Array<string>): Promise<any> {
     // Cuando la URL contiene uno o más parametros, sustituirlos por los elementos del arreglo parameter
     if (parameter && url && url.indexOf('{') !== -1) {
       parameter.forEach(p => {
@@ -64,7 +63,7 @@ export class ApiService {
     }
 
     this.myInit['body'] = data;
-    return <Promise<T>>(
+    return <Promise<any>>(
       this.http.put(this.apiName + url, data).toPromise()
     );
   }
@@ -72,7 +71,7 @@ export class ApiService {
   /**********************************************************
   * Metodo para realizar el consumo del API de tipo DELETE  *
   ***********************************************************/
-  public deleteUrl<T>(url, parameter?: Array<string>): Promise<T> {
+  public deleteUrl(url, parameter?: Array<string>): Promise<any> {
     // Cuando la URL contiene uno o más parametros, sustituirlos por los elementos del arreglo parameter
     if (parameter && url && url.indexOf('{') !== -1) {
       parameter.forEach(p => {
@@ -80,14 +79,14 @@ export class ApiService {
       });
     }
 
-    return <Promise<T>>(
+    return <Promise<any>>(
       this.http.delete(this.apiName + url).toPromise()
     );
   }
   /***************************************************************************
   * Metodo para realizar el consumo del API de tipo DELETE con body incluido *
   ****************************************************************************/
-  public deleteUrlWithBody<T>(url, data, parameter?: Array<string>): Promise<T> {
+  public deleteUrlWithBody(url, data, parameter?: Array<string>): Promise<any> {
     // Cuando la URL contiene uno o más parametros, sustituirlos por los elementos del arreglo parameter
     if (parameter && url && url.indexOf('{') !== -1) {
       parameter.forEach(p => {
@@ -96,7 +95,7 @@ export class ApiService {
     }
 
     this.myInit['body'] = data;
-    return <Promise<T>>(
+    return <Promise<any>>(
       this.http.delete(this.apiName + url, this.myInit).toPromise()
     );
   }

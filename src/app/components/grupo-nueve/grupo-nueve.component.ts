@@ -30,7 +30,7 @@ export class GrupoNueveComponent implements OnInit {
 
   ngOnInit() {
 
-    this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims=data; console.log(data)})
+    this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims = data; console.log(data)})
 
     this.formGroup = new FormGroup({
       titulo: new FormControl(null, [Validators.required]),

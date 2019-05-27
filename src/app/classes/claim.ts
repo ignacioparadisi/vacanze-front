@@ -1,11 +1,11 @@
 export class Claim {
     id: number;
-    titulo: string;
-    descripcion: string;
+    title: string;
+    description: string;
   
-    constructor(id: number, titulo: string, descripcion: string) {
+    constructor(id: number, title: string, description: string) {
       this.id = id;
-      this.titulo = titulo;
-      this.descripcion = descripcion;
+      this.title = title;
+      this.description = description;
     }
   }
