@@ -51,13 +51,13 @@
               Buscar Automóvil
           </div>
           <div class="card-body table-responsive">
-            <form action="">
+            <form action="" onsubmit="return validation();">
               <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
                         
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Pais...</option> 
+                        <select class="form-control" id="paises">
+                          <option disabled selected>Pais...</option> 
                           <option>Afganistan</option>
                           <option>Colombia</option>
                           <option>Uruguay</option>
@@ -69,7 +69,7 @@
                     <div class="form-group">
                         
                         <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Ciudad...</option> 
+                          <option disabled selected>Ciudad...</option> 
                           <option>2</option>
                           <option>3</option>
                           <option>4</option>
@@ -103,10 +103,20 @@
                         showConfirmButton=false
                         timer=2500>
                       </swal>
-                        <button class="btn btn-success float-right" [swal]="addSwal">Buscar</button>
+                        <button class="btn btn-success float-right" [swal]="addSwal" type="submit">Buscar</button>
                       </div>
                 </div>
               </div>
+              <script type="text/javascript">
+                function validation(){
+                  var name = document.getElementById('paises').value;
+                  if(name=='')
+                  {
+                    alert('required');
+                    return false;
+                  }
+                }
+                </script>
 
             </form>
           </div>
