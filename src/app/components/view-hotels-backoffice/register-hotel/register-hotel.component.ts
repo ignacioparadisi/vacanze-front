@@ -69,17 +69,27 @@ export class RegisterHotelComponent implements OnInit {
     this._location.back();
   }
 
+
   public onSubmit(){
-    console.log(this.registrationForm.value);
-    console.log(url.endpoint.default._post.postHotel);
     this.service
     .postUrl(url.endpoint.default._post.postHotel,
       {
-        title: this.registrationForm.get('name').value,
-        description: this.registrationForm.get('phone').value
+        name: this.registrationForm.get('name').value,
+        amountOfRooms: this.registrationForm.get('rooms').value,
+        isActive : true,
+        phone: this.registrationForm.get('phone').value,
+        website: this.registrationForm.get('web').value
       })
-    .then(response => {console.log(response)});
-  }
-
+    .then(
+      response => {
+        //TODO -> REDIRECCIONAR AL LISTADO DE HOTELES
+        //TODO -> VALIDAR LA RESPUESTA
+        console.log(response);
+      }).catch(
+        error => {
+          console.log(error);
+        }
+      );
+   }
 
 }
