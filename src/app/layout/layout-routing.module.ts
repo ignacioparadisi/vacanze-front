@@ -70,12 +70,7 @@ const routes: Routes = [
       {
         path: 'users',
         loadChildren: '../components/users/users-list/users-list.module#UsersListModule'
-      },
-      {
-        path: 'grupo-cinco',
-        loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
       }
-
     ]
   }
 ];
