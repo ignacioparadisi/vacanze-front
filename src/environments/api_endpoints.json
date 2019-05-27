@@ -1,13 +1,15 @@
 {
     "_get": {
-        "getClaim":"api/Claim"
+        "getClaim":"Claim",
+        "getHotel":"hotels"
     },
     "_post": {
-        "postClaim":"api/Claim"
+        "postClaim":"Claim",
+        "postHotel":"hotels"
     },
-    "_put": { "putClaimStatus":"api/Claim/{id}"
+    "_put": { "putClaimStatus":"Claim/{id}"
     },
     "_delete": { 
-        "deleteClaim":"api/Claim/{id}"
+        "deleteClaim":"Claim/{id}"
     }
 }
