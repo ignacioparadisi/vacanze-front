@@ -88,7 +88,7 @@
                 </tbody>
               </ng-template>
               <ng-template #restaurantesElseBlock>
-                <tbody *ngIf="type === 'restaurantes'">
+                <tbody *ngIf="type === 'restaurantes'; else restaurantesReservaElseBlock">
                   <tr *ngFor="let restaurante of tableData">
                     <td>{{ restaurante?.id }}</td>
                     <td>{{ restaurante?.name }}</td>
@@ -142,6 +142,34 @@
                   </tr>
                 </tbody>
               </ng-template>
+
+              <!--Tabla de reserva de restaurant-->
+              <ng-template #restaurantesReservaElseBlock>
+                  <tbody *ngIf="type === 'rest-reserva'">
+                    <tr *ngFor="let reserva of tableData">
+                      <td>{{ reserva?.imagen }}</td>
+                      <td>{{ reserva?.nombre }}</td>
+                      <td>{{ reserva?.direccion }}</td>
+                      <td>{{ reserva?.capacidad }}</td>
+                      <td>{{ reserva?.especialidad }}</td>
+                      <td>{{ reserva?.precio }} $</td>
+                      <td>{{ reserva?.descripcion }}</td>
+                      <td>{{ reserva?.telefono }}</td>
+                      <td>
+                          <button 
+                            class="btn btn-outline-dark"
+                            style="cursor: pointer;" 
+                            (click)="openModalActions($event, reservar-restaurante, 'reservar', true)" 
+                            data-toggle="tooltip" 
+                            data-placement="top" 
+                            title="Reservar {{type}}"
+                          >
+                            <i class="fa fa-cart-plus"></i>
+                          </button>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                  </tbody>
+                </ng-template>
           </table>
       </div>
   </div>

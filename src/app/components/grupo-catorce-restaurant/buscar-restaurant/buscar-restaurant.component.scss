@@ -10,11 +10,11 @@
     margin-top: 100px;
 }
 
-#fondo{
+#fondo{    
+    background-image: url("https://i.pinimg.com/564x/76/a6/00/76a6003e3443bb7fd3d97f466c389b2c.jpg");
     align-items: center!important;
     text-align: center;
-    width: 100%;
-    height: 400px!important;
-    background-image: url("https://i.pinimg.com/564x/14/8d/10/148d10fcaaa9565992b5149808d77020.jpg");
-    background-color: transparent!important; 
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position-y: 20%;
 }

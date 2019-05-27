@@ -5,22 +5,22 @@ import { GrupoCatorceRestaurantComponent } from './grupo-catorce-restaurant.comp
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { BuscarRestaurantComponent } from './buscar-restaurant/buscar-restaurant.component'
-import { ReservarRestaurantComponent } from './reservar-restaurant/reservar-restaurant.component'
 import { SeleccionarRestaurantComponent } from './seleccionar-restaurant/seleccionar-restaurant.component'
 
+import { GrupoOchoCrucerosModule  } from '../grupo-ocho-cruceros/grupo-ocho-cruceros.module';
 
 @NgModule({
   declarations: [
     GrupoCatorceRestaurantComponent,
     BuscarRestaurantComponent,
-    ReservarRestaurantComponent,
     SeleccionarRestaurantComponent,
     
   ],
   imports: [
     CommonModule,
     GrupoCatorceRestaurantRoutingModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    GrupoOchoCrucerosModule
   ],
   providers: [],
   exports: [
