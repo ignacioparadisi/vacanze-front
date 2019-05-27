@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
   }
 
   private fetchEmployees() {
-    this.apiService.getUrl<User[]>('users').then(users => {
+    this.apiService.getUrl('users').then(users => {
       this.users = users;
     }).catch(error => {
       console.log(error);
