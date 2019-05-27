@@ -13,7 +13,7 @@ import { PeopleFlight } from 'src/app/classes/people_flight';
   styleUrls: ['./flight-reservations.component.scss']
 })
 export class FlightReservationsComponent implements OnInit {
-
+ 
   public form: FormGroup;
   public classFlight: ClassFlight[] = [];
   public typeFlights: TypeFlight[]=[];
@@ -24,8 +24,9 @@ export class FlightReservationsComponent implements OnInit {
   public cont:number=3;
   public arrayNumber: number[] = [1,2];
   public disabled:boolean=true;
+  public disabledOut:boolean=false;
   public isChecked;
-
+  public subM:boolean=false;
   constructor(private api: ApiService) { }
    private selectedTyp: string="";
    
@@ -35,11 +36,11 @@ export class FlightReservationsComponent implements OnInit {
       this.adultFlight();
       
       this.form=new FormGroup({
-        ClassFlight: new FormControl(-1, [Validators.required]),
-        name: new FormControl(null, [Validators.required]),
+        classFlight: new FormControl(-1, [Validators.required]),
+        //name: new FormControl(null, [Validators.required]),
         origen: new FormControl(null, [Validators.required]),
         destino: new FormControl(null, [Validators.required]),
-        FechaS:new FormControl(null, [Validators.required]),
+        fechaS:new FormControl(null, [Validators.required]),
         fechaE:new FormControl(null, [Validators.required])
       })
     
@@ -137,16 +138,34 @@ export class FlightReservationsComponent implements OnInit {
       console.log(1);
       input.setAttribute("disabled","true");
       output.setAttribute("disabled","true");
-
+      this.disabledOut=true;
+      this.disabled=true;
     }else{
       if (this.disabled==false || this.selectedTyp=="1") {
         input.removeAttribute("disabled");
+        this.disabled=false;
       }
         
         output.removeAttribute("disabled");
-      console.log(2);
+       
+        this.disabledOut=false;
+        console.log(2);
     }
 
   }
+  onSubmit() {
+   
+    if (this.form.get('origen').valid && this.form.get('destino').valid
+     && (this.form.get('classFlight').value !=-1) && (this.form.get('fechaE').valid || this.disabled==true)
+     && this.form.get('fechaS').valid) {
+      console.log('form submitted');
+    } else {
+      this.subM=true;
+      console.log(this.form.get('classFlight').value);
+
+      console.log('Llenar los campos');    }
+  }
+  
+ 
 
 }

@@ -29,23 +29,28 @@
           <div class="row" *ngIf="selectMult ">
             
             <div class="col-md-2">
-                <label for="">Origen</label>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Origen" formControlName="origen">
+                
+                <label for="" class="control-label" >Origen</label>
+              <div class="form-group" >
+                 
+                <input  type="text" class="form-control" [class.alert-danger]="form.get('origen').invalid && subM"  name="origin" placeholder="Origen" formControlName="origen" >
+                <span *ngIf="form.get('origen').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
               </div>
+               
             </div>
 
             <div class="col-md-2">
                 <label for="">Destino</label>
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Destino" formControlName="destino">
+                  <input type="text" class="form-control" [class.alert-danger]="form.get('destino').invalid && subM"  placeholder="Destino" formControlName="destino">
+                  <span *ngIf="form.get('destino').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
                 </div>
             </div>
-
             <div class="col-md-3">
                 <label for="">Fecha de Salida</label>
-                <div class="form-group">
-                  <input id="out_id" type="date" class="form-control" placeholder="FechaS" formControlName="FechaS">
+                <div class="form-group"  >
+                  <input id="out_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaS').invalid && subM && !disabledOut" placeholder="FechaS" formControlName="fechaS">
+                  <span *ngIf="form.get('fechaS').invalid && subM && !disabledOut" style="color: #ed1b24">Campo Obligatorio</span>
                 </div>
             
               <div class="form-check" style="margin: -8px 47px 8px 3px;font-size: 16px;">
@@ -58,26 +63,29 @@
             
             <div class="col-md-3">
                 <label for="">Fecha de Regreso</label>
-                <div class="form-group">
-                    <input  id="entry_id" type="date" class="form-control" placeholder="FechaE" formControlName="fechaE" [attr.disabled]="disabled ? '' : null">    
-                </div>
+                <div class="form-group"  >
+                    <input  id="entry_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaE').invalid && subM && !disabled" placeholder="FechaE" formControlName="fechaE" [attr.disabled]="disabled ? '' : null">    
+                    <span *ngIf="form.get('fechaE').invalid && subM && !disabled" style="color: #ed1b24">Campo obligatorio</span>
+                  </div>
             </div>
 
             <div class="col-md-2">
                 <label for="">Pasajeros</label>
-                <div class="form-group">
-                  <select class="form-control" formControlName="ClassFlight">
+                <div class="form-group"   >
+                  <select class="form-control" formControlName="classFlight" [class.alert-danger]="form.get('classFlight').value==-1 && subM"  >
                      <option value="-1" disabled>Adulto</option>
                      <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
                   </select>
+                  <span *ngIf="form.get('classFlight').value==-1 && subM" style="color: #ed1b24">Campo Obligatorio</span>
                   </div>
             </div> 
-         
+       
             <div class="col-md-6" >
-                <button type="button" class="btn btn-primary" style="width: 141px;margin: auto;" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['lists-reservations']">
+                <button (click)="onSubmit()"  class="btn btn-primary" style="width: 141px;margin: auto;" data-toggle="button" aria-pressed="false" autocomplete="off" >
                     Buscar
                 </button>
             </div>
+          
           </div>
 
 
@@ -106,7 +114,7 @@
               <div class="col-md-3">
                 <label for="">Fecha de Salida</label>
                 <div class="form-group">
-                  <input id="out_id" type="date" class="form-control" placeholder="FechaS" formControlName="FechaS">
+                  <input id="out_id" type="date" class="form-control" placeholder="FechaS" formControlName="fechaS">
                 </div>
               </div>
             </ng-container>
@@ -134,7 +142,7 @@
             <div class="col-md-6">
               <label for="">Pasajeros</label>
               <div class="form-group">
-                <select class="form-control" formControlName="ClassFlight" style="width:190px;margin-left: inherit;margin:0;">
+                <select class="form-control" formControlName="classFlight" style="width:190px;margin-left: inherit;margin:0;">
                    <option value="-1" disabled>Adulto</option>
                    <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
                  </select>
@@ -142,7 +150,7 @@
             
          
                 
-              <button type="button" class="btn btn-primary" style="width: 141px;margin:0; margin-top: 13px;" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['lists-reservations']">
+              <button (click)="onSubmit()" class="btn btn-primary" style="width: 141px;margin:0; margin-top: 13px;" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['lists-reservations']">
                 Buscar
                </button>
              </div>     
