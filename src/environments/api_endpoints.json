@@ -1,9 +1,9 @@
 {
     "_get": {
-
+      "getHotel":"hotels"
     },
     "_post": {
-
+      "postHotel":"hotels"
     },
     "_put": {
 
