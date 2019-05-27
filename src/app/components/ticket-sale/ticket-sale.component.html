@@ -1,6 +1,6 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Venta de Boletos</h4>
+      <h4 class="modal-title">Venta de Boletos Aereos</h4>
       
       <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
           <span aria-hidden="true">&times;</span>
@@ -19,28 +19,11 @@
   </div>
   
   <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Venta de Boletos</button>
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Venta de Boletos Aereos</button>
   </div>
 </ng-template>
 
-<div class="col-md-12 contenedor-boleto">
-
-  <div id="li-avion" class="contenedor-tipo-boleto card" style="padding: 1.25rem; margin-right:5px">
-    <li (click) = "pantallaAvion()"> Boletos de Avion <br>
-    <i class="fa fa-ticket" aria-hidden="true"></i></li>
-  </div>
-
-  <div id="li-crucero" class="contenedor-tipo-boleto card" style="padding: 1.25rem; margin-left:5px">
-    <li (click)="pantallaCrucero()"> Boletos de Curcero <br>
-    <i class="fa fa-ship" aria-hidden="true"></i></li>
-  </div>
-  <div id="li-check-in" class="contenedor-tipo-boleto card" style="padding: 1.25rem; margin-left:5px">
-    <li (click)="pantallaCheckIn()"> Check in Pasajero <br>
-    <i class="fa fa-pencil" aria-hidden="true"></i></li>
-  </div>
-
-</div>
-<div id = "paginaAvion" style = "display:none">
+<div id = "paginaAvion" >
 <div class="row">
   <div class="col-md-12">
     <div class="card mb-3">
@@ -64,7 +47,8 @@
                 <p> Consultar reserva por:</p>
                 <label>
                     <input id="check_numeroReserva" type="checkbox" 
-                    value="checkedValue" (change)="checkeadoNumeroReserva($event)" checked="checked"> Numero de Reserva 
+                    value="checkedValue" (change)="checkeadoNumeroReserva($event)"
+                     checked="checked"> Numero de Reserva 
                 </label>
                 <br>
                 <label>
@@ -137,7 +121,8 @@
             
             <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 16px;"  >
               <div *ngFor="let type of typeFlights" style="margin-right:15px">
-                <input  id="{{type.id}}" name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)"  >
+                <input  id="{{type.id}}" name="paymentMethod" type="radio" class="form-check-input"
+                 (change)="radioChangeHandler($event)"  >
                 <label class="form-check-label" for="type">{{type.name}}</label>
               </div> 
             </div>
@@ -212,8 +197,4 @@
 
 
 </div>
-<div id = "paginaCrucero" style = "display:none">
 
-</div>
-
-<div id = "paginaCheckIn" style = "display:none"></div>

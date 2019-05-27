@@ -44,43 +44,16 @@ export class TicketSaleComponent implements OnInit {
 
 }
 
-pantallaAvion(){
+/* pantallaAvion(){
   var pagina, liAvion, liCrucero,liCheckIn;
   pagina = document.getElementById('paginaAvion');
   liAvion = document.getElementById('li-avion');
-  liCrucero = document.getElementById('li-crucero');
-  liCheckIn = document.getElementById('li-check-in');
 
   pagina.style.display = "block";
   liAvion.style.display = "none";
-  liCrucero.style.display = "none";
-  liCheckIn.style.display = "none";
-}
+} */
 
-pantallaCrucero(){
-  var pagina, liAvion, liCrucero, liCheckIn;
-  pagina = document.getElementById('paginaCrucero');
-  liAvion = document.getElementById('li-avion');
-  liCrucero = document.getElementById('li-crucero');
-  liCheckIn = document.getElementById('li-check-in');
 
-  pagina.style.display = "block";
-  liAvion.style.display = "none";
-  liCrucero.style.display = "none";
-  liCheckIn.style.display = "none";
-}
-pantallaCheckIn(){
-  var pagina, liAvion, liCrucero, liCheckIn;
-  pagina = document.getElementById('paginaCheckIn');
-  liAvion = document.getElementById('li-avion');
-  liCrucero = document.getElementById('li-crucero');
-  liCheckIn = document.getElementById('li-check-in');
-
-  pagina.style.display = "block";
-  liAvion.style.display = "none";
-  liCrucero.style.display = "none";
-  liCheckIn.style.display = "none";
-}
 checkeadoNumeroReserva(event: any){
 
   var ck_numeroReserva =<HTMLInputElement> document.getElementById("check_numeroReserva");

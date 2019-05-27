@@ -74,6 +74,14 @@ const routes: Routes = [
       {
         path: 'ticket-sale',
         loadChildren: '../components/ticket-sale/ticket-sale.module#TicketSaleModule'
+      },
+      {
+        path: 'ticket-sale-ship',
+        loadChildren: '../components/ticket-sale-ship/ticket-sale-ship.module#TicketSaleShipModule'
+      },
+      {
+        path: 'check-in',
+        loadChildren: '../components/check-in/check-in.module#CheckInModule'
       }
     ]
   }
