@@ -10,25 +10,22 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <p><strong>País de salida:</strong> {{flight.name}}</p>
-                            <p><strong>Ciudad de salida:</strong> {{flight.username}}</p>
+                            <p><strong>País y ciudad de salida:</strong> {{flight.loc_departure}}</p>
                         </div>
                         <div class="col-md-4">
-                            <p><strong>País de llegada:</strong> Colombia</p>
-                            <p><strong>Ciudad de llegada:</strong> Bogota</p>
+                            <p><strong>País y ciudad de llegada:</strong> {{flight.loc_arrival}}</p>
                             
                         </div>
                         <div class="col-md-4">
-                            <p><strong>Precio:</strong> $ 1983</p>
-                            <p><strong>Duración:</strong> 5h 22min</p>
+                            <p><strong>Precio:</strong> $ {{flight.price}}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <p><strong>Fecha de salida:</strong> 19/11/2019 04:40 p.m.</p>
+                            <p><strong>Fecha de salida:</strong> {{flight.departure}}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>Fecha de llegada:</strong> 19/11/2019 08:40 p.m.</p>
+                            <p><strong>Fecha de llegada:</strong> {{flight.arrival}}</p>
                         </div>
                     </div>
                 </div>
@@ -134,22 +131,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="" class="mb-3 d-block">Duración (Horas)</label>
-                        <select name="" id="" class="form-control select-menor float-left mr-4">
-                            <option value="">01</option>
-                            <option value="">02</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="mb-3 d-block">Duración (Minutos)</label>
-                        <select name="" id="" class="form-control select-menor float-left">
-                            <option value="">01</option>
-                            <option value="">02</option>
-                        </select>
-                    </div>
-                </div>
             </div>
         </form>
     </div><!-- -->
@@ -179,13 +160,15 @@
                         <tbody>
                             <tr *ngFor="let item of flights; let i = index">
                                 <th scope="row">{{item.id}}</th>
-                                <td>{{item.name}}</td>
-                                <!-- <td>
-                                    <strong>Origen:</strong> {{item.countrySalida}}, {{item.citySalida}} - {{item.fechaSalida}}- <strong>Destino:</strong> {{item.countryLlegada}}, {{item.cityLlegada}} - {{item.fechaLlegada}} <br>
-                                </td>-->
-                                <td>${{item.username}}</td>
+                                <td>{{item.plane.id}}</td>
                                 <td>
-                                    <button class="btn btn-outline-info float-left mr-3" (click)="openLg(content, i+1)"><i class="fa fa-edit"></i></button>
+                                    <strong>Origen:</strong> {{item.loc_arrival}} -
+                                    {{item.departure}} - <strong>Destino:</strong> {{item.loc_departure}} -
+                                    {{item.arrival}} <br>
+                                </td>
+                                <td>${{item.price}}</td>
+                                <td>
+                                    <button class="btn btn-outline-info float-left mr-3" (click)="openLg(content, item.plane.id)"><i class="fa fa-edit"></i></button>
                                     <swal
                                         #deleteSwal
                                         title="¿Desea eliminar el vuelo?"

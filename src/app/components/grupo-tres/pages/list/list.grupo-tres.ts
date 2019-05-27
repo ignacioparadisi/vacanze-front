@@ -32,7 +32,7 @@ export class ListGrupoTres implements OnInit {
   }
 
   getFlights() {
-    const requestURL = 'https://jsonplaceholder.typicode.com/users';
+    const requestURL = '/api/flights';
     this.apiService.getUrl(requestURL).then(
       response => {
       this.flights = response;

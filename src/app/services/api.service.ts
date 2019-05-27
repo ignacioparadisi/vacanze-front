@@ -10,7 +10,8 @@ export class ApiService {
     private apiName = environment.baseApiUrl;
     private myInit = {
         headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:4200'
+            'Content-type': 'application/json',
+            //'Access-Control-Allow-Origin': 'http://localhost:4200'
         }
     };
 

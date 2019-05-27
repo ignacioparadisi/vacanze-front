@@ -1,10 +1,9 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { COUNTRYS, HOURS, MINUTES } from '../../../../utils/select.util';
+import { HOURS, MINUTES } from '../../../../utils/select.util';
 import { ApiService } from '../../../../services/api.service';
 import * as moment from 'moment';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -95,22 +94,15 @@ export class NewGrupoTres implements OnInit {
         var fechas = this.transformarFechas(payload);
 
         if (fechas === 1) {
-            payload.departure = moment(payload.departure).format('DD-MM-YYYY h:mm:ss');
-            payload.arrival = moment(payload.arrival).format('DD-MM-YYYY h:mm:ss');
+            payload.departure = moment(payload.departure).format('MM-DD-YYYY h:mm:ss');
+            payload.arrival = moment(payload.arrival).format('MM-DD-YYYY h:mm:ss');
             payload.plane = { id: parseInt(payload.plane, 10) };
             payload.price = parseInt(payload.price, 10);
-            payload.routes = [
-                {
-                    locDeparture: parseInt(payload.locDeparture, 10),
-                    locArrival: parseInt(payload.locArrival, 10),
-                    departureDate: payload.departure,
-                    arrivalDate: payload.arrival
-                }
-            ];
-            delete payload.locDeparture;
+            payload.loc_departure = parseInt(payload.locDeparture, 10);
+            payload.loc_arrival = parseInt(payload.locArrival, 10);
             delete payload.locArrival;
-            delete payload.departureDate;
-            delete payload.arrivalDate;
+            delete payload.locDeparture;
+
             if (this.form.valid) {
                 this.apiService.postUrl('/api/flights', payload).then(
                     response => {
