@@ -4,6 +4,7 @@ import { Role } from 'src/app/classes/role';
 import { Location } from "@angular/common";
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
+import { environment as url } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-register-hotel',
@@ -14,20 +15,20 @@ export class RegisterHotelComponent implements OnInit {
 
 
   public registrationForm : FormGroup = new FormGroup({
-    nombre : new FormControl('',[
+    name : new FormControl('',[
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(100)
     ]),
-    capacidad : new FormControl('',[
+    capacity : new FormControl('',[
       Validators.required,
       Validators.min(1)
     ]),
-    cantidadHabitaciones : new FormControl('',[
+    rooms : new FormControl('',[
       Validators.required,
       Validators.min(1)
     ]),
-    telefono : new FormControl('',[
+    phone : new FormControl('',[
       Validators.required,
       Validators.pattern("^((\\+)|(00)|(\\*)|())[0-9]{3,14}((\\#)|())$")
     ]),
@@ -39,25 +40,25 @@ export class RegisterHotelComponent implements OnInit {
 
 
 
-  constructor(private _location: Location){}
+  constructor(private _location: Location, private service: ApiService){}
 
   ngOnInit() {
   }
 
-  get nombre(){
-    return this.registrationForm.get('nombre');
+  get name(){
+    return this.registrationForm.get('name');
   }
 
-  get telefono(){
-    return this.registrationForm.get('telefono');
+  get phone(){
+    return this.registrationForm.get('phone');
   }
 
-  get capacidad(){
-    return this.registrationForm.get('capacidad');
+  get capacity(){
+    return this.registrationForm.get('capacity');
   }
 
-  get cantidadHabitaciones(){
-    return this.registrationForm.get('cantidadHabitaciones');
+  get rooms(){
+    return this.registrationForm.get('rooms');
   }
 
   get web(){
@@ -67,5 +68,28 @@ export class RegisterHotelComponent implements OnInit {
   public goToViewHotels(){
     this._location.back();
   }
+
+
+  public onSubmit(){
+    this.service
+    .postUrl(url.endpoint.default._post.postHotel,
+      {
+        name: this.registrationForm.get('name').value,
+        amountOfRooms: this.registrationForm.get('rooms').value,
+        isActive : true,
+        phone: this.registrationForm.get('phone').value,
+        website: this.registrationForm.get('web').value
+      })
+    .then(
+      response => {
+        //TODO -> REDIRECCIONAR AL LISTADO DE HOTELES
+        //TODO -> VALIDAR LA RESPUESTA
+        console.log(response);
+      }).catch(
+        error => {
+          console.log(error);
+        }
+      );
+   }
 
 }

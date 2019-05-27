@@ -60,18 +60,27 @@ const routes: Routes = [
       {
         path: 'grupo-once-pago',
         loadChildren:
-        '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
+          '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
       },
       {
         path: 'restaurantes',
         loadChildren:
-        '../components/restaurantes/restaurantes.module#RestaurantesModule'
+          '../components/restaurantes/restaurantes.module#RestaurantesModule'
       },
       {
         path: 'restaurant-reservation',
         loadChildren: 
         '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
+      },
+      {
+        path: 'users',
+        loadChildren: '../components/users/users-list/users-list.module#UsersListModule'
+      },
+      {
+        path: 'grupo-cinco',
+        loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
       }
+
     ]
   }
 ];
@@ -79,4 +88,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }
