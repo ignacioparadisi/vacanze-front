@@ -1,5 +1,5 @@
 <app-table-responsive
-  *ngIf="!isEditingHotel"
+  *ngIf="!isEditingHotel && !isCreatingHotel"
   [headerTitle]="getHeaderTitle()"
   [tableData]="getHotels()"
   [tableHeaders]="getHeaderHotels()"
