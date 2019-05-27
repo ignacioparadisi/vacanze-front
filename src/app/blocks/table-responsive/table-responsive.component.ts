@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { RegisterRestaurantComponent } from 'src/app/components/register-restaurant/register-restaurant.component';
@@ -11,24 +11,25 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./table-responsive.component.scss']
 })
 
-export class TableResponsiveComponent implements OnChanges{
+export class TableResponsiveComponent implements OnChanges {
 
-    @ViewChild('restauranteModal') restauranteModal: RegisterRestaurantComponent;
-    @Input() headerTitle: string; // Nombre de la tabla ej: Listado de registros
-    @Input() tableData: Array<Object>; // Array con la data a mostrar en cada fila de la tabla
-    @Input() tableHeaders: Array<String>; // Array con los nombres de cada columna en la tabla
-    @Input() type: string;
+  @ViewChild('restauranteModal') restauranteModal: RegisterRestaurantComponent;
+  @Input() headerTitle: string; // Nombre de la tabla ej: Listado de registros
+  @Input() tableData: Array<Object>; // Array con la data a mostrar en cada fila de la tabla
+  @Input() tableHeaders: Array<String>; // Array con los nombres de cada columna en la tabla
+  @Input() type: string;
 
-    @Output() public actionAlertEventEmitter = new EventEmitter();
-    @Output() public emitRouting = new EventEmitter();
-
-
-    constructor(private router: Router, private modalService: NgbModal){ // Agregando tooltip en boton de agregar
-    }
+  @Output() public actionAlertEventEmitter = new EventEmitter();
+  @Output() public emitRouting = new EventEmitter();
 
 
+  
+  constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
+  }
 
-    ngOnChanges(){
+
+  
+   ngOnChanges(){
       if(this.tableData!= null){
         if(this.tableData.length !== 0){
           this.tableData.forEach(b => {
@@ -40,8 +41,8 @@ export class TableResponsiveComponent implements OnChanges{
             }
           })
         }
-      }
-    }
+     }
+   }
 
 
 
