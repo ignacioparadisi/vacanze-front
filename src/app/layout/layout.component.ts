@@ -11,7 +11,7 @@ export class LayoutComponent implements OnInit {
   StatusSideBar=false;
   StatusLogin=true;
   collapedSideBar: boolean;
-
+  
   constructor() {}
 
   ngOnInit() {}

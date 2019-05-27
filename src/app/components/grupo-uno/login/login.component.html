@@ -1,4 +1,5 @@
-<div class="page animsition padre" data-animsition-in="fade-in" data-animsition-out="fade-out" style="animation-duration: 800ms; opacity: 1;" *ngIf="StatusLogin">
+<router-outlet>
+<div class="page animsition padre" data-animsition-in="fade-in" data-animsition-out="fade-out" style="animation-duration: 800ms; opacity: 1;" *ngIf="StatusLogin" ng-disabled="false">
   <div class="page-content">
     <div class="page-brand-info">
       <div class="brand">
@@ -23,7 +24,7 @@
         <div class="form-group clearfix">
           <a class="pull-right" href="">Olvidaste tu contraseña?</a>
         </div>
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="form.invalid" >Login</button>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="form.invalid" (deactivate)='onDeactivate($event)'>Login</button>
       </form>
       <p>No tienes cuenta? <a href="">Registrate!!</a></p>
       <footer class="page-copyright">
@@ -33,3 +34,4 @@
     </div>
   </div>
 </div>
+</router-outlet>
