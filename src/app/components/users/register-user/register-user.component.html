@@ -136,6 +136,10 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-success">Agregar</button>
+    <button class="btn btn-success" [disabled]="state == 'loading'">
+      <span *ngIf="state == 'loading'" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span *ngIf="state == 'loading'"> Enviando...</span>
+      <span *ngIf="state !== 'loading'">Agregar</span>
+    </button>
   </div>
 </form>

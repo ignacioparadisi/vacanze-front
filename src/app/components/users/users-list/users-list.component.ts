@@ -59,8 +59,37 @@ export class UsersListComponent implements OnInit {
       type: 'question',
       focusCancel: true
     }
-    Swal.fire(config).then(result => {
-      this.messageAlert(user);
-    })
+    Swal.fire(config).then(shouldDelete => {
+      if (shouldDelete.value === true) {
+        this.apiService.deleteUrl(`users/${user.id}`).then(id => {
+          if (id > 0) {
+            this.showSuccessAlert(`${user.name} ${user.lastname} ha sido eliminado de manera exitosa.`);
+            this.fetchEmployees();
+          }
+        }).catch(error => {
+          this.showErrorAlert(error.error);
+        })
+      }
+    });
+  }
+
+  private showSuccessAlert(title: string) {
+    let config: SweetAlertOptions = {
+      title,
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
+  }
+
+  private showErrorAlert(error: string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
   }
 }

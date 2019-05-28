@@ -143,9 +143,11 @@ export class RegisterUserComponent implements OnInit {
 
   private createUser(user: User) {
     this.apiService.postUrl('users', user).then(user => {
+      this.state = 'success';
       this.activeModal.close(true);
       this.userCreatedSuccessfully();
     }).catch(error => {
+      this.state = 'error';
       this.showErrorAlert(error.error);
     });
   }
