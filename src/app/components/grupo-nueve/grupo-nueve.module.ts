@@ -6,6 +6,8 @@ import { GrupoNueveRoutingModule } from './grupo-nueve-routing.module';
 import { GrupoNueveComponent } from './grupo-nueve.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
+
 
 @NgModule({
   declarations: [GrupoNueveComponent],
@@ -18,6 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SweetAlert2Module.forRoot(),
     ReactiveFormsModule
   ],
-  providers: []
+  providers: [ApiService]
 })
 export class GrupoNueveModule {}
