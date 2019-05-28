@@ -6,12 +6,14 @@ import { TravelComponent } from './travel.component';
 import { CreateTravelComponent } from './create-travel/create-travel';
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { DetailTravelComponent } from './detail-travel/detail-travel.component';
+import { CarouselComponent } from './detail-travel/carousel/carousel.component';
 
 @NgModule({
   declarations: [
     TravelComponent,
     CreateTravelComponent,
-    DetailTravelComponent
+    DetailTravelComponent,
+    CarouselComponent
   ],
   imports: [
     CommonModule,

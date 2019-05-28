@@ -10,6 +10,7 @@ export class DetailTravelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
