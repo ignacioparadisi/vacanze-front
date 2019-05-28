@@ -5,6 +5,7 @@ import { TravelRoutingModule } from './travel-routing.module';
 import { TravelComponent } from './travel.component';
 import { CreateTravelComponent } from './create-travel/create-travel';
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbCarouselModule } from "@ng-bootstrap/ng-bootstrap";
 import { DetailTravelComponent } from './detail-travel/detail-travel.component';
 import { CarouselComponent } from './detail-travel/carousel/carousel.component';
 
@@ -19,7 +20,8 @@ import { CarouselComponent } from './detail-travel/carousel/carousel.component';
     CommonModule,
     TravelRoutingModule,
     HttpClientModule,
-    NgbModalModule
+    NgbModalModule,
+    NgbCarouselModule
   ]
 })
 export class TravelModule { }
