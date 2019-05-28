@@ -1,0 +1,255 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Editar Automovil</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <form action="">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Placa">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Marca">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Modelo">
+            </div>
+            <select class="form-control" formControlName="ciudad">
+              <option value="-1" disabled> Ciudad nueva</option>
+              
+            </select>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Capacidad">
+              </div>
+              <div class="form-group">
+                <select class="form-control" formControlName="estado">
+                  <option value="-1" disabled> Estado del automovil</option>
+                  <option value="0">Activo</option>
+                  <option value="1">Suspendido</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Precio">
+              </div>
+            </div>
+        </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+      <swal
+      #editSwal
+      title="Automovil actualizado"
+      type="success"
+      showConfirmButton=false
+      timer=2500>
+    </swal>
+      <button type="button" class="btn btn-secondary" [swal]="editSwal" (click)="c('Close click')">Editar</button>
+  </div>
+</ng-template>
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="card mb-3">
+          <div class="card-header">
+              Registrar nuevo vehiculo a una ciudad
+          </div>
+          <div class="card-body table-responsive" style="text-align: justify">
+            <p>
+              en esta seccion se escogera primero la ciudad donde operará el vehiculo, seguido de los datos
+              del mismo que se piden a continuación. luego de llenar los datos oprima el boton "Registrar".
+            </p>
+          </div>
+          <div class="card-body table-responsive">
+            <form action="">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <select class="form-control" formControlName="ciudad">
+                            <option value="-1" disabled> Ciudad</option>
+                            
+                          </select>
+                        </div>
+                  </div> 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Placa">
+                        <input type="text" class="form-control" placeholder="Modelo">
+                        <input type="text" class="form-control" placeholder="Precio (en $$)">
+                      </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Marca">
+                        <input type="text" class="form-control" placeholder="Cantidad de pasajeros">
+                      </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                    <swal
+                    #addSwal
+                    title="Automovil agregado"
+                    type="success"
+                    showConfirmButton=false
+                    timer=2500>
+                  </swal>
+                  <button class="btn btn-success float-right" [swal]="addSwal">Registrar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+
+<div class="row">
+<div class="col-md-12">
+    <div class="card mb-3">
+        <div class="card-header">
+            Detalles de consulta de vehiculos
+        </div>
+        <div class="card-body table-responsive" style="text-align: justify">
+          <p>
+            A continuación usted podra consultar los automoviles registrados en vacanze
+            a traves de la ciudad donde operan, adicionalmente podra simplificar la busqueda
+            ingresando la matricula, cantidad de pasajeros y/o seleccionando el estado
+            del vehiculo.
+          </p>
+        </div>
+        <div class="card-body table-responsive">
+          <form action="">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select class="form-control" formControlName="ciudad">
+                          <option value="-1" disabled> Ciudad</option>
+                          
+                        </select>
+                      </div>
+                </div> 
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Placa">
+                    </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Cantidad de pasajeros">
+                    </div>
+              </div>
+              
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <select class="form-control" formControlName="estado">
+                        <option value="-1" disabled> Estado</option>
+                        <option value="0">Activo</option>
+                        <option value="1">Suspendido</option>
+                      </select>
+                    </div>
+              </div>  
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                
+                <button class="btn btn-success float-right">Buscar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+
+  <div class="col-lg-12">
+      <div class="card mb-3">
+          <div class="card-header">
+              Lista de automoviles segun detalle de consulta
+          </div>
+          <div class="card-body table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Matricula</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Capacidad</th>
+                    <th>Estado</th>
+                    <th>Precio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>a11b11</td>
+                    <td>Aveo</td>
+                    <td>Pequeño</td>
+                    <td>3</td>
+                    <td>Activo</td>
+                    <td>50$</td>
+                    <td>
+                      <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                      <swal
+                        #deleteSwal
+                        title="Desea eliminar el registro?"
+                        type="question"
+                        [showCancelButton]="true"
+                        [focusCancel]="true"
+                        (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                      </swal>
+                      <button [swal]="deleteSwal"><i class="fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>a11b12</td>
+                    <td>Ford</td>
+                    <td>Fusion</td>
+                    <td>4</td>
+                    <td>Activo</td>
+                    <td>70$</td>
+                    <td>
+                      <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                      <swal
+                        #deleteSwal
+                        title="Desea eliminar el registro?"
+                        type="question"
+                        [showCancelButton]="true"
+                        [focusCancel]="true"
+                        (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                      </swal>
+                      <button [swal]="deleteSwal"><i class="fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>a11b13</td>
+                    <td>chevrolet</td>
+                    <td>4x4</td>
+                    <td>5</td>
+                    <td>Suspendido</td>
+                    <td>80$</td>
+                    <td>
+                      <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                      <swal
+                        #deleteSwal
+                        title="Desea eliminar el registro?"
+                        type="question"
+                        [showCancelButton]="true"
+                        [focusCancel]="true"
+                        (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                      </swal>
+                      <button [swal]="deleteSwal"><i class="fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+</div>

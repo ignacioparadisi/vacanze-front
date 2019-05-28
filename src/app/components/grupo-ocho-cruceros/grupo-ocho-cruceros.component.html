@@ -1,7 +1,4 @@
-<app-table-responsive 
-  [headerTitle]="getHeaderTitle()" 
-  [tableData]="getBoats()" 
-  [tableHeaders]="getHeaderBoats()"
-  [type]="'cruceros'"
-  >
-</app-table-responsive>
+<app-cruceros *ngIf="!isRoomActive" (emitRouting)="getCurrentRoute($event)"></app-cruceros>
+<router-outlet (deactivate)="getDeactivatedComponent($event)"></router-outlet>
+
+

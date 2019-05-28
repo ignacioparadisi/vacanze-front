@@ -1,0 +1,126 @@
+<ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+                <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Payment Details
+                        </h3>
+                    </div>
+        </div>
+        <div class="modal-body">
+                                <div class="panel panel-default">
+  
+                                    <div class="panel-body">
+                                        <form role="form">
+                                        <div class="form-group">
+                                            <label for="cardNumber">
+                                                CARD NUMBER</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
+                                                    required autofocus />
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7 col-md-7">
+                                                <div class="form-group">
+                                                    <label for="expityMonth">
+                                                        EXPIRY DATE</label>
+                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                        <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
+                                                    </div>
+                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                        <input type="text" class="form-control" id="expityYear" placeholder="YY" required /></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5 col-md-5 pull-right">
+                                                <div class="form-group">
+                                                    <label for="cvCode">
+                                                        CV CODE</label>
+                                                    <input type="password" class="form-control" id="cvCode" placeholder="CV" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li class="active">
+                                    </li>
+                                </ul>
+                                <br/>
+                               
+        </div>
+        <div class="modal-footer">
+                <button class="btn btn-info btn-lg btn-block">Pay</button>
+        </div>
+    </ng-template>
+    
+    
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Total</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let ord of orderList" >
+                        <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <div class="media-body">
+                                <h6 class="media-heading"><a href="#">{{ord.name}}</a></h6>
+                                <h6 class="media-heading"> by <a href="#">{{ord.brand}}</a></h6>
+                                <span>Status: </span><span class="text-success"><strong>{{ord.cantidad}}</strong></span>
+                            </div>
+                        </div></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ord.precio}}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ord.precio}}</strong></td>
+                        <td class="col-sm-1 col-md-1">
+                        <button type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span> Remove
+                        </button></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h6>Subtotal</h6></td>
+                        <td class="text-right"><h6><strong>$24.59</strong></h6></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h6>Estimated shipping</h6></td>
+                        <td class="text-right"><h6><strong>$6.94</strong></h6></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h4>Total</h4></td>
+                        <td class="text-right"><h4><strong>$31.53</strong></h4></td>
+                    </tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>
+                        <button class="btn btn-success" (click)="open(content)">CheckOut</button>
+                </tbody>
+            </table>
+       
+        </div>
+    </div>
+
+    <h1>  Lista de payment  </h1>
+    <ul *ngFor= "let payment of payMethods">   
+        <li>    
+            {{payment.name}}
+        </li>
+    </ul>
+</div>
+
+

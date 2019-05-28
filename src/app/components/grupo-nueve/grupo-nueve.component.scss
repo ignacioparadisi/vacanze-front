@@ -1,0 +1,60 @@
+.glyphicon{
+	position:relative;
+	top:1px;
+	display:inline-block;
+	font-family:'Arial Black';
+    font-style:normal;
+	font-weight:400;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale}
+    
+.glyphicon-minus:before{content:"\2212"}
+.glyphicon-minus-sign:before{content:"\e082"}
+.glyphicon-plus:before{content:"\2b"}
+.glyphicon-plus-sign:before{content:"\e081"}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    margin:1rem auto;
+    max-width: 600px;
+}  
+
+.contenedor-usuario {
+	width: 35%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 50px;
+}
+
+.contenedor-usuario i {
+	font-size: 150px;
+}
+
+.contenedor-usuario li{
+	display:inline-block;
+	color: #5ec3c0;
+	text-decoration: none;
+	transition: ease 0.3s;
+}
+
+.contenedor-usuario li:hover {
+	color: #272424;
+	transition: ease 0.3s;
+}
+
+@media screen and (max-width: 600px) {
+	.contenedor-usuario {
+		width: 51%;
+	}
+}
+
+.contenedor-tipo-usuario {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
