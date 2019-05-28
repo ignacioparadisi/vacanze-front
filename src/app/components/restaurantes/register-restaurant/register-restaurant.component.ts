@@ -54,7 +54,7 @@ export class RegisterRestaurantComponent implements OnInit {
     this.types = [
       new Type(0, 'Arabe'),
       new Type(1, 'Italiana'),
-      new Type(2, 'Indu'),
+      new Type(2, 'Hindú'),
       new Type(3, 'Japonesa'),
       new Type(4, 'Mexicana'),
       new Type(5, 'Mediterranea'),
