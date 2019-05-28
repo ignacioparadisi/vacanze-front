@@ -72,11 +72,11 @@
             <div class="col-md-2">
                 <label for="">Pasajeros</label>
                 <div class="form-group"   >
-                  <select class="form-control" formControlName="classFlight" [class.alert-danger]="form.get('classFlight').value==-1 && subM"  >
+                  <select class="form-control" formControlName="adultFlights" [class.alert-danger]="form.get('adultFlights').value==-1 && subM"  >
                      <option value="-1" disabled>Adulto</option>
                      <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
                   </select>
-                  <span *ngIf="form.get('classFlight').value==-1 && subM" style="color: #ed1b24">Campo Obligatorio</span>
+                  <span *ngIf="form.get('adultFlights').value==-1 && subM" style="color: #ed1b24">Campo Obligatorio</span>
                   </div>
             </div> 
        
@@ -142,7 +142,7 @@
             <div class="col-md-6">
               <label for="">Pasajeros</label>
               <div class="form-group">
-                <select class="form-control" formControlName="classFlight" style="width:190px;margin-left: inherit;margin:0;">
+                <select class="form-control" formControlName="adultFlights" style="width:190px;margin-left: inherit;margin:0;">
                    <option value="-1" disabled>Adulto</option>
                    <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
                  </select>

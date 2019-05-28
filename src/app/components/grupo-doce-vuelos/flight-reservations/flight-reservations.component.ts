@@ -1,6 +1,5 @@
 import { ApiService } from 'src/app/services/api.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { ClassFlight } from 'src/app/classes/class_flight';
 import { TypeFlight } from 'src/app/classes/type_flight';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -15,7 +14,6 @@ import { Router } from '@angular/router';
 export class FlightReservationsComponent implements OnInit {
  
   public form: FormGroup;
-  public classFlight: ClassFlight[] = [];
   public typeFlights: TypeFlight[]=[];
   public adultFlights:PeopleFlight[]=[];
   public selectMult:boolean=true;
@@ -38,8 +36,9 @@ export class FlightReservationsComponent implements OnInit {
       this.adultFlight();
       
       this.form=new FormGroup({
-        classFlight: new FormControl(-1, [Validators.required]),
+       // classFlight: new FormControl(-1, [Validators.required]),
         //name: new FormControl(null, [Validators.required]),
+        adultFlights: new FormControl(-1,Validators.required),
         origen: new FormControl(null, [Validators.required]),
         destino: new FormControl(null, [Validators.required]),
         fechaS:new FormControl(null, [Validators.required]),
@@ -53,8 +52,7 @@ export class FlightReservationsComponent implements OnInit {
   private typeFlight(): TypeFlight[]{
     this.typeFlights=[
       new TypeFlight(0,'Ida'),
-      new TypeFlight(1,'Ida y Vuelta '),
-      new TypeFlight(2,'Multidestinos'), 
+      new TypeFlight(1,'Ida y Vuelta ')
     ];
     return this.typeFlights; 
   }
@@ -158,14 +156,14 @@ export class FlightReservationsComponent implements OnInit {
   onSubmit() {
    
     if (this.form.get('origen').valid && this.form.get('destino').valid
-     && (this.form.get('classFlight').value !=-1) && (this.form.get('fechaE').valid || this.disabled==true)
+     && (this.form.get('adultFlights').value !=-1) && (this.form.get('fechaE').valid || this.disabled==true)
      && (this.form.get('fechaS').valid || this.disabledOut==true)) {
       console.log('form submitted');
       this.success=true;
       this.router.navigate(['flight-reservations/list-reservations']);
     } else {
       this.subM=true;
-      console.log(this.form.get('classFlight').value);
+      console.log(this.form.get('adultFlights').value);
 
       console.log('Llenar los campos');    }
   }
