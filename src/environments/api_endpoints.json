@@ -1,14 +1,16 @@
 {
     "_get": {
-      "getHotel":"hotels"
+        "getClaim":"Claim",
+        "getHotel":"hotels"
     },
     "_post": {
-      "postHotel":"hotels"
+        "postClaim":"Claim",
+        "postHotel":"hotels"
     },
     "_put": {
-
+        "putClaimStatus":"Claim/{id}"
     },
     "_delete": {
-
+        "deleteClaim":"Claim/{id}"
     }
 }
