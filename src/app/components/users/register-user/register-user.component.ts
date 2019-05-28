@@ -103,7 +103,6 @@ export class RegisterUserComponent implements OnInit {
   public isRoleSelected(): boolean {
     this.roles.forEach(role => {
       const isSelected = this.formGroup.get('role' + role.id).value;
-      console.log(isSelected);
       if (isSelected === true) {
         return true;
       }
@@ -144,7 +143,7 @@ export class RegisterUserComponent implements OnInit {
 
   private createUser(user: User) {
     this.apiService.postUrl('users', user).then(user => {
-      this.activeModal.close();
+      this.activeModal.close(true);
       this.userCreatedSuccessfully();
     }).catch(error => {
       this.showErrorAlert(error.error);
