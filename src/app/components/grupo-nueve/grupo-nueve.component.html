@@ -1,30 +1,43 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Editar Reclamo</h4>
+        <h4 class="modal-title">Editar Claim</h4>
         
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
         </button>
-    
-      </div>
-    <div class="modal-body">
-        <form action="">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Titulo">
-              </div>
-              <div class="form-group">
-                <textarea placeholder="Descripción..." class="form-control" rows="3"></textarea>
-              </div>
-        </form>
     </div>
     
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Editar Reclamo</button>
+    <div class="modal-body">
+        <form novalidate [formGroup]="formPut" (ngSubmit)="putClaim(idPut)">
+          <div class="col text-center">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Titulo" 
+              formControlName="titulo" value="{{titlePut}}">
+            </div>  
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Descripción" 
+              formControlName="descripcion" value="{{descrPut}}">
+            </div>
+            <div class="form-group">
+            <input id="check_cambiar" 
+                   type="checkbox" 
+                   value="checkedValue"> Cambiar (Cerrado/Abierto) status de este reclamo.
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn btn-success" *ngIf="formPut.invalid && !getCk_cambiar()" type="submit" disabled>
+                              Update Claim</button>
+                <button class="btn btn-success" *ngIf="!formPut.invalid || getCk_cambiar()" type="submit">
+                              Update Claim</button>
+              </div>
+            </div>
+          </div>
+        </form>
     </div>
 </ng-template>
 
-<div class="col-md-12 contenedor-tipo-usuario">
 
+<div class="col-md-12 contenedor-tipo-usuario">
   <div id="li-admin" class="contenedor-usuario card" style="padding: 1.25rem; margin-right:5px">
     <li (click) = "pantallaAdmin()"> Admin <br>
     <i class="fa fa-user-circle-o" aria-hidden="true"></i></li>
@@ -33,8 +46,7 @@
   <div id="li-cliente" class="contenedor-usuario card" style="padding: 1.25rem; margin-left:5px">
     <li (click)="pantallaCliente()"> Cliente <br>
     <i class="fa fa-user-plus" aria-hidden="true"></i></li>
-  </div>
-
+  </div> 
 </div>
 
 <div id = "paginaCliente" style = "display:none">
@@ -73,14 +85,13 @@
             <p> Consultar lista de equipajes por:</p>
             <label>
                 <input id="check_documento" type="checkbox" 
-                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Documento(s) 
+                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Document 
             </label>
             <br>
             <label>
               <input id="check_serial" value="checkedValue" type="checkbox"
-              (change)="checkeadoSerial($event)"> Serial de Equipaje
-            </label>
-            
+              (change)="checkeadoSerial($event)"> Equipment Serial
+            </label>       
           </div>
       </div>
     </div>
@@ -90,10 +101,10 @@
       <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-body table-responsive" style="text-align: justify">
-              <form [formGroup]="form" >
+              <form [formGroup]="formGroup" >
                 <div class="col-lg-12 text-center">
                     <div class="form-group">
-                        <select class="form-control" formControlName="nacionalidad">
+                        <select class="form-control">
                           <option value="-1" disabled> Nacionalidad</option>
                           <option value="0">V</option>
                           <option value="1">E</option>
@@ -122,12 +133,12 @@
         </div>
       </div>
     </div>
-    
+   
     <div id = "serial" class="row" style="width: 50%; display:none">
       <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-body table-responsive" style="text-align: justify">
-              <form [formGroup]="form" >
+              <form>
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
                         <input type="text" class="form-control" 
@@ -141,7 +152,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
     <div id = "equipajeLista" class="row" style="display:none">
@@ -154,7 +164,7 @@
                 margin-top: 3px;
                 margin-right: 3px" 
                 src="../assets/images/lista.png" alt="">
-                Listado de Equipajes de Usuario
+                List of user equipment
             </div>
             <div class="card-body table-responsive">
                 <table class="table">
@@ -218,46 +228,37 @@
             margin-top: 3px;
             margin-right: 3px" 
             src="../assets/images/crear.png" alt="">
-             Crear Reclamo
-          </div>
-          
+             Create Claim
+          </div>     
           <div class="card-body table-responsive">
-            <form [formGroup]="form" class="form-group">
+            <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">       
               <div class="col text-center">
-                  <div class="form-group">
-                            <select class="form-control" formControlName="nacionalidad">
-                              <option value="-1">Nacionalidad</option>
-                              <option value="0">V</option>
-                              <option value="1">E</option>
-                            </select>
+                <div class="form-group">
+                  <input type="text" class="form-control input-lg" placeholder="Titulo" 
+                  formControlName="titulo" 
+                  [ngClass]="{
+                    'is-invalid': false,
+                    'is-valid': !formGroup.get('titulo').hasError('required')
+                  }">
+                </div>  
+                <div class="form-group">
+                  <input type="text" class="form-control input-lg" placeholder="Descripción" 
+                  formControlName="descripcion"
+                  [ngClass]="{
+                    'is-invalid': false,
+                    'is-valid': !formGroup.get('descripcion').hasError('required')
+                  }">
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-success" *ngIf="formGroup.invalid" type="submit" disabled>
+                                  Create Claim</button>
+                    <button class="btn btn-success" *ngIf="!formGroup.invalid" type="submit">
+                                  Create Claim</button>
                   </div>
-
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Titulo">
-                  </div>
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Pasaporte">
-                  </div>      
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Descripción">
-                  </div>
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Estado">
-                  </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <swal
-                  #addSwal1
-                  title="Reclamo Creado Satisfactoriamente"
-                  type="success"
-                  showConfirmButton=false
-                  timer=2500>
-                </swal>
-                <button style="margin-right:45%" class="btn btn-success float-right" [swal]="addSwal1">Crear</button>
+                </div>
+                <div style="color:green; margin-top:5px" *ngIf="submitted">
+                    Claim Registered Successful
                 </div>
               </div>
             </form>
@@ -274,7 +275,7 @@
               margin-top: 3px;
               margin-right: 3px" 
               src="../assets/images/lista.png" alt="">
-              Listado de Reclamos de Usuario
+              Listado de Claims de Usuario
           </div>
           <div class="card-body table-responsive">
               <table class="table">
@@ -289,21 +290,23 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                      <th scope="row">1</th>
-                      <td>XSY-219</td>
-                      <td>Aeropuerto</td>
-                      <td>002345678910</td>
-                      <td>Abierto</td>
+                      
+                  <tr *ngFor="let claim of claims; let indice=index">
+                      <th scope="row">{{indice+1}}</th>
+                      <td >{{claim.id}}</td>
+                      <td>{{claim._title }}</td>
+                      <td>{{claim._description}}</td>
+                      <td>{{claim._status}}</td>
                       <td>
-                        <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                        <button (click)="open(content, 
+                        claim.id, claim._title, claim._description)"><i class="fa fa-edit"></i></button>
                         <swal
                           #deleteSwal
-                          title="¿Desea Eliminar el Reclamo?"
+                          title="¿Desea Eliminar el Claim?"
                           type="question"
                           [showCancelButton]="true"
                           [focusCancel]="true"
-                          (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          (confirm)="deleteClaim(claim.id)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                         </swal>
                         <button style="margin-left:5px" [swal]="deleteSwal"><i class="fa fa-trash" ></i></button>
                       </td>
@@ -338,7 +341,7 @@
                     </div>
                     <swal
                     #mensaje
-                    title="Mensaje enviado al administrador de reclamos"
+                    title="Mensaje enviado al administrador de Claims"
                     type="success"
                     showConfirmButton=false
                     timer=2500>
@@ -393,7 +396,7 @@
                 <div class="col-md-12">
                   <swal
                   #addSwal5
-                  title="Reclamo Creado Satisfactoriamente"
+                  title="Claim Creado Satisfactoriamente"
                   type="success"
                   showConfirmButton=false
                   timer=2500>
@@ -574,10 +577,10 @@
                                 margin-top: 3px;
                                 margin-right: 3px" 
                                 src="../assets/images/lupa.png" alt="">
-                            <tr> Seleccionar Busqueda de Reclamos
+                            <tr> Seleccionar Busqueda de Claims
                         </div>
                         <div class="card-body table-responsive" style="text-align: justify">
-                          <p> Consultar lista de reclamos por caso:</p>
+                          <p> Consultar lista de Claims por caso:</p>
                           <label>
                               <input id="check_abierto" type="checkbox" 
                               (change)="checkeadoAbierto($event)" value="checkedValue"> Abierto 
@@ -592,12 +595,12 @@
                               <div class="col-md-12">
                                 <swal
                                 #addSwal6
-                                title="Reclamo Creado Satisfactoriamente"
+                                title="Claim Creado Satisfactoriamente"
                                 type="success"
                                 showConfirmButton=false
                                 timer=2500>
                               </swal>
-                      <button style="margin-right:45%" class="btn btn-success float-right" (click)="BusqEquipajeReclamo()">Buscar</button>
+                      <button style="margin-right:45%" class="btn btn-success float-right" (click)="BusqEquipajeClaim()">Buscar</button>
                         <!-- [swal]="addSwal6"-->
                     
                     </div>
@@ -617,7 +620,7 @@
                     margin-top: 3px;
                     margin-right: 3px" 
                     src="../assets/images/lista.png" alt="">
-                    Listado de Reclamos Abiertos
+                    Listado de Claims Abiertos
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -642,7 +645,7 @@
                               <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal1
-                                title="¿Desea Eliminar el Reclamo?"
+                                title="¿Desea Eliminar el Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
@@ -666,7 +669,7 @@
                     margin-top: 3px;
                     margin-right: 3px" 
                     src="../assets/images/lista.png" alt="">
-                    Listado de Reclamos Cerrados
+                    Listado de Claims Cerrados
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -691,11 +694,11 @@
                               <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal2
-                                title="¿Desea Eliminar el Reclamo?"
+                                title="¿Desea Eliminar el Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
-                                (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
                               <button style="margin-left:5px" [swal]="deleteSwal2"><i class="fa fa-trash" ></i></button>
                             </td>

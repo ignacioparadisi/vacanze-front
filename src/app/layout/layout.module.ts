@@ -10,8 +10,8 @@ import { LayoutComponent } from "./layout.component";
 import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
-import { RegisterRestaurantComponent } from '../components/register-restaurant/register-restaurant.component';
-import { EditRestaurantComponent } from '../components/edit-restaurant/edit-restaurant.component';
+import { RegisterRestaurantComponent } from '../components/restaurantes/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from '../components/restaurantes/edit-restaurant/edit-restaurant.component';
 
 @NgModule({
   declarations: [
