@@ -5,6 +5,9 @@ import { Calification } from "src/app/classes/calification_restaurants";
 import Swal from "sweetalert2";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment as url } from '../../../../environments/environment';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-register-restaurant',
@@ -19,8 +22,10 @@ export class RegisterRestaurantComponent implements OnInit {
   public califications: Calification[] = [];
 
   constructor(
-    private apiService: ApiService,
-    public activeModal: NgbActiveModal
+    private router: Router,
+    private service: ApiService,
+    public activeModal: NgbActiveModal,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -75,12 +80,38 @@ export class RegisterRestaurantComponent implements OnInit {
     return this.califications;
   }
 
-  public onSubmit() {
+  public onSubmit(){
     this.submitted = true;
 
     if (this.formGroup.invalid) {
       return;
     }
-  }
+    this.service
+    .postUrl(url.endpoint.default._post.postRestaurant,
+      {
+        name: this.formGroup.get('nameRestaurant').value,
+        capacity: this.formGroup.get('capacity').value,
+        isActive : true,
+        specialty: this.formGroup.get('type').value,
+        price: this.formGroup.get('price').value,
+        businessName: this.formGroup.get('businessName').value,
+        picture: "logo",
+        description: this.formGroup.get('description').value,
+        phone: "023140124",
+        location: 1,
+        address: "fsafasffs"
+      })
+    .then(
+      response => {
+        //TODO -> REDIRECCIONAR AL LISTADO DE HOTELES
+        //TODO -> VALIDAR LA RESPUESTA
+        location.reload();
+        console.log(response);
+      }).catch(
+        error => {
+          console.log(error);
+        }
+      );
+   }
 
 }

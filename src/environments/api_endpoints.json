@@ -1,14 +1,16 @@
 {
     "_get": {
-      "getHotel":"hotels"
+      "getHotel":"hotels",
+      "getRestaurant":"restaurants"
     },
     "_post": {
-      "postHotel":"hotels"
+      "postHotel":"hotels",
+      "postRestaurant": "restaurants"
     },
     "_put": {
-
+      "putRestaurant": "restaurants"
     },
     "_delete": {
-
+      "deleteRestaurant": "restaurants"
     }
 }
