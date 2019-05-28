@@ -28,14 +28,14 @@ export class EditRestaurantComponent implements OnInit {
     this.fetchCalifications();
 
     this.formGroup = new FormGroup({
-      // TODO: Validar que sean solo números
       nameRestaurant: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(20)]),
       businessName: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(50)]),
       description: new FormControl(null, [Validators.required, Validators.minLength(5),  Validators.maxLength(100)]),
       calification: new FormControl(-1, [Validators.required, Validators.min(0)]),
       capacity: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(20)]),
       price: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(20)]),
-      // TODO: Validar el formato que debe tener la contraseña
+      phone: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(20)]),
+      address: new FormControl(null, [Validators.required, Validators.minLength(5),  Validators.maxLength(100)]),
       image: new FormControl(null, [Validators.required, Validators.min(0)]),
       type: new FormControl(-1, [Validators.required, Validators.min(0)])
     });
@@ -53,7 +53,8 @@ export class EditRestaurantComponent implements OnInit {
       new Type(3, 'Japonesa'),
       new Type(4, 'Mexicana'),
       new Type(5, 'Mediterranea'),
-      new Type(6, 'Vegana')
+      new Type(6, 'Rapida'),
+      new Type(7, 'Vegana')
     ];
     return this.types;
   }

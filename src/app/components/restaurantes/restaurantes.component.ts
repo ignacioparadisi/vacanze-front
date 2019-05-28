@@ -79,6 +79,7 @@ export class RestaurantesComponent implements OnInit {
       '#',
       'Nombre',
       'Capacidad',
+      'Calificación',
       'Especialidad',
       'Precio',
       'Razon Social',
