@@ -30,6 +30,10 @@ export class GrupoTreceHabitacionComponent implements OnInit {
   }
 
   ngOnInit() {
+this.initializeDate();
+  }
+
+  initializeDate(){
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
@@ -47,6 +51,8 @@ export class GrupoTreceHabitacionComponent implements OnInit {
     document.getElementById("datefieldEntrada").setAttribute("min", todaye);
     document.getElementById("datefieldSalida").setAttribute("min", todaye);
   }
+
+  
 
   deleteFile(){
       console.log("Registro eliminado")

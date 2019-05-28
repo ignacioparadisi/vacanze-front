@@ -51,29 +51,25 @@
               Buscar Automóvil
           </div>
           <div class="card-body table-responsive">
-            <form action="" onsubmit="return validation();">
+            <form [formGroup]="form">
               <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
                         
-                        <select class="form-control" id="paises">
-                          <option disabled selected>Pais...</option> 
-                          <option>Afganistan</option>
-                          <option>Colombia</option>
-                          <option>Uruguay</option>
-                          <option>Venezuela</option>
-                        </select>
+                        <select class="form-control"  [ngClass]="{'is-invalid': invalid('Country', form), 'is-valid': valid('Country', form)}" formControlName="Country">
+                            <option *ngFor="let location of locations" [value]="location.id">{{location.country}}</option>
+                          </select>
                       </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control"  [ngClass]="{'is-invalid': invalid('City', form), 'is-valid': valid('City', form)}" formControlName="City">
                           <option disabled selected>Ciudad...</option> 
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
                         </select>
                       </div>
                 </div>
@@ -83,7 +79,7 @@
 
             <div class="col-md-2">
                 <div class="form-group">
-                    <input id="datefieldAlq" type="date" min="2019-05-24" max="2020-01-01" class="form-control" name="Fecha_Alquiler">
+                    <input id="datefieldAlq" type="date" min="2019-05-24" max="2020-01-01" class="form-control" [ngClass]="{'is-invalid': invalid('CheckIn', form), 'is-valid': valid('CheckIn', form)}" formControlName="CheckIn">
                   </div>
             </div>
             <div class="form-group">
@@ -91,7 +87,7 @@
               </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <input id="datefieldDev" type="date" min="2019-05-24" max="2020-01-01" class="form-control" name="Fecha_Devolucion">
+                    <input id="datefieldDev" type="date" min="2019-05-24" max="2020-01-01" class="form-control" [ngClass]="{'is-invalid': invalid('CheckOut', form), 'is-valid': valid('CheckOut', form)}" formControlName="CheckOut">
                   </div>
             </div>
                 <div class="col-md-1">
@@ -103,21 +99,10 @@
                         showConfirmButton=false
                         timer=2500>
                       </swal>
-                        <button class="btn btn-success float-right" [swal]="addSwal" type="submit">Buscar</button>
+                        <button class="btn btn-success float-right" [swal]="addSwal" type="submit" (click)="submit()">Buscar</button>
                       </div>
                 </div>
               </div>
-              <script type="text/javascript">
-                function validation(){
-                  var name = document.getElementById('paises').value;
-                  if(name=='')
-                  {
-                    alert('required');
-                    return false;
-                  }
-                }
-                </script>
-
             </form>
           </div>
       </div>

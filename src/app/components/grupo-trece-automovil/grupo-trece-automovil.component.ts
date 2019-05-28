@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+
 
 @Component({
   selector: 'app-grupo-trece-automovil',
@@ -9,8 +12,24 @@ import { Router } from '@angular/router';
 })
 export class GrupoTreceAutomovilComponent implements OnInit {
   closeResult: string;
-  constructor(private modalService: NgbModal) { }
+    locations= [];
+    automobiles=[];
+    public form: FormGroup;
+  constructor(private modalService: NgbModal, private fb: FormBuilder, private service:ApiService) { }
 
+
+  ngOnInit() {
+    this.form = this.fb.group({
+    CheckIn:[null, Validators.compose([Validators.required])],
+    CheckOut:[null, Validators.compose([Validators.required])],
+    City:[null, Validators.compose([Validators.required])], 
+    Country:[null, Validators.compose([Validators.required])]
+    });
+    this.initializaDate();
+    this.getLocations();
+     
+   }
+ 
 
   openLg(content) {
       this.modalService.open(content, { size: 'lg' }).result.then((result) => {
@@ -30,7 +49,7 @@ export class GrupoTreceAutomovilComponent implements OnInit {
       }
   }
 
-  ngOnInit() {
+  initializaDate(){
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
@@ -48,6 +67,53 @@ export class GrupoTreceAutomovilComponent implements OnInit {
     document.getElementById("datefieldAlq").setAttribute("min", todaye);
     document.getElementById("datefieldDev").setAttribute("min", todaye);
   }
+
+  getLocations(){
+      const requestURL = "locations/";
+      this.service.getUrl(requestURL).then(
+    response=>{
+    this.locations = response;
+    console.log(response);
+    },
+        error=>{
+            console.log(error);
+        }
+      )
+  }
+
+  getAvailableReservations(){
+      const requestURL ="automobiles/";
+      this.service.getUrl(requestURL).then(
+          response=>{
+              this.automobiles = response;
+              console.log(response);
+          },
+          error=>{
+              console.log(error);
+          }
+      )
+  }
+
+  public markAllAsTouched() {
+    this.form.get('CheckIn').markAsTouched();
+    this.form.get('CheckOut').markAsTouched();
+    this.form.get('Country').markAsTouched();
+    this.form.get('City').markAsTouched();
+}
+
+public invalid(controlName: string, form: FormGroup) {
+    return form.get(controlName).touched && !form.get(controlName).valid;
+}
+
+public valid(controlName: string, form: FormGroup) {
+    return form.get(controlName).touched && form.get(controlName).valid;
+}
+
+public submit(){
+    console.log("Entro en submit()");
+    this.markAllAsTouched();
+    console.log(this.form.value);
+}
 
   deleteFile(){
       console.log("Registro eliminado")
