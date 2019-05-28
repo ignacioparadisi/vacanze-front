@@ -8,13 +8,7 @@ import { SeleccionarRestaurantComponent } from './seleccionar-restaurant/selecci
 const routes: Routes = [
   {
       path: '',
-      component: GrupoCatorceRestaurantComponent,
-      children: [
-        {
-          path: 'seleccionar-restaurant',
-          component: SeleccionarRestaurantComponent
-        }
-      ]
+      component: GrupoCatorceRestaurantComponent
   }
 ];
 

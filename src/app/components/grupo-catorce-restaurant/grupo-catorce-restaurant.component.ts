@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TableResponsiveReservasComponent  } from "../../blocks/table-responsive-reservas/table-responsive-reservas.component";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({

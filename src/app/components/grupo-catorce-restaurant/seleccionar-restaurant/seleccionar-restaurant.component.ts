@@ -12,7 +12,7 @@ export class SeleccionarRestaurantComponent implements OnInit {
   private headerTitle: string;
 
   constructor() { 
-    this.headerTitle = "List of the restaurants for the choosing date!";
+    this.headerTitle = "List of the restaurants for the choosen date!";
 
     // Headers de la tabla dinamica
     this.tableRestaurantReservationHeader = [
