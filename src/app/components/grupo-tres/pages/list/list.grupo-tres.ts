@@ -15,7 +15,8 @@ export class ListGrupoTres implements OnInit {
   time = {hour: 13, minute: 30};
   public flight = [];
   public flights = [];
-  public countries = [{"nombre":"alex"}, {"nombre":"jesus"}];
+  public airplanes = [];
+  public countries = [{'nombre':'alex'}, {'nombre':'jesus'}];
   public flightForm: FormGroup;
 
   constructor(private modalService: NgbModal, private apiService: ApiService, private fb: FormBuilder, private router: Router) {
@@ -23,16 +24,47 @@ export class ListGrupoTres implements OnInit {
 
   ngOnInit() {
     this.flightForm = this.fb.group({
-      countrySalida : [null, Validators.required],
-      citySalida : [null, Validators.required],
-      countryLlegada : [null, Validators.required],
-      cityLlegada : [null, Validators.required],
+      plane : [null, Validators.required],
+      price : [null, Validators.required],
+      departure : [null, Validators.required],
+      arrival : [null, Validators.required],
+      loc_departure: [null, Validators.required],
+      loc_arrival: [null, Validators.required],
     });
     this.getFlights();
+    this.getAirplanes();
+  }
+
+
+  getLocations() {
+    const requestURL = '/api/airplanes';
+    this.apiService.getUrl(requestURL).then(
+      response => {
+        this.airplanes = response;
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getAirplanes() {
+    // API URL
+    const requestURL = 'airplanes';
+    this.apiService.getUrl(requestURL).then(
+      response => {
+        this.airplanes = response;
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   getFlights() {
-    const requestURL = '/api/flights';
+    const requestURL = 'flights';
     this.apiService.getUrl(requestURL).then(
       response => {
       this.flights = response;
@@ -50,10 +82,12 @@ export class ListGrupoTres implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
       this.flightForm.setValue({
-        countrySalida: response.name,
-        citySalida: response.username,
-        countryLlegada: response.id,
-        cityLlegada: response.name
+        plane: response.plane.id,
+        price: response.price,
+        departure: response.departure,
+        arrival: response.arrival,
+        loc_departure: response.loc_departure,
+        loc_arrival: response.loc_arrival
       });
       this.flight = response;
       console.log(this.flightForm.value);

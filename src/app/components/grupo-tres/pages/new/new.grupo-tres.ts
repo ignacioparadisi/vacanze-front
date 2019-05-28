@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import { HOURS, MINUTES } from '../../../../utils/select.util';
 import { ApiService } from '../../../../services/api.service';
 import * as moment from 'moment';
-
-
+import { CustomValidatorDirective } from '../../../../directives/validations/custom-validations.directive';
+import { compararFechas } from '../../../../utils/global_functions';
 @Component({
   selector: 'app-new-grupo-tres',
   templateUrl: './new.grupo-tres.html',
@@ -20,8 +20,10 @@ export class NewGrupoTres implements OnInit {
     public airplanes = [];
     public form: FormGroup;
     public contactList: FormArray;
+    public compararFechas;
 
     constructor(private modalService: NgbModal, private fb: FormBuilder, private apiService: ApiService) {
+        this.compararFechas = compararFechas;
     }
 
     ngOnInit() {
@@ -29,16 +31,17 @@ export class NewGrupoTres implements OnInit {
             locDeparture: [null, Validators.compose([Validators.required])],
             locArrival: [null, Validators.compose([Validators.required])],
             plane: [null, Validators.compose([Validators.required])],
-            price: [null, Validators.compose([Validators.required])],
+            price: [null, Validators.compose([Validators.required, CustomValidatorDirective.RegularNumbersPositive])],
             departure: [null, Validators.compose([Validators.required])],
             arrival: [null, Validators.compose([Validators.required])]
         });
         this.getAirplanes();
+        this.getCountries();
     }
 
     public getAirplanes() {
         // API URL
-        const requestURL = '/api/airplanes';
+        const requestURL = 'airplanes';
         this.apiService.getUrl(requestURL).then(
             response => {
             this.airplanes = response;
@@ -51,10 +54,11 @@ export class NewGrupoTres implements OnInit {
     }
 
     public getCountries() {
-        const requestURL = '';
+        const requestURL = 'locations';
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.countries = response;
+                console.log(response);
             }, error => {
                 console.log(error);
             }
@@ -70,44 +74,27 @@ export class NewGrupoTres implements OnInit {
         this.form.get('arrival').markAsTouched();
     }
 
-    /*Pregunto si la fecha de salida es menor o igual que la de llegada*/
-    compare(salida: number, llegada: number) {
-        console.log(salida, llegada);
-        if (salida <= llegada) { return 1; } else { return -1; }
-    }
-
-    /*Convierto las fechas a DD/MM/YYYY para luego realizar una comparación*/
-    transformarFechas(payload: any){
-        payload.salida = moment(new Date(payload.departure), 'DD/MM/YYYY');
-        payload.llegada = moment(new Date(payload.arrival), 'DD/MM/YYYY');
-        var salida = parseInt(payload.salida.date() + (payload.salida.month() + 1), 10);
-        var llegada = parseInt(payload.llegada.date() + (payload.llegada.month() + 1), 10);
-        var fechas = this.compare(salida, llegada);
-        delete payload.salida;
-        delete payload.llegada;
-        return fechas;
-    }
 
     submit() {
         this.markAllAsTouched();
         const payload = this.form.value;
-        var fechas = this.transformarFechas(payload);
+        let fechas = this.compararFechas(new Date(payload.arrival), new Date(payload.departure));
+
 
         if (fechas === 1) {
-            payload.departure = moment(payload.departure).format('MM-DD-YYYY h:mm:ss');
-            payload.arrival = moment(payload.arrival).format('MM-DD-YYYY h:mm:ss');
+            payload.departure = moment(payload.departure).format('MM-DD-YYYY HH:mm:ss');
+            payload.arrival = moment(payload.arrival).format('MM-DD-YYYY HH:mm:ss');
             payload.plane = { id: parseInt(payload.plane, 10) };
             payload.price = parseInt(payload.price, 10);
             payload.loc_departure = parseInt(payload.locDeparture, 10);
             payload.loc_arrival = parseInt(payload.locArrival, 10);
+            
             delete payload.locArrival;
             delete payload.locDeparture;
 
             if (this.form.valid) {
-                this.apiService.postUrl('/api/flights', payload).then(
+                this.apiService.postUrl('flights',payload).then(
                     response => {
-                        console.log('Entró en el response de la petición');
-                        console.log(payload);
                         console.log(response);
                     }, error => {
                         console.log(error);

@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
+
     private apiName = environment.baseApiUrl;
     private myInit = {
-        headers: {
-            'Content-type': 'application/json',
-            //'Access-Control-Allow-Origin': 'http://localhost:4200'
-        }
+        /* headers: {
+          'x-api-key': environment.apiKey
+        } */
+
     };
 
     constructor(private http: HttpClient) { }
@@ -43,7 +48,7 @@ export class ApiService {
 
         this.myInit['body'] = data;
         return <Promise<any>>(
-            this.http.post(this.apiName + url, this.myInit).toPromise()
+            this.http.post(this.apiName + url, this.myInit['body'], httpOptions).toPromise()
         );
     }
 
