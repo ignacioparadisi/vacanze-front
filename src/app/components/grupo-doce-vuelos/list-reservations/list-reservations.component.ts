@@ -1,6 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-reservations',
@@ -11,7 +12,7 @@ export class ListReservationsComponent implements OnInit {
   closeResult: string;
   constructor(private modalService: NgbModal) { }
   
-  openDetail(content) {
+ openDetail(content) {
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

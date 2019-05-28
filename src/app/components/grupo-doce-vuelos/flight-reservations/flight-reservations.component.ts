@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { PeopleFlight } from 'src/app/classes/people_flight';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-flight-reservations',
   templateUrl: './flight-reservations.component.html',
@@ -27,7 +27,9 @@ export class FlightReservationsComponent implements OnInit {
   public disabledOut:boolean=false;
   public isChecked;
   public subM:boolean=false;
-  constructor(private api: ApiService) { }
+  public success:boolean=false;
+  constructor(private api: ApiService, private router: Router) { }
+  
    private selectedTyp: string="";
    
   ngOnInit() {
@@ -157,8 +159,10 @@ export class FlightReservationsComponent implements OnInit {
    
     if (this.form.get('origen').valid && this.form.get('destino').valid
      && (this.form.get('classFlight').value !=-1) && (this.form.get('fechaE').valid || this.disabled==true)
-     && this.form.get('fechaS').valid) {
+     && (this.form.get('fechaS').valid || this.disabledOut==true)) {
       console.log('form submitted');
+      this.success=true;
+      this.router.navigate(['flight-reservations/list-reservations']);
     } else {
       this.subM=true;
       console.log(this.form.get('classFlight').value);

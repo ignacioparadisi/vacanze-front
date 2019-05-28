@@ -6,7 +6,7 @@ import {ListReservationsComponent} from '../list-reservations/list-reservations.
 const routes: Routes = [
   
   {path: '',component: FlightReservationsComponent},
-  {path:'lists-reservations',component:ListReservationsComponent }
+  {path:'list-reservations',component:ListReservationsComponent }
 
 ];
 
