@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4>Registro de Restaurante</h4>
+  <h4>Editar de Restaurante</h4>
   <button
     type="button"
     class="close"
@@ -105,7 +105,7 @@
             }"
           >
             <option value="-1" disabled>Seleccione la Calificación</option>
-            <option *ngFor="let calification of califications" value="{{ calification.id }}">{{
+            <option *ngFor="let calification of califications" value="{{ calification.calification }}">{{
               calification.calification
             }}</option>
           </select>
@@ -174,6 +174,58 @@
     </div>
 
     <div class="row">
+      <!-- Phone Field -->
+      <div class="col-md-12">
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Telefono"
+            formControlName="phone"
+            [ngClass]="{
+              'is-invalid': submitted && form['phone'].errors,
+              'is-valid': !form['phone'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && form['phone'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="form['phone'].errors.required">
+              El telefono es requerida.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Address Field -->
+      <div class="col-md-12">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Dirección"
+            formControlName="address"
+            [ngClass]="{
+              'is-invalid': submitted && form['address'].errors,
+              'is-valid': !form['address'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && form['address'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="form['address'].errors.required">
+              La dirección es requerida.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
       <!-- Image Field -->
       <div class="col-md-12">
         <div class="form-group">
@@ -211,7 +263,7 @@
             }"
           >
             <option value="-1" disabled>Seleccione un Tipo de Comida</option>
-            <option *ngFor="let type of types" value="{{ type.id }}">{{
+            <option *ngFor="let type of types" value="{{ type.name }}">{{
               type.name
             }}</option>
           </select>
@@ -243,6 +295,6 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-success">Agregar</button>
+    <button class="btn btn-success">Editar</button>
   </div>
 </form>

@@ -93,18 +93,21 @@
                   <tr *ngFor="let restaurante of tableData">
                     <td>{{ restaurante?.id }}</td>
                     <td>{{ restaurante?.name }}</td>
-                    <td>{{ restaurante?.business }}</td>
-                    <td>{{ restaurante?.qualify }}</td>
-                    <td>{{ restaurante?.price }} $</td>
                     <td>{{ restaurante?.capacity }}</td>
-                    <td>{{ restaurante?.typeFood }}</td>
+                    <td>{{ restaurante?.qualify }}</td>
+                    <td>{{ restaurante?.specialty }}</td>
+                    <td>{{ restaurante?.price }} $</td>
+                    <td>{{ restaurante?.businessName }}</td>
+                    <td>{{ restaurante?.description }}</td>
+                    <td>{{ restaurante?.phone }}</td>
+                    <td>{{ restaurante?.address }}</td>
                     <td class="d-flex ml-3">
-                      <span class="badge badge-success" *ngIf="restaurante?.status === 'Active'"> {{ restaurante?.status }}</span>
-                      <span class="badge badge-danger" *ngIf="restaurante?.status === 'Inactive'">{{ restaurante?.status }}</span>
+                      <span class="badge badge-success" *ngIf="restaurante?.isActive">Activo</span>
+                      <span class="badge badge-danger" *ngIf="!restaurante?.isActive">Inactivo</span>
                       <input type="checkbox"
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
-                        [checked]="restaurante?.active"
+                        [checked]="restaurante?.isActive"
                         (click)="openModalActions($event, restaurante, 'restaurante')"
                       >
                     </td>
