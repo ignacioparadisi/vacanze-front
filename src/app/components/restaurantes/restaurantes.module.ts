@@ -7,6 +7,9 @@ import { RestaurantesComponent } from './restaurantes.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../services/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterRestaurantComponent } from '../restaurantes/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from '../restaurantes/edit-restaurant/edit-restaurant.component';
+
 
 
 // importar el modulo de grupos ocho que es la que hace la declaracion principal
@@ -16,7 +19,9 @@ import { GrupoOchoCrucerosModule  } from '../grupo-ocho-cruceros/grupo-ocho-cruc
 
 @NgModule({
   declarations: [
-    RestaurantesComponent
+    RestaurantesComponent,
+    RegisterRestaurantComponent,
+    EditRestaurantComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +33,7 @@ import { GrupoOchoCrucerosModule  } from '../grupo-ocho-cruceros/grupo-ocho-cruc
     ReactiveFormsModule,
     GrupoOchoCrucerosModule
   ],
-  providers: [ApiService]
+  providers: [ApiService],
+  entryComponents: [RegisterRestaurantComponent, EditRestaurantComponent],
 })
 export class RestaurantesModule { }
