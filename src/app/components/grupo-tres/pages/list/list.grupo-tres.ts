@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../../../services/api.service';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { compararFechas } from '../../../../utils/global_functions';
 import * as moment from 'moment';
@@ -22,7 +22,7 @@ export class ListGrupoTres implements OnInit {
   public countries = [];
   public flightForm: FormGroup;
   public compararFechas;
-  public id = 0;
+  public id: number = null;
 
   constructor(private modalService: NgbModal, private apiService: ApiService, private fb: FormBuilder, private router: Router) {
     this.compararFechas = compararFechas;
@@ -35,8 +35,7 @@ export class ListGrupoTres implements OnInit {
       departure: [null, Validators.required],
       arrival: [null, Validators.required],
       loc_departure: [null, Validators.required],
-      loc_arrival: [null, Validators.required],
-      id: [null],
+      loc_arrival: [null, Validators.required]
     });
     this.getFlights();
   }
@@ -56,7 +55,6 @@ export class ListGrupoTres implements OnInit {
   }
 
   getAirplanes() {
-    // API URL
     const requestURL = 'airplanes';
     this.apiService.getUrl(requestURL).then(
       response => {
@@ -83,22 +81,14 @@ export class ListGrupoTres implements OnInit {
   }
 
   getFlight(id: number) {
-    console.log(id);
+    console.log('ID: ' + id);
     const requestURL = `flights/${id}`;
     this.apiService.getUrl(requestURL).then(
       response => {
-        this.flightForm.setValue({
-          plane: response.plane.id,
-          price: response.price,
-          departure: response.departure,
-          arrival: response.arrival,
-          loc_departure: response.loc_departure,
-          loc_arrival: response.loc_arrival,
-          id: response.id
-        });
-        this.flight = response;
         this.id = response.id;
-        console.log(this.flightForm.value);
+        this.flight = response;
+        this.getAirplanes();
+        this.getLocations();
       },
       error => {
         console.log(error);
@@ -106,24 +96,27 @@ export class ListGrupoTres implements OnInit {
     );
   }
 
-  onFormSubmit() {
-    const payload = this.flightForm.value;
-    let fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
+  public cerrarModal() {
+    this.modalService.dismissAll('Cross click');
+  }
 
+  onFormSubmit() {
+    console.log(this.flightForm.value);
+    const payload = this.flightForm.value;
+    const fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
     if (fechas === 1) {
       payload.departure = moment(payload.departure).format('MM-DD-YYYY HH:mm:ss');
       payload.arrival = moment(payload.arrival).format('MM-DD-YYYY HH:mm:ss');
       payload.plane = { id: parseInt(payload.plane, 10) };
       payload.price = parseInt(payload.price, 10);
-      payload.loc_departure = parseInt(payload.locDeparture, 10);
-      payload.loc_arrival = parseInt(payload.locArrival, 10);
-
-      delete payload.locArrival;
-      delete payload.locDeparture;
-
+      payload.loc_departure = parseInt(payload.loc_departure, 10);
+      payload.loc_arrival = parseInt(payload.loc_arrival, 10);
+      payload.id = this.id;
       if (this.flightForm.valid) {
         this.apiService.putUrl('flights', payload).then(
           response => {
+            this.cerrarModal();
+            this.getFlights();
             console.log(response);
           }, (err) => {
             console.log(err);
@@ -133,8 +126,8 @@ export class ListGrupoTres implements OnInit {
     }
   }
 
-    open(content) {
-      this.getFlight(this.id);
+  public open(content, id: number) {
+      this.getFlight(id);
       this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
@@ -152,7 +145,7 @@ export class ListGrupoTres implements OnInit {
     }
   }
 
-  deleteFile(id: number) {
+  public deleteFile(id: number) {
     const requestURL = `flights/${id}`;
     this.apiService.deleteUrl(requestURL).then(
       response => {
