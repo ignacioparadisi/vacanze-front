@@ -14,12 +14,8 @@ export class ApiService {
     } */
   };
 
-<<<<<<< HEAD
     constructor(private fb: FormBuilder,private http: HttpClient) { }
     readonly BaseURI='https://localhost:44362/api';
-=======
-  constructor(private http: HttpClient) { }
->>>>>>> origin/develop
 
   /*******************************************************
   * Metodo para realizar el consumo del API de tipo GET  *
@@ -68,38 +64,12 @@ export class ApiService {
     );
   }
 
-  /**********************************************************
-  * Metodo para realizar el consumo del API de tipo DELETE  *
-  ***********************************************************/
-  public deleteUrl<T>(url, parameter?: Array<string>): Promise<T> {
-    // Cuando la URL contiene uno o más parametros, sustituirlos por los elementos del arreglo parameter
-    if (parameter && url && url.indexOf('{') !== -1) {
-      parameter.forEach(p => {
-        url = url.replace(/{[a-zA-Z_]*}/, p);
-      });
-    }
-<<<<<<< HEAD
+  
     login(formData) {
         return this.http.post(this.BaseURI + '/UserProfile/Login', formData);
       }
     
-    /***************************************************************************
-    * Metodo para realizar el consumo del API de tipo DELETE con body incluido *
-    ****************************************************************************/
-    public deleteUrlWithBody(url, data, parameter?: Array<string>): Promise<any> {
-        // Cuando la URL contiene uno o más parametros, sustituirlos por los elementos del arreglo parameter
-        if (parameter && url && url.indexOf('{') !== -1) {
-            parameter.forEach(p => {
-                url = url.replace(/{[a-zA-Z_]*}/, p);
-            });
-        }
-=======
->>>>>>> origin/develop
-
-    return <Promise<T>>(
-      this.http.delete(this.apiName + url).toPromise()
-    );
-  }
+    
   /***************************************************************************
   * Metodo para realizar el consumo del API de tipo DELETE con body incluido *
   ****************************************************************************/
