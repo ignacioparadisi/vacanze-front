@@ -5,15 +5,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { GrupoTreceAutomovilRoutingModule } from './grupo-trece-automovil-routing.module';
 import { GrupoTreceAutomovilComponent } from './grupo-trece-automovil.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
 import { AutomovilesComponent } from './automoviles/automoviles.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BuscarAutomovilComponent } from './buscar_automovil/buscar-automovil.component';
+import { SeleccionarAutomovilComponent } from './seleccionar-automovil/seleccionar-automovil.component';
+
+// importar el modulo de grupos catorce que es la que hace la declaracion principal
+// del componente tableresponsive y un componente no puede estar en dos declaraciones de modulo distintas
+import { GrupoCatorceRestaurantModule  } from '../grupo-catorce-restaurant/grupo-catorce-restaurant.module';
 
 @NgModule({
   declarations: [
     GrupoTreceAutomovilComponent,
-    BuscarAutomovilComponent
+    BuscarAutomovilComponent,
+    SeleccionarAutomovilComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +27,8 @@ import { BuscarAutomovilComponent } from './buscar_automovil/buscar-automovil.co
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    GrupoCatorceRestaurantModule
   ],
   providers: []
 })
