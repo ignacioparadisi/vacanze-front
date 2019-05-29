@@ -26,20 +26,16 @@
                 </div> 
             </div> 
            
-          <div class="row" *ngIf="selectMult ">
+          <div class="row" >
             
             <div class="col-md-2">
-                
                 <label for="" class="control-label" >Origen</label>
               <div class="form-group" >
-                 
                 <input  type="text" class="form-control" [class.alert-danger]="form.get('origen').invalid && subM"  name="origin" placeholder="Origen" formControlName="origen" >
                 <span *ngIf="form.get('origen').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
               </div>
-               
             </div>
-
-            <div class="col-md-2">
+           <div class="col-md-2">
                 <label for="">Destino</label>
                 <div class="form-group">
                   <input type="text" class="form-control" [class.alert-danger]="form.get('destino').invalid && subM"  placeholder="Destino" formControlName="destino">
@@ -87,74 +83,6 @@
             </div>
           
           </div>
-
-
-          <div class="row" *ngIf="selectMult==false" >
-            <ng-container *ngFor="let number of arrayNumber">
-            
-              <div class="col-md-12">
-                <h4>Destino {{number}}</h4>
-              </div>
-
-              <div class="col-md-2">
-                <label for="">Origen</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Origen" formControlName="origen">
-                </div>
-              </div>
-
-              <div class="col-md-2">
-                <label for="">Destino</label>
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Destino" formControlName="destino">
-                </div>
-              </div>
-
-             
-              <div class="col-md-3">
-                <label for="">Fecha de Salida</label>
-                <div class="form-group">
-                  <input id="out_id" type="date" class="form-control" placeholder="FechaS" formControlName="fechaS">
-                </div>
-              </div>
-            </ng-container>
-            <div class="col-md-3" style="display: none">
-              <label for="">Fecha de Regreso</label>
-              <div class="form-group">
-                <input  id="entry_id" type="date" class="form-control" placeholder="FechaE" formControlName="fechaE">
-              </div>
-          </div>
-            
-            <div _ngcontent-lfs-c5="">
-              <button _ngcontent-lfs-c5="" class="btn btn-primary " data-placement="top" data-toggle="tooltip" 
-                type="button" style="width: 42px;margin-top: 31px;" (click)="clickPushMultidestino($event)">
-                <i _ngcontent-lfs-c5="" class="fa fa-plus"></i>
-               </button>
-             </div>
-
-            <div _ngcontent-lfs-c5="" *ngIf="active">
-              <button _ngcontent-lfs-c5="" class="btn btn-danger " data-placement="top" data-toggle="tooltip" 
-                type="button" style="width: 42px;margin-top: 31px; margin-left: 5px;" (click)="clickPopMultidestino($event)">
-                <i _ngcontent-lfs-c5="" class="fa fa-minus"></i>
-               </button>
-             </div>
-
-            <div class="col-md-6">
-              <label for="">Pasajeros</label>
-              <div class="form-group">
-                <select class="form-control" formControlName="adultFlights" style="width:190px;margin-left: inherit;margin:0;">
-                   <option value="-1" disabled>Adulto</option>
-                   <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
-                 </select>
-               </div>
-            
-         
-                
-              <button (click)="onSubmit()" class="btn btn-primary" style="width: 141px;margin:0; margin-top: 13px;" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['lists-reservations']">
-                Buscar
-               </button>
-             </div>     
-            </div>
          </form>
        </div>
      </div>
