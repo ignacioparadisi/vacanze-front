@@ -4,6 +4,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService} from 'src/app/services/api.service';
 import { Claim } from "src/app/classes/claim";
 import { environment as url} from '../../../environments/environment';
+import Swal from 'sweetalert2';
+import { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: 'app-grupo-nueve',
@@ -11,10 +13,8 @@ import { environment as url} from '../../../environments/environment';
   styleUrls: ['./grupo-nueve.component.scss']
 })
 export class GrupoNueveComponent implements OnInit {
-  public submitted: boolean = false;
 
   //Variables de Peticiones
-  public formPut : FormGroup;
   public formGroup: FormGroup;
   public closeResult: string;
   public claims : Claim[] = [];
@@ -30,14 +30,9 @@ export class GrupoNueveComponent implements OnInit {
 
   ngOnInit() {
 
-    this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims = data; console.log(data)})
+    this.service.getUrl(url.endpoint.default._get.getClaim,['0']).then(data =>{this.claims = data; console.log(data)})
 
     this.formGroup = new FormGroup({
-      titulo: new FormControl(null, [Validators.required]),
-      descripcion: new FormControl(null, [Validators.required])
-    });
-
-    this.formPut = new FormGroup({
       titulo: new FormControl(null, [Validators.required]),
       descripcion: new FormControl(null, [Validators.required])
     });
@@ -55,7 +50,7 @@ export class GrupoNueveComponent implements OnInit {
   }
 
   getClaim(){
-    this.service.getUrl(url.endpoint.default._get.getClaim,['2']).then(data =>{this.claims=data; console.log(data)});
+    this.service.getUrl(url.endpoint.default._get.getClaim,['0']).then(data =>{this.claims=data; console.log(data)});
   }
   
   postClaim(){
@@ -63,20 +58,44 @@ export class GrupoNueveComponent implements OnInit {
     this.service
     .postUrl(url.endpoint.default._post.postClaim,{title: this.formGroup.get('titulo').value,
                                                    description: this.formGroup.get('descripcion').value})
-    .then(response => {console.log(response); this.submitted = true});
+    .then(response => {console.log(response); 
+                       this.claimCreatedSuccessfully(); 
+                       this.getClaim()});
+  }
+
+  private claimCreatedSuccessfully() {
+    let config: SweetAlertOptions = {
+      title: 'Claim has been created successfully',
+      type: 'success',
+      showConfirmButton: true,
+      timer: 2500
+    }
+    Swal.fire(config);
   }
 
   deleteClaim(id : any){
     this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [id])
-    .then(response => {console.log(response); this.getClaim()});
+    .then(response => {console.log(response);
+                       this.getClaim();
+                       this.claimDeleteSuccessfully()});
+  }
+
+  private claimDeleteSuccessfully() {
+    let config: SweetAlertOptions = {
+      title: 'Claim has been deleted successfully',
+      type: 'success',
+      showConfirmButton: true,
+      timer: 2500
+    }
+    Swal.fire(config);
   }
 
   putClaim(id : any){
-    if(!this.formPut.invalid && this.getCk_cambiar()){
+    if(this.titlePut != null && this.descrPut != null && this.getCk_cambiar()){
       this.putAll(id);
     }
     else
-    if(!this.formPut.invalid){
+    if(this.titlePut != null || this.descrPut != null){
       this.putClaimTD(id);
     }else 
     if(this.getCk_cambiar()){
@@ -96,21 +115,36 @@ export class GrupoNueveComponent implements OnInit {
 
   putAll(id : any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,
-                        {title: this.formPut.get('titulo').value,
-                         description: this.formPut.get('descripcion').value},[id]).then(
-    response => {console.log(response); this.putClaimStatus(id); this.getClaim()});
+                        {title: this.titlePut,
+                         description: this.descrPut},[id]).then(
+    response => {console.log(response); 
+                 this.putClaimStatus(id)});
   }
 
   putClaimTD(id : any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,
-                        {title: this.formPut.get('titulo').value,
-                         description: this.formPut.get('descripcion').value},[id]).then(
-    response => {console.log(response); this.getClaim()});
+                        {title: this.titlePut,
+                         description: this.descrPut},[id]).then(
+    response => {console.log(response); 
+                 this.getClaim();
+                 this.claimUpdateSuccessfully()});
   }
 
   putClaimStatus(id: any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id]).then(
-      response => {console.log(response); this.getClaim()});
+      response => {console.log(response); 
+                   this.getClaim();
+                   this.claimUpdateSuccessfully()});
+  }
+
+  private claimUpdateSuccessfully() {
+    let config: SweetAlertOptions = {
+      title: 'Claim has been updated successfully',
+      type: 'success',
+      showConfirmButton: true,
+      timer: 2500
+    }
+    Swal.fire(config);
   }
   
   pantallaAdmin(){
