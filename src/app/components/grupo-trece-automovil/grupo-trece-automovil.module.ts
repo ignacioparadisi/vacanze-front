@@ -8,9 +8,13 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
 import { AutomovilesComponent } from './automoviles/automoviles.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//Falta agregar estos 2 en las declarations
+import { BuscarAutomovilComponent } from './buscar_automovil/buscar-automovil.component';
+
 @NgModule({
-  declarations: [GrupoTreceAutomovilComponent],
+  declarations: [
+    GrupoTreceAutomovilComponent,
+    BuscarAutomovilComponent
+  ],
   imports: [
     CommonModule,
     GrupoTreceAutomovilRoutingModule,

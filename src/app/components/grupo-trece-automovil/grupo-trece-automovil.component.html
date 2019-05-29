@@ -1,3 +1,5 @@
+<app-buscar-automovil></app-buscar-automovil>
+<router-outlet></router-outlet>
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">Detalle de reserva automóvil</h4>
@@ -53,14 +55,14 @@
           <div class="card-body table-responsive">
             <form [formGroup]="form">
               <div class="row">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        
-                        <select class="form-control"  [ngClass]="{'is-invalid': invalid('Country', form), 'is-valid': valid('Country', form)}" formControlName="Country">
-                            <option *ngFor="let location of locations" [value]="location.id">{{location.country}}</option>
-                          </select>
-                      </div>
-                </div>
+                  <div class="col-md-2">
+                      <div class="form-group">
+                          
+                          <select class="form-control"  [ngClass]="{'is-invalid': invalid('Country', form), 'is-valid': valid('Country', form)}" formControlName="Country">
+                              <option *ngFor="let location of locations" [value]="location.id">{{location.country}}</option>
+                            </select>
+                        </div>
+                  </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         
