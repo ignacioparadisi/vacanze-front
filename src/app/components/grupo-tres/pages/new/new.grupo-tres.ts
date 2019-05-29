@@ -36,7 +36,7 @@ export class NewGrupoTres implements OnInit {
             arrival: [null, Validators.compose([Validators.required])]
         });
         this.getAirplanes();
-        this.getCountries();
+        //this.getCountries();
     }
 
     public getAirplanes() {

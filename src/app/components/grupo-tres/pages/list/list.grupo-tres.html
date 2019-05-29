@@ -26,7 +26,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                          <p><strong>Avión:</strong> {{flight.plane}}</p>
+                          <p><strong>Avión:</strong> {{flight.plane.model}}</p>
                         </div>
                         <div class="col-md-6">
                           <p><strong>Precio:</strong> $ {{flight.price}}</p>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-        <form [formGroup]="flightForm" (ngSubmit)="onFormSubmit(flightForm.value)">
+        <form [formGroup]="flightForm" (ngSubmit)="onFormSubmit()">
             <div class="bloque my-3">
                 <div class="row">
                     <div class="col-md-4">
@@ -151,30 +151,32 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Número de vuelo</th>
-                                <th scope="col">Rutas</th>
+                                <th scope="col">Ruta</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of flights; let i = index">
-                                <th scope="row">{{item.id}}</th>
-                                <td>{{item.plane.id}}</td>
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{item.id}}</td>
                                 <td>
                                     <strong>Origen:</strong> {{item.loc_arrival}} -
-                                    {{item.departure}} - <strong>Destino:</strong> {{item.loc_departure}} -
-                                    {{item.arrival}} <br>
+                                    {{item.departure}} - 
+                                    <strong>Destino:</strong> {{item.loc_departure}} -
+                                    {{item.arrival}}
                                 </td>
                                 <td>${{item.price}}</td>
                                 <td>
-                                    <button class="btn btn-outline-info float-left mr-3" (click)="openLg(content, item.plane.id)"><i class="fa fa-edit"></i></button>
+                                    <button class="btn btn-outline-info float-left mr-3" (click)="openLg(content)"><i class="fa fa-edit"></i></button>
                                     <swal
                                         #deleteSwal
                                         title="¿Desea eliminar el vuelo?"
                                         type="question"
                                         [showCancelButton]="true"
                                         [focusCancel]="true"
-                                        (confirm)="deleteFile(i+1)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                        (confirm)="deleteFile(item.id)" [options]="{ confirmButtonText: 'Si, estoy
+                                        seguro', cancelButtonText: 'Cancelar' }">
                                     </swal>
                                     <button [swal]="deleteSwal" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                                 </td>
