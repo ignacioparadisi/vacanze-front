@@ -1,6 +1,6 @@
 {
     "_get": {
-        "getClaim":"Claim",
+        "getClaim":"Claim/{id}",
         "getHotel":"hotels"
     },
     "_post": {
