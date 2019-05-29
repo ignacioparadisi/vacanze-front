@@ -7,13 +7,13 @@ import * as moment from 'moment';
 import { CustomValidatorDirective } from '../../../../directives/validations/custom-validations.directive';
 import { compararFechas } from '../../../../utils/global_functions';
 @Component({
-  selector: 'app-new-grupo-tres',
-  templateUrl: './new.grupo-tres.html',
-  styleUrls: ['./new.grupo-tres.scss']
+    selector: 'app-new-grupo-tres',
+    templateUrl: './new.grupo-tres.html',
+    styleUrls: ['./new.grupo-tres.scss']
 })
 export class NewGrupoTres implements OnInit {
     closeResult: string;
-    time = {hour: 13, minute: 30};
+    time = { hour: 13, minute: 30 };
     public countries = [];
     public hours = HOURS;
     public minutes = MINUTES;
@@ -44,11 +44,11 @@ export class NewGrupoTres implements OnInit {
         const requestURL = 'airplanes';
         this.apiService.getUrl(requestURL).then(
             response => {
-            this.airplanes = response;
-            console.log(response);
+                this.airplanes = response;
+                console.log(response);
             },
             error => {
-            console.log(error);
+                console.log(error);
             }
         );
     }
@@ -78,8 +78,7 @@ export class NewGrupoTres implements OnInit {
     submit() {
         this.markAllAsTouched();
         const payload = this.form.value;
-        let fechas = this.compararFechas(new Date(payload.arrival), new Date(payload.departure));
-
+        let fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
 
         if (fechas === 1) {
             payload.departure = moment(payload.departure).format('MM-DD-YYYY HH:mm:ss');
@@ -88,12 +87,12 @@ export class NewGrupoTres implements OnInit {
             payload.price = parseInt(payload.price, 10);
             payload.loc_departure = parseInt(payload.locDeparture, 10);
             payload.loc_arrival = parseInt(payload.locArrival, 10);
-            
+
             delete payload.locArrival;
             delete payload.locDeparture;
 
             if (this.form.valid) {
-                this.apiService.postUrl('flights',payload).then(
+                this.apiService.postUrl('flights', payload).then(
                     response => {
                         console.log(response);
                     }, error => {
@@ -128,7 +127,7 @@ export class NewGrupoTres implements OnInit {
         } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
             return 'by clicking on a backdrop';
         } else {
-            return  `with: ${reason}`;
+            return `with: ${reason}`;
         }
     }
 
