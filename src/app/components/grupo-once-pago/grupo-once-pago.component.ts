@@ -92,7 +92,7 @@ export class GrupoOncePagoComponent implements OnInit {
                 document.getElementById("tarj").hidden=true;
                 document.getElementById("dettarj").hidden=true;
                 document.getElementById("detbank").hidden=true;
-                document.getElementById("bank").hidden=true;
+                document.getElementById("bank").hidden=false;
                 document.getElementById("btnpay").hidden=false;
               }
 
@@ -104,8 +104,10 @@ export class GrupoOncePagoComponent implements OnInit {
                 document.getElementById("tarj").hidden=true;
                 document.getElementById("dettarj").hidden=true;
                 document.getElementById("detbank").hidden=true;
-                document.getElementById("bank").hidden=false;
+                document.getElementById("bank").hidden=true;
                 document.getElementById("btnpay").hidden=false;
+
+               
             }
             else
             {
