@@ -93,7 +93,7 @@ export class ApiService {
 
         this.myInit['body'] = data;
         return <Promise<any>>(
-            this.http.delete(this.apiName + url, this.myInit).toPromise()
+            this.http.delete(this.apiName + url, this.myInit['body'], httpOptions).toPromise()
         );
     }
 
