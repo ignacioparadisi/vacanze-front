@@ -9,38 +9,45 @@
         <div class="modal-body">
                                 <div class="panel panel-default">
   
-                                    <div class="panel-body">
-                                        <form role="form">
+                                    <div class="panel-body">                 
                                         <div class="form-group">
-                                            <label for="cardNumber">
-                                                CARD NUMBER</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
-                                                    required autofocus />
-                                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                            </div>
+                                            <label for="mp1">Metodo de pago</label>
+                                            <select class="custom-select" (change)="selectOption($event.target.value)" ng-model="selected">
+                                                <option *ngFor="let paymethod of payMethods" [value]="paymethod.id">          
+                                                       {{paymethod.name}}
+                                                </option>
+                                            </select>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-xs-7 col-md-7">
-                                                <div class="form-group">
-                                                    <label for="expityMonth">
-                                                        EXPIRY DATE</label>
-                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                                        <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
+                                        <div id="refere" class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-default">Refere</span>
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <div id="tarj" class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-default">Tarjeta</span>
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <div id="dettarj" class="row">
+                                            <div class="col-md-6">
+                                                    <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="inputGroup-sizing-default">MMYY</span>
+                                                            </div>
+                                                            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                                        </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="inputGroup-sizing-default">CVV</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                                                     </div>
-                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                                        <input type="text" class="form-control" id="expityYear" placeholder="YY" required /></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-5 col-md-5 pull-right">
-                                                <div class="form-group">
-                                                    <label for="cvCode">
-                                                        CV CODE</label>
-                                                    <input type="password" class="form-control" id="cvCode" placeholder="CV" required />
-                                                </div>
                                             </div>
                                         </div>
-                                        </form>
                                     </div>
                                 </div>
                                 <ul class="nav nav-pills nav-stacked">
@@ -114,13 +121,6 @@
        
         </div>
     </div>
-
-    <h1>  Lista de payment  </h1>
-    <ul *ngFor= "let payment of payMethods">   
-        <li>    
-            {{payment.name}}
-        </li>
-    </ul>
 </div>
 
 
