@@ -2,6 +2,8 @@ import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild } 
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
+import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
 
 @Component({
   selector: 'app-table-responsive',
@@ -94,13 +96,13 @@ export class TableResponsiveComponent implements OnChanges {
     /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
-    /* public gotoAdd(type: string){
+    public gotoAdd(type: string){
       if (type === 'hotel'){
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
       }
-    } */
+    }
 
 
     /**********************************************************************
@@ -118,7 +120,7 @@ export class TableResponsiveComponent implements OnChanges {
     }
 
     EditRestaurantModal() {
-      /* const modalRef = this.modalService.open(EditRestaurantComponent); */
+      const modalRef = this.modalService.open(EditRestaurantComponent);
     }
 
 }
