@@ -38,8 +38,6 @@ export class RegisterHotelComponent implements OnInit {
     ])
   });
 
-
-
   constructor(private _location: Location, private service: ApiService) { }
 
   ngOnInit() {
@@ -69,7 +67,6 @@ export class RegisterHotelComponent implements OnInit {
     this._location.back();
   }
 
-
   public onSubmit() {
     this.service
       .postUrl(url.endpoint.default._post.postHotel,
@@ -93,3 +90,4 @@ export class RegisterHotelComponent implements OnInit {
   }
 
 }
+

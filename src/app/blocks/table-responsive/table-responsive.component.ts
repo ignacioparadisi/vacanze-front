@@ -1,8 +1,8 @@
-import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
-import { RegisterRestaurantComponent } from 'src/app/components/register-restaurant/register-restaurant.component';
-import { EditRestaurantComponent } from 'src/app/components/edit-restaurant/edit-restaurant.component';
+import { RegisterRestaurantComponent } from 'src/app/components/restaurantes/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from 'src/app/components/restaurantes/edit-restaurant/edit-restaurant.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -11,36 +11,38 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./table-responsive.component.scss']
 })
 
-export class TableResponsiveComponent implements OnChanges{
+export class TableResponsiveComponent implements OnChanges {
 
-    @ViewChild('restauranteModal') restauranteModal: RegisterRestaurantComponent;
-    @Input() headerTitle: string; // Nombre de la tabla ej: Listado de registros
-    @Input() tableData: Array<Object>; // Array con la data a mostrar en cada fila de la tabla
-    @Input() tableHeaders: Array<String>; // Array con los nombres de cada columna en la tabla
-    @Input() type: string;
+  @ViewChild('restauranteModal') restauranteModal: RegisterRestaurantComponent;
+  @Input() headerTitle: string; // Nombre de la tabla ej: Listado de registros
+  @Input() tableData: Array<Object>; // Array con la data a mostrar en cada fila de la tabla
+  @Input() tableHeaders: Array<String>; // Array con los nombres de cada columna en la tabla
+  @Input() type: string;
 
-    @Output() public actionAlertEventEmitter = new EventEmitter();
-    @Output() public emitRouting = new EventEmitter();
-
-
-    constructor(private router: Router, private modalService: NgbModal){ // Agregando tooltip en boton de agregar
-    }
+  @Output() public actionAlertEventEmitter = new EventEmitter();
+  @Output() public emitRouting = new EventEmitter();
 
 
+  
+  constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
+  }
 
-    ngOnChanges(){
-      if(this.tableData.length !== 0){
-        this.tableData.forEach(b => {
-          if(b['status'] === 'Active') {
-            b['active'] = true;
-          }
-          else {
-            b['active'] = false;
-          }
 
-        })
-      }
-    }
+  
+   ngOnChanges(){
+      if(this.tableData!= null){
+        if(this.tableData.length !== 0){
+          this.tableData.forEach(b => {
+            if(b['status'] === 'Active') {
+              b['active'] = true;
+            }
+            else {
+              b['active'] = false;
+            }
+          })
+        }
+     }
+   }
 
 
 
@@ -87,6 +89,13 @@ export class TableResponsiveComponent implements OnChanges{
 
 
     /**********************************************************************
+    * Metodo para ir a editar el hotel                                    *
+    ***********************************************************************/
+    public goToEditHotel(){
+      this.emitRouting.emit('/editar-hotel');
+    }
+
+    /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
     public gotoAdd(type: string){
@@ -96,6 +105,17 @@ export class TableResponsiveComponent implements OnChanges{
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
       }
     }
+
+
+    /**********************************************************************
+    * Metodo que es llamado por el boton editar                           *
+    ***********************************************************************/
+    public goToEdit(type: string){
+      if (type === 'hotel'){
+        this.goToEditHotel();
+      }
+    }
+
 
     RegisterRestaurantModal() {
       const modalRef = this.modalService.open(RegisterRestaurantComponent);

@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
-
+import { environment as url } from '../../../environments/environment';
 //tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
 
@@ -15,6 +15,8 @@ import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-r
   templateUrl: './view-hotels-backoffice.component.html',
   styleUrls: ['./view-hotels-backoffice.component.scss']
 })
+
+
 export class ViewHotelsBackofficeComponent implements OnInit {
 
   private tableHotelsHeader: Array<String>;
@@ -24,16 +26,18 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   //la accion que le llega de table-responsive
   public actionAlert: string;
 
-  //para saber si está editanto un hotel
+  //para saber en que ruta se encuentra
   public isEditingHotel: boolean;
+  public isCreatingHotel: boolean;
+
 
   ngOnInit() {
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private service: ApiService) {
     this.headerTitle = "Lista de hoteles";
-    this.tableHotelsHeader = this.getTableHeaders();
-    this.tableData = this.getExampleData();
+    this.tableHotelsHeader = ["#","Nombre","Habitaciones","Teléfono","Sitio Web","Estatus"];
+    this.loadHotels();
   }
 
 
@@ -46,9 +50,16 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   public getCurrentRoute(route){
     if(route === '/agregar-hotel'){
       this.isEditingHotel = true;
+      this.isCreatingHotel = false;
       this.router.navigate(['administrar-hoteles','agregar-hotel']);
     }
-    else {
+    else if (route === '/editar-hotel'){
+      this.isCreatingHotel = true;
+      this.isEditingHotel = false;
+      this.router.navigate(['administrar-hoteles','editar-hotel']);
+    }
+    else{
+      this.isCreatingHotel = false;
       this.isEditingHotel = false;
     }
   }
@@ -57,44 +68,16 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     this.getCurrentRoute('/administrar-hoteles');
   }
 
-  private getExampleData(){
-    return [
-      {
-        "id" : 1,
-        "name": "Gran Meliá Caracas",
-        "capacity": 5988,
-        "phone_number": "+58 (212) 762-8111",
-        "web_site": "www.melia.com",
-        "status": "Active"
-      },
-      {
-        "id" : 2,
-        "name": "Intercontinental Maracaibo",
-        "capacity": 5260,
-        "phone_number": "+58-0261-7907777",
-        "web_site": "www.ihg.com",
-        "status": "Active"
-      },
-      {
-        "id" : 3,
-        "name": "Eurobuilding",
-        "capacity": 1123,
-        "phone_number": "+58 (212) 902-1111",
-        "web_site": "www.hoteleuro.com",
-        "status": "Inactive"
-      },
-    ];
-  }
 
-  private getTableHeaders(){
-    return [
-      "#",
-      "Nombre",
-      "Habitaciones",
-      "Teléfono",
-      "Sitio Web",
-      "Status"
-    ];
+  public loadHotels(){
+        this.service
+        .getUrl(url.endpoint.default._get.getHotel)
+        .then(response => {
+              this.tableData = response,
+              console.log(response)
+        }).catch( error => {
+              console.log("Error carga inicial de hoteles", error);
+        });
   }
 
   public getHotels(){

@@ -14,6 +14,13 @@
 .glyphicon-plus:before{content:"\2b"}
 .glyphicon-plus-sign:before{content:"\e081"}
 
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    margin:1rem auto;
+    max-width: 600px;
+}  
+
 .contenedor-usuario {
 	width: 35%;
 	display: flex;
