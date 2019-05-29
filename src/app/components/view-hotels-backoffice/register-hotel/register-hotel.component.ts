@@ -1,6 +1,6 @@
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { Role } from 'src/app/classes/role';
+import { Role } from '../../../classes/role';
 import { Location } from "@angular/common";
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';

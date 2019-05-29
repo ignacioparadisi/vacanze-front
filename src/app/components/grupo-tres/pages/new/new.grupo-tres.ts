@@ -9,7 +9,8 @@ import { compararFechas } from '../../../../utils/global_functions';
 @Component({
     selector: 'app-new-grupo-tres',
     templateUrl: './new.grupo-tres.html',
-    styleUrls: ['./new.grupo-tres.scss']
+    styleUrls: ['./new.grupo-tres.scss'],
+    providers: [ ApiService ]
 })
 export class NewGrupoTres implements OnInit {
     closeResult: string;

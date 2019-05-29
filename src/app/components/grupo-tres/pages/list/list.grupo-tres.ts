@@ -11,7 +11,8 @@ import { CustomValidatorDirective } from '../../../../directives/validations/cus
 @Component({
   selector: 'app-list-grupo-tres',
   templateUrl: './list.grupo-tres.html',
-  styleUrls: ['./list.grupo-tres.scss']
+  styleUrls: ['./list.grupo-tres.scss'],
+  providers: [ApiService]
 })
 export class ListGrupoTres implements OnInit {
   closeResult: string;

@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewHotelsBackofficeComponent } from './view-hotels-backoffice.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterHotelComponent } from './register-hotel/register-hotel.component';
 
