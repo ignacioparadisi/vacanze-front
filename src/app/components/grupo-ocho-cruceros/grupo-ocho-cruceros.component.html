@@ -1,5 +1,5 @@
 <app-cruceros 
-    *ngIf="!isRoomActive" 
+    *ngIf="!isRouteActive" 
     (emitRouting)="getCurrentRoute($event)" 
     [cruisers]="getVariableCruisers()" 
     [headers]="getTableHeaders()"

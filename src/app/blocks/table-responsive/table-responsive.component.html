@@ -3,7 +3,7 @@
       <div class="card-header">
         <i class="fa fa-fw fa-ship" *ngIf="type === 'cruceros'"></i>&nbsp;
         <i class="fa fa-bed" *ngIf="type === 'hotel'"></i>&nbsp;
-        <i class="fa fa-fw fa-cutlery" *ngIf="'restaurantes'"></i>&nbsp;
+        <i class="fa fa-fw fa-cutlery" *ngIf="type === 'restaurantes'"></i>&nbsp;
         <span>{{ headerTitle }}</span>
       </div>
       <div class="card-body table-responsive">
@@ -38,9 +38,18 @@
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Agregar {{type}}"
-                      (click)="goToBoatRooms()"
+                      (click)="goToAddCruiser()"
                     >
                       <i class="fa fa-plus"></i>
+                    </button>&nbsp;
+                    <button
+                      class="btn btn-outline-info"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Editar {{type}}"
+                      (click)="goToBoatRooms()"
+                    >
+                      <i class="fa fa-edit"></i>
                     </button>&nbsp;
                     <button
                       class="btn btn-outline-danger"
@@ -50,15 +59,15 @@
                       title="Eliminar {{type}}"
                     >
                       <i class="fa fa-trash"></i>
-                    </button>&nbsp;&nbsp;
+                    </button>&nbsp; 
                     <button
                       class="btn btn-outline-info"
+                      (click)="goToEdit(type)"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Editar {{type}}"
-                      (click)="goToBoatRooms()"
+                      title="Ver rutas"
                     >
-                      <i class="fa fa-edit"></i>
+                      <i class="fa fa-road"></i>
                     </button>
                   </td>
                 </tr>
@@ -97,7 +106,7 @@
                       data-placement="top"
                       title="Editar {{type}}">
                       <i class="fa fa-edit"></i>
-                    </button>
+                    </button>                    
                     </td>
                   </tr>
                 </tbody>

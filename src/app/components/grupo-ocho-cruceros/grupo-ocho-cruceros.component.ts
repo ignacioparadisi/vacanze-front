@@ -13,12 +13,13 @@ import { environment as url } from '../../../environments/environment';
 
 export class GrupoOchoCrucerosComponent implements OnInit {
 
-  public isRoomActive: boolean; // Variable para saber si cambio a la vista de habitaciones
+  public isRouteActive: boolean; // Variable para saber si cambio a la vista de habitaciones
   private cruisers: Array<Cruiser>;
   private tableBoatsHeader: Array<string>;
+  private tableRoutesHeader: Array<string>;
 
   constructor(private router: Router, private api: ApiService){
-    this.isRoomActive = false;
+    this.isRouteActive = false;
     // Headers de la tabla dinamica
     this.tableBoatsHeader = [
       "#",
@@ -29,24 +30,40 @@ export class GrupoOchoCrucerosComponent implements OnInit {
       "Linea",
       "Status"
     ];
+
+    /* this.tableRoutesHeader = [
+      "#",
+      "Nombre",
+      "Cap. de pasajeros",
+      "Cap. de carga",
+      "Modelo",
+      "Linea",
+      "Status"
+    ]; */
   }
 
-  ngOnInit(){ 
+  ngOnInit(){
+    if(this.router.url === '/cruisers/agregar-crucero'){
+      this.isRouteActive = true;
+    }
+    else {
+      this.isRouteActive = false;
+    }
     this.getCruisers();
   }
 
   public getCurrentRoute(route){
-    if(route === '/habitaciones'){
-      this.isRoomActive = true;
-      this.router.navigate(['cruceros', 'habitaciones']);
+    if(route === '/agregar-crucero'){
+      this.isRouteActive = true;
+      this.router.navigate(['cruisers', 'agregar-crucero']);
     }
     else {
-      this.isRoomActive = false;
+      this.isRouteActive = false;
     }
   }
 
   public getDeactivatedComponent(component){
-    this.getCurrentRoute('/cruceros');
+    this.getCurrentRoute('/cruisers');
   }
 
   /*******************************************

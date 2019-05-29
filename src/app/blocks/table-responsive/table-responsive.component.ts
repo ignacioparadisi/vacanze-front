@@ -66,11 +66,11 @@ export class TableResponsiveComponent implements OnChanges {
     })
   }
 
-    /*******************************************************************
-    * Metodo para redireccionar a la vista de habitaciones del crucero *
-    ********************************************************************/
-    public goToBoatRooms(){
-      this.emitRouting.emit('/habitaciones');
+    /************************************************************
+    * Metodo para redireccionar a la vista de añadir un crucero *
+    *************************************************************/
+    public goToAddCruiser(){
+      this.emitRouting.emit('/agregar-crucero');
     }
 
 
