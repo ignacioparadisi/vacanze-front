@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { GrupoOncePagoService } from 'src/app/services/grupo-once-pago/grupo-once-pago.service';
+import { GrupoOncePagoService } from '../../services/grupo-once-pago/grupo-once-pago.service';
 
 
 @Component({

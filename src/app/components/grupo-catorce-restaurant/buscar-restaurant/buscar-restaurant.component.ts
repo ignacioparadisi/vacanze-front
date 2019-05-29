@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { reservationRestaurant } from 'src/app/classes/reservation-restaurant'
+import { reservationRestaurant } from '../../../classes/reservation-restaurant'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
