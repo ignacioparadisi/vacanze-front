@@ -5,6 +5,9 @@ import { Calification } from "src/app/classes/calification_restaurants";
 import Swal from "sweetalert2";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment as url } from '../../../../environments/environment';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-register-restaurant',
@@ -19,8 +22,10 @@ export class RegisterRestaurantComponent implements OnInit {
   public califications: Calification[] = [];
 
   constructor(
-    private apiService: ApiService,
-    public activeModal: NgbActiveModal
+    private router: Router,
+    private service: ApiService,
+    public activeModal: NgbActiveModal,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -28,14 +33,14 @@ export class RegisterRestaurantComponent implements OnInit {
     this.fetchCalifications();
 
     this.formGroup = new FormGroup({
-      // TODO: Validar que sean solo números
       nameRestaurant: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(20)]),
       businessName: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(50)]),
       description: new FormControl(null, [Validators.required, Validators.minLength(5),  Validators.maxLength(100)]),
       calification: new FormControl(-1, [Validators.required, Validators.min(0)]),
       capacity: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(20)]),
       price: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(20)]),
-      // TODO: Validar el formato que debe tener la contraseña
+      phone: new FormControl(null, [Validators.required, Validators.minLength(1),  Validators.maxLength(20)]),
+      address: new FormControl(null, [Validators.required, Validators.minLength(5),  Validators.maxLength(100)]),
       image: new FormControl(null, [Validators.required, Validators.min(0)]),
       type: new FormControl(-1, [Validators.required, Validators.min(0)])
     });
@@ -53,7 +58,8 @@ export class RegisterRestaurantComponent implements OnInit {
       new Type(3, 'Japonesa'),
       new Type(4, 'Mexicana'),
       new Type(5, 'Mediterranea'),
-      new Type(6, 'Vegana')
+      new Type(6, 'Rapida'),
+      new Type(7, 'Vegana')
     ];
     return this.types;
   }
@@ -75,12 +81,39 @@ export class RegisterRestaurantComponent implements OnInit {
     return this.califications;
   }
 
-  public onSubmit() {
+  public onSubmit(){
     this.submitted = true;
 
     if (this.formGroup.invalid) {
       return;
     }
-  }
+    this.service
+    .postUrl(url.endpoint.default._post.postRestaurant,
+      {
+        name: this.formGroup.get('nameRestaurant').value,
+        capacity: this.formGroup.get('capacity').value,
+        isActive : true,
+        qualify: this.formGroup.get('calification').value,
+        specialty: this.formGroup.get('type').value,
+        price: this.formGroup.get('price').value,
+        businessName: this.formGroup.get('businessName').value,
+        picture: "logo",
+        description: this.formGroup.get('description').value,
+        phone: this.formGroup.get('phone').value,
+        location: 1,
+        address: this.formGroup.get('address').value
+      })
+    .then(
+      response => {
+        //TODO -> REDIRECCIONAR AL LISTADO DE HOTELES
+        //TODO -> VALIDAR LA RESPUESTA
+        location.reload();
+        console.log(response);
+      }).catch(
+        error => {
+          console.log(error);
+        }
+      );
+   }
 
 }

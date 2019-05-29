@@ -89,22 +89,25 @@
                 </tbody>
               </ng-template>
               <ng-template #restaurantesElseBlock>
-                <tbody *ngIf="type === 'restaurantes'">
+                <tbody *ngIf="type === 'restaurantes'; else restaurantesReservaElseBlock">
                   <tr *ngFor="let restaurante of tableData">
                     <td>{{ restaurante?.id }}</td>
                     <td>{{ restaurante?.name }}</td>
-                    <td>{{ restaurante?.business }}</td>
-                    <td>{{ restaurante?.qualify }}</td>
-                    <td>{{ restaurante?.price }} $</td>
                     <td>{{ restaurante?.capacity }}</td>
-                    <td>{{ restaurante?.typeFood }}</td>
+                    <td>{{ restaurante?.qualify }}</td>
+                    <td>{{ restaurante?.specialty }}</td>
+                    <td>{{ restaurante?.price }} $</td>
+                    <td>{{ restaurante?.businessName }}</td>
+                    <td>{{ restaurante?.description }}</td>
+                    <td>{{ restaurante?.phone }}</td>
+                    <td>{{ restaurante?.address }}</td>
                     <td class="d-flex ml-3">
-                      <span class="badge badge-success" *ngIf="restaurante?.status === 'Active'"> {{ restaurante?.status }}</span>
-                      <span class="badge badge-danger" *ngIf="restaurante?.status === 'Inactive'">{{ restaurante?.status }}</span>
+                      <span class="badge badge-success" *ngIf="restaurante?.isActive">Activo</span>
+                      <span class="badge badge-danger" *ngIf="!restaurante?.isActive">Inactivo</span>
                       <input type="checkbox"
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
-                        [checked]="restaurante?.active"
+                        [checked]="restaurante?.isActive"
                         (click)="openModalActions($event, restaurante, 'restaurante')"
                       >
                     </td>
@@ -133,6 +136,34 @@
                   </tr>
                 </tbody>
               </ng-template>
+
+              <!--Tabla de reserva de restaurant-->
+              <ng-template #restaurantesReservaElseBlock>
+                  <tbody *ngIf="type === 'rest-reserva'">
+                    <tr *ngFor="let reserva of tableData">
+                      <td>{{ reserva?.imagen }}</td>
+                      <td>{{ reserva?.nombre }}</td>
+                      <td>{{ reserva?.direccion }}</td>
+                      <td>{{ reserva?.capacidad }}</td>
+                      <td>{{ reserva?.especialidad }}</td>
+                      <td>{{ reserva?.precio }} $</td>
+                      <td>{{ reserva?.descripcion }}</td>
+                      <td>{{ reserva?.telefono }}</td>
+                      <td>
+                          <button 
+                            class="btn btn-outline-dark"
+                            style="cursor: pointer;" 
+                            (click)="openModalActions($event, reservar-restaurante, 'reservar', true)" 
+                            data-toggle="tooltip" 
+                            data-placement="top" 
+                            title="Reservar {{type}}"
+                          >
+                            <i class="fa fa-cart-plus"></i>
+                          </button>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                  </tbody>
+                </ng-template>
           </table>
       </div>
   </div>

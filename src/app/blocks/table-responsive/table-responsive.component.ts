@@ -1,8 +1,8 @@
 import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
-import { RegisterRestaurantComponent } from 'src/app/components/register-restaurant/register-restaurant.component';
-import { EditRestaurantComponent } from 'src/app/components/edit-restaurant/edit-restaurant.component';
+import { RegisterRestaurantComponent } from 'src/app/components/restaurantes/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from 'src/app/components/restaurantes/edit-restaurant/edit-restaurant.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

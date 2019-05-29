@@ -1,7 +1,7 @@
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { RegisterRestaurantComponent } from 'src/app/components/register-restaurant/register-restaurant.component';
+import { RegisterRestaurantComponent } from 'src/app/components/restaurantes/register-restaurant/register-restaurant.component';
 
 @Component({
   selector: "app-sidebar",

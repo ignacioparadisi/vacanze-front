@@ -1,0 +1,41 @@
+<div class="col-lg-12">
+  <div class="card mb-3">
+    <div class="card-header" [innerHtml]="headerTitle"></div>
+    <div class="card-body table-responsive">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th *ngFor="let header of tableHeaders">{{ header }}</th>
+            <th>Reservar</th>
+          </tr>
+        </thead>
+
+        <!--Tabla de reserva de restaurant-->
+        <tbody *ngIf="type === 'rest-reserva'">
+          <tr *ngFor="let reserva of tableData">
+            <td>{{ reserva?.imagen }}</td>
+            <td>{{ reserva?.nombre }}</td>
+            <td>{{ reserva?.direccion }}</td>
+            <td>{{ reserva?.capacidad }}</td>
+            <td>{{ reserva?.especialidad }}</td>
+            <td>{{ reserva?.precio }} $</td>
+            <td>{{ reserva?.descripcion }}</td>
+            <td>{{ reserva?.telefono }}</td>
+            <td>
+              <button 
+                class="btn btn-outline-dark"
+                style="cursor: pointer;" 
+                (click)="openModalActions($event, reservar-restaurante, 'reservar', true)" 
+                data-toggle="tooltip" 
+                data-placement="top" 
+                title="Reservar {{type}}"
+              >
+                <i class="fa fa-cart-plus"></i>
+              </button>&nbsp;&nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
