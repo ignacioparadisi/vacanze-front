@@ -6,7 +6,7 @@
         <i class="fa fa-safari" aria-hidden="true"></i>
         Reservas
       </div>
-      <div class="card-body table-responsive">
+      <div class="card-body table-responsive" id="fondo">
         <form [formGroup]="form">
             <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 16px;"  >
                 <div *ngFor="let type of typeFlights" style="margin-right:15px">
@@ -30,25 +30,28 @@
             
             <div class="col-md-2">
                 <label for="" class="control-label" >Origen</label>
-              <div class="form-group" >
+              <div class="input-group-prepend" >
+                  <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
                 <input  type="text" class="form-control" [class.alert-danger]="form.get('origen').invalid && subM"  name="origin" placeholder="Origen" formControlName="origen" >
-                <span *ngIf="form.get('origen').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
               </div>
+              <span *ngIf="form.get('origen').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
             </div>
            <div class="col-md-2">
                 <label for="">Destino</label>
-                <div class="form-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
                   <input type="text" class="form-control" [class.alert-danger]="form.get('destino').invalid && subM"  placeholder="Destino" formControlName="destino">
-                  <span *ngIf="form.get('destino').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
                 </div>
+                <span *ngIf="form.get('destino').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
             </div>
             <div class="col-md-3">
-                <label for="">Fecha de Salida</label>
-                <div class="form-group"  >
+               <label for="">Fecha de Salida</label>
+               <div class="input-group-prepend"  >
+                    <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
                   <input id="out_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaS').invalid && subM && !disabledOut" placeholder="FechaS" formControlName="fechaS">
-                  <span *ngIf="form.get('fechaS').invalid && subM && !disabledOut" style="color: #ed1b24">Campo Obligatorio</span>
-                </div>
-            
+               </div>
+                <span *ngIf="form.get('fechaS').invalid && subM && !disabledOut" style="color: #ed1b24">Campo Obligatorio</span>
+              <br>
               <div class="form-check" style="margin: -8px 47px 8px 3px;font-size: 16px;">
                 <label class="form-check-label">
                   <input class="form-check-input" name="" id="date_id" type="checkbox" value="checkedValue" aria-label="Text for screen reader" (change)="checkboxSelected($event)" >
@@ -59,25 +62,29 @@
             
             <div class="col-md-3">
                 <label for="">Fecha de Regreso</label>
-                <div class="form-group"  >
+                <div class="input-group-prepend"  >
+                    <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
                     <input  id="entry_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaE').invalid && subM && !disabled" placeholder="FechaE" formControlName="fechaE" [attr.disabled]="disabled ? '' : null">    
-                    <span *ngIf="form.get('fechaE').invalid && subM && !disabled" style="color: #ed1b24">Campo obligatorio</span>
                   </div>
+                  <span *ngIf="form.get('fechaE').invalid && subM && !disabled" style="color: #ed1b24">Campo obligatorio</span>
+
             </div>
 
             <div class="col-md-2">
                 <label for="">Pasajeros</label>
-                <div class="form-group"   >
+                <div class="input-group-prepend"   >
+                    <div class="input-group-text"><i class="fa fa-users" aria-hidden="true"></i></div>
                   <select class="form-control" formControlName="adultFlights" [class.alert-danger]="form.get('adultFlights').value==-1 && subM"  >
                      <option value="-1" disabled>Adulto</option>
                      <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
                   </select>
-                  <span *ngIf="form.get('adultFlights').value==-1 && subM" style="color: #ed1b24">Campo Obligatorio</span>
                   </div>
+                  <span *ngIf="form.get('adultFlights').value==-1 && subM" style="color: #ed1b24">Campo Obligatorio</span>
+
             </div> 
        
-            <div class="col-md-6" >
-                <button (click)="onSubmit()"  class="btn btn-primary" style="width: 141px;margin: auto;" data-toggle="button" aria-pressed="false" autocomplete="off"  >
+            <div class="col-md-2" >
+                <button (click)="onSubmit()"  class="btn btn-danger mb-3"  data-toggle="button" aria-pressed="false" autocomplete="off"  >
                     Buscar
                 </button>
             </div>
@@ -88,3 +95,4 @@
      </div>
    </div>
 </div>
+ 
