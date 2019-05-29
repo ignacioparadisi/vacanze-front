@@ -8,9 +8,10 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoginComponent } from './login/login.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
-  declarations: [GrupoUnoComponent, LoginComponent],
+  declarations: [GrupoUnoComponent, LoginComponent, LandingComponent],
   imports: [
     CommonModule,
     GrupoUnoRoutingModule,
