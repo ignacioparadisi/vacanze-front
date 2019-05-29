@@ -11,6 +11,8 @@ import { ListGrupoTres } from '../grupo-tres/pages/list/list.grupo-tres';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+
+
 @NgModule({
   declarations: [NewGrupoTres, ListGrupoTres],
   imports: [
