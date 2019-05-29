@@ -45,12 +45,15 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.service.login(form.value).subscribe(
       (res: any) => {
-        localStorage.setItem('token', res.token);
+        localStorage.setItem('rol', res.role);
+        localStorage.setItem('Email', res.email);
+
         if (res.role == "Cliente") {
 
           this.StatusLogin = false;
           this.father.StatusHeader = true;
           this.father.StatusMain = false;
+
           this.router.navigateByUrl('/home');
 
         } else if (res.role == "Admin") {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { isNullOrUndefined } from 'util';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,9 +15,15 @@ export class LayoutComponent implements OnInit {
   StatusMain = true;
   collapedSideBar: boolean;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    var rol = localStorage.getItem('rol');
+    var email = localStorage.getItem('Email');
+    if (isNullOrUndefined(rol) || isNullOrUndefined(email)) {
+      this.router.navigate(['/grupo-uno']);
+    }
+  }
 
   receiveCollapsed($event) {
     this.collapedSideBar = $event;

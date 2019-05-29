@@ -46,8 +46,11 @@ export class HeaderComponent implements OnInit {
     }
 
     onClickMe() {
-        alert('hello')
+
         this.layout.StatusMain = true;
+        localStorage.removeItem('Email');
+        localStorage.removeItem('rol');
+        localStorage.removeItem('token');
         this.router.navigate(['/grupo-uno']);
     }
 

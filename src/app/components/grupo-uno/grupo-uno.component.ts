@@ -12,7 +12,7 @@ export class GrupoUnoComponent implements OnInit {
 
     closeResult: string;
     constructor(private modalService: NgbModal, private father: LayoutComponent) { }
-
+    StatusLanding = false;
     open(content) {
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
@@ -35,6 +35,8 @@ export class GrupoUnoComponent implements OnInit {
         if (this.father.StatusHeader && this.father.StatusSideBar) {
             this.father.StatusHeader = false;
             this.father.StatusSideBar = false;
+
+
         } else if (!this.father.StatusSideBar && this.father.StatusHeader) {
             this.father.StatusHeader = false;
         } else if (this.father.StatusSideBar && !this.father.StatusHeader) {
