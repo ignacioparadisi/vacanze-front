@@ -19,11 +19,18 @@ export class GrupoOncePagoComponent implements OnInit {
         private _grupooncepagoSerivce: GrupoOncePagoService, public fb: FormBuilder) { }
 
     open(content) {
+        
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
+        document.getElementById("refere").hidden=true;
+        document.getElementById("tarj").hidden=true;
+        document.getElementById("dettarj").hidden=true;
+        document.getElementById("detbank").hidden=true;
+        document.getElementById("bank").hidden=true;
+        document.getElementById("btnpay").hidden=true;
     }
 
     private getDismissReason(reason: any): string {
@@ -38,11 +45,15 @@ export class GrupoOncePagoComponent implements OnInit {
 
     public payMethods = [];
     public orderList = [];
+    
 
     ngOnInit() {
 
         this.payMethods = this._grupooncepagoSerivce.getPaymentMethod();
         this.orderList = this._grupooncepagoSerivce.getOrderList();
+        this.GetSubTotal();
+        this.GetComision();
+        this.GetTotal();
     }
     selectOption(id: number) {
         console.log(id);
@@ -50,12 +61,13 @@ export class GrupoOncePagoComponent implements OnInit {
              //TDC
             if (id==1)
             {
-
-              document.getElementById("refere").hidden=true;
-              document.getElementById("tarj").hidden=false;
-              document.getElementById("dettarj").hidden=false;
-             // document.getElementById("bank").hidden=true;
-            //  document.getElementById("pass").hidden=true;
+                document.getElementById("refere").hidden=true;
+                document.getElementById("tarj").hidden=false;
+                document.getElementById("dettarj").hidden=false;
+                document.getElementById("detbank").hidden=true;
+                document.getElementById("bank").hidden=true;
+                document.getElementById("btnpay").hidden=false;
+              
             }
 
             //TDB
@@ -63,9 +75,11 @@ export class GrupoOncePagoComponent implements OnInit {
             {
                 document.getElementById("refere").hidden=true;
                 // document.getElementById("bank").hidden=false;
-                // document.getElementById("pass").hidden=false;
+                 document.getElementById("detbank").hidden=false;
                  document.getElementById("tarj").hidden=false;
                  document.getElementById("dettarj").hidden=true;
+                 document.getElementById("bank").hidden=false;
+                 document.getElementById("btnpay").hidden=false;
             }
               
               
@@ -77,8 +91,9 @@ export class GrupoOncePagoComponent implements OnInit {
                 document.getElementById("refere").hidden=false;
                 document.getElementById("tarj").hidden=true;
                 document.getElementById("dettarj").hidden=true;
-               // document.getElementById("bank").hidden=true;
-               // document.getElementById("pass").hidden=true;
+                document.getElementById("detbank").hidden=true;
+                document.getElementById("bank").hidden=true;
+                document.getElementById("btnpay").hidden=false;
               }
 
 
@@ -88,16 +103,18 @@ export class GrupoOncePagoComponent implements OnInit {
                 document.getElementById("refere").hidden=false;
                 document.getElementById("tarj").hidden=true;
                 document.getElementById("dettarj").hidden=true;
-                //document.getElementById("bank").hidden=true;
-               // document.getElementById("pass").hidden=true;
+                document.getElementById("detbank").hidden=true;
+                document.getElementById("bank").hidden=false;
+                document.getElementById("btnpay").hidden=false;
             }
             else
             {
-                document.getElementById("refere").hidden=false;
-                document.getElementById("tarj").hidden=false;
-                document.getElementById("dettarj").hidden=false;
-               // document.getElementById("bank").hidden=false;
-               // document.getElementById("pass").hidden=false;
+                document.getElementById("refere").hidden=true;
+                document.getElementById("tarj").hidden=true;
+                document.getElementById("dettarj").hidden=true;
+                document.getElementById("detbank").hidden=true;
+                document.getElementById("bank").hidden=true;
+                document.getElementById("btnpay").hidden=true;
             }
                
                 
@@ -106,6 +123,25 @@ export class GrupoOncePagoComponent implements OnInit {
 
         
     }
+
+    GetSubTotal()
+    {
+        var subTotal = this._grupooncepagoSerivce.getOrderList().reduce(function(prev, cur) {
+            return prev + cur.precio;
+          }, 0);
+          return subTotal;
+    }
+
+    GetComision()
+    {     
+          return this.GetSubTotal()*0.1;
+    }
+    GetTotal()
+    {     
+          return this.GetSubTotal()+ this.GetComision();
+    }
+
+
 
 
 
