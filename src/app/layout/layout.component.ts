@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  StatusHeader=false;
-  StatusSideBar=false;
-  StatusLogin=true;
+  StatusHeader=true;
+  StatusSideBar=true;
+  StatusLogin=false;
   collapedSideBar: boolean;
   
   constructor() {}
