@@ -10,18 +10,13 @@ const routes: Routes = [
     children: [
       /* Inicio */
       {
-<<<<<<< HEAD
         path: "",
         redirectTo: '/grupo-uno',
         pathMatch: 'full'
       },
       {
-        path: "/home",
+        path: "home",
         loadChildren: "../components/home/home.module#HomeModule"
-=======
-        path: '',
-        loadChildren: '../components/home/home.module#HomeModule'
->>>>>>> origin/develop
       },
       {
         path: 'grupo-uno',
