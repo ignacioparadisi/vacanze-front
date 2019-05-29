@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   //private service: ApiService; private router: Router; private toastr: ToastrService;private father: LayoutComponent;
 
 
-  constructor(private service: ApiService, private father: LayoutComponent) {
+  constructor(private service: ApiService, private father: LayoutComponent, private router: Router) {
 
 
   }
@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
           this.father.StatusHeader = true;
           this.father.StatusSideBar = true;
           this.StatusLogin = false;
+          this.router.navigateByUrl('/home');
         }
 
       },
