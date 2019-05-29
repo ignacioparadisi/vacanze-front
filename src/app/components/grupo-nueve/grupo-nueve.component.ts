@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ApiService} from 'src/app/services/api.service';
-import { Claim } from "src/app/classes/claim";
+import { ApiService} from '../../services/api.service';
+import { Claim } from "../../classes/claim";
 import { environment as url} from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';

@@ -1,7 +1,7 @@
-import { ApiService } from "src/app/services/api.service";
+import { ApiService } from "../../../services/api.service";
 import { Component, OnInit } from "@angular/core";
-import { Type } from "src/app/classes/type_of_food";
-import { Calification } from "src/app/classes/calification_restaurants";
+import { Type } from "../../../classes/type_of_food";
+import { Calification } from "../../../classes/calification_restaurants";
 import Swal from "sweetalert2";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
