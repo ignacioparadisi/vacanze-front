@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { HOURS, MINUTES } from '../../../../utils/select.util';

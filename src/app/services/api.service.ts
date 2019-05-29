@@ -14,10 +14,6 @@ export class ApiService {
 
     private apiName = environment.baseApiUrl;
     private myInit = {
-        /* headers: {
-          'x-api-key': environment.apiKey
-        } */
-
     };
 
     constructor(private http: HttpClient) { }
@@ -65,7 +61,7 @@ export class ApiService {
 
         this.myInit['body'] = data;
         return <Promise<any>>(
-            this.http.put(this.apiName + url, data).toPromise()
+            this.http.put(this.apiName + url, this.myInit['body'], httpOptions).toPromise()
         );
     }
 

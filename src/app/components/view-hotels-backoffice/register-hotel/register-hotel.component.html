@@ -1,92 +1,94 @@
 <p>
-    Registrar Hotel
-  </p>
-  
-  <form [formGroup]="registrationForm">
-     <div class="row">
-  
-       <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-        <div class="form-group">
-          <label>Nombre</label>
-          <input [ngClass]="{
-            'is-invalid': nombre.invalid && nombre.touched,
-            'is-valid': nombre.valid
-          }"
-          [class.is-invalid]="nombre.invalid && nombre.touched" formControlName="nombre" type="text" class="form-control" >
-          <div *ngIf="nombre.invalid && nombre.touched">
-            <small *ngIf="nombre.errors?.required" class ="text-danger"> El nombre es requerido </small>
-            <small *ngIf="nombre.errors?.minlength" class ="text-danger"> El nombre debe tener al menos 5 caracteres </small>
-            <small *ngIf="nombre.errors?.maxlength" class ="text-danger"> El nombre no puede tener mas de 100 caracteres </small>
-          </div>
+  Registrar Hotel
+</p>
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input [ngClass]="{
+          'is-invalid': name.invalid && name.touched,
+          'is-valid': name.valid
+        }" [class.is-invalid]="name.invalid && name.touched" formControlName="name" type="text" class="form-control">
+        <div *ngIf="name.invalid && name.touched">
+          <small *ngIf="name.errors?.required" class="text-danger"> El nombre es requerido </small>
+          <small *ngIf="name.errors?.minlength" class="text-danger"> El nombre debe tener al menos 5 caracteres </small>
+          <small *ngIf="name.errors?.maxlength" class="text-danger"> El nombre no puede tener mas de 100 caracteres
+          </small>
         </div>
       </div>
-  
-       <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-         <div class="form-group">
-          <label>Capacidad</label>
-          <input [ngClass]="{
-            'is-invalid': capacidad.invalid && capacidad.touched,
-            'is-valid': capacidad.valid
-          }"
-          formControlName="capacidad" type="number" class="form-control" min="0">
-          <div *ngIf="capacidad.invalid && capacidad.touched">
-            <small *ngIf="capacidad.errors?.required" class ="text-danger">Se requiere especificar la capacidad de las habitaciones</small>
-            <small *ngIf="capacidad.errors?.min" class ="text-danger">La capacidad debe ser mayor a {{capacidad.value}} </small>
-          </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Capacidad</label>
+        <input [ngClass]="{
+          'is-invalid': capacity.invalid && capacity.touched,
+          'is-valid': capacity.valid
+        }" formControlName="capacity" type="number" class="form-control" min="0">
+        <div *ngIf="capacity.invalid && capacity.touched">
+          <small *ngIf="capacity.errors?.required" class="text-danger">Se requiere especificar la capacidad de las
+            habitaciones</small>
+          <small *ngIf="capacity.errors?.min" class="text-danger">La capacidad debe ser mayor a {{capacity.value}}
+          </small>
         </div>
-       </div>
-  
-       <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-         <div class="form-group">
-          <label>Cantidad de habitaciones</label>
-          <input [ngClass]="{
-            'is-invalid': cantidadHabitaciones.invalid && cantidadHabitaciones.touched,
-            'is-valid': cantidadHabitaciones.valid
-          }"
-          formControlName="cantidadHabitaciones" type="number" class="form-control" min="0">
-          <div *ngIf="cantidadHabitaciones.invalid && cantidadHabitaciones.touched">
-            <small *ngIf="cantidadHabitaciones.errors?.required" class ="text-danger">Se requiere especificar la cantidad de las habitaciones</small>
-            <small *ngIf="cantidadHabitaciones.errors?.min" class ="text-danger">El numero de habitaciones debe ser mayor a {{cantidadHabitaciones.value}}</small>
-          </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Cantidad de habitaciones</label>
+        <input [ngClass]="{
+          'is-invalid': rooms.invalid && rooms.touched,
+          'is-valid': rooms.valid
+        }" formControlName="rooms" type="number" class="form-control" min="0">
+        <div *ngIf="rooms.invalid && rooms.touched">
+          <small *ngIf="rooms.errors?.required" class="text-danger">Se requiere especificar la cantidad de las
+            habitaciones</small>
+          <small *ngIf="rooms.errors?.min" class="text-danger">El numero de habitaciones debe ser mayor a
+            {{rooms.value}}</small>
         </div>
-       </div>
-  
-       <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-         <div class="form-group">
-          <label>Telefono</label>
-           <input [ngClass]="{
-             'is-invalid': telefono.invalid && telefono.touched,
-             'is-valid': telefono.valid
-           }"
-           formControlName="telefono" type="text" class="form-control">
-           <div *ngIf="telefono.invalid && telefono.touched">
-             <small *ngIf="telefono.errors?.required" class ="text-danger">Se requiere colocar un teléfono</small>
-            <small *ngIf="telefono.errors?.pattern" class ="text-danger">No parece ser un teléfono válido</small>
-           </div>
-          </div>
-       </div>
-  
-       <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-         <div class="form-group">
-          <label>Sitio Web</label>
-          <input [ngClass]="{
-            'is-invalid': web.invalid && web.touched,
-            'is-valid': web.valid
-          }"
-          formControlName="web" type="text" class="form-control">
-          <div *ngIf="web.invalid && web.touched">
-            <small *ngIf="web.errors?.required" class ="text-danger">Se requiere una pagina web</small>
-           <small *ngIf="web.errors?.pattern" class ="text-danger">No parece ser una web válida</small>
-          </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Telefono</label>
+        <input [ngClass]="{
+           'is-invalid': phone.invalid && phone.touched,
+           'is-valid': phone.valid
+         }" formControlName="phone" type="text" class="form-control">
+        <div *ngIf="phone.invalid && phone.touched">
+          <small *ngIf="phone.errors?.required" class="text-danger">Se requiere colocar un teléfono</small>
+          <small *ngIf="phone.errors?.pattern" class="text-danger">No parece ser un teléfono válido</small>
         </div>
-       </div>
-  
-     </div>
-   </form>
-  
-   <!-- TODO: INPUT DE PAIS Y CIUDAD -->
-  
-  <div class="grupo-botones">
-    <button class="btn btn-outline-info">Guardar</button>
-    <button class="btn btn-outline-danger" (click)="goToViewHotels()" title="Cancelar registro de hotel">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Sitio Web</label>
+        <input [ngClass]="{
+          'is-invalid': web.invalid && web.touched,
+          'is-valid': web.valid
+        }" formControlName="web" type="text" class="form-control">
+        <div *ngIf="web.invalid && web.touched">
+          <small *ngIf="web.errors?.required" class="text-danger">Se requiere una pagina web</small>
+          <small *ngIf="web.errors?.pattern" class="text-danger">No parece ser una web válida</small>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+  <div class="grupo-botones">
+    <button [disabled]="!registrationForm.valid" class="btn btn-outline-info" type="submit">Guardar</button>
+    <button class="btn btn-outline-danger" (click)="goToViewHotels()"
+      title="Cancelar registro de hotel">Cancelar</button>
+  </div>
+
+</form>
+
+<!-- TODO: INPUT DE PAIS Y CIUDAD -->
