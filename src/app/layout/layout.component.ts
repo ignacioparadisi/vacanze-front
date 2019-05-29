@@ -7,17 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  StatusHeader=false;
-  StatusSideBar=false;
-  StatusLogin=true;
+  StatusHeader = false;
+  StatusSideBar = false;
+  StatusLogin = true;
+  StatusMain = true;
   collapedSideBar: boolean;
-  
-  constructor() {}
 
-  ngOnInit() {}
+  constructor() { }
+
+  ngOnInit() { }
 
   receiveCollapsed($event) {
-      this.collapedSideBar = $event;
+    this.collapedSideBar = $event;
   }
 
 }

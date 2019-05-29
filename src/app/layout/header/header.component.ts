@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LayoutComponent } from '../layout.component';
 
 @Component({
     selector: 'app-header',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
     public pushRightClass: string;
 
-    constructor(public router: Router) {
+    constructor(public router: Router, private layout: LayoutComponent) {
 
         this.router.events.subscribe(val => {
             if (
@@ -42,6 +43,12 @@ export class HeaderComponent implements OnInit {
 
     onLoggedout() {
         localStorage.removeItem('isLoggedin');
+    }
+
+    onClickMe() {
+        alert('hello')
+        this.layout.StatusMain = true;
+        this.router.navigate(['/grupo-uno']);
     }
 
 }

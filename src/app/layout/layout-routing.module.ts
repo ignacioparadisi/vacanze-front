@@ -11,9 +11,11 @@ const routes: Routes = [
       /* Inicio */
       {
         path: "",
-        redirectTo: '/grupo-uno',
-        pathMatch: 'full'
+        /* redirectTo: '/grupo-uno',
+         pathMatch: 'full'*/
+        loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
       },
+
       {
         path: "home",
         loadChildren: "../components/home/home.module#HomeModule"
@@ -80,7 +82,8 @@ const routes: Routes = [
       {
         path: 'grupo-cinco',
         loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
-      }
+      },
+
 
     ]
   }

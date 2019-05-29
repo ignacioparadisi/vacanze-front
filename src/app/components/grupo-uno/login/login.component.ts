@@ -8,6 +8,7 @@ import { LayoutComponent } from 'src/app/layout/layout.component';
 
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -46,8 +47,11 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         localStorage.setItem('token', res.token);
         if (res.role == "Cliente") {
-          this.father.StatusHeader = true;
+
           this.StatusLogin = false;
+          this.father.StatusHeader = true;
+          this.father.StatusMain = false;
+          this.router.navigateByUrl('/home');
 
         } else if (res.role == "Admin") {
           this.father.StatusHeader = true;
