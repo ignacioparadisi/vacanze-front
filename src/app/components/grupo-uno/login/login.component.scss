@@ -1,13 +1,21 @@
 .padre {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  color: white;
 }
 
 
-.page-content{
-    background-color: #6262b881;
-    padding: 20px;
-    border-radius: 30px;
-    //display: inline-block;
+.page-content {
+  background-color: #000000f6;
+  width: 600px;
+  padding: 20px;
+  border-radius: 30px;
+  //display: inline-block;
+}
+
+button {
+  border-radius: 20px;
+
+  color: white;
 }
