@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { environment as url } from '../../../../environments/environment';
 import { SweetAlertOptions } from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-hotel',
@@ -127,7 +128,7 @@ export class RegisterHotelComponent implements OnInit {
       }).catch(
         error => {
           console.log("Hay un error");
-          this.errorOcurred(error);
+          this.errorOcurred();
         }
       );
    }
@@ -135,7 +136,7 @@ export class RegisterHotelComponent implements OnInit {
 
    private errorOcurred(){
      let config: SweetAlertOptions = {
-       title: 'Ha ocurrido un error',
+       title: 'Ha ocurrido un error al agregar el hotel',
        type: 'error',
        showConfirmButton: true
      }
