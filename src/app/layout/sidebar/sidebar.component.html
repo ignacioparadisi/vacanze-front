@@ -56,14 +56,28 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Reservar Vuelo</span>
     </a>
-    <a routerLink="/grupo-trece-habitacion" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-      <span>Reservar Habitación</span>
-    </a>
-    <a routerLink="/grupo-trece-automovil" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-      <span>Reservar Automóvil</span>
-    </a>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('pages')">
+        <i class="fa fa-plus"></i>&nbsp;
+        <span>Reservaciones</span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'pages'">
+        <ul class="submenu">
+          <li>
+            <a routerLink="/grupo-trece/automovil" class="list-group-item">
+              <i class="fa fa-car"></i>&nbsp;
+              <span>Reservar Automóvil</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/grupo-trece/habitacion" class="list-group-item">
+              <i class="fa fa-car"></i>&nbsp;
+              <span>Reservar Habitación</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </div>
     <a routerLink="/restaurant-reservation" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-cutlery"></i>&nbsp;
       <span>Reservar Restaurant</span>
