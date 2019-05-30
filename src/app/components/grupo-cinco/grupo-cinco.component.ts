@@ -10,7 +10,11 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class GrupoCincoComponent implements OnInit {
   
+
+
   closeResult: string;
+  public formGroup:FormGroup;
+
   constructor(private modalService: NgbModal) { }
 
   open(content) {
@@ -32,6 +36,11 @@ export class GrupoCincoComponent implements OnInit {
   }
 
   ngOnInit() {
+  
+    this.formGroup = new FormGroup({
+        ciudad: new FormControl(-1, [Validators.required]),
+        estado: new FormControl(-1, [Validators.required])
+     })
   }
 
   deleteFile(){

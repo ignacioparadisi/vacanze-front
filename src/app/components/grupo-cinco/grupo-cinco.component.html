@@ -5,8 +5,9 @@
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
+  
   <div class="modal-body">
-      <form action="">
+      <form [formGroup]="formGroup" action="">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -50,14 +51,14 @@
       timer=2500>
     </swal>
       <button type="button" class="btn btn-secondary" [swal]="editSwal" (click)="c('Close click')">Editar</button>
-  </div>
+  </div> 
 </ng-template>
 
 <div class="row">
   <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
-              Registrar nuevo vehiculo a una ciudad
+           <i class="fa fa-edit"> </i>   Registrar nuevo vehiculo a una ciudad
           </div>
           <div class="card-body table-responsive" style="text-align: justify">
             <p>
@@ -66,7 +67,7 @@
             </p>
           </div>
           <div class="card-body table-responsive">
-            <form action="">
+            <form action="" [formGroup] = "formGroup">
               <div class="row">
                   <div class="col-md-4">
                       <div class="form-group">
@@ -108,11 +109,12 @@
       </div>
   </div>
 
-<div class="row">
+
 <div class="col-md-12">
     <div class="card mb-3">
         <div class="card-header">
-            Detalles de consulta de vehiculos
+         <i class="fa fa-search"> </i>
+         Detalles de consulta de vehiculos
         </div>
         <div class="card-body table-responsive" style="text-align: justify">
           <p>
@@ -123,7 +125,7 @@
           </p>
         </div>
         <div class="card-body table-responsive">
-          <form action="">
+          <form action="" [formGroup]="formGroup">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -163,12 +165,10 @@
           </form>
         </div>
     </div>
-</div>
 
-  <div class="col-lg-12">
       <div class="card mb-3">
           <div class="card-header">
-              Lista de automoviles segun detalle de consulta
+           <i class="fa fa-list"></i>   Lista de automoviles segun detalle de consulta
           </div>
           <div class="card-body table-responsive">
               <table class="table">
@@ -252,4 +252,3 @@
             </div>
         </div>
       </div>
-</div>
