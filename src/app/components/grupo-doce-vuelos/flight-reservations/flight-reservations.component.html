@@ -48,7 +48,7 @@
                <label for="">Fecha de Salida</label>
                <div class="input-group-prepend"  >
                     <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                  <input id="out_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaS').invalid && subM && !disabledOut" placeholder="FechaS" formControlName="fechaS">
+                  <input id="out_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaS').invalid && subM && !disabledOut" placeholder="FechaS" formControlName="fechaS" min="2019-05-25">
                </div>
                 <span *ngIf="form.get('fechaS').invalid && subM && !disabledOut" style="color: #ed1b24">Campo Obligatorio</span>
               <br>

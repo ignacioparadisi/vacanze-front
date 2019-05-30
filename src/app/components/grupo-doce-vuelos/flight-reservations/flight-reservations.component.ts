@@ -29,16 +29,30 @@ export class FlightReservationsComponent implements OnInit {
    private selectedTyp: string="";
    
   ngOnInit() {
-      this.typeFlight();
-      this.adultFlight();
-      this.form=new FormGroup({
-        adultFlights: new FormControl(-1,Validators.required),
-        origen: new FormControl(null, [Validators.required]),
-        destino: new FormControl(null, [Validators.required]),
-        fechaS:new FormControl(null, [Validators.required]),
-        fechaE:new FormControl(null, [Validators.required])
-      })
-     }
+    this.typeFlight();
+    this.adultFlight();
+    this.form=new FormGroup({
+      adultFlights: new FormControl(-1,Validators.required),
+      origen: new FormControl(null, [Validators.required]),
+      destino: new FormControl(null, [Validators.required]),
+      fechaS:new FormControl(null, [Validators.required]),
+      fechaE:new FormControl(null, [Validators.required])
+    })
+    var today = new Date();
+    var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+today.getDate();
+    var getSelectedOut =<HTMLInputElement> document.getElementById("out_id");
+    var getSelectedEnt =<HTMLInputElement> document.getElementById("entry_id");
+    document.getElementById("out_id").setAttribute("min", dateComp);
+    document.getElementById("entry_id").setAttribute("min", dateComp);
+    var dateRe= document.getElementById("out_id");
+    var dateGo= document.getElementById("entry_id");
+    dateRe.addEventListener("change",function () {
+      document.getElementById("entry_id").setAttribute("min", getSelectedOut.value.toString());
+     });
+    dateGo.addEventListener('change',function () {
+      document.getElementById("out_id").setAttribute("max", getSelectedEnt.value.toString());
+    })
+   }
      private typeFlight(): TypeFlight[]{
         this.typeFlights=[
         new TypeFlight(0,'Ida'),
@@ -68,8 +82,6 @@ export class FlightReservationsComponent implements OnInit {
     this.selectedTyp = event.target.id ;
     var input= document.getElementById("entry_id");
     var output= document.getElementById("out_id");
-    //var element =<HTMLInputElement> document.getElementById("date_id");
-    
     if (this.selectedTyp=="0") {
       if (!this.isChecked) {
         input.setAttribute("disabled","true");
@@ -77,7 +89,6 @@ export class FlightReservationsComponent implements OnInit {
       this.disabled=true;
       }
       this.disabled=true;
-      console.log("Estoy en 0");
       }else{
       if(this.selectedTyp=="2"){
         this.arrayNumber;
@@ -88,19 +99,16 @@ export class FlightReservationsComponent implements OnInit {
            output.removeAttribute("disabled");
            this.disabled=false;
           }
-       console.log("Estoy en 1");
       }
       
     }
   }
     checkboxSelected(event: any){
     var element =<HTMLInputElement> document.getElementById("date_id");
-
-     this.isChecked= element.checked;
+    this.isChecked= element.checked;
     var input= document.getElementById("entry_id");
     var output= document.getElementById("out_id");
     if (this.isChecked) {
-      console.log(1);
       input.setAttribute("disabled","true");
       output.setAttribute("disabled","true");
       this.disabledOut=true;
@@ -110,11 +118,8 @@ export class FlightReservationsComponent implements OnInit {
         input.removeAttribute("disabled");
         this.disabled=false;
       }
-        
-        output.removeAttribute("disabled");
-       
-        this.disabledOut=false;
-        console.log(2);
+       output.removeAttribute("disabled");
+       this.disabledOut=false;
     }
 
   }
@@ -122,13 +127,10 @@ export class FlightReservationsComponent implements OnInit {
      if (this.form.get('origen').valid && this.form.get('destino').valid
      && (this.form.get('adultFlights').value !=-1) && (this.form.get('fechaE').valid || this.disabled==true)
      && (this.form.get('fechaS').valid || this.disabledOut==true)) {
-      console.log('form submitted');
-
       this.router.navigate(['flight-reservations/list-reservations']);
     } else {
       this.subM=true;
-      console.log(this.form.get('adultFlights').value);
-      console.log('Llenar los campos');    }
+    }
   }
   
   public  postResFlight(){
