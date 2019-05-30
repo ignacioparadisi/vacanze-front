@@ -65,7 +65,10 @@ export class TableResponsiveComponent implements OnChanges {
       focusCancel: true
     }
     Swal.fire(config).then(result => {
+<<<<<<< HEAD
       data['delete'] = deleted; 
+=======
+>>>>>>> 82fcd94235724c312a47dc31fe36e27b54657e81
       if(result && ('value' in result)){
         data['confirmed'] = true;
       }
