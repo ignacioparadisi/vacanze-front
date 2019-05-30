@@ -1,8 +1,5 @@
 <div class="container">
   <div class="row">
-
-    <ng-container *ngIf="travels; else elseBlock">
-
       <!-- <Card de viaje -->
       <div class="col-auto mb-3" *ngFor="let travel of travels; let id = index">
         <div class="card text-center clickable" style="width: 18rem;">
@@ -26,13 +23,6 @@
         </div>
       </div>
       <!-- Card de viaje/> -->
-
-    </ng-container>
-    <ng-template #elseBlock>
-      <h1>{{errorResponse}}</h1>
-    </ng-template>
-
-
   </div>
 
   <create-travel (spread)="getTravels()"></create-travel>

@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../../services/api.service';
 import Swal from 'sweetalert2';
 
 @Component({
