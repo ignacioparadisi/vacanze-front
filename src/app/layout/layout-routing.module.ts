@@ -43,6 +43,10 @@ const routes: Routes = [
         loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       },
       {
+        path: 'administrar-restaurantes',
+        loadChildren: '../components/grupo-siete-restaurantes/grupo-siete-restaurantes.module#GrupoSieteRestaurantesModule'
+      },
+      {
         path: 'travel',
         loadChildren: '../components/travel/travel.module#TravelModule'
       },

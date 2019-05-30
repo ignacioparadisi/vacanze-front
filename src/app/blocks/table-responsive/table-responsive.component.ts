@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
 import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
+<<<<<<< HEAD
 
 //* Import de interfaces *//
 import { Cruiser } from '../../interfaces/cruiser';
@@ -13,6 +14,8 @@ import { RegisterRestaurantComponent } from '../../components/restaurantes/regis
 import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
 import { LocalStorageService } from '../../services/local-storage.service';
 
+=======
+>>>>>>> 9b3bec2e4aca31a6455b482491022e300fe0bc51
 
 @Component({
   selector: 'app-table-responsive',
@@ -114,14 +117,26 @@ export class TableResponsiveComponent implements OnChanges {
     }
 
     /**********************************************************************
+    * Metodo para redireccionar a la vista para agregar un restaurante          *
+    ************************************************************************/
+   public goToAddRestaurant() {
+    this.emitRouting.emit('/agregar-restaurant');
+  }
+
+    /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
     public gotoAdd(type: string){
       if (type === 'hotel'){
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
+<<<<<<< HEAD
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
         
+=======
+        this.goToAddRestaurant();
+        //const modalRef = this.modalService.open(RegisterRestaurantComponent);
+>>>>>>> 9b3bec2e4aca31a6455b482491022e300fe0bc51
       }
     }
 
