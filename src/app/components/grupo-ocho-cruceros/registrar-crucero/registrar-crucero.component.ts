@@ -176,6 +176,10 @@ export class RegistrarCruceroComponent implements OnInit {
       form['id'] = this.cruiser['id'];
       this.api.putUrl(url.endpoint.default._post.cruisers.post_cruiser, form)
       .then(response => {
+<<<<<<< HEAD
+=======
+        console.log("PERROXXX", response);
+>>>>>>> 3f42c86b09bdf19de0ebac4209731ddd9641ae02
         this.registrationForm.reset(); // Limpio los campos del formulario
         this.urlImage = null; // Reseteo el valor de la imagen que transforme a base 64
       })  
