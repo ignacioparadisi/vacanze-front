@@ -121,16 +121,12 @@ export class TableResponsiveComponent implements OnChanges {
       if (type === 'hotel'){
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
-<<<<<<< HEAD
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
         
-=======
         this.goToAddRestaurant();
         //const modalRef = this.modalService.open(RegisterRestaurantComponent);
->>>>>>> 9b3bec2e4aca31a6455b482491022e300fe0bc51
       }
     }
-
 
     /**********************************************************************
     * Metodo que es llamado por el boton editar                           *
