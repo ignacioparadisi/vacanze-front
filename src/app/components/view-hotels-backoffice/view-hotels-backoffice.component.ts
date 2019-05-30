@@ -1,5 +1,5 @@
 import { ApiService } from 'src/app/services/api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges} from '@angular/core';
 import { Role } from 'src/app/classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -23,13 +23,13 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   private tableData: Array<Object>;
   private headerTitle: string;
 
-  //la accion que le llega de table-responsive
-  public actionAlert: string;
-
   //para saber en que ruta se encuentra
   public isEditingHotel: boolean;
   public isCreatingHotel: boolean;
 
+
+  ngOnChanges(){
+  }
 
   ngOnInit() {
   }
@@ -42,8 +42,14 @@ export class ViewHotelsBackofficeComponent implements OnInit {
 
 
   public getAlertAction(action: string) {
-    this.actionAlert = action;
-    console.log(this.actionAlert);
+    console.log(action['delete']);
+    if(action['delete']){
+      //console.log(action);
+      this.deleteHotel(action['id']);
+    }else{
+      console.log("se quiere actualizar el estatus del hotel ",action['id']);
+      this.changeHotelStatus(action);
+    }
   }
 
 
@@ -64,21 +70,63 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     }
   }
 
+
+
   public getDeactivatedComponent(component){
     this.getCurrentRoute('/administrar-hoteles');
   }
+
 
 
   public loadHotels(){
         this.service
         .getUrl(url.endpoint.default._get.getHotel)
         .then(response => {
-              this.tableData = response,
-              console.log(response)
+              //console.log("Cargan los hoteles", response),
+              this.tableData = response
         }).catch( error => {
               console.log("Error carga inicial de hoteles", error);
         });
   }
+
+
+
+  public deleteHotel(id: number){
+        console.log("se esta borrando el hotel ",id);
+        this.service
+        .deleteUrl(url.endpoint.default._delete.deleteHotel, [id.toString()])
+        .then(response =>{
+              //console.log("Respuesta al borrar hotel",response.status),
+              //no hay excepcion pero el status no es 200
+              this.alertStatus(response.status, true)
+        }).catch( error => {
+              console.log("Error en el delete del hotel", error)
+        });
+  }
+
+  public changeHotelStatus(hotel: Object){
+        this.service
+        .putUrl(url.endpoint.default._put.putHotel, hotel, [hotel.id.toString()])
+        .then(response => {
+              //console.log("Exito al modificar ",hotel.id),
+              this.alertStatus(response.status, false)
+        }).catch( error => {
+              console.log("Error actualizando el estatus del hotel")
+        });
+  }
+
+
+  private alertStatus(statusCode: number, deleted: boolean){
+        let config: SweetAlertOptions = {
+          title: (statusCode!=200 ? 'Se ha producido un error': (deleted ? 'Hotel eliminado': 'Se cambió el estatus del hotel')),
+          type:  (statusCode==200 ? 'success' : 'error'),
+          showConfirmButton: true
+        }
+        Swal.fire(config).then( result =>{
+          this.loadHotels();
+        });
+  }
+
 
   public getHotels(){
     return this.tableData;

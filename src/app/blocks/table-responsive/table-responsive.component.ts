@@ -23,12 +23,12 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public emitRouting = new EventEmitter();
 
 
-  
+
   constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
   }
 
 
-  
+
    ngOnChanges(){
       if(this.tableData!= null){
         if(this.tableData.length !== 0){
@@ -68,6 +68,7 @@ export class TableResponsiveComponent implements OnChanges {
         focusCancel: true
       }
       Swal.fire(config).then(result => {
+        data['delete'] = deleted;
         this.messageAlert(data);
       })
     }
