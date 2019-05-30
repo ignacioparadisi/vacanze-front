@@ -39,6 +39,7 @@ export class GrupoUnoComponent implements OnInit {
 
         } else if (!this.father.StatusSideBar && this.father.StatusHeader) {
             this.father.StatusHeader = false;
+
         } else if (this.father.StatusSideBar && !this.father.StatusHeader) {
             this.father.StatusHeader = false;
         }

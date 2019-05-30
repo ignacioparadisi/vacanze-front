@@ -4,6 +4,7 @@ import { ApiService } from '../../../services/api.service';
 import { Router, ActivationStart, RouterOutlet } from '@angular/router';
 
 import { LayoutComponent } from '../../../layout/layout.component';
+import { GrupoUnoComponent } from '../grupo-uno.component';
 
 
 
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
   //private service: ApiService; private router: Router; private toastr: ToastrService;private father: LayoutComponent;
 
 
-  constructor(private service: ApiService, private father: LayoutComponent, private router: Router) {
+  constructor(private service: ApiService, private father: LayoutComponent, private router: Router, private landing: GrupoUnoComponent) {
 
 
   }
@@ -54,9 +55,9 @@ export class LoginComponent implements OnInit {
 
           this.StatusLogin = false;
           this.father.StatusHeader = true;
-          this.father.StatusMain = false;
+          //this.father.StatusMain = false;
 
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/landing');
 
         } else if (res.role == "Admin") {
           this.father.StatusHeader = true;

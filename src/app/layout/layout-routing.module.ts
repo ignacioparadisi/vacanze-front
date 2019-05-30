@@ -15,7 +15,10 @@ const routes: Routes = [
          pathMatch: 'full'*/
         loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
       },
-
+      {
+        path: "landing",
+        loadChildren: "../components/grupo-uno/landing/landing.module#LandingModule"
+      },
       {
         path: "home",
         loadChildren: "../components/home/home.module#HomeModule"
@@ -71,8 +74,8 @@ const routes: Routes = [
       },
       {
         path: 'restaurant-reservation',
-        loadChildren: 
-        '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
+        loadChildren:
+          '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
       },
       {
         path: 'users',

@@ -7,12 +7,9 @@ import { GrupoUnoComponent } from './grupo-uno.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { LandingPageComponent } from './landing-page/landing-page.component';
-
-
+import { LandingComponent } from './landing/landing.component';
 @NgModule({
-  declarations: [GrupoUnoComponent, LoginComponent, LandingPageComponent],
+  declarations: [GrupoUnoComponent, LoginComponent, LandingComponent],
   imports: [
     CommonModule,
     GrupoUnoRoutingModule,
