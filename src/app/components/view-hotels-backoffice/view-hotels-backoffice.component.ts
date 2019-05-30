@@ -47,7 +47,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
       //console.log(action);
       this.deleteHotel(action['id']);
     }else{
-      console.log("se quiere actualizar el estatus del hotel ",action['id']);
+      console.log("se quiere actualizar el estatus del hotel ",action);
       this.changeHotelStatus(action);
     }
   }
@@ -104,11 +104,11 @@ export class ViewHotelsBackofficeComponent implements OnInit {
         });
   }
 
-  public changeHotelStatus(hotel: Object){
+  public changeHotelStatus(hotel: any){
         this.service
         .putUrl(url.endpoint.default._put.putHotel, hotel, [hotel.id.toString()])
         .then(response => {
-              //console.log("Exito al modificar ",hotel.id),
+              console.log("Exito al modificar ",hotel.id),
               this.alertStatus(response.status, false)
         }).catch( error => {
               console.log("Error actualizando el estatus del hotel")
