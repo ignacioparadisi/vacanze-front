@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { GrupoOncePagoService } from 'src/app/services/grupo-once-pago/grupo-once-pago.service';
 import { FormBuilder, Validators } from "@angular/forms";
 
 @Component({
@@ -15,8 +14,7 @@ export class GrupoOncePagoComponent implements OnInit {
     selected: number = 0;
 
 
-    constructor(private modalService: NgbModal,
-        private _grupooncepagoSerivce: GrupoOncePagoService, public fb: FormBuilder) { }
+    constructor(private modalService: NgbModal, public fb: FormBuilder) { }
 
     open(content) {
         
@@ -49,8 +47,8 @@ export class GrupoOncePagoComponent implements OnInit {
 
     ngOnInit() {
 
-        this.payMethods = this._grupooncepagoSerivce.getPaymentMethod();
-        this.orderList = this._grupooncepagoSerivce.getOrderList();
+        this.payMethods = this.getPaymentMethod();
+        this.orderList = this.getOrderList();
         this.GetSubTotal();
         this.GetComision();
         this.GetTotal();
@@ -128,7 +126,7 @@ export class GrupoOncePagoComponent implements OnInit {
 
     GetSubTotal()
     {
-        var subTotal = this._grupooncepagoSerivce.getOrderList().reduce(function(prev, cur) {
+        var subTotal = this.getOrderList().reduce(function(prev, cur) {
             return prev + cur.precio;
           }, 0);
           return subTotal;
@@ -143,7 +141,21 @@ export class GrupoOncePagoComponent implements OnInit {
           return this.GetSubTotal()+ this.GetComision();
     }
 
-
+    getPaymentMethod() {
+        return [
+          { "id": 1, "name": "TDC" },
+          { "id": 2, "name": "TDB" },
+          { "id": 3, "name": "TRANS" },
+          { "id": 4, "name": "EF" }
+        ];
+      }
+      getOrderList() {
+        return[
+          { "id": 1, "name": "Crucero mar caribe", "cantidad":5, "precio":25000, "brand": "Royal Caribean" },
+          { "id": 2, "name": "Habitacion master Hilton","cantidad":3, "precio":50000,"brand": "Hilton ca" },
+          { "id": 3, "name": "Camioneta 4x4","cantidad":1,"precio":12500,"brand": "Hertz" },
+        ];
+      }
 
 
 
