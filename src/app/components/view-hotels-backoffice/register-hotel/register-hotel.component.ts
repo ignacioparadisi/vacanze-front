@@ -1,6 +1,6 @@
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { Role } from 'src/app/classes/role';
+import { Role } from '../../../classes/role';
 import { Location } from "@angular/common";
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
@@ -15,9 +15,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterHotelComponent implements OnInit {
 
-
-
-  public registrationForm : FormGroup = new FormGroup({
+public registrationForm : FormGroup = new FormGroup({
     name : new FormControl(null,[
       Validators.required,
       Validators.minLength(5),

@@ -1,71 +1,117 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { COUNTRYS, HOURS, MINUTES } from '../../../../utils/select.util';
-
-
+import { HOURS, MINUTES } from '../../../../utils/select.util';
+import { ApiService } from '../../../../services/api.service';
+import * as moment from 'moment';
+import { CustomValidatorDirective } from '../../../../directives/validations/custom-validations.directive';
+import { compararFechas } from '../../../../utils/global_functions';
 @Component({
-  selector: 'app-new-grupo-tres',
-  templateUrl: './new.grupo-tres.html',
-  styleUrls: ['./new.grupo-tres.scss']
+    selector: 'app-new-grupo-tres',
+    templateUrl: './new.grupo-tres.html',
+    styleUrls: ['./new.grupo-tres.scss'],
+    providers: [ ApiService ]
 })
 export class NewGrupoTres implements OnInit {
     closeResult: string;
-    time = {hour: 13, minute: 30};
-    public countrys = COUNTRYS;
+    time = { hour: 13, minute: 30 };
+    public countries = [];
     public hours = HOURS;
     public minutes = MINUTES;
+    public airplanes = [];
     public form: FormGroup;
     public contactList: FormArray;
+    public compararFechas;
 
-    constructor(private modalService: NgbModal, private fb: FormBuilder) {
+    constructor(private modalService: NgbModal, private fb: FormBuilder, private apiService: ApiService) {
+        this.compararFechas = compararFechas;
     }
 
     ngOnInit() {
         this.form = this.fb.group({
-            contacts: this.fb.array([this.createContact()])
+            locDeparture: [null, Validators.compose([Validators.required])],
+            locArrival: [null, Validators.compose([Validators.required])],
+            plane: [null, Validators.compose([Validators.required])],
+            price: [null, Validators.compose([Validators.required, CustomValidatorDirective.RegularNumbersPositive])],
+            departure: [null, Validators.compose([Validators.required])],
+            arrival: [null, Validators.compose([Validators.required])]
         });
-
-        // set contactlist to the form control containing contacts
-        this.contactList = this.form.get('contacts') as FormArray;
+        this.getAirplanes();
+        //this.getCountries();
     }
 
-    get contactFormGroup() {
-    return this.form.get('contacts') as FormArray;
+    public getAirplanes() {
+        // API URL
+        const requestURL = 'airplanes';
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.airplanes = response;
+                console.log(response);
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 
-    createContact(): FormGroup {
-    return this.fb.group({
-        countryOrigen: [null, Validators.compose([Validators.required])],
-        cityOrigen: [null, Validators.compose([Validators.required])],
-        countryLlegada: [null, Validators.compose([Validators.required])],
-        cityLlegada: [null, Validators.compose([Validators.required])],
-        airplane: [null, Validators.compose([Validators.required])],
-        price: [null, Validators.compose([Validators.required])],
-        dateSalida: [null, Validators.compose([Validators.required])],
-        dateLlegada: [null, Validators.compose([Validators.required])],
-        durationHours: [null, Validators.compose([Validators.required])],
-        durationMinutes: [null, Validators.compose([Validators.required])],
-    });
+    public getCountries() {
+        const requestURL = 'locations';
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.countries = response;
+                console.log(response);
+            }, error => {
+                console.log(error);
+            }
+        );
     }
 
-    addContact() {
-    this.contactList.push(this.createContact());
+    public markAllAsTouched() {
+        this.form.get('locDeparture').markAsTouched();
+        this.form.get('locArrival').markAsTouched();
+        this.form.get('plane').markAsTouched();
+        this.form.get('price').markAsTouched();
+        this.form.get('departure').markAsTouched();
+        this.form.get('arrival').markAsTouched();
     }
 
-    removeContact(index) {
-    this.contactList.removeAt(index);
-    }
-
-    // get the formgroup under contacts form array
-    getContactsFormGroup(index): FormGroup {
-        // this.contactList = this.form.get('contacts') as FormArray;
-        const formGroup = this.contactList.controls[index] as FormGroup;
-        return formGroup;
-    }
 
     submit() {
-        console.log(this.form.value);
+        this.markAllAsTouched();
+        const payload = this.form.value;
+        let fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
+
+        if (fechas === 1) {
+            payload.departure = moment(payload.departure).format('MM-DD-YYYY HH:mm:ss');
+            payload.arrival = moment(payload.arrival).format('MM-DD-YYYY HH:mm:ss');
+            payload.plane = { id: parseInt(payload.plane, 10) };
+            payload.price = parseInt(payload.price, 10);
+            payload.loc_departure = parseInt(payload.locDeparture, 10);
+            payload.loc_arrival = parseInt(payload.locArrival, 10);
+
+            delete payload.locArrival;
+            delete payload.locDeparture;
+
+            if (this.form.valid) {
+                this.apiService.postUrl('flights', payload).then(
+                    response => {
+                        console.log(response);
+                    }, error => {
+                        console.log(error);
+                    }
+                );
+            }
+        } else {
+            console.log('La fecha de llegada no puede ser anterior a la de salida.');
+        }
+    }
+
+    public invalid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && !form.get(controlName).valid;
+    }
+
+    public valid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && form.get(controlName).valid;
     }
 
     open(content) {
@@ -82,7 +128,7 @@ export class NewGrupoTres implements OnInit {
         } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
             return 'by clicking on a backdrop';
         } else {
-            return  `with: ${reason}`;
+            return `with: ${reason}`;
         }
     }
 
