@@ -59,15 +59,15 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Lugar</label>
+                <label for="">Pais</label>
                 <select class="form-control" formControlName="country">
-                  <option value="1" selected>1</option>
+                  <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                 </select>
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Lugar</label>
+                <label for="">Ciudad</label>
                 <select class="form-control" formControlName="city">
                   <option value="1" selected>1</option>
                 </select>
@@ -75,20 +75,20 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Fecha de alquiler</label>
-                <input type="date" class="form-control" formControlName="fechaOne">
+                <label for="">Fecha de checkin</label>
+                <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Fecha de devolución</label>
-                <input type="date" class="form-control" formControlName="fechaTwo">
+                <label for="">Fecha de checkout</label>
+                <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button class="btn btn-primary float-right" type="submit">Buscar</button>
+              <button class="btn btn-success" type="submit">Buscar</button>
             </div>
           </div>
         </form>
@@ -97,7 +97,7 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        Listado de automoviles
+        Listado de habitaciones
       </div>
       <div class="card-body table-responsive">
         <div class="row">

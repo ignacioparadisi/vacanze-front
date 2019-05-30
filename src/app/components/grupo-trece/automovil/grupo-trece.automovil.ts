@@ -15,6 +15,7 @@ export class AutomovilGrupoTrece implements OnInit {
     myForm: FormGroup;
     public compararFechas;
     public car = [];
+    public countries = [];
     public closeResult: string;
 
     constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
@@ -28,6 +29,8 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     ngOnInit() {
+        this.getCountries();
+        this.initializaDate();
     }
 
     getCar(id: number) {
@@ -47,6 +50,18 @@ export class AutomovilGrupoTrece implements OnInit {
         console.log("Estoy en getCars");
     }
 
+    getCountries(){
+        const requestURL = "locations/countries/";
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.countries = response;
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
     buscador(){
         let payload = this.myForm.value;
         if (this.myForm.valid){
@@ -54,6 +69,25 @@ export class AutomovilGrupoTrece implements OnInit {
             this.getCars();
         }
     }
+
+    initializaDate(){
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        var de = '' +dd
+        var me = '' +mm
+         if(dd<10){
+                de='0'+dd
+            } 
+            if(mm<10){
+               var me='0'+mm
+            } 
+        
+       var todaye = yyyy+'-'+me+'-'+de;
+        document.getElementById("datefieldAlq").setAttribute("min", todaye);
+        document.getElementById("datefieldDev").setAttribute("min", todaye);
+      }
 
     open(content, id: number) {
         this.getCar(id);
