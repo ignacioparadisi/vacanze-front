@@ -81,6 +81,9 @@ export class RegistrarCruceroComponent implements OnInit {
     this.location.back();
   }
 
+  /***************************************
+  * Metodo para agregar un nuevo crucero * 
+  ****************************************/
   public onSubmit(){
     this.registrationForm.value.picture = this.urlImage;
     let form = {
@@ -94,7 +97,8 @@ export class RegistrarCruceroComponent implements OnInit {
 
     this.api.postUrl(url.endpoint.default._post.cruisers.post_cruiser, form)
       .then(response => {
-        console.log("respuesta post >>", response);
+        this.registrationForm.reset(); // Limpio los campos del formulario
+        this.urlImage = null; // Reseteo el valor de la imagen que transforme a base 64
       })  
       .catch(error => {
         console.log("error", error);
