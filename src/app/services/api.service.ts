@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { containerRefreshEnd } from '@angular/core/src/render3';
 @Injectable({
   providedIn: 'root'
 })
@@ -87,4 +88,12 @@ export class ApiService {
     );
   }
 
+
+  // =================================================================================
+  // ==Llamado a la API para el envio de corre de recuperacion de contraseña==========
+  // =================================================================================
+
+  sendEmail(){
+    
+  }
 }
