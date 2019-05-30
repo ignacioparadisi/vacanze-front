@@ -108,9 +108,11 @@ export class FlightReservationsComponent implements OnInit {
     this.isChecked= element.checked;
     var input= document.getElementById("entry_id");
     var output= document.getElementById("out_id");
+    var ppl= document.getElementById("peopleId");
     if (this.isChecked) {
       input.setAttribute("disabled","true");
       output.setAttribute("disabled","true");
+      ppl.setAttribute("disabled","true");
       this.disabledOut=true;
       this.disabled=true;
     }else{
@@ -118,7 +120,8 @@ export class FlightReservationsComponent implements OnInit {
         input.removeAttribute("disabled");
         this.disabled=false;
       }
-       output.removeAttribute("disabled");
+      ppl.removeAttribute("disabled");
+      output.removeAttribute("disabled");
        this.disabledOut=false;
     }
 
