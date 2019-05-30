@@ -94,13 +94,21 @@ export class TableResponsiveComponent implements OnChanges {
     }
 
     /**********************************************************************
+    * Metodo para redireccionar a la vista para agregar un restaurante          *
+    ************************************************************************/
+   public goToAddRestaurant() {
+    this.emitRouting.emit('/agregar-restaurant');
+  }
+
+    /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
     public gotoAdd(type: string){
       if (type === 'hotel'){
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
-        const modalRef = this.modalService.open(RegisterRestaurantComponent);
+        this.goToAddRestaurant();
+        //const modalRef = this.modalService.open(RegisterRestaurantComponent);
       }
     }
 
