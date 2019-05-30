@@ -1,7 +1,7 @@
 <app-table-responsive
   [headerTitle]="getHeaderTitle()"
-  [tableData]="getBoats()"
-  [tableHeaders]="getHeaderBoats()"
+  [tableData]="cruisers"
+  [tableHeaders]="headers"
   [type]="'cruceros'"
   (emitRouting)="getCurrentRoute($event)"
 >

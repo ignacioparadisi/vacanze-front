@@ -1,10 +1,10 @@
 import { Roles } from './../../../classes/roles';
-import { ApiService } from "src/app/services/api.service";
+import { ApiService } from "../../../services/api.service";
 import { Component, OnInit, Input } from "@angular/core";
-import { Role } from "src/app/classes/role";
+import { Role } from "../../../classes/role";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { User } from 'src/app/classes/user';
+import { User } from '../../../classes/user';
 import Swal from 'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';
 
