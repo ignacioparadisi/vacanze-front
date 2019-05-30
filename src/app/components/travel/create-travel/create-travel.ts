@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { NgbModal, NgbDate, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import Swal from 'sweetalert2';
@@ -17,8 +16,11 @@ export class CreateTravelComponent {
   @Output() spread = new EventEmitter();
   activeModal: NgbModalRef;
   public formGroup: FormGroup;
-
   travelForm: FormGroup;
+  hoveredDate: NgbDate;
+  fromDate: NgbDate;
+  toDate: NgbDate;
+
 
   constructor(private modalService: NgbModal, private apiService: ApiService) {
   }
@@ -28,7 +30,9 @@ export class CreateTravelComponent {
     this.travelForm = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl(''),
-      userId: new FormControl('5', Validators.required)
+      userId: new FormControl('5', Validators.required),
+      dateIni: new FormControl('', Validators.required),
+      dateEnd: new FormControl('', Validators.required)
     });
   }
 
@@ -37,7 +41,8 @@ export class CreateTravelComponent {
   }
 
   createTravel() {
-    this.apiService.postUrl('travels', this.travelForm.value).then(
+    console.log(this.travelForm.value)
+    /*this.apiService.postUrl('travels', this.travelForm.value).then(
       (resp) => {
         this.closeModal();
         Swal.fire({
@@ -54,6 +59,33 @@ export class CreateTravelComponent {
           type: 'error',
         })
       }
-    );
+    );*/
+  }
+
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+      this.travelForm.controls['dateIni'].setValue(this.fromDate);
+    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+      this.toDate = date;
+      this.travelForm.controls['dateEnd'].setValue(this.toDate);
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+      this.travelForm.controls['dateEnd'].setValue('');
+      this.travelForm.controls['dateIni'].setValue(this.fromDate);
+    }
+  }
+
+  isHovered(date: NgbDate) {
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+  }
+
+  isInside(date: NgbDate) {
+    return date.after(this.fromDate) && date.before(this.toDate);
+  }
+
+  isRange(date: NgbDate) {
+    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
 }
