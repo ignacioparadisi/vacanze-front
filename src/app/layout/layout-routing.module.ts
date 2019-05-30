@@ -25,29 +25,18 @@ const routes: Routes = [
         loadChildren: '../components/grupo-tres/grupo-tres.module#GrupoTresModule'
       },
       {
-        path: 'grupo-trece-habitacion',
-        loadChildren:
-          '../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule'
-      },
-      {
-        path: 'grupo-trece-automovil',
-        loadChildren:
-          '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
+        path: 'grupo-trece',
+        loadChildren: '../components/grupo-trece/grupo-trece.module#GrupoTreceModule'
       },
       /* Ruta para Backoffice de Cruceros */
       {
-        path: 'cruceros',
+        path: 'cruisers',
         loadChildren:
           '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },
       {
         path: 'flight-reservations',
-        loadChildren:
-          '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
-      },
-      {
-        path: 'flight-reservations',
-        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
+        loadChildren: '../components/grupo-doce-vuelos/flight-reservations/flight-reservations.module#FlightReservationsModule'
       },
       {
         path: 'administrar-hoteles',
@@ -68,11 +57,20 @@ const routes: Routes = [
           '../components/restaurantes/restaurantes.module#RestaurantesModule'
       },
       {
+        path: 'restaurant-reservation',
+        loadChildren: 
+        '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
+      },
+      {
         path: 'users',
         loadChildren: '../components/users/users-list/users-list.module#UsersListModule'
       },
       {
-        path: 'ticket-sale',
+        path: 'grupo-cinco',
+        loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
+      },
+      {
+      path: 'ticket-sale',
         loadChildren: '../components/ticket-sale/ticket-sale.module#TicketSaleModule'
       },
       {

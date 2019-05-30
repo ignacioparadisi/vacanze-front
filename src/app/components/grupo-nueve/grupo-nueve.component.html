@@ -1,51 +1,60 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Editar Reclamo</h4>
+        <h4 class="modal-title">Editar Claim</h4>
         
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
         </button>
-    
-      </div>
-    <div class="modal-body">
-        <form action="">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Titulo">
-              </div>
-              <div class="form-group">
-                <textarea placeholder="Descripción..." class="form-control" rows="3"></textarea>
-              </div>
-        </form>
     </div>
     
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Editar Reclamo</button>
+    <div class="modal-body">
+          <div class="col text-center">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Titulo" [(ngModel)]="titlePut">
+            </div>  
+            <div class="form-group">
+              <textarea type="text" class="form-control input-lg" placeholder="Descripción..." [(ngModel)]="descrPut" rows="3">
+              </textarea>
+            </div>
+            <div class="form-group">
+            <input id="check_cambiar" 
+                   type="checkbox" 
+                   value="checkedValue"> Cambiar (Cerrado/Abierto) status de este reclamo.
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn btn-success" (click)="putClaim(idPut)" type="submit">Update Claim</button>
+              </div>
+            </div>
+          </div>
     </div>
 </ng-template>
 
-<div class="col-md-12 contenedor-tipo-usuario">
+<!-- Primer box: Estan las dos opciones para elegir pantalla client y admin -->
 
-  <div id="li-admin" class="contenedor-usuario card" style="padding: 1.25rem; margin-right:5px">
+<div class="col-md-12 contenedor-tipo-usuario">
+  <div id="li-admin" class="contenedor-usuario card">
     <li (click) = "pantallaAdmin()"> Admin <br>
     <i class="fa fa-user-circle-o" aria-hidden="true"></i></li>
   </div>
 
-  <div id="li-cliente" class="contenedor-usuario card" style="padding: 1.25rem; margin-left:5px">
+  <div id="li-cliente" class="contenedor-usuario card">
     <li (click)="pantallaCliente()"> Cliente <br>
     <i class="fa fa-user-plus" aria-hidden="true"></i></li>
-  </div>
-
+  </div> 
 </div>
 
-<div id = "paginaCliente" style = "display:none">
+<!-- INTRODUCTION -->
+
+<div id = "paginaCliente" class="oculto">
 <div class="row">
 <div class="col-md-12">
   <div class="card mb-3">
       <div class="card-header">
-        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        <span class="fa fa-minus" aria-hidden="true"></span>
          Instrucciones
       </div>
-      <div class="card-body table-responsive" style="text-align: justify">
+      <div class="card-body table-responsive carta-intro">
         <p>
           A continuación este modulo le ayudara a conseguir cualquier equipaje que se haya extraviado
           y registrado en algún vuelo, simplemente debe buscarlo colocando el numero de serial o 
@@ -56,44 +65,38 @@
 </div>
 </div>
 
-<div class = "col" style ="margin-left: 4%; height:260px">
-<div class="row" style="width: 48%; float: left;">
+<div class = "col" id="bloque-busqueda">
+<div class="row" id="bloque-busqueda-2">
     <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
-              <img style="float: left; 
-                          width: 20px; 
-                          height: 20px; 
-                          margin-top: 3px;
-                          margin-right: 3px" 
-                          src="../assets/images/lupa.png" alt="">
-              <tr> Seleccionar Busqueda
+              <i class="fa fa-search"></i>
+              Seleccionar Busqueda
           </div>
-          <div class="card-body table-responsive" style="text-align: justify">
+          <div class="card-body table-responsive carta-intro">
             <p> Consultar lista de equipajes por:</p>
             <label>
                 <input id="check_documento" type="checkbox" 
-                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Documento(s) 
+                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Document 
             </label>
             <br>
             <label>
               <input id="check_serial" value="checkedValue" type="checkbox"
-              (change)="checkeadoSerial($event)"> Serial de Equipaje
-            </label>
-            
+              (change)="checkeadoSerial($event)"> Equipment Serial
+            </label>       
           </div>
       </div>
     </div>
   </div>
 
-  <div id = "documento" class="row" style="width: 50%;">
+  <div id = "documento" class="row">
       <div class="col-md-12">
         <div class="card mb-3">
-            <div class="card-body table-responsive" style="text-align: justify">
-              <form [formGroup]="form" >
+            <div class="card-body table-responsive carta-intro">
+              <form [formGroup]="formGroup" >
                 <div class="col-lg-12 text-center">
                     <div class="form-group">
-                        <select class="form-control" formControlName="nacionalidad">
+                        <select class="form-control">
                           <option value="-1" disabled> Nacionalidad</option>
                           <option value="0">V</option>
                           <option value="1">E</option>
@@ -114,7 +117,7 @@
                         showConfirmButton=false
                         timer=2500>
                        </swal>
-                       <button style="margin-right:40%" (click) = "listadoEquipaje()" class="btn btn-success float-right">Buscar</button>
+                       <button (click) = "listadoEquipaje()" class="btn btn-success float-right button-search">Buscar</button>
                        <!-- [swal]="addSwal2" -->
                 </div>
               </form>
@@ -122,18 +125,18 @@
         </div>
       </div>
     </div>
-    
-    <div id = "serial" class="row" style="width: 50%; display:none">
+   
+    <div id = "serial" class="row">
       <div class="col-md-12">
         <div class="card mb-3">
-            <div class="card-body table-responsive" style="text-align: justify">
-              <form [formGroup]="form" >
+            <div class="card-body table-responsive carta-intro">
+              <form>
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
                         <input type="text" class="form-control" 
                         placeholder="Numero De Serial">
                       </div>
-                       <button style="margin-right:40%" (click) = "listadoEquipaje()" class="btn btn-success float-right">Buscar</button>
+                       <button (click) = "listadoEquipaje()" class="btn btn-success float-right button-search">Buscar</button>
                        <!-- [swal]="addSwal2" -->
                 </div>
               </form>
@@ -141,20 +144,14 @@
         </div>
       </div>
     </div>
-
   </div>
 
-    <div id = "equipajeLista" class="row" style="display:none">
+    <div id = "equipajeLista" class="row oculto">
     <div class="col-lg-12">
         <div class="card mb-3">
             <div class="card-header">
-                <img style="float: left; 
-                width: 20px; 
-                height: 20px; 
-                margin-top: 3px;
-                margin-right: 3px" 
-                src="../assets/images/lista.png" alt="">
-                Listado de Equipajes de Usuario
+                <i class="fa fa-list"></i>
+                List of user equipment
             </div>
             <div class="card-body table-responsive">
                 <table class="table">
@@ -212,52 +209,35 @@
   <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
-            <img style="float: left; 
-            width: 20px; 
-            height: 20px; 
-            margin-top: 3px;
-            margin-right: 3px" 
-            src="../assets/images/crear.png" alt="">
-             Crear Reclamo
-          </div>
-          
+              <i class="fa fa-plus"></i>
+             Create Claim
+          </div>     
           <div class="card-body table-responsive">
-            <form [formGroup]="form" class="form-group">
+            <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">       
               <div class="col text-center">
-                  <div class="form-group">
-                            <select class="form-control" formControlName="nacionalidad">
-                              <option value="-1">Nacionalidad</option>
-                              <option value="0">V</option>
-                              <option value="1">E</option>
-                            </select>
+                <div class="form-group">
+                  <input type="text" class="form-control input-lg" placeholder="Titulo" 
+                  formControlName="titulo" 
+                  [ngClass]="{
+                    'is-invalid': false,
+                    'is-valid': !formGroup.get('titulo').hasError('required')
+                  }">
+                </div>  
+                <div class="form-group">
+                  <textarea type="text" class="form-control input-lg" placeholder="Descripción..." 
+                  formControlName="descripcion"
+                  [ngClass]="{
+                    'is-invalid': false,
+                    'is-valid': !formGroup.get('descripcion').hasError('required')
+                  }" rows="3"></textarea>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-success" *ngIf="formGroup.invalid" type="submit" disabled>
+                                  Create Claim</button>
+                    <button class="btn btn-success" *ngIf="!formGroup.invalid" type="submit">
+                                  Create Claim</button>
                   </div>
-
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Titulo">
-                  </div>
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Pasaporte">
-                  </div>      
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Descripción">
-                  </div>
-                  
-                  <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Estado">
-                  </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <swal
-                  #addSwal1
-                  title="Reclamo Creado Satisfactoriamente"
-                  type="success"
-                  showConfirmButton=false
-                  timer=2500>
-                </swal>
-                <button style="margin-right:45%" class="btn btn-success float-right" [swal]="addSwal1">Crear</button>
                 </div>
               </div>
             </form>
@@ -268,13 +248,8 @@
   <div class="col-lg-12">
       <div class="card mb-3">
           <div class="card-header">
-              <img style="float: left; 
-              width: 20px; 
-              height: 20px; 
-              margin-top: 3px;
-              margin-right: 3px" 
-              src="../assets/images/lista.png" alt="">
-              Listado de Reclamos de Usuario
+              <i class="fa fa-list"></i>
+              Listado de Claims de Usuario
           </div>
           <div class="card-body table-responsive">
               <table class="table">
@@ -289,23 +264,25 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                      <th scope="row">1</th>
-                      <td>XSY-219</td>
-                      <td>Aeropuerto</td>
-                      <td>002345678910</td>
-                      <td>Abierto</td>
+                      
+                  <tr *ngFor="let claim of claims; let indice=index">
+                      <th scope="row">{{indice+1}}</th>
+                      <td >{{claim.id}}</td>
+                      <td>{{claim._title }}</td>
+                      <td>{{claim._description}}</td>
+                      <td>{{claim._status}}</td>
                       <td>
-                        <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                        <button (click)="open(content, 
+                        claim.id, claim._title, claim._description)"><i class="fa fa-edit"></i></button>
                         <swal
                           #deleteSwal
-                          title="¿Desea Eliminar el Reclamo?"
+                          title="¿Desea Eliminar el Claim?"
                           type="question"
                           [showCancelButton]="true"
                           [focusCancel]="true"
-                          (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          (confirm)="deleteClaim(claim.id)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                         </swal>
-                        <button style="margin-left:5px" [swal]="deleteSwal"><i class="fa fa-trash" ></i></button>
+                        <button class="button-delete" [swal]="deleteSwal"><i class="fa fa-trash" ></i></button>
                       </td>
                   </tr>
                   </tbody>
@@ -317,12 +294,7 @@
   <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
-              <img style="float: left; 
-              width: 20px; 
-              height: 20px; 
-              margin-top: 3px;
-              margin-right: 3px" 
-              src="../assets/images/mensaje.png" alt="">
+              <i class="fa fa-envelope"></i>
               Escríbenos
           </div>
           
@@ -338,7 +310,7 @@
                     </div>
                     <swal
                     #mensaje
-                    title="Mensaje enviado al administrador de reclamos"
+                    title="Mensaje enviado al administrador de Claims"
                     type="success"
                     showConfirmButton=false
                     timer=2500>
@@ -346,7 +318,7 @@
                    <button class="btn btn-success float-left" [swal]="mensaje">Enviar</button>
                 </div>
 
-                <div class="form-group" style="float: right; width: 65%">
+                <div class="form-group" class="mensaje">
                     <textarea placeholder="Mensaje..." class="form-control" rows="5"></textarea>
                 </div>
               </div>
@@ -359,20 +331,15 @@
 </div>
 
 
-<div id = "paginaAdmin" style = "display:none">
+<div id = "paginaAdmin" class="oculto">
 <div class="row">
     <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
-              <img style="float: left; 
-                          width: 20px; 
-                          height: 20px; 
-                          margin-top: 3px;
-                          margin-right: 3px" 
-                          src="../assets/images/lupa.png" alt="">
-              <tr> Seleccionar Busqueda de Equipajes
+              <i class="fa fa-search"></i>
+               Seleccionar Busqueda de Equipajes
           </div>
-          <div class="card-body table-responsive" style="text-align: justify">
+          <div class="card-body table-responsive carta-intro">
             <p> Consultar lista de equipajes:</p>
             <label>
               <input id = "check_extraviado" type="checkbox" 
@@ -393,12 +360,12 @@
                 <div class="col-md-12">
                   <swal
                   #addSwal5
-                  title="Reclamo Creado Satisfactoriamente"
+                  title="Claim Creado Satisfactoriamente"
                   type="success"
                   showConfirmButton=false
                   timer=2500>
                 </swal>
-                <button style="margin-right:45%" class="btn btn-success float-right" (click)="BusqEquipajeAdmin()" >Buscar</button>
+                <button class="btn btn-success float-right button-search" (click)="BusqEquipajeAdmin()" >Buscar</button>
                   <!--[swal]="addSwal5"-->
                 </div>
             </div>
@@ -408,16 +375,11 @@
     </div>
   </div>
 
-  <div id = "encontrados" style="display:none" class="row">
+  <div id = "encontrados" class="row oculto">
       <div class="col-lg-12">
           <div class="card mb-3">
               <div class="card-header">
-                  <img style="float: left; 
-                  width: 20px; 
-                  height: 20px; 
-                  margin-top: 3px;
-                  margin-right: 3px" 
-                  src="../assets/images/lista.png" alt="">
+                  <i class="fa fa-list"></i>
                   Listado de Equipajes Encontrados
               </div>
               <div class="card-body table-responsive">
@@ -440,7 +402,7 @@
                           <td>Encontrado</td>
                           <td>04-05-2019 00:00</td>
                           <td>
-                            <button style="margin-left: 15px"><i class="fa fa-edit"></i></button>
+                            <button class= "ver"><i class="fa fa-edit"></i></button>
                           </td>
                       </tr>
                       <tr>
@@ -450,7 +412,7 @@
                           <td>Encontrado</td>
                           <td>05-05-2019 00:00</td>
                           <td>
-                              <button style="margin-left: 15px"><i class="fa fa-edit"></i></button>
+                              <button class="ver"><i class="fa fa-edit"></i></button>
                           </td>
                       </tr>
                       </tbody>
@@ -460,16 +422,11 @@
       </div>
       </div>
 
-      <div id = "extraviados" style="display:none" class="row">
+      <div id = "extraviados" class="row oculto">
           <div class="col-lg-12">
               <div class="card mb-3">
                   <div class="card-header">
-                      <img style="float: left; 
-                      width: 20px; 
-                      height: 20px; 
-                      margin-top: 3px;
-                      margin-right: 3px" 
-                      src="../assets/images/lista.png" alt="">
+                      <i class="fa fa-list"></i>
                       Listado de Equipajes Extraviados
                   </div>
                   <div class="card-body table-responsive">
@@ -492,7 +449,7 @@
                               <td>Extraviado</td>
                               <td>04-05-2019 00:00</td>
                               <td>
-                                <button style="margin-left: 15px"><i class="fa fa-edit"></i></button>
+                                <button class="ver"><i class="fa fa-edit"></i></button>
                               </td>
                           </tr>
                           <tr>
@@ -502,7 +459,7 @@
                               <td>Extraviado</td>
                               <td>05-05-2019 00:00</td>
                               <td>
-                                  <button style="margin-left: 15px"><i class="fa fa-edit"></i></button>
+                                  <button class="ver"><i class="fa fa-edit"></i></button>
                               </td>
                           </tr>
                           </tbody>
@@ -512,16 +469,11 @@
           </div>
           </div>
 
-          <div id = "entregados" style="display:none"  class="row">
+          <div id = "entregados"  class="row oculto">
               <div class="col-lg-12">
                   <div class="card mb-3">
                       <div class="card-header">
-                          <img style="float: left; 
-                          width: 20px; 
-                          height: 20px; 
-                          margin-top: 3px;
-                          margin-right: 3px" 
-                          src="../assets/images/lista.png" alt="">
+                          <i class="fa fa-list"></i>
                           Listado de Equipajes Entregados
                       </div>
                       <div class="card-body table-responsive">
@@ -544,7 +496,7 @@
                                   <td>Entregados</td>
                                   <td>04-05-2019 00:00</td>
                                   <td>
-                                    <button style="margin-left: 15px"><i class="fa fa-edit"></i></button>
+                                    <button class="ver"><i class="fa fa-edit"></i></button>
                                   </td>
                               </tr>
                               <tr>
@@ -554,7 +506,7 @@
                                   <td>Entregados</td>
                                   <td>05-05-2019 00:00</td>
                                   <td>
-                                      <button style="margin-left: 15px"><i class="fa fa-edit"></i></button>
+                                      <button class="ver"><i class="fa fa-edit"></i></button>
                                   </td>
                               </tr>
                               </tbody>
@@ -568,16 +520,11 @@
           <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <img style="float: left; 
-                                width: 20px; 
-                                height: 20px; 
-                                margin-top: 3px;
-                                margin-right: 3px" 
-                                src="../assets/images/lupa.png" alt="">
-                            <tr> Seleccionar Busqueda de Reclamos
+                    <i class="fa fa-search"></i>
+                        Seleccionar Busqueda de Claims
                         </div>
-                        <div class="card-body table-responsive" style="text-align: justify">
-                          <p> Consultar lista de reclamos por caso:</p>
+                        <div class="card-body table-responsive carta-intro">
+                          <p> Consultar lista de Claims por caso:</p>
                           <label>
                               <input id="check_abierto" type="checkbox" 
                               (change)="checkeadoAbierto($event)" value="checkedValue"> Abierto 
@@ -592,12 +539,12 @@
                               <div class="col-md-12">
                                 <swal
                                 #addSwal6
-                                title="Reclamo Creado Satisfactoriamente"
+                                title="Claim Creado Satisfactoriamente"
                                 type="success"
                                 showConfirmButton=false
                                 timer=2500>
                               </swal>
-                      <button style="margin-right:45%" class="btn btn-success float-right" (click)="BusqEquipajeReclamo()">Buscar</button>
+                      <button class="btn btn-success float-right button-search" (click)="BusqEquipajeClaim()">Buscar</button>
                         <!-- [swal]="addSwal6"-->
                     
                     </div>
@@ -608,16 +555,11 @@
           </div>
         </div>
 
-        <div id = "abiertos" style = "display:none">
+        <div id = "abiertos" class="oculto">
             <div class="card mb-3">
                 <div class="card-header">
-                    <img style="float: left; 
-                    width: 20px; 
-                    height: 20px; 
-                    margin-top: 3px;
-                    margin-right: 3px" 
-                    src="../assets/images/lista.png" alt="">
-                    Listado de Reclamos Abiertos
+                    <i class="fa fa-list"></i>
+                    Listado de Claims Abiertos
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -642,13 +584,13 @@
                               <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal1
-                                title="¿Desea Eliminar el Reclamo?"
+                                title="¿Desea Eliminar el Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
                                 (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
-                              <button style="margin-left:5px" [swal]="deleteSwal1"><i class="fa fa-trash" ></i></button>
+                              <button [swal]="deleteSwal1" class="button-delete"><i class="fa fa-trash" ></i></button>
                             </td>
                         </tr>
                         </tbody>
@@ -657,16 +599,11 @@
             </div>
         </div>
 
-        <div id = "cerrados" style = "display:none">
+        <div id = "cerrados" class="oculto">
             <div class="card mb-3">
                 <div class="card-header">
-                    <img style="float: left; 
-                    width: 20px; 
-                    height: 20px; 
-                    margin-top: 3px;
-                    margin-right: 3px" 
-                    src="../assets/images/lista.png" alt="">
-                    Listado de Reclamos Cerrados
+                    <i class="fa fa-list"></i>
+                    Listado de Claims Cerrados
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -691,13 +628,13 @@
                               <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal2
-                                title="¿Desea Eliminar el Reclamo?"
+                                title="¿Desea Eliminar el Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
-                                (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
-                              <button style="margin-left:5px" [swal]="deleteSwal2"><i class="fa fa-trash" ></i></button>
+                              <button class="button-delete" [swal]="deleteSwal2"><i class="fa fa-trash" ></i></button>
                             </td>
                         </tr>
                         </tbody>
@@ -708,12 +645,7 @@
 
             <div class="card mb-3">
                 <div class="card-header">
-                    <img style="float: left; 
-                    width: 20px; 
-                    height: 20px; 
-                    margin-top: 3px;
-                    margin-right: 3px" 
-                    src="../assets/images/mensaje.png" alt="">
+                    <i class="fa fa-envelope"></i>
                     Escríbir a Usuario
                 </div>
                 
@@ -737,7 +669,7 @@
                          <button class="btn btn-success float-left" [swal]="mensaje">Enviar</button>
                       </div>
       
-                      <div class="form-group" style="float: right; width: 65%">
+                      <div class="form-group" class = "mensaje">
                           <textarea placeholder="Mensaje..." class="form-control" rows="5"></textarea>
                       </div>
                     </div>
