@@ -87,7 +87,7 @@
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
                         [checked]="hotel?.isActive"
-                        (click)="openModalActions($event, hotel, type)"
+                        (click)="openModalActions($event, hotel, type, false)"
                         title = "Desactivar/Activar {{type}}">
                     </td>
                     <td>

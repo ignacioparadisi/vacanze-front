@@ -16,9 +16,11 @@
       }
     },
     "_put": {
-      "putClaimStatus":"Claim/{id}"
+        "putClaimStatus":"Claim/{id}",
+        "putHotel":"hotels/{id}"
     },
     "_delete": {
-      "deleteClaim":"Claim/{id}"
+        "deleteClaim":"Claim/{id}",
+        "deleteHotel":"hotels/{id}"
     }
 }

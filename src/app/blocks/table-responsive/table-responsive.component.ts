@@ -28,6 +28,7 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
 
+
   constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
   }
 
@@ -41,6 +42,8 @@ export class TableResponsiveComponent implements OnChanges {
     }
   }
 
+  
+  
   /**************************************************************************
   * Metodo para enviar la confirmación de la alerta                         *
   **************************************************************************/
@@ -48,23 +51,27 @@ export class TableResponsiveComponent implements OnChanges {
     this.actionAlertEventEmitter.emit(event);
   }
 
-  /************************************************************************
-  * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
-  **************************************************************************/
-  public openModalActions(event, data: Object, type: string, deleted? : boolean){
-    event.preventDefault();
-    let config: SweetAlertOptions = {
-      title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      type: 'question',
-      focusCancel: true
+  
+  
+    /************************************************************************
+    * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
+    **************************************************************************/
+    public openModalActions(event, data: Object, type: string, deleted? : boolean){
+      event.preventDefault();
+      let config: SweetAlertOptions = {
+        title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        type: 'question',
+        focusCancel: true
+      }
+      Swal.fire(config).then(result => {
+        data['delete'] = deleted;
+        this.messageAlert(data);
+      })
     }
-    Swal.fire(config).then(result => {
-      this.messageAlert(data);
-    })
-  }
+  
 
     /************************************************************
     * Metodo para redireccionar a la vista de añadir un crucero *
