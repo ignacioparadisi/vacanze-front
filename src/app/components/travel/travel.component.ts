@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-travel',
@@ -23,7 +24,11 @@ export class TravelComponent implements OnInit {
         this.apiService.getUrl('users/{user}/travels', ['5']).then(
             (resp) => this.travels = resp,
             (fail) => {
-                this.errorResponse = fail.error;
+                Swal.fire({
+                    title: 'Error: ' + fail.status,
+                    text: fail.name + '. ' + fail.statusText,
+                    type: 'error',
+                })
             }
         );
     }

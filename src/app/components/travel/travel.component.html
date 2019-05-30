@@ -15,8 +15,8 @@
                 <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description"></modify-travel>
               </div>
               <div class="col-1">
-                <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje">
-                  <i class="fa fa-xs fa-trash" (click)="travelDelete(travel.id)"></i>
+                <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje" (click)="travelDelete(travel.id)">
+                  <i class="fa fa-xs fa-trash"></i>
                 </button>
               </div>
             </div>
@@ -35,5 +35,5 @@
 
   </div>
 
-  <create-travel></create-travel>
+  <create-travel (spread)="getTravels()"></create-travel>
 </div>
