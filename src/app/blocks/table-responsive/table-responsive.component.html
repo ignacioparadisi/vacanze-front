@@ -1,6 +1,11 @@
 <div class="col-lg-12">
   <div class="card mb-3">
-      <div class="card-header" [innerHtml]="headerTitle"></div>
+      <div class="card-header">
+        <i class="fa fa-fw fa-ship" *ngIf="type === 'cruceros'"></i>&nbsp;
+        <i class="fa fa-bed" *ngIf="type === 'hotel'"></i>&nbsp;
+        <i class="fa fa-fw fa-cutlery" *ngIf="type === 'restaurantes'"></i>&nbsp;
+        <span>{{ headerTitle }}</span>
+      </div>
       <div class="card-body table-responsive">
           <table class="table">
               <thead class="thead-dark">
@@ -13,13 +18,13 @@
                 <tr *ngFor="let boat of tableData">
                   <td>{{ boat?.id }}</td>
                   <td>{{ boat?.name }}</td>
-                  <td>{{ boat?.passangers_capacity }}</td>
-                  <td>{{ boat?.overload_capacity }} Kg.</td>
+                  <td>{{ boat?.capacity }}</td>
+                  <td>{{ boat?.loadingShipCap }} Kg.</td>
                   <td>{{ boat?.model }}</td>
                   <td>{{ boat?.line }}</td>
                   <td class="d-flex ml-3">
-                    <span class="badge badge-success" *ngIf="boat?.status === 'Active'"> {{ boat?.status }}</span>
-                    <span class="badge badge-danger" *ngIf="boat?.status === 'Inactive'">{{ boat?.status }}</span>
+                    <span class="badge badge-success" *ngIf="boat?.status">Activo</span>
+                    <span class="badge badge-danger" *ngIf="!boat?.status">Inactivo</span>
                     <input type="checkbox"
                       class="form-check-input align-self-start"
                       id="estatus-checkbox"
@@ -29,14 +34,14 @@
                   </td>
                   <td>
                     <button
-                      class="btn btn-outline-danger"
-                      (click)="openModalActions($event, boat, 'crucero', true)"
+                      class="btn btn-outline-success"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Eliminar {{type}}"
+                      title="Agregar {{type}}"
+                      (click)="goToAddCruiser()"
                     >
-                      <i class="fa fa-trash"></i>
-                    </button>&nbsp;&nbsp;
+                      <i class="fa fa-plus"></i>
+                    </button>&nbsp;
                     <button
                       class="btn btn-outline-info"
                       data-toggle="tooltip"
@@ -45,6 +50,24 @@
                       (click)="goToBoatRooms()"
                     >
                       <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <button
+                      class="btn btn-outline-danger"
+                      (click)="openModalActions($event, boat, 'crucero', true)"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Eliminar {{type}}"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>&nbsp; 
+                    <button
+                      class="btn btn-outline-info"
+                      (click)="goToEdit(type)"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Ver rutas"
+                    >
+                      <i class="fa fa-road"></i>
                     </button>
                   </td>
                 </tr>
@@ -64,7 +87,7 @@
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
                         [checked]="hotel?.isActive"
-                        (click)="openModalActions($event, hotel, type)"
+                        (click)="openModalActions($event, hotel, type, false)"
                         title = "Desactivar/Activar {{type}}">
                     </td>
                     <td>
@@ -83,7 +106,7 @@
                       data-placement="top"
                       title="Editar {{type}}">
                       <i class="fa fa-edit"></i>
-                    </button>
+                    </button>                    
                     </td>
                   </tr>
                 </tbody>
@@ -167,7 +190,7 @@
           </table>
       </div>
   </div>
-  <div class="d-flex justify-content-end w-100">
+  <div class="d-flex justify-content-end w-100" *ngIf="type !== 'cruceros'">
     <div class="kreep">
       <button (click)="gotoAdd(type)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
         <i class="fa fa-plus"></i>

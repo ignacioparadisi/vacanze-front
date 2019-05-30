@@ -3,6 +3,14 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+//* Import de interfaces *//
+import { Cruiser } from '../../interfaces/cruiser';
+
+//** Import de components **//
+import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
+
+
 @Component({
   selector: 'app-table-responsive',
   templateUrl: './table-responsive.component.html',
@@ -13,7 +21,7 @@ export class TableResponsiveComponent implements OnChanges {
 
   /* @ViewChild('restauranteModal') restauranteModal: RegisterRestaurantComponent; */
   @Input() headerTitle: string; // Nombre de la tabla ej: Listado de registros
-  @Input() tableData: Array<Object>; // Array con la data a mostrar en cada fila de la tabla
+  @Input() tableData: Array<Cruiser>; // Array con la data a mostrar en cada fila de la tabla
   @Input() tableHeaders: Array<String>; // Array con los nombres de cada columna en la tabla
   @Input() type: string;
 
@@ -21,7 +29,6 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public emitRouting = new EventEmitter();
 
 
-  
   constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
   }
 
@@ -29,19 +36,14 @@ export class TableResponsiveComponent implements OnChanges {
     if(this.tableData!= null){
       if(this.tableData.length !== 0){
         this.tableData.forEach(b => {
-          if(b['status'] === 'Active') {
-            b['active'] = true;
-          }
-          else {
-            b['active'] = false;
-          }
+          b.status ? b['active'] = true : b['active'] = false;
         })
       }
     }
   }
 
-
-
+  
+  
   /**************************************************************************
   * Metodo para enviar la confirmación de la alerta                         *
   **************************************************************************/
@@ -49,30 +51,33 @@ export class TableResponsiveComponent implements OnChanges {
     this.actionAlertEventEmitter.emit(event);
   }
 
-
-  /************************************************************************
-  * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
-  **************************************************************************/
-  public openModalActions(event, data: Object, type: string, deleted? : boolean){
-    event.preventDefault();
-    let config: SweetAlertOptions = {
-      title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      type: 'question',
-      focusCancel: true
+  
+  
+    /************************************************************************
+    * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
+    **************************************************************************/
+    public openModalActions(event, data: Object, type: string, deleted? : boolean){
+      event.preventDefault();
+      let config: SweetAlertOptions = {
+        title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        type: 'question',
+        focusCancel: true
+      }
+      Swal.fire(config).then(result => {
+        data['delete'] = deleted;
+        this.messageAlert(data);
+      })
     }
-    Swal.fire(config).then(result => {
-      this.messageAlert(data);
-    })
-  }
+  
 
-    /*******************************************************************
-    * Metodo para redireccionar a la vista de habitaciones del crucero *
-    ********************************************************************/
-    public goToBoatRooms(){
-      this.emitRouting.emit('/habitaciones');
+    /************************************************************
+    * Metodo para redireccionar a la vista de añadir un crucero *
+    *************************************************************/
+    public goToAddCruiser(){
+      this.emitRouting.emit('/agregar-crucero');
     }
 
 
@@ -94,13 +99,13 @@ export class TableResponsiveComponent implements OnChanges {
     /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
-    /* public gotoAdd(type: string){
+    public gotoAdd(type: string){
       if (type === 'hotel'){
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
       }
-    } */
+    }
 
 
     /**********************************************************************
@@ -114,11 +119,11 @@ export class TableResponsiveComponent implements OnChanges {
 
 
     RegisterRestaurantModal() {
-     /*  const modalRef = this.modalService.open(RegisterRestaurantComponent); */
+      const modalRef = this.modalService.open(RegisterRestaurantComponent);
     }
 
     EditRestaurantModal() {
-      /* const modalRef = this.modalService.open(EditRestaurantComponent); */
+      const modalRef = this.modalService.open(EditRestaurantComponent);
     }
 
 }
