@@ -1,10 +1,10 @@
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { TypeFlight } from 'src/app/classes/type_flight';
+import { TypeFlight } from '../../../classes/type_flight';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
-import { PeopleFlight } from 'src/app/classes/people_flight';
+import { PeopleFlight } from '../../../classes/people_flight';
 import { Router } from '@angular/router';
 
 @Component({
