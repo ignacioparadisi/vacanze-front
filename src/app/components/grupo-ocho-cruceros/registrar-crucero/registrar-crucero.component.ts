@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { transformImageToBase64 } from '../../../utils/global_functions';
 import { ApiService } from '../../../services/api.service';
 import { environment as url } from '../../../../environments/environment';
+import { LocalStorageService } from '../../../services/local-storage.service';
+import { Cruiser } from '../../../interfaces/cruiser';
 
 @Component({
   selector: 'app-registrar-crucero',
@@ -12,43 +14,107 @@ import { environment as url } from '../../../../environments/environment';
 })
 
 export class RegistrarCruceroComponent implements OnInit {
-  
+
+  public title: string;
   public urlImage: string;
+  public buttonText: string;
   public transformImageToBase64; // Variable para recibir la funcion de transformar la imagen
+  public registrationForm: FormGroup;
+  public formReady: boolean;
+  public isButtonToAdd: boolean;
+  public cruiser: Cruiser;
 
-  public registrationForm: FormGroup = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(100)
-    ]),
-    line: new FormControl('', [
-      Validators.required,
-      Validators.min(1)
-    ]),
-    capacity: new FormControl('', [
-      Validators.required,
-      Validators.min(1)
-    ]),
-    loadingShipCap: new FormControl('', [
-      Validators.required,
-      Validators.min(1)
-    ]),
-    model: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(100)
-    ]),
-    picture: new FormControl('', [
-      Validators.required
-    ])
-  });
-
-  constructor(private location: Location, private api: ApiService){ 
+  constructor(private location: Location, private api: ApiService, private localStorage: LocalStorageService){ 
     this.transformImageToBase64 = transformImageToBase64;
+    this.formReady = false;
+    this.buttonText = "";
   }
 
-  ngOnInit() {
+  ngOnInit() { 
+    this.registrationForm = new FormGroup({});
+    this.localStorage.getItem('boat').subscribe(data =>{
+      if(data){
+        this.cruiser = data;
+        this.createNewFormGroup(data);
+        this.title = 'Editar crucero | '+data['name'];
+        this.formReady = true;
+        this.isButtonToAdd = false;
+        this.buttonText = 'Editar';
+      }
+      else {
+        this.createNewFormGroup(undefined);
+        this.title = 'Añadir crucero';
+        this.formReady = true;
+        this.buttonText = 'Agregar';
+        this.isButtonToAdd = true;
+      }
+    }) 
+  }
+
+  ngOnDestroy() {
+    this.localStorage.removeItem('boat');
+  }
+
+  public createNewFormGroup(data){
+    if(data){
+      this.urlImage = data['picture'];
+      this.registrationForm = new FormGroup({
+        name: new FormControl(data['name'], [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100)
+        ]),
+        line: new FormControl(data['line'], [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        capacity: new FormControl(data['capacity'], [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        loadingShipCap: new FormControl(data['loadingShipCap'], [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        model: new FormControl(data['model'], [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100)
+        ]),
+        picture: new FormControl(this.urlImage, [
+          Validators.required
+        ])
+      });
+    }
+    else {
+      this.registrationForm = new FormGroup({
+        name: new FormControl('', [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100)
+        ]),
+        line: new FormControl('', [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        capacity: new FormControl('', [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        loadingShipCap: new FormControl('', [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        model: new FormControl('', [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100)
+        ]),
+        picture: new FormControl('', [
+          Validators.required
+        ])
+      });
+    }  
   }
 
   get name() {
@@ -85,6 +151,7 @@ export class RegistrarCruceroComponent implements OnInit {
   * Metodo para agregar un nuevo crucero * 
   ****************************************/
   public onSubmit(){
+    console.log("fooormmm", this.registrationForm);
     this.registrationForm.value.picture = this.urlImage;
     let form = {
       'name': this.registrationForm.value.name,
@@ -95,7 +162,8 @@ export class RegistrarCruceroComponent implements OnInit {
       'picture': this.registrationForm.value.picture
     }
 
-    this.api.postUrl(url.endpoint.default._post.cruisers.post_cruiser, form)
+    if(this.isButtonToAdd){
+      this.api.postUrl(url.endpoint.default._post.cruisers.post_cruiser, form)
       .then(response => {
         this.registrationForm.reset(); // Limpio los campos del formulario
         this.urlImage = null; // Reseteo el valor de la imagen que transforme a base 64
@@ -103,7 +171,20 @@ export class RegistrarCruceroComponent implements OnInit {
       .catch(error => {
         console.log("error", error);
       })
-
+    }
+    else {
+      form['id'] = this.cruiser['id'];
+      this.api.putUrl(url.endpoint.default._post.cruisers.post_cruiser, form)
+      .then(response => {
+        console.log("PERROXXX", response);
+        this.registrationForm.reset(); // Limpio los campos del formulario
+        this.urlImage = null; // Reseteo el valor de la imagen que transforme a base 64
+      })  
+      .catch(error => {
+        console.log("error", error);
+      })  
+    }
+    
   }
 
 }

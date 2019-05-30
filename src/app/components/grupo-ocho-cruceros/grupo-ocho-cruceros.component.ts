@@ -13,13 +13,12 @@ import { environment as url } from '../../../environments/environment';
 
 export class GrupoOchoCrucerosComponent implements OnInit {
 
-  public isRouteActive: boolean; // Variable para saber si cambio a la vista de habitaciones
+  public checks: Object; // Variable para saber si cambio a la vista de rutas
   private cruisers: Array<Cruiser>;
   private tableBoatsHeader: Array<string>;
   private tableRoutesHeader: Array<string>;
 
   constructor(private router: Router, private api: ApiService){
-    this.isRouteActive = false;
     // Headers de la tabla dinamica
     this.tableBoatsHeader = [
       "#",
@@ -30,7 +29,11 @@ export class GrupoOchoCrucerosComponent implements OnInit {
       "Linea",
       "Status"
     ];
-
+    this.checks = {
+      routes: false,
+      edit: false,
+      add: false
+    }
     /* this.tableRoutesHeader = [
       "#",
       "Nombre",
@@ -44,21 +47,37 @@ export class GrupoOchoCrucerosComponent implements OnInit {
 
   ngOnInit(){
     if(this.router.url === '/cruisers/agregar-crucero'){
-      this.isRouteActive = true;
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = true;
     }
-    else {
-      this.isRouteActive = false;
+    else if(this.router.url.indexOf('editar-crucero') !== -1){
+      this.checks['routes'] = false;
+      this.checks['edit'] = true;
+      this.checks['add'] = false;
     }
     this.getCruisers();
   }
 
-  public getCurrentRoute(route){
+  public getCurrentRoute(route, param?: string){
     if(route === '/agregar-crucero'){
-      this.isRouteActive = true;
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = true;
+
       this.router.navigate(['cruisers', 'agregar-crucero']);
     }
+    else if(route.toString().indexOf('/editar-crucero') !== -1){
+      this.checks['routes'] = false;
+      this.checks['edit'] = true;
+      this.checks['add'] = false;
+
+      this.router.navigate(['cruisers', route.split('/')[1], route.split('/')[2]]);
+    }
     else {
-      this.isRouteActive = false;
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = false;
     }
   }
 
