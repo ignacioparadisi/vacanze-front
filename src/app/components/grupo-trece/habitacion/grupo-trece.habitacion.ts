@@ -17,6 +17,7 @@ export class HabitacionGrupoTrece implements OnInit {
     public Habitacion = [];
     public countries = [];
     public cities = [];
+    public hotels = [];
     public closeResult: string;
 
     constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
@@ -73,6 +74,48 @@ export class HabitacionGrupoTrece implements OnInit {
                 console.log(error);
             }
         );
+    }
+
+    getHotelsByCity(){
+        const requestURL = "hotels/?location="+this.myForm.value.city;
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.hotels = response;
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+    public markAllAsTouched() {
+        this.myForm.get('locDeparture').markAsTouched();
+        this.myForm.get('locArrival').markAsTouched();
+        this.myForm.get('plane').markAsTouched();
+        this.myForm.get('price').markAsTouched();
+        this.myForm.get('departure').markAsTouched();
+        this.myForm.get('arrival').markAsTouched();
+    }
+
+    submit() {
+        this.markAllAsTouched();
+        const payload = this.myForm.value;
+        let fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
+
+        if (fechas === 1) {
+
+            if (this.myForm.valid) {
+                this.apiService.postUrl('reservationrooms', payload).then(
+                    response => {
+                        console.log(response);
+                    }, error => {
+                        console.log(error);
+                    }
+                );
+            }
+        } else {
+            console.log('La fecha de llegada no puede ser anterior a la de salida.');
+        }
     }
 
     buscador() {
