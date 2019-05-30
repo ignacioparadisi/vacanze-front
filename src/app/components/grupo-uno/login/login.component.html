@@ -3,7 +3,6 @@
     style="animation-duration: 800ms; opacity: 1;" *ngIf="StatusLogin" ng-disabled="false">
     <div class="page-content">
       <div class="page-brand-info">
-<<<<<<< HEAD
 
 
       </div>
@@ -12,18 +11,6 @@
           <h3 class="brand-text font-size-40" style="font-size: 50px;">Vacanze</h3>
         </div>
         <h3 class="font-size-15" style="color: white">Inicio De Sesion</h3>
-=======
-        <div class="brand">
-          <h2 class="brand-text font-size-40">Vacanze</h2>
-        </div>
-        <p class="font-size-20">Unete a nosotros y disfruta de los mejores paquetes que te podemos ofrecer</p>
-      </div>
-      <div class="page-login-main">
-        <div class="brand visible-xs">
-          <h3 class="brand-text font-size-40">Vacanze</h3>
-        </div>
-        <h3 class="font-size-24">Inicio De Sesion</h3>
->>>>>>> grupo1J
         <form #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
           <div class="form-group">
             <label class="sr-only" for="inputEmail">Email</label>
@@ -36,28 +23,19 @@
               #Password='ngModel' [(ngModel)]="formModel.Password" required>
           </div>
           <div class="form-group clearfix">
-<<<<<<< HEAD
-            <a class="pull-right" href="">Olvidaste tu contraseña?</a>
-          </div>
-          <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid"
-            (deactivate)='onDeactivate($event)' style="color: white;font-size: 30px;margin-top: -10%">Login</button>
-=======
             <a class="pull-right" href="" data-toggle="modal" data-target="#exampleModal">Olvidaste tu contraseña?</a>
           </div>
 
 
-          <button type="submit" class="btn btn-primary btn-block" [disabled]="form.invalid"
-            (deactivate)='onDeactivate($event)'>Login</button>
->>>>>>> grupo1J
+          <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid"
+            (deactivate)='onDeactivate($event)' style="font-size: 25px;font-weight: bold;">Iniciar Sesion</button>
         </form>
-        <p>No tienes cuenta? <a href="">Registrate!!</a></p>
+        <p>¿No tienes cuenta? <a href="">¡¡Registrate!!</a></p>
         <footer class="page-copyright">
           <p> Universidad Catolica Andres bello</p>
           <p>© 2019. Todos los derechos reservados.</p>
         </footer>
       </div>
-<<<<<<< HEAD
-=======
 
       <!-- <Seccion del modal de recuperacion de contraseña> -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -72,12 +50,12 @@
             </div>
             <div class="modal-body">
               <div class="alert alert-danger" role="alert">
-                <p>El correo ingresado no se encuentra registrado en <b>Vacanze</b></p>
+                <p style="color: black;">El correo ingresado no se encuentra registrado en <b>Vacanze</b></p>
               </div>
-              <p>Por favor, ingrese el correo con el que se encuentra registrado en el sistema</p>
+              <p style="color: black">Por favor, ingrese el correo con el que se encuentra registrado en el sistema</p>
               <form>
                 <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Correo electrónico:</label>
+                  <label for="recipient-name" class="col-form-label" style="color: black">Correo electrónico:</label>
                   <input type="email" class="form-control" id="recipient-name">
                 </div>
               </form>
@@ -91,7 +69,6 @@
       </div>
       <!-- <Fin de seccion del modal de recuperacion de contraseña> -->
 
->>>>>>> grupo1J
     </div>
   </div>
 </router-outlet>

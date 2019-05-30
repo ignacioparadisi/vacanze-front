@@ -9,16 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-<<<<<<< HEAD
   StatusHeader = false;
   StatusSideBar = false;
   StatusLogin = true;
   StatusMain = true;
-=======
-  StatusHeader=true;
-  StatusSideBar=true;
-  StatusLogin=true;
->>>>>>> grupo1J
   collapedSideBar: boolean;
 
   constructor(private router: Router) { }

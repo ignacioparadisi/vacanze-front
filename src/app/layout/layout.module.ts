@@ -9,11 +9,6 @@ import { LayoutRoutingModule } from "./layout-routing.module";
 import { LayoutComponent } from "./layout.component";
 import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
-<<<<<<< HEAD
-=======
-
-//import { RegisterUserComponent } from "../components/register-user/register-user.component";
->>>>>>> grupo1J
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { RegisterRestaurantComponent } from '../components/register-restaurant/register-restaurant.component';
 import { EditRestaurantComponent } from '../components/edit-restaurant/edit-restaurant.component';
