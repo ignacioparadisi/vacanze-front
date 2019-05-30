@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { containerRefreshEnd } from '@angular/core/src/render3';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +15,13 @@ export class ApiService {
     } */
   };
 
+<<<<<<< HEAD
   constructor(private fb: FormBuilder, private http: HttpClient) { }
   readonly BaseURI = 'https://localhost:44362/api';
+=======
+    constructor(private fb: FormBuilder,private http: HttpClient) { }
+    readonly BaseURI='https://localhost:44362/api';
+>>>>>>> grupo1J
 
   /*******************************************************
   * Metodo para realizar el consumo del API de tipo GET  *
@@ -69,7 +75,16 @@ export class ApiService {
 
 
 
+<<<<<<< HEAD
 
+=======
+  
+    login(formData) {
+        return this.http.post(this.BaseURI + '/UserProfile/Login', formData);
+      }
+    
+    
+>>>>>>> grupo1J
   /***************************************************************************
   * Metodo para realizar el consumo del API de tipo DELETE con body incluido *
   ****************************************************************************/
@@ -87,4 +102,12 @@ export class ApiService {
     );
   }
 
+
+  // =================================================================================
+  // ==Llamado a la API para el envio de corre de recuperacion de contraseña==========
+  // =================================================================================
+
+  sendEmail(){
+    
+  }
 }
