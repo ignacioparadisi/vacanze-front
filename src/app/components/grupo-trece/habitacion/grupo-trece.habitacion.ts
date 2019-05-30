@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter,Output } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { compararFechas } from '../../../utils/global_functions';
 import * as moment from 'moment';
 
@@ -19,6 +20,8 @@ export class HabitacionGrupoTrece implements OnInit {
     public cities = [];
     public hotels = [];
     public closeResult: string;
+
+    @Output() public actionAlertEventEmitter = new EventEmitter();
 
     constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
         this.compararFechas = compararFechas;
@@ -163,5 +166,24 @@ export class HabitacionGrupoTrece implements OnInit {
             return `with: ${reason}`;
         }
     }
+
+    public messageAlert(event: Object){
+        this.actionAlertEventEmitter.emit(event);
+      }
+
+    public openModalActions(event, data: Object, type: string, deleted? : boolean){
+        event.preventDefault();
+        let config: SweetAlertOptions = {
+          title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+          confirmButtonText: 'Confirmar',
+          cancelButtonText: 'Cancelar',
+          showCancelButton: true,
+          type: 'question',
+          focusCancel: true
+        }
+        Swal.fire(config).then(result => {
+          this.messageAlert(data);
+        })
+      }
 
 }

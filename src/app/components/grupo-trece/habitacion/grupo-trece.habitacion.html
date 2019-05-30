@@ -122,8 +122,15 @@
                 <td>{{hotel.pricePerRoom}}</td>
                 <td>lorem ipsum</td>
                 <td>
-                  <button class="btn btn-outline-info float-left mr-3" type="submit" (click)="open(content, 0)">Ver detalle</button>
-                </td>
+                  <button 
+                  class="btn btn-outline-dark"
+                  style="cursor: pointer;" 
+                  (click)="openModalActions($event, reservar-automovil, 'reservar', true)" 
+                  data-toggle="tooltip" 
+                  data-placement="top" 
+                >
+                  <i class="fa fa-cart-plus"></i>
+                </button>&nbsp;&nbsp;</td>
               </tr>
             </tbody>
           </table>

@@ -54,7 +54,7 @@
       <div class="card-header">
         Buscar automóvil
       </div>
-      <div class="card-body">
+      <div class="card-body carrito">
           <form [formGroup]="myForm" (ngSubmit)="buscador()">
               <div class="row">
                   <div class="col-md-3">
@@ -121,8 +121,15 @@
                 <td>lorem ipsum</td>
                 <td>lorem ipsum</td>
                 <td>
-                  <button class="btn btn-outline-info float-left mr-3" (click)="open(content, 0)">Ver detalle</button>
-                </td>
+                  <button 
+                  class="btn btn-outline-dark"
+                  style="cursor: pointer;" 
+                  (click)="openModalActions($event, reservar-automovil, 'reservar', true)" 
+                  data-toggle="tooltip" 
+                  data-placement="top" 
+                >
+                  <i class="fa fa-cart-plus"></i>
+                </button>&nbsp;&nbsp;</td>
               </tr>
             </tbody>
           </table>
