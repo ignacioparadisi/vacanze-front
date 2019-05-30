@@ -1,9 +1,12 @@
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { Role } from 'src/app/classes/role';
+import { Role } from '../../classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SweetAlertOptions } from 'sweetalert2';
+import { environment as url } from '../../../environments/environment';
+import { TableResponsiveComponent } from '../../blocks/table-responsive/table-responsive.component';
 
 @Component({
   selector: 'app-restaurantes',
@@ -25,18 +28,10 @@ export class RestaurantesComponent implements OnInit {
   ngOnInit() {
   }
 
-  constructor() {
+  constructor(private router: Router, private service: ApiService) {
     this.headerTitle = 'Lista de Restaurantes';
     this.tableRestaurantesHeader = this.getTableHeaders();
-    this.tableData = this.getExampleData();
-    this.deleteAlertConfiguration =  {
-      title: 'Desea eliminar el hotel?',
-      confirmButtonText: 'Si, estoy seguro',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      type: 'question',
-      focusCancel: true
-    };
+    this.loadRestaurants();
   }
 
   public getAlertAction(action: string) {
@@ -84,16 +79,31 @@ export class RestaurantesComponent implements OnInit {
     return [
       '#',
       'Nombre',
-      'Razon Social',
-      'Caliificación',
+      'Capacidad',
+      'Calificación',
+      'Especialidad',
       'Precio',
-      'Cap. de Comesales',
-      'Tipo de Comida',
+      'Razon Social',
+      'Descripcion',
+      'Telefono',
+      'Direccion',
       'Status'
     ];
   }
 
-  public getHotels() {
+
+  public loadRestaurants(){
+    this.service
+    .getUrl(url.endpoint.default._get.getRestaurant)
+    .then(response => {
+          this.tableData = response,
+          console.log(response)
+    }).catch( error => {
+          console.log('Error carga inicial de restaurantes', error);
+    });
+}
+
+  public getRestaurants() {
     return this.tableData;
   }
 

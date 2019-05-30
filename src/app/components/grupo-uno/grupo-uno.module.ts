@@ -7,7 +7,7 @@ import { GrupoUnoComponent } from './grupo-uno.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
+
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
@@ -19,8 +19,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     HttpClientModule,
     SweetAlert2Module.forRoot(),
     FormsModule,
-    ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ReactiveFormsModule
 
   ],
   providers: []

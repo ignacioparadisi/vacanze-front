@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { Router, ActivationStart, RouterOutlet } from '@angular/router';
 
-import { LayoutComponent } from 'src/app/layout/layout.component';
+import { LayoutComponent } from '../../../layout/layout.component';
 
 
 
@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  sendEmail(){
-    
+  sendEmail() {
+
   }
 }

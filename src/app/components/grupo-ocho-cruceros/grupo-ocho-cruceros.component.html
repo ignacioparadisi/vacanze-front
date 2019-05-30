@@ -1,4 +1,10 @@
-<app-cruceros *ngIf="!isRoomActive" (emitRouting)="getCurrentRoute($event)"></app-cruceros>
+<app-cruceros 
+    *ngIf="!isRouteActive" 
+    (emitRouting)="getCurrentRoute($event)" 
+    [cruisers]="getVariableCruisers()" 
+    [headers]="getTableHeaders()"
+>
+</app-cruceros>
 <router-outlet (deactivate)="getDeactivatedComponent($event)"></router-outlet>
 
 

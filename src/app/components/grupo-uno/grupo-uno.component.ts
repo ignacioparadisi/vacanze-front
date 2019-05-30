@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { LayoutComponent } from 'src/app/layout/layout.component';
+import { LayoutComponent } from '../../layout/layout.component';
 
 
 @Component({
