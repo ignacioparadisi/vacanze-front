@@ -1,9 +1,15 @@
 import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
-import { RegisterRestaurantComponent } from 'src/app/components/restaurantes/register-restaurant/register-restaurant.component';
-import { EditRestaurantComponent } from 'src/app/components/restaurantes/edit-restaurant/edit-restaurant.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+//* Import de interfaces *//
+import { Cruiser } from '../../interfaces/cruiser';
+
+//** Import de components **//
+import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
+
 
 @Component({
   selector: 'app-table-responsive',
@@ -13,9 +19,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class TableResponsiveComponent implements OnChanges {
 
-  @ViewChild('restauranteModal') restauranteModal: RegisterRestaurantComponent;
+  /* @ViewChild('restauranteModal') restauranteModal: RegisterRestaurantComponent; */
   @Input() headerTitle: string; // Nombre de la tabla ej: Listado de registros
-  @Input() tableData: Array<Object>; // Array con la data a mostrar en cada fila de la tabla
+  @Input() tableData: Array<Cruiser>; // Array con la data a mostrar en cada fila de la tabla
   @Input() tableHeaders: Array<String>; // Array con los nombres de cada columna en la tabla
   @Input() type: string;
 
@@ -23,37 +29,30 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public emitRouting = new EventEmitter();
 
 
-  
   constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
   }
 
+  ngOnChanges(){
+    if(this.tableData!= null){
+      if(this.tableData.length !== 0){
+        this.tableData.forEach(b => {
+          b.status ? b['active'] = true : b['active'] = false;
+        })
+      }
+    }
+  }
 
   
-   ngOnChanges(){
-      if(this.tableData!= null){
-        if(this.tableData.length !== 0){
-          this.tableData.forEach(b => {
-            if(b['status'] === 'Active') {
-              b['active'] = true;
-            }
-            else {
-              b['active'] = false;
-            }
-          })
-        }
-     }
-   }
+  
+  /**************************************************************************
+  * Metodo para enviar la confirmación de la alerta                         *
+  **************************************************************************/
+  public messageAlert(event: Object){
+    this.actionAlertEventEmitter.emit(event);
+  }
 
-
-
-    /**************************************************************************
-    * Metodo para enviar la confirmación de la alerta                         *
-    **************************************************************************/
-    public messageAlert(event: Object){
-      this.actionAlertEventEmitter.emit(event);
-    }
-
-
+  
+  
     /************************************************************************
     * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
     **************************************************************************/
@@ -68,15 +67,17 @@ export class TableResponsiveComponent implements OnChanges {
         focusCancel: true
       }
       Swal.fire(config).then(result => {
+        data['delete'] = deleted;
         this.messageAlert(data);
       })
     }
+  
 
-    /*******************************************************************
-    * Metodo para redireccionar a la vista de habitaciones del crucero *
-    ********************************************************************/
-    public goToBoatRooms(){
-      this.emitRouting.emit('/habitaciones');
+    /************************************************************
+    * Metodo para redireccionar a la vista de añadir un crucero *
+    *************************************************************/
+    public goToAddCruiser(){
+      this.emitRouting.emit('/agregar-crucero');
     }
 
 
