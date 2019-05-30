@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SweetAlertOptions } from 'sweetalert2';
 import { environment as url } from '../../../environments/environment';
+import { TableResponsiveComponent } from '../../blocks/table-responsive/table-responsive.component';
 
 @Component({
   selector: 'app-restaurantes',

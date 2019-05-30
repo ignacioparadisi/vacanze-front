@@ -1,0 +1,119 @@
+
+<div class="card-header">
+    <i class="fa fa-fw fa-ship"></i>&nbsp;
+    <span>Registrar cruceros</span><br><br>
+</div>
+<div class="card-body">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <!-- Nombre del crucero-->
+          <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+            <div class="form-group">
+              <label>Nombre del crucero</label>
+              <input [ngClass]="{
+                'is-invalid': name.invalid && name.touched,
+                'is-valid': name.valid
+              }" [class.is-invalid]="name.invalid && name.touched" formControlName="name" type="text" class="form-control">
+              <div *ngIf="name.invalid && name.touched">
+                <small *ngIf="name.errors?.required" class="text-danger"> El nombre es requerido </small>
+                <small *ngIf="name.errors?.minlength" class="text-danger"> El nombre debe tener al menos 5 caracteres.</small>
+                <small *ngIf="name.errors?.maxlength" class="text-danger"> El nombre no puede tener mas de 100 caracteres.</small>
+              </div>
+            </div>
+          </div>
+          <!-- Nombre del crucero-->
+
+          <!-- Linea del crucero -->
+          <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+            <div class="form-group">
+              <label>Linea del crucero</label>
+              <input [ngClass]="{
+                'is-invalid': line.invalid && line.touched,
+                'is-valid': line.valid
+              }" [class.is-invalid]="line.invalid && line.touched" formControlName="line" type="text" class="form-control">
+              <div *ngIf="line.invalid && line.touched">
+                <small *ngIf="line.errors?.required" class="text-danger"> La linea del crucero es requerida. </small>
+                <small *ngIf="line.errors?.minlength" class="text-danger"> La linea del crucero debe tener al menos 5 caracteres.</small>
+                <small *ngIf="line.errors?.maxlength" class="text-danger"> La linea del crucero no puede tener mas de 100 caracteres.</small>
+              </div>
+            </div>
+          </div>
+          <!-- Linea del crucero -->
+
+          <!-- Capacidad de personas -->
+          <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+            <div class="form-group">
+              <label>Capacidad de personas</label>
+              <input [ngClass]="{
+                'is-invalid': capacity.invalid && capacity.touched,
+                'is-valid': capacity.valid
+                }" formControlName="capacity" type="number" class="form-control" min="1">
+              <div *ngIf="capacity.invalid && capacity.touched">
+                <small *ngIf="capacity.errors?.required" class="text-danger">Se requiere especificar la capacidad de las personas</small>
+                <small *ngIf="capacity.errors?.min" class="text-danger">La capacidad de personas debe ser mayor a {{capacity.value}}.</small>
+              </div>
+            </div>
+          </div>
+          <!-- Capacidad de personas -->
+
+          <!-- Capacidad de carga -->
+          <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+            <div class="form-group">
+              <label>Capacidad de carga</label>
+              <input [ngClass]="{
+                'is-invalid': loadingShipCap.invalid && loadingShipCap.touched,
+                'is-valid': loadingShipCap.valid
+              }" formControlName="loadingShipCap" type="number" class="form-control" min="1">
+              <div *ngIf="loadingShipCap.invalid && loadingShipCap.touched">
+                <small *ngIf="loadingShipCap.errors?.required" class="text-danger">Se requiere especificar la capacidad de carga.</small>
+                <small *ngIf="loadingShipCap.errors?.min" class="text-danger">El numero de habitaciones debe ser mayor a{{rooms.value}}.</small>
+              </div>
+            </div>
+          </div>
+          <!-- Capacidad de carga -->
+
+          <!-- Modelo del crucero -->
+          <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+            <div class="form-group">
+              <label>Modelo del crucero</label>
+              <input [ngClass]="{
+                  'is-invalid': model.invalid && model.touched,
+                  'is-valid': model.valid
+                }" [class.is-invalid]="model.invalid && model.touched" formControlName="model" type="text" class="form-control"
+              >
+              <div *ngIf="model.invalid && model.touched">
+                <small *ngIf="model.errors?.required" class="text-danger"> El modelo es requerido </small>
+                <small *ngIf="model.errors?.minlength" class="text-danger"> El modelo debe tener al menos 5 caracteres.</small>
+                <small *ngIf="model.errors?.maxlength" class="text-danger"> El modelo no puede tener mas de 100 caracteres.</small>
+              </div>
+            </div>
+          </div>
+          <!-- Modelo del crucero -->
+
+          <!-- Imagen a cargar del crucero -->
+          <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+            <div>
+              <label>Imagen del crucero</label><br>
+              <input type="file" class="btn btn-default" (change)="getImage($event)">
+            </div>
+          </div>
+          <!-- Imagen a cargar del crucero -->
+        </div>
+        
+        <!-- Botones para agregar un crucero e ir a la tabla de los cruceros -->
+        <div class="d-flex justify-content-end mr-3">
+          <button 
+            class="btn btn-outline-info" 
+            type="submit" 
+            [disabled]="!registrationForm.value.name || !registrationForm.value.line || 
+            !registrationForm.value.model || !registrationForm.value.capacity || !registrationForm.value.loadingShipCap || !this.urlImage"
+          >
+              Agregar
+          </button>
+          <button class="btn btn-outline-danger" (click)="goToCruisers()">Volver atrás</button>
+        </div>
+        <!-- Botones para agregar un crucero e ir a la tabla de los cruceros -->
+    </form>
+</div>
+
+  
