@@ -2,17 +2,31 @@
     "_get": {
       "getHotel":"hotels",
       "getRestaurant":"restaurants",
-      "getClaim":"Claim/{id}"
+      "getClaim":"Claim/{id}",
+      "cruisers": {
+        "get_cruisers": "cruiser"
+      }
     },
     "_post": {
       "postClaim":"Claim",
       "postHotel":"hotels",
-      "postRestaurant": "restaurants"
+      "postRestaurant": "restaurants",
+      "cruisers": {
+        "post_cruiser": "cruiser"
+      }
     },
     "_put": {
-      "putClaimStatus":"Claim/{id}"
+        "putClaimStatus":"Claim/{id}",
+        "putHotel":"hotels/{id}"
     },
     "_delete": {
-      "deleteClaim":"Claim/{id}"
+      "deleteClaim":"Claim/{id}",
+<<<<<<< HEAD
+      "deleteHotel":"hotels/{id}",
+=======
+>>>>>>> 82fcd94235724c312a47dc31fe36e27b54657e81
+      "cruisers": {
+        "delete_cruiser": "cruiser/{id}"
+      }
     }
 }

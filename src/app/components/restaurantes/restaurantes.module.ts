@@ -7,11 +7,11 @@ import { RestaurantesComponent } from './restaurantes.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../services/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableResponsiveModule } from '../../blocks/table-responsive/table-responsive.module';
 
 
 // importar el modulo de grupos ocho que es la que hace la declaracion principal
 // del componente tableresponsive y un componente no puede estar en dos declaraciones de modulo distintas
-import { GrupoOchoCrucerosModule  } from '../grupo-ocho-cruceros/grupo-ocho-cruceros.module';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { GrupoOchoCrucerosModule  } from '../grupo-ocho-cruceros/grupo-ocho-cruc
     SweetAlert2Module.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    GrupoOchoCrucerosModule
+    TableResponsiveModule
   ],
   providers: [ApiService]
 })

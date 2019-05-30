@@ -35,6 +35,29 @@
             </td>
           </tr>
         </tbody>
+
+        <!--Tabla de reserva de automoviles-->
+        <tbody *ngIf="type === 'aut-reserva'">
+            <tr *ngFor="let reserva of tableData">
+              <td>{{ reserva?.imagen }}</td>
+              <td>{{ reserva?.marca }}</td>
+              <td>{{ reserva?.modelo }}</td>
+              <td>{{ reserva?.capacidad }}</td>
+              <td>{{ reserva?.precio }} $</td>
+              <td>
+                <button 
+                  class="btn btn-outline-dark"
+                  style="cursor: pointer;" 
+                  (click)="openModalActions($event, reservar-automovil, 'reservar', true)" 
+                  data-toggle="tooltip" 
+                  data-placement="top" 
+                  title="Reservar {{type}}"
+                >
+                  <i class="fa fa-cart-plus"></i>
+                </button>&nbsp;&nbsp;
+              </td>
+            </tr>
+          </tbody>
       </table>
     </div>
   </div>

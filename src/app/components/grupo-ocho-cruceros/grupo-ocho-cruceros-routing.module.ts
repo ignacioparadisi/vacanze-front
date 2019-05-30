@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HabitacionesComponent } from "./habitaciones/habitaciones.component";
 import { CrucerosComponent } from './cruceros/cruceros.component';
 import { GrupoOchoCrucerosComponent } from './grupo-ocho-cruceros.component';
+import { RegistrarCruceroComponent } from './registrar-crucero/registrar-crucero.component';
+/* import { EditarCruceroComponent } from './editar-crucero/editar-crucero.component'; */
 
 const routes: Routes = [
   {
@@ -10,8 +11,12 @@ const routes: Routes = [
       component: GrupoOchoCrucerosComponent,
       children: [
         {
-          path: 'habitaciones',
-          component: HabitacionesComponent
+          path: 'agregar-crucero',
+          component: RegistrarCruceroComponent
+        },
+        {
+          path: 'editar-crucero/:id',
+          component: RegistrarCruceroComponent
         }
       ]
   }
