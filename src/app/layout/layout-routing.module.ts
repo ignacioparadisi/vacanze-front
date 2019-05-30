@@ -25,18 +25,12 @@ const routes: Routes = [
         loadChildren: '../components/grupo-tres/grupo-tres.module#GrupoTresModule'
       },
       {
-        path: 'grupo-trece-habitacion',
-        loadChildren:
-          '../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule'
-      },
-      {
-        path: 'grupo-trece-automovil',
-        loadChildren:
-          '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
+        path: 'grupo-trece',
+        loadChildren: '../components/grupo-trece/grupo-trece.module#GrupoTreceModule'
       },
       /* Ruta para Backoffice de Cruceros */
       {
-        path: 'cruceros',
+        path: 'cruisers',
         loadChildren:
           '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },
