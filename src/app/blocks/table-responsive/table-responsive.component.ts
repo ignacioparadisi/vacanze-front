@@ -9,6 +9,7 @@ import { Cruiser } from '../../interfaces/cruiser';
 //** Import de components **//
 import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
 import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 
 @Component({
@@ -28,8 +29,12 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
 
+<<<<<<< HEAD
 
   constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
+=======
+  constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) { // Agregando tooltip en boton de agregar
+>>>>>>> Cambios en la tabla responsive para routing de editar cruceros
   }
 
   ngOnChanges(){
@@ -78,6 +83,15 @@ export class TableResponsiveComponent implements OnChanges {
     *************************************************************/
     public goToAddCruiser(){
       this.emitRouting.emit('/agregar-crucero');
+    }
+
+     /************************************************************
+    * Metodo para redireccionar a la vista de añadir un crucero *
+    *************************************************************/
+    public goToEditCruiser(boat: Object){
+      this.localStorage.setItem('boat', boat).subscribe(data => {
+        this.emitRouting.emit('/editar-crucero/'+boat['id']);
+      });
     }
 
 
