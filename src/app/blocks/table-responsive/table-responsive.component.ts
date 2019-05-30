@@ -53,7 +53,7 @@ export class TableResponsiveComponent implements OnChanges {
   * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
   **************************************************************************/
   public openModalActions(event, data: Object, type: string, deleted? : boolean){
-    event.preventDefault();
+    /* event.preventDefault(); */
     let config: SweetAlertOptions = {
       title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
       confirmButtonText: 'Confirmar',
@@ -63,6 +63,12 @@ export class TableResponsiveComponent implements OnChanges {
       focusCancel: true
     }
     Swal.fire(config).then(result => {
+      if(result && ('value' in result)){
+        data['confirmed'] = true;
+      }
+      else {
+        data['confirmed'] = false;
+      }
       this.messageAlert(data);
     })
   }
@@ -107,6 +113,7 @@ export class TableResponsiveComponent implements OnChanges {
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
+        
       }
     }
 

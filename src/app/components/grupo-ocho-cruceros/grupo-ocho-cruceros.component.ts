@@ -82,7 +82,22 @@ export class GrupoOchoCrucerosComponent implements OnInit {
   }
 
   public getDeactivatedComponent(component){
+    this.getCruisers();
     this.getCurrentRoute('/cruisers');
+  }
+
+  public getDeleteAlert(data){
+    // Si marco confirmar en la moda, quiero borrar el crucero
+    if(data['confirmed']){
+      console.log("se ejecuto");
+      this.api.deleteUrl(url.endpoint.default._delete.cruisers.delete_cruiser, [data['id']])
+        .then(response => {
+          this.deleteCruiserById(response['id']);  
+        })
+        .catch(error => {
+          
+        })
+    }
   }
 
   /*******************************************
@@ -114,5 +129,16 @@ export class GrupoOchoCrucerosComponent implements OnInit {
 
   public getTableHeaders(): Array<string>{
     return this.tableBoatsHeader;
+  }
+
+  /***************************************************************
+  * Metodo que se ejecuta para actualizar el arreglo de cruceros *
+  * debido a la elminacion del crucero por el id                 *
+  ****************************************************************/
+
+  public deleteCruiserById(id: number){
+    let cruisers = this.getVariableCruisers();
+    cruisers = cruisers.filter(cruiser => cruiser['id'] !== id); // Filtro todos los que no tienen el id
+    this.setCruisers(cruisers);
   }
 }

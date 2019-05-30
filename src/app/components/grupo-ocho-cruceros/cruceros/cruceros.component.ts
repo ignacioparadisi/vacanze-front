@@ -17,6 +17,7 @@ export class CrucerosComponent implements OnChanges {
   @Input() headers;
 
   @Output() emitRouting = new EventEmitter();
+  @Output() actionAlertEventEmitter = new EventEmitter();
 
   constructor(private api: ApiService) { 
     this.headerTitle = "Lista de cruceros";
@@ -30,6 +31,10 @@ export class CrucerosComponent implements OnChanges {
 
   public getCurrentRoute(route){
     this.emitRouting.emit(route);
+  }
+
+  public getDeleteAlert(data){
+    this.actionAlertEventEmitter.emit(data);
   }
 
 }
