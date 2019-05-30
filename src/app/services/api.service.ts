@@ -52,6 +52,9 @@ export class ApiService {
       this.http.post(this.apiName + url, this.myInit['body'], httpOptions).toPromise()
     );
   }
+  sendEmail(formRecovery) {
+    return this.http.post(this.BaseURI + '/UserProfile/Email', formRecovery);
+  }
   login(formData) {
     return this.http.post(this.BaseURI + '/UserProfile/Login', formData);
   }
@@ -109,7 +112,5 @@ export class ApiService {
   // ==Llamado a la API para el envio de corre de recuperacion de contraseña==========
   // =================================================================================
 
-  sendEmail() {
 
-  }
 }

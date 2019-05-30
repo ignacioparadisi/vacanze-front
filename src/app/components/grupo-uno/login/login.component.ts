@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { NgForm, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivationStart, RouterOutlet } from '@angular/router';
 
@@ -26,6 +26,8 @@ import { LayoutComponent } from '../../../layout/layout.component';
 export class LoginComponent implements OnInit {
 
   @ViewChild(RouterOutlet) outlet: RouterOutlet;
+  @ViewChild('Recovery') Recovery: ElementRef;
+  TodoForm: FormGroup;
   StatusLogin = true;
   formModel = {
     Email: '',
@@ -73,7 +75,35 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  sendEmail() {
+  RecoverySubmit(recoveryForm: NgForm) {
+
+    //alert("this is the recovery" + recoveryForm.value)
+    this.service.sendEmail(recoveryForm.value).subscribe(
+      (res: any) => {
+        localStorage.setItem('Email', res.email);
+        if (res.email) {
+
+          this.StatusLogin = false;
+          this.father.StatusHeader = true;
+          this.father.StatusMain = false;
+
+
+
+        } else if (res.role == "Admin") {
+          this.father.StatusHeader = true;
+          this.father.StatusSideBar = true;
+          this.StatusLogin = false;
+          this.router.navigateByUrl('/home');
+        }
+
+      },
+      /* err=>{
+         if(err.status==400)
+           this.toastr.error('data incorrect','Autentication Failed');
+           else
+           console.log(err);
+         }*/
+    );
 
   }
 }

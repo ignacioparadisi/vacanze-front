@@ -53,16 +53,21 @@
                 <p style="color: black;">El correo ingresado no se encuentra registrado en <b>Vacanze</b></p>
               </div>
               <p style="color: black">Por favor, ingrese el correo con el que se encuentra registrado en el sistema</p>
-              <form>
+              <form #recoveryForm='ngForm' autocomplete="off" (submit)="RecoverySubmit(recoveryForm)">
                 <div class="form-group">
                   <label for="recipient-name" class="col-form-label" style="color: black">Correo electrónico:</label>
-                  <input type="email" class="form-control" id="recipient-name">
+                  <input type="Email" class="form-control" id="recipient-name" [(ngModel)]="recoveryForm.Email"
+                    name="email" required>
+                  <!--<button type="submit" class="btn btn-success btn-block" [disabled]="recoveryForm.invalid"
+                    (deactivate)='onDeactivate($event)' style="font-size: 25px;font-weight: bold;">Recuperar</button>-->
+                  <button [disabled]="!recoveryForm.form.valid">Recuperar</button>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary">Recuperar</button>
+              <!--<button type="button" class="btn btn-primary">Recuperar</button>-->
+
             </div>
           </div>
         </div>
