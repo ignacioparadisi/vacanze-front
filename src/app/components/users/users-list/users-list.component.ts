@@ -1,8 +1,8 @@
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { RegisterUserComponent } from "../register-user/register-user.component";
-import { User } from 'src/app/classes/user';
+import { User } from '../../../classes/user';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
   }
 
   private fetchEmployees() {
-    this.apiService.getUrl<User[]>('users').then(users => {
+    this.apiService.getUrl('users').then(users => {
       this.users = users;
     }).catch(error => {
       console.log(error);

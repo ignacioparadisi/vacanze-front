@@ -1,0 +1,30 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Modificar viaje</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="travelForm">
+            <div class="row">
+                <div class="form-group col">
+                    <input type="text" class="form-control" placeholder="Nombre" id="name" formControlName="name" maxlength="40">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <textarea class="form-control" placeholder="Descripción" id="description" formControlName="description" cols="15"
+                        rows="10" maxlength="500"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" [disabled]="!travelForm.valid" (click)="modifyTravel()">Modificar</button>
+    </div>
+</ng-template>
+
+<button class="btn btn-sm btn-outline-info" title="Editar viaje" (click)="open(content)">
+    <i class=" fa fa-xs fa-edit"></i>
+</button>

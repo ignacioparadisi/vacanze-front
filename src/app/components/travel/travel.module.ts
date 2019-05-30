@@ -8,20 +8,25 @@ import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgbCarouselModule } from "@ng-bootstrap/ng-bootstrap";
 import { DetailTravelComponent } from './detail-travel/detail-travel.component';
 import { CarouselComponent } from './detail-travel/carousel/carousel.component';
+import { ModifyTravelComponent } from './modify-travel/modify-travel';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     TravelComponent,
     CreateTravelComponent,
     DetailTravelComponent,
-    CarouselComponent
+    CarouselComponent,
+    ModifyTravelComponent
   ],
   imports: [
     CommonModule,
     TravelRoutingModule,
     HttpClientModule,
     NgbModalModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class TravelModule { }

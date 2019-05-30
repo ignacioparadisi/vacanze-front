@@ -6,10 +6,10 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="travelForm">
       <div class="row">
         <div class="form-group col">
-          <input type="text" class="form-control" placeholder="Nombre" formControlName="name" maxlength="40">
+          <input type="text" class="form-control" placeholder="Nombre (Campo requerido)" formControlName="name" maxlength="40">
         </div>
       </div>
       <div class="row">
@@ -21,7 +21,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="createTravel()">Crear</button>
+    <button type="button" [disabled]="!travelForm.valid" class="btn btn-success" (click)="createTravel()">Crear</button>
   </div>
 </ng-template>
 

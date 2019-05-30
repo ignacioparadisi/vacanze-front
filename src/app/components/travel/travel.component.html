@@ -1,26 +1,29 @@
 <div class="container">
   <div class="row">
-
-    <!-- <Card de viaje -->
-    <div class="col-auto mb-3" *ngFor="let travel of travels; let id = index">
-      <div class="card text-center clickable" style="width: 18rem;">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-10">
-              <h5 (click)="travelDetails(travel.id)">{{travel.name}}</h5>
+      <!-- <Card de viaje -->
+      <div class="col-auto mb-3" *ngFor="let travel of travels; let id = index">
+        <div class="card text-center clickable" style="width: 18rem;">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <h5 (click)="travelDetails(travel.id)">{{travel.name}}</h5>
+              </div>
+              <div class="col-1 mr-1">
+                <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description"></modify-travel>
+              </div>
+              <div class="col-1">
+                <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje" (click)="travelDelete(travel.id)">
+                  <i class="fa fa-xs fa-trash"></i>
+                </button>
+              </div>
             </div>
-            <div class="col-1">
-              <a class="fa fa-xs fa-trash" style="color:red" (click)="travelDelete(travel.id)"></a>
-            </div>
+            <hr>
+            <p class="card-text" (click)="travelDetails(travel.id)">{{travel.description}}</p>
           </div>
-          <hr>
-          <p class="card-text" (click)="travelDetails(travel.id)">{{travel.description}}</p>
         </div>
       </div>
-    </div>
-    <!-- Card de viaje/> -->
-
+      <!-- Card de viaje/> -->
   </div>
 
-  <create-travel></create-travel>
+  <create-travel (spread)="getTravels()"></create-travel>
 </div>
