@@ -151,7 +151,6 @@ export class RegistrarCruceroComponent implements OnInit {
   * Metodo para agregar un nuevo crucero * 
   ****************************************/
   public onSubmit(){
-    console.log("fooormmm", this.registrationForm);
     this.registrationForm.value.picture = this.urlImage;
     let form = {
       'name': this.registrationForm.value.name,

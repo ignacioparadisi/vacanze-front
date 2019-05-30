@@ -3,6 +3,7 @@
     (emitRouting)="getCurrentRoute($event)" 
     [cruisers]="getVariableCruisers()" 
     [headers]="getTableHeaders()"
+    (actionAlertEventEmitter)="getDeleteAlert($event)"
 >
 </app-cruceros>
 <router-outlet (deactivate)="getDeactivatedComponent($event)"></router-outlet>

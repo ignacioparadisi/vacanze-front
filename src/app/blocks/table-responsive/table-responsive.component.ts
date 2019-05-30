@@ -29,12 +29,7 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
 
-<<<<<<< HEAD
-
-  constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
-=======
   constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) { // Agregando tooltip en boton de agregar
->>>>>>> Cambios en la tabla responsive para routing de editar cruceros
   }
 
   ngOnChanges(){
@@ -56,27 +51,30 @@ export class TableResponsiveComponent implements OnChanges {
     this.actionAlertEventEmitter.emit(event);
   }
 
-  
-  
-    /************************************************************************
-    * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
-    **************************************************************************/
-    public openModalActions(event, data: Object, type: string, deleted? : boolean){
-      event.preventDefault();
-      let config: SweetAlertOptions = {
-        title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar',
-        showCancelButton: true,
-        type: 'question',
-        focusCancel: true
-      }
-      Swal.fire(config).then(result => {
-        data['delete'] = deleted;
-        this.messageAlert(data);
-      })
+  /************************************************************************
+  * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
+  **************************************************************************/
+  public openModalActions(event, data: Object, type: string, deleted? : boolean){
+    /* event.preventDefault(); */
+    let config: SweetAlertOptions = {
+      title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      type: 'question',
+      focusCancel: true
     }
-  
+    Swal.fire(config).then(result => {
+      data['delete'] = deleted; 
+      if(result && ('value' in result)){
+        data['confirmed'] = true;
+      }
+      else {
+        data['confirmed'] = false;
+      }
+      this.messageAlert(data);
+    })
+  }
 
     /************************************************************
     * Metodo para redireccionar a la vista de añadir un crucero *
@@ -118,6 +116,7 @@ export class TableResponsiveComponent implements OnChanges {
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
+        
       }
     }
 

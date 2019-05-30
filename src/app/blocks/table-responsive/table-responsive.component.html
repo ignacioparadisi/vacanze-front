@@ -34,15 +34,6 @@
                   </td>
                   <td>
                     <button
-                      class="btn btn-outline-success"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Agregar {{type}}"
-                      (click)="goToAddCruiser()"
-                    >
-                      <i class="fa fa-plus"></i>
-                    </button>&nbsp;
-                    <button
                       class="btn btn-outline-info"
                       data-toggle="tooltip"
                       data-placement="top"
@@ -190,11 +181,12 @@
           </table>
       </div>
   </div>
-  <div class="d-flex justify-content-end w-100" *ngIf="type !== 'cruceros'">
-    <div class="kreep">
-      <button (click)="gotoAdd(type)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
-        <i class="fa fa-plus"></i>
-      </button>
-    </div>
+  <div class="d-flex justify-content-end w-100">
+    <button *ngIf="type !== 'cruceros'" (click)="gotoAdd(type)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
+      <i class="fa fa-plus"></i>
+    </button>
+    <button *ngIf="type === 'cruceros'" (click)="goToAddCruiser()" type="button" class="btn btn-outline-success" style="width: 13%;">
+      <i class="fa fa-plus"><span class="pl-2">Agregar crucero</span></i>
+    </button>
   </div>
 </div>
