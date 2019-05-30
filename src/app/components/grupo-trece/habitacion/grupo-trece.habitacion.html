@@ -60,7 +60,9 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label for="">Pais</label>
-                <select class="form-control" formControlName="country">
+                <select class="form-control" formControlName="country"
+                (ngModelChange)="getCities()"
+                >
                   <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                 </select>
               </div>
@@ -69,7 +71,7 @@
               <div class="form-group">
                 <label for="">Ciudad</label>
                 <select class="form-control" formControlName="city">
-                  <option value="1" selected>1</option>
+                  <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
                 </select>
               </div>
             </div>
@@ -104,10 +106,10 @@
           <table class="table">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">Marca</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Capacidad</th>
-                <th scope="col">Precio</th>
+                <th scope="col">Hotel</th>
+                <th scope="col">Capacidad Habitacion</th>
+                <th scope="col">Precio por noche</th>
+                <th scope="col">Cantidad Disponible</th>
                 <th scope="col">Acción</th>
               </tr>
             </thead>

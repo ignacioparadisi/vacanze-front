@@ -16,6 +16,7 @@ export class HabitacionGrupoTrece implements OnInit {
     public compararFechas;
     public Habitacion = [];
     public countries = [];
+    public cities = [];
     public closeResult: string;
 
     constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
@@ -55,6 +56,18 @@ export class HabitacionGrupoTrece implements OnInit {
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.countries = response;
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+    getCities(){
+        const requestURL = "locations/countries/"+this.myForm.value.country+"/cities/";
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.cities = response;
             },
             error => {
                 console.log(error);
