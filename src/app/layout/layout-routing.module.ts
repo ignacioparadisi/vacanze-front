@@ -36,7 +36,12 @@ const routes: Routes = [
       },
       {
         path: 'flight-reservations',
-        loadChildren: '../components/grupo-doce-vuelos/flight-reservations/flight-reservations.module#FlightReservationsModule'
+        loadChildren:
+          '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
+      },
+      {
+        path: 'flight-reservations',
+        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
       },
       {
         path: 'administrar-hoteles',
