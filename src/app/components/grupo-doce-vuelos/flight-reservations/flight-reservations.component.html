@@ -74,12 +74,12 @@
                 <label for="">Pasajeros</label>
                 <div class="input-group-prepend"   >
                     <div class="input-group-text"><i class="fa fa-users" aria-hidden="true"></i></div>
-                  <select id="peopleId" class="form-control" formControlName="adultFlights" [class.alert-danger]="form.get('adultFlights').value==-1 && subM"  >
+                  <select id="peopleId" class="form-control" formControlName="adultFlights" [class.alert-danger]="form.get('adultFlights').value==-1 && subM && !disabledPpl"  >
                      <option value="-1" disabled>Adulto</option>
                      <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
                   </select>
                   </div>
-                  <span *ngIf="form.get('adultFlights').value==-1 && subM" style="color: #ed1b24">Campo Obligatorio</span>
+                  <span *ngIf="form.get('adultFlights').value==-1 && subM && !disabledPpl" style="color: #ed1b24">Campo Obligatorio</span>
 
             </div> 
        

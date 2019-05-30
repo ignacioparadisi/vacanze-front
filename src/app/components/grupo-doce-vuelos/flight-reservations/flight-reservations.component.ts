@@ -22,6 +22,7 @@ export class FlightReservationsComponent implements OnInit {
   public arrayNumber: number[] = [1,2];
   public disabled:boolean=true;
   public disabledOut:boolean=false;
+  public disabledPpl:boolean=false;
   public isChecked;
   public subM:boolean=false;
     constructor(private api: ApiService, private router: Router) { }
@@ -115,6 +116,7 @@ export class FlightReservationsComponent implements OnInit {
       ppl.setAttribute("disabled","true");
       this.disabledOut=true;
       this.disabled=true;
+      this.disabledPpl=true;
     }else{
       if (this.disabled==false || this.selectedTyp=="1") {
         input.removeAttribute("disabled");
@@ -123,12 +125,13 @@ export class FlightReservationsComponent implements OnInit {
       ppl.removeAttribute("disabled");
       output.removeAttribute("disabled");
        this.disabledOut=false;
+       this.disabledPpl=false;
     }
 
   }
   onSubmit() {
      if (this.form.get('origen').valid && this.form.get('destino').valid
-     && (this.form.get('adultFlights').value !=-1) && (this.form.get('fechaE').valid || this.disabled==true)
+     && (this.form.get('adultFlights').value !=-1 || this.disabledPpl==true) && (this.form.get('fechaE').valid || this.disabled==true)
      && (this.form.get('fechaS').valid || this.disabledOut==true)) {
       this.router.navigate(['flight-reservations/list-reservations']);
     } else {
