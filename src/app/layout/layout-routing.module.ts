@@ -30,7 +30,7 @@ const routes: Routes = [
       },
       /* Ruta para Backoffice de Cruceros */
       {
-        path: 'cruceros',
+        path: 'cruisers',
         loadChildren:
           '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },

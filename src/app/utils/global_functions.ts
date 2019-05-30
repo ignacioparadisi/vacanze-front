@@ -6,3 +6,15 @@ export function compararFechas(ini: Date, fin: Date) {
         return -1;
     }
 }
+
+export function transformImageToBase64(event, accept) {
+    if (event.target.files && event.target.files[0]) {
+        var reader: any = new FileReader();
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+        reader.onload = e => {
+            // called once readAsDataURL is completed
+            return accept(e.target.result);
+        };
+    }
+}
