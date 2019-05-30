@@ -1,11 +1,12 @@
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { Role } from 'src/app/classes/role';
+import { Role } from '../../classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SweetAlertOptions } from 'sweetalert2';
 import { environment as url } from '../../../environments/environment';
+import { TableResponsiveComponent } from '../../blocks/table-responsive/table-responsive.component';
 
 @Component({
   selector: 'app-restaurantes',
