@@ -7,19 +7,9 @@ import { RestaurantesComponent } from './restaurantes.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../services/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { TableResponsiveModule } from '../../blocks/table-responsive/table-responsive.module';
-=======
 import { RegisterRestaurantComponent } from '../restaurantes/register-restaurant/register-restaurant.component';
 import { EditRestaurantComponent } from '../restaurantes/edit-restaurant/edit-restaurant.component';
-
->>>>>>> Solucion de conflictos
-=======
-import { RegisterRestaurantComponent } from '../restaurantes/register-restaurant/register-restaurant.component';
-import { EditRestaurantComponent } from '../restaurantes/edit-restaurant/edit-restaurant.component';
-
->>>>>>> 9b3bec2e4aca31a6455b482491022e300fe0bc51
 
 
 // importar el modulo de grupos ocho que es la que hace la declaracion principal
