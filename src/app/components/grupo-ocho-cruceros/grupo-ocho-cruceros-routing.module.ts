@@ -12,6 +12,10 @@ const routes: Routes = [
         {
           path: 'agregar-crucero',
           component: RegistrarCruceroComponent
+        },
+        {
+          path: 'editar-crucero/:id',
+          component: RegistrarCruceroComponent
         }
       ]
   }
