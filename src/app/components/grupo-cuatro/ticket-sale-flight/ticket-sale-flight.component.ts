@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ApiService } from 'src/app/services/api.service';
-import { ClassFlight } from 'src/app/classes/class_flight';
-import { TypeFlight } from 'src/app/classes/type_flight';
+import { ApiService } from '../../../services/api.service';
+import { TypeFlight } from '../../../classes/type_flight';
 import Swal from 'sweetalert2';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
-import { PeopleFlight } from 'src/app/classes/people_flight';
+import { PeopleFlight } from '../../../classes/people_flight';
 
 @Component({
-  selector: 'app-ticket-sale',
-  templateUrl: './ticket-sale.component.html',
-  styleUrls: ['./ticket-sale.component.scss']
+  selector: 'app-ticket-sale-flight',
+  templateUrl: './ticket-sale-flight.component.html',
+  styleUrls: ['./ticket-sale-flight.component.scss']
 })
-export class TicketSaleComponent implements OnInit {
+export class TicketSaleFlightComponent implements OnInit {
   public form: FormGroup;
-  public classFlight: ClassFlight[] = [];
   public typeFlights: TypeFlight[]=[];
   public adultFlights:PeopleFlight[]=[];
   
@@ -24,7 +22,7 @@ export class TicketSaleComponent implements OnInit {
  
 
   ngOnInit() {
-    this.fetchFlight();
+    //this.fetchFlight();
     this.typeFlight();
     this.adultFlight();
    
@@ -33,25 +31,16 @@ export class TicketSaleComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       origen: new FormControl(null, [Validators.required]),
       destino: new FormControl(null, [Validators.required]),
-      FechaS:new FormControl(null, [Validators.required]),
+      fechaS:new FormControl(null, [Validators.required]),
       fechaE:new FormControl(null, [Validators.required]),
-     
-        pasaporte: new FormControl(null, [Validators.required]),
-        cedula: new FormControl(null, [Validators.required])
+      pasaporte: new FormControl(null, [Validators.required]),
+      cedula: new FormControl(null, [Validators.required])
     
     })
   
 
 }
 
-/* pantallaAvion(){
-  var pagina, liAvion, liCrucero,liCheckIn;
-  pagina = document.getElementById('paginaAvion');
-  liAvion = document.getElementById('li-avion');
-
-  pagina.style.display = "block";
-  liAvion.style.display = "none";
-} */
 
 
 checkeadoNumeroReserva(event: any){
@@ -72,7 +61,7 @@ checkeadoNumeroReserva(event: any){
     }
  }
  else{
-   primeraOpcion.style.display = 'none';
+  segundaOpcion.style.display = 'none';
  
   }
 }
@@ -86,10 +75,10 @@ checkeadoPasaporte(event: any){
   var primeraOpcion= document.getElementById("numero_reserva");
   var segundaOpcion= document.getElementById("pasaporte");
   if (isCheckedPasaporte) {
-    primeraOpcion.style.display = 'flex';
+    segundaOpcion.style.display = 'flex';
       
     if(isCheckedNumeroReserva){
-     segundaOpcion.style.display = 'none';
+      primeraOpcion.style.display = 'none';
      ck_numeroReserva.click()
     }
  }
@@ -98,21 +87,11 @@ checkeadoPasaporte(event: any){
  
   }
 }
-  private fetchFlight(): ClassFlight[] {
-    this.classFlight = [
-      new ClassFlight(0, 'Economy'),
-      new ClassFlight(1, 'Premium Economy'),
-      new ClassFlight(2, 'Ejecutiva'),
-      new ClassFlight(3, 'Primera Clase'),
-    ];
-    return this.classFlight;
-  }
 
   private typeFlight(): TypeFlight[]{
     this.typeFlights=[
       new TypeFlight(0,'Ida'),
       new TypeFlight(1,'Ida y Vuelta '),
-      new TypeFlight(2,'Multidestinos'), 
     ];
     return this.typeFlights; 
   }

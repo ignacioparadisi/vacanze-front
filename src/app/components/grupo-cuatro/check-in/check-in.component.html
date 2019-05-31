@@ -32,7 +32,7 @@
           <i class="fa fa-safari" aria-hidden="true"></i>
           Check In
         </div>
-        <div class="row" style="width: 48%; float: left;">
+        <div class="row">
           <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header">
@@ -76,8 +76,8 @@
                                   showConfirmButton=false
                                   timer=2500>
                                 </swal>
-                                <button style="margin-right:40%"  class="btn btn-primary float-right">Buscar</button>
-                                <!-- <button style="margin-right:40%" (click) = "listadoEquipaje()" class="btn btn-success float-right">Buscar</button> -->
+                                <!-- <button style="margin-right:40%"  class="btn btn-primary float-right">Buscar</button> -->
+                                <button style="margin-right:40%" (click) = "equipajeLista()" class="btn btn-success float-right">Buscar</button>
                                 <!-- [swal]="addSwal2" -->
                           </div>
                         </form>
@@ -118,28 +118,16 @@
   
           <div class="form-group">
             <label for="altitud" class="labelRegistro">* Número de Vuelo:</label>
-            <input tabindex="5" type="number" class="form-control" id="altitud" placeholder="Altitud"
+            <input tabindex="5" type="number" class="form-control" id="altitud" placeholder="Ej: F0110110"
               formControlName="altitud" name="altitud" required min="0">
           </div>
-
+         </div>  
+         <div class="col-sm-4">
           <div class="form-group">
             <label for="nombre" class="labelRegistro">* Nombre Pasajero:</label>
                 <input tabindex="1" type="text" class="form-control" placeholder="Nombre" id="nombre"
                   formControlName="nombre" name="nombre" required minlength="3" maxlength="80">
           </div>
-
-          <!-- <div class="row">
-            <div class="col-md-12">
-              <swal
-              #addSwal1
-              title="Pasajero Checkeado Satisfactoriamente"
-              type="success"
-              showConfirmButton=false
-              timer=2500>
-            </swal>
-            <button style="margin-right:45%" class="btn btn-success float-right" [swal]="addSwal1">Check In</button>
-            </div>
-          </div> -->
         </div>
       </form>
     </div>
@@ -176,7 +164,7 @@
                         showConfirmButton=false
                         timer=2500>
                        </swal>
-                       <button style="margin-right:40%" (click) = "listadoEquipaje()" class="btn btn-success float-right">Agregar</button>
+                       <button style="margin-right:40%" (click) = "equipajeLista()" class="btn btn-success float-right">Agregar</button>
       </div>
     </form>
     </div><!-- estos 3 -->

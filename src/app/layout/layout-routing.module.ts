@@ -70,9 +70,9 @@ const routes: Routes = [
         loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
       },
       {
-      path: 'ticket-sale',
-        loadChildren: '../components/ticket-sale/ticket-sale.module#TicketSaleModule'
-      },
+      path: 'grupo-cuatro',
+        loadChildren: '../components/grupo-cuatro/grupo-cuatro.module#GrupoCuatroModule'
+      }/* ,
       {
         path: 'ticket-sale-ship',
         loadChildren: '../components/ticket-sale-ship/ticket-sale-ship.module#TicketSaleShipModule'
@@ -80,7 +80,7 @@ const routes: Routes = [
       {
         path: 'check-in',
         loadChildren: '../components/check-in/check-in.module#CheckInModule'
-      }
+      } */
     ]
   }
 ];

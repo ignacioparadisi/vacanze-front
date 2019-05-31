@@ -90,17 +90,39 @@
       <i class="fa fa-fw fa-calendar"></i>&nbsp;
       <span>Viajes</span>
     </a>
-    <a routerLink="/ticket-sale" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <!-- <a routerLink="/ticket-sale" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-ticket"></i>&nbsp;
       <span>Venta Boletos Aereos</span>
     </a>
     <a routerLink="/ticket-sale-ship" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-ticket "></i>&nbsp;
       <span>Venta Boletos Cruceros</span>
-    </a>
-    <a routerLink="/check-in" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    </a> -->
+    <a routerLink="/grupo-cuatro/check-in" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-suitcase "></i>&nbsp;
       <span>Check In y Equipaje</span>
     </a>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('pages')">
+        <i class="fa fa-fw fa-ticket"></i>&nbsp;
+        <span>Venta de Boletos</span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'pages'">
+        <ul class="submenu">
+          <li>
+            <a routerLink="/grupo-cuatro/ticket-sale-flight" class="list-group-item">
+              <i class="fa-plane-departure"></i>&nbsp;
+              <span>Boleto Aereo</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/grupo-cuatro/ticket-sale-ship" class="list-group-item">
+              <i class="fa fa-fw fa-ship"></i>&nbsp;
+              <span>Boletos Cruceros</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </div>
   </div>
 </nav>
