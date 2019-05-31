@@ -4,6 +4,7 @@ import { ApiService } from '../../../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { compararFechas } from '../../../../utils/global_functions';
+import { compararCiudades } from '../../../../utils/global_functions';
 import * as moment from 'moment';
 import { CustomValidatorDirective } from '../../../../directives/validations/custom-validations.directive';
 
@@ -25,10 +26,12 @@ export class ListGrupoTres implements OnInit {
   public citiesArrival = [];
   public flightForm: FormGroup;
   public compararFechas;
+  public compararCiudades;
   public id: number = null;
 
   constructor(private modalService: NgbModal, private apiService: ApiService, private fb: FormBuilder, private router: Router) {
     this.compararFechas = compararFechas;
+    this.compararCiudades = compararCiudades;
   }
 
   ngOnInit() {
@@ -132,13 +135,14 @@ export class ListGrupoTres implements OnInit {
     console.log(this.flightForm.value);
     const payload = this.flightForm.value;
     const fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
-    if (fechas === 1) {
+    let ciudades = this.compararCiudades(parseInt(payload.locDeparture, 10),parseInt(payload.locArrival, 10) );
+    if (fechas === 1 && ciudades === 1) {
       payload.departure = moment(payload.departure).format('MM-DD-YYYY HH:mm:ss');
       payload.arrival = moment(payload.arrival).format('MM-DD-YYYY HH:mm:ss');
       payload.plane = { id: parseInt(payload.plane, 10) };
       payload.price = parseInt(payload.price, 10);
-      payload.loc_departure = parseInt(payload.locDeparture, 10);
-      payload.loc_arrival = parseInt(payload.locArrival, 10);
+      payload.loc_departure = { id: parseInt(payload.locDeparture, 10)};
+      payload.loc_arrival = { id: parseInt(payload.locArrival, 10)};
       payload.id = this.id;
       delete payload.locDeparture;
       delete payload.locArrival;

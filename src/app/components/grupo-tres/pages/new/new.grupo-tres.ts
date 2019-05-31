@@ -6,6 +6,7 @@ import { ApiService } from '../../../../services/api.service';
 import * as moment from 'moment';
 import { CustomValidatorDirective } from '../../../../directives/validations/custom-validations.directive';
 import { compararFechas } from '../../../../utils/global_functions';
+import { compararCiudades } from '../../../../utils/global_functions';
 @Component({
     selector: 'app-new-grupo-tres',
     templateUrl: './new.grupo-tres.html',
@@ -24,9 +25,11 @@ export class NewGrupoTres implements OnInit {
     public form: FormGroup;
     public contactList: FormArray;
     public compararFechas;
+    public compararCiudades;
 
     constructor(private modalService: NgbModal, private fb: FormBuilder, private apiService: ApiService) {
         this.compararFechas = compararFechas;
+        this.compararCiudades = compararCiudades;
     }
 
     ngOnInit() {
@@ -109,15 +112,15 @@ export class NewGrupoTres implements OnInit {
         console.log(this.form.value);
         const payload = this.form.value;
         let fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
-        //let paises = this.compararCiudades();
+        let ciudades = this.compararCiudades(parseInt(payload.locDeparture, 10),parseInt(payload.locArrival, 10) );
 
-        if (fechas === 1) {
+        if (fechas === 1 && ciudades === 1) {
             payload.departure = moment(payload.departure).format('MM-DD-YYYY HH:mm:ss');
             payload.arrival = moment(payload.arrival).format('MM-DD-YYYY HH:mm:ss');
             payload.plane = { id: parseInt(payload.plane, 10) };
             payload.price = parseInt(payload.price, 10);
-            payload.loc_departure = parseInt(payload.locDeparture, 10);
-            payload.loc_arrival = parseInt(payload.locArrival, 10);
+            payload.loc_departure = { id: parseInt(payload.locDeparture, 10)};
+            payload.loc_arrival = { id: parseInt(payload.locArrival, 10)};
 
             delete payload.locArrival;
             delete payload.locDeparture;

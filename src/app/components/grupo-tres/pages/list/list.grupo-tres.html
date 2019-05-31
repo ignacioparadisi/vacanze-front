@@ -10,10 +10,10 @@
             <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                <p><strong>Lugar de origen:</strong> {{flight?.loc_departure}}</p>
+                <p><strong>Lugar de origen:</strong> {{flight?.loc_departure?.city}}, {{flight?.loc_departure?.country}}</p>
                 </div>
                 <div class="col-md-6">
-                <p><strong>Lugar de destino:</strong> {{flight?.loc_arrival}}</p>
+                <p><strong>Lugar de destino:</strong> {{flight?.loc_arrival?.city}}, {{flight?.loc_arrival?.country}}</p>
                 </div>
             </div>
             <div class="row">
@@ -184,8 +184,9 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Número de vuelo</th>
-                                <th scope="col">Ruta</th>
+                                <th scope="col">N° de vuelo</th>
+                                <th scope="col">Origen</th>
+                                <th scope="col">Destino</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Acción</th>
                             </tr>
@@ -195,11 +196,13 @@
                                 <th scope="row">{{i+1}}</th>
                                 <td>{{item.id}}</td>
                                 <td>
-                                    <strong>Origen:</strong> {{item.loc_arrival}} -
-                                    {{item.departure}} - 
-                                    <strong>Destino:</strong> {{item.loc_departure}} -
-                                    {{item.arrival}}
+                                    <strong>Lugar:</strong> {{item.loc_departure.city}}, {{item.loc_departure.country}} <br>
+                                    <strong>Fecha de salida:</strong> {{item.departure}}
                                 </td>
+                                <td>
+                                  <strong>Lugar</strong> {{item.loc_arrival.city}}, {{item.loc_arrival.country}} <br>
+                                  <strong>Fecha de llegada:</strong> {{item.arrival}}
+                              </td>
                                 <td>${{item.price}}</td>
                                 <td>
                                     <button class="btn btn-outline-info float-left mr-3" (click)="open(content, item.id)"><i class="fa fa-edit"></i></button>
