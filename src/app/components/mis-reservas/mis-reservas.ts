@@ -8,8 +8,8 @@ import * as moment from 'moment';
 
 @Component({
     selector: 'mis-reservas',
-    templateUrl: './mis-reservas.component.html',
-    styleUrls: ['./mis-reservas.component.scss'],
+    templateUrl: './mis-reservas.html',
+    styleUrls: ['./mis-reservas.scss'],
     providers: [ApiService]
 })
 export class MisReservas implements OnInit {
