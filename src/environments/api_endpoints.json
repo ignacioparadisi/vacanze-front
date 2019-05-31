@@ -2,6 +2,7 @@
     "_get": {
       "getHotel":"hotels",
       "getRestaurant":"restaurants",
+      "getResFlight":"list-reservation-flight/1",
       "getClaim":"Claim/{id}",
       "cruisers": {
         "get_cruisers": "cruiser"

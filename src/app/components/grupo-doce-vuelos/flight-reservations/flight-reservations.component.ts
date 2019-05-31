@@ -26,8 +26,10 @@ export class FlightReservationsComponent implements OnInit {
   public disabledOut:boolean=false;
   public disabledPpl:boolean=false;
   public isChecked;
+  public numero:number=44;
   public subM:boolean=false;
   public listRes = [];
+  public listResFlight: Array<Object>;
     constructor(private api: ApiService, private router: Router) { }
         
    private selectedTyp: string="";
@@ -134,13 +136,13 @@ export class FlightReservationsComponent implements OnInit {
   }
   json = {
     "_seatNum": 2,
-    "_timestamp": '2019/05/31 13:00:00.59',
+    "_timestamp": '2019-05-31 13:00:00.59',
     "_numPas": 1,
     "_id_user": 1,
     "_id_pay": 1,
     "_id_fli": 1
   }
-  public getListFlights() {
+  public postListFlights() {
     console.log('llame al metodo');
     // API URL
     //const requestURL = 'flight-reservation';
@@ -153,6 +155,22 @@ export class FlightReservationsComponent implements OnInit {
             console.log(error);
         }
     );
+}
+public getListFlights() {
+  console.log('llame al metodo');
+  // API URL
+  //const requestURL = 'flight-reservation';
+  this.api.getUrl(url.endpoint.default._get.getResFlight).then(
+      response => {
+          this.listResFlight = response;
+          console.log(response);
+          console.log(this.listResFlight.values);
+
+      },
+      error => {
+          console.log(error);
+      }
+  );
 }
   onSubmit() {
      if (this.form.get('origen').valid && this.form.get('destino').valid
