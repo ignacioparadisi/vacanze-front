@@ -65,11 +65,11 @@
       <span>Reservar Vuelo</span>
     </a>
     <div class="nested-menu">
-      <a class="list-group-item" (click)="addExpandClass('pages')">
+      <a class="list-group-item" (click)="addExpandClass('page')">
         <i class="fa fa-plus"></i>&nbsp;
         <span>Reservaciones</span>
       </a>
-      <li class="nested" [class.expand]="showMenu === 'pages'">
+      <li class="nested" [class.expand]="showMenu === 'page'">
         <ul class="submenu">
           <li>
             <a routerLink="/grupo-trece/automovil" class="list-group-item">
@@ -95,7 +95,7 @@
       <span>Cruceros</span>
     </a>
     <a routerLink="/travel" class="list-group-item">
-      <i class="fa fa-fw fa-calendar"></i>&nbsp;
+      <i class="fa fa-fw fa-compass"></i>&nbsp;
       <span>Viajes</span>
     </a>
   </div>
