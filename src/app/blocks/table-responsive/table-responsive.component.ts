@@ -2,13 +2,10 @@ import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild } 
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 //* Import de interfaces *//
 import { Cruiser } from '../../interfaces/cruiser';
 
 //** Import de components **//
-import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
-import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 
@@ -29,7 +26,7 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
 
-  constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) { // Agregando tooltip en boton de agregar
+  constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) {
   }
 
   ngOnChanges(){
@@ -42,8 +39,6 @@ export class TableResponsiveComponent implements OnChanges {
     }
   }
 
-  
-  
   /**************************************************************************
   * Metodo para enviar la confirmación de la alerta                         *
   **************************************************************************/
@@ -55,7 +50,7 @@ export class TableResponsiveComponent implements OnChanges {
   * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
   **************************************************************************/
   public openModalActions(event, data: Object, type: string, deleted? : boolean){
-    /* event.preventDefault(); */
+    event.preventDefault();
     let config: SweetAlertOptions = {
       title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
       confirmButtonText: 'Confirmar',
@@ -65,10 +60,7 @@ export class TableResponsiveComponent implements OnChanges {
       focusCancel: true
     }
     Swal.fire(config).then(result => {
-<<<<<<< HEAD
       data['delete'] = deleted; 
-=======
->>>>>>> 82fcd94235724c312a47dc31fe36e27b54657e81
       if(result && ('value' in result)){
         data['confirmed'] = true;
       }
@@ -85,7 +77,7 @@ export class TableResponsiveComponent implements OnChanges {
     public goToAddCruiser(){
       this.emitRouting.emit('/agregar-crucero');
     }
-
+  
      /************************************************************
     * Metodo para redireccionar a la vista de añadir un crucero *
     *************************************************************/
@@ -95,6 +87,15 @@ export class TableResponsiveComponent implements OnChanges {
       });
     }
 
+      /************************************************************
+    * Metodo para redireccionar a la vista de añadir un restaurante *
+    *************************************************************/
+   public goToEditRestaurant(restaurant: Object){
+    this.localStorage.setItem('restaurant', restaurant).subscribe(data => {
+      // console.log(restaurant);
+      this.emitRouting.emit('/editar-restaurant/' + restaurant['id']);
+    });
+  }
 
     /**********************************************************************
     * Metodo para redireccionar a la vista para agregar un hotel          *
@@ -112,34 +113,36 @@ export class TableResponsiveComponent implements OnChanges {
     }
 
     /**********************************************************************
+    * Metodo para redireccionar a la vista para agregar un restaurante          *
+    ************************************************************************/
+   public goToAddRestaurant() {
+    this.emitRouting.emit('/agregar-restaurant');
+  }
+
+  /**********************************************************************
+    * Metodo para ir a editar el hotel                                    *
+    ***********************************************************************/
+   /*public goToEditRestaurant() {
+      this.emitRouting.emit('/editar-restaurant');
+  }*/
+
+    /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
     public gotoAdd(type: string){
       if (type === 'hotel'){
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
-        const modalRef = this.modalService.open(RegisterRestaurantComponent);
-        
+        this.goToAddRestaurant();
       }
     }
-
 
     /**********************************************************************
     * Metodo que es llamado por el boton editar                           *
     ***********************************************************************/
     public goToEdit(type: string){
-      if (type === 'hotel'){
+      if (type === 'hotel') {
         this.goToEditHotel();
       }
     }
-
-
-    RegisterRestaurantModal() {
-      const modalRef = this.modalService.open(RegisterRestaurantComponent);
-    }
-
-    EditRestaurantModal() {
-      const modalRef = this.modalService.open(EditRestaurantComponent);
-    }
-
 }

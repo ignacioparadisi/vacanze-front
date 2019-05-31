@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <!-- <Card de ciudades -->
+    <div class="col-auto mb-3" *ngFor="let city of cities; let id = index">
+      <div class="card text-center clickable" style="width: 18rem;">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-10">
+              <h5 (click)="travelDetails(city.id)">{{city.country}} <hr> {{city.city}}</h5>
+            </div>
+            <div class="col-1">
+              <button class="btn btn-sm btn-outline-danger" title="Eliminar ciudad" (click)="deleteCity(city.id)">
+                <i class="fa fa-xs fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Card de ciudades/> -->
+  </div>
+
+  <add-city (spread)="getCities()"></add-city>
+</div>

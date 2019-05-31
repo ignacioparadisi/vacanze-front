@@ -1,0 +1,55 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Añadir ciudades</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col">
+        <select name="county" class="form-control" id="countryId" [(ngModel)]="countryId" (change)="getCities(countryId)">
+          <ng-container *ngFor="let country of countries">
+            <option [value]="country.id" >
+              <p>
+                {{country.country}}
+              </p>
+            </option>
+          </ng-container>
+        </select>
+      </div>
+      <div class="col">
+        <select name="county" class="form-control" id="cityId" [(ngModel)]="cityId" (change)="addCity(cityId)">
+          <ng-container *ngFor="let city of cities">
+            <option [value]="city.id">
+              <p>
+                {{city.city}}
+              </p>
+            </option>
+          </ng-container>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div *ngFor="let city of selectedCities">
+        <button type="button" class="btn btn-danger m-1" (click)="popCity(city)">            
+            {{city.name}}
+            <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="addCities()">Añadir</button>
+  </div>
+</ng-template>
+
+<div class="d-flex justify-content-end align-items-end w-100" style="height: 295px;">
+  <div class="kreep">
+    <button (click)="open(content)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip"
+      data-placement="top" title="Agregar {{type}}">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+</div>

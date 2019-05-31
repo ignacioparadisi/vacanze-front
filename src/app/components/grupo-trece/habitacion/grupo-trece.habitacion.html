@@ -54,41 +54,46 @@
       <div class="card-header">
         Buscar habitación
       </div>
-      <div class="card-body">
+      <div class="card-body roomcito">
         <form [formGroup]="myForm" (ngSubmit)="buscador()">
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Lugar</label>
-                <select class="form-control" formControlName="country">
-                  <option value="1" selected>1</option>
+                <label style="color: white" for=""><strong>Pais</strong></label>
+                <select class="form-control" formControlName="country"
+                (ngModelChange)="getCities()"
+                >
+                  <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
+                </select>
+              
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label style="color: white" for=""><strong>Ciudad</strong></label>
+                <select class="form-control" formControlName="city"
+                (ngModelChange)="getHotelsByCity()"
+                >
+                  <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
                 </select>
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Lugar</label>
-                <select class="form-control" formControlName="city">
-                  <option value="1" selected>1</option>
-                </select>
+                <label style="color: white" for=""><strong>Fecha de Checkin</strong></label>
+                <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Fecha de alquiler</label>
-                <input type="date" class="form-control" formControlName="fechaOne">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="">Fecha de devolución</label>
-                <input type="date" class="form-control" formControlName="fechaTwo">
+                <label style="color: white" for=""><strong>Fecha de Checkout</strong></label>
+                <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button class="btn btn-primary float-right" type="submit">Buscar</button>
+              <button class="btn btn-success" type="submit">Buscar</button>
             </div>
           </div>
         </form>
@@ -97,29 +102,36 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        Listado de automoviles
+        Listado de habitaciones
       </div>
       <div class="card-body table-responsive">
         <div class="row">
           <table class="table">
-            <thead>
+            <thead class="thead-dark">
               <tr>
-                <th scope="col">Marca</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Capacidad</th>
-                <th scope="col">Precio</th>
+                <th scope="col">Name</th>
+                <th scope="col">Capacidad Habitacion</th>
+                <th scope="col">Precio por noche</th>
+                <th scope="col">Cantidad Disponible</th>
                 <th scope="col">Acción</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>lorem ipsum</td>
-                <td>lorem ipsum</td>
-                <td>lorem ipsum</td>
+              <tr  *ngFor="let hotel of hotels">
+                <td>{{hotel.name}}</td>
+                <td>{{hotel.roomCapacity}}</td>
+                <td>{{hotel.pricePerRoom}}$</td>
                 <td>lorem ipsum</td>
                 <td>
-                  <button class="btn btn-outline-info float-left mr-3" (click)="open(content, 0)">Ver detalle</button>
-                </td>
+                  <button 
+                  class="btn btn-outline-dark"
+                  style="cursor: pointer;" 
+                  (click)="openModalActions($event, reservar-automovil, 'reservar', true)" 
+                  data-toggle="tooltip" 
+                  data-placement="top" 
+                >
+                  <i class="fa fa-cart-plus"></i>
+                </button>&nbsp;&nbsp;</td>
               </tr>
             </tbody>
           </table>

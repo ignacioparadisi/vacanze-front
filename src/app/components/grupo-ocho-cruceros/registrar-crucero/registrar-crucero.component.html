@@ -1,10 +1,10 @@
 
 <div class="card-header">
     <i class="fa fa-fw fa-ship"></i>&nbsp;
-    <span>{{ title?.split('|')[0] }} | <b> {{ title?.split('|')[1] }}</b></span><br><br>
+    <span>Registrar cruceros</span><br><br>
 </div>
-<div class="card-body" *ngIf="formReady">
-    <form [formGroup]="registrationForm">
+<div class="card-body">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <!-- Nombre del crucero-->
           <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
@@ -107,9 +107,8 @@
             type="submit" 
             [disabled]="!registrationForm.value.name || !registrationForm.value.line || 
             !registrationForm.value.model || !registrationForm.value.capacity || !registrationForm.value.loadingShipCap || !this.urlImage"
-            (click)="onSubmit()"
           >
-            {{ buttonText }}
+              Agregar
           </button>
           <button class="btn btn-outline-danger" (click)="goToCruisers()">Volver atrás</button>
         </div>
