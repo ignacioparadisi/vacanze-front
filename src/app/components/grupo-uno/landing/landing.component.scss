@@ -12,7 +12,8 @@ html {
   margin: 0 auto;
 
   display: grid;
-  margin-left: -3%;
+  margin-left: 0%;
+  margin-bottom: 5%;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   grid-gap: 20px;
@@ -59,10 +60,6 @@ html {
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
-//   .card:hover span {
-//     display: inline;
-//   }
-
 .card article {
   padding: 20px;
   display: flex;
@@ -103,4 +100,64 @@ h1 {
   margin: 2em 0 0 0;
   text-align: right;
   display: none;
+
+}
+
+footer {
+  bottom: 5px;
+  left: 0;
+  position: absolute;
+  right: 150px;
+  div.social-media-links {
+		background: #ffffff;
+		overflow: hidden;
+		padding-bottom: 4px;
+		text-align: center;
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+		li {
+			display: inline;
+			margin: 0;
+			padding: 0;
+		}
+		a {
+			border-bottom: 0px solid rgba(0,0,0,0.95);
+			border-radius: 4px;
+			box-shadow: inset 0 -3px 0 0 rgba(0,0,0,0), 0 6px 8px rgba(0,0,0,0), 0 24px 24px rgba(0,0,0,0), 0 36px 36px rgba(0,0,0,0), 0 64px 64px rgba(0,0,0,0), 0 64px 128px rgba(0,0,0,0), 0 120px 0 rgba(0,0,0,0), 0 86px 8px 6px rgba(0,0,0,0),;
+			display: inline-block;
+      height: 30px;
+			padding: 20px;
+			position: relative;
+			transition: .2s ease-in;
+      width: 30px;
+			svg {
+        left: 20px;
+        position: absolute;
+        top: 20px;
+				height: 30px;
+				width: 30px;
+        &.glow {
+          path, circle {
+            fill: rgba(0,0,0,0);
+          }
+        }
+				path, circle {
+					fill: #212529;
+					transition: .2s ease-in;
+				}
+      }
+		}
+		a:hover {
+			transform: translateY(-4px);
+			box-shadow: inset 0 -3px 0 0 rgba(0,0,0,0.1), 0 6px 8px rgba(0,0,0,0.05), 0 24px 24px rgba(0,0,0,0.05), 0 36px 36px rgba(0,0,0,0.05), 0 64px 64px rgba(0,0,0,0.15), 0 64px 128px rgba(0,0,0,0.15), 0 86px 8px 6px fadeout(#0ebac7, 75), 0 83px 4px 0px fadeout(#0ebac7, 5);
+			svg {
+        &.glow {
+          filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><f…ter id="filter"><feGaussianBlur stdDeviation="10" /></filter></svg>#filter');
+          filter: blur(2px);
+        }
+			}
+		}
+	}
 }
