@@ -28,6 +28,10 @@ const routes: Routes = [
         path: 'grupo-trece',
         loadChildren: '../components/grupo-trece/grupo-trece.module#GrupoTreceModule'
       },
+      {
+        path: 'mis-reservas',
+        loadChildren: '../components/Mis Reservas/mis-reservas.module#MisReservasModule'
+      },
       /* Ruta para Backoffice de Cruceros */
       {
         path: 'cruisers',
@@ -36,7 +40,12 @@ const routes: Routes = [
       },
       {
         path: 'flight-reservations',
-        loadChildren: '../components/grupo-doce-vuelos/flight-reservations/flight-reservations.module#FlightReservationsModule'
+        loadChildren:
+          '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
+      },
+      {
+        path: 'flight-reservations',
+        loadChildren: '../components/flight-reservations/flight-reservations.module#FlightReservationsModule'
       },
       {
         path: 'administrar-hoteles',
