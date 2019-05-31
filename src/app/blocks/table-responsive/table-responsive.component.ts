@@ -2,11 +2,13 @@ import { Component, Input, Output, OnChanges, EventEmitter, OnInit, ViewChild } 
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 //* Import de interfaces *//
 import { Cruiser } from '../../interfaces/cruiser';
 
 //** Import de components **//
-import { LocalStorageService } from '../../services/local-storage.service';
+import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
+import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
 
 
 @Component({
@@ -60,7 +62,7 @@ export class TableResponsiveComponent implements OnChanges {
       focusCancel: true
     }
     Swal.fire(config).then(result => {
-      data['delete'] = deleted; 
+      data['delete'] = deleted;
       if(result && ('value' in result)){
         data['confirmed'] = true;
       }
@@ -77,25 +79,7 @@ export class TableResponsiveComponent implements OnChanges {
     public goToAddCruiser(){
       this.emitRouting.emit('/agregar-crucero');
     }
-  
-     /************************************************************
-    * Metodo para redireccionar a la vista de añadir un crucero *
-    *************************************************************/
-    public goToEditCruiser(boat: Object){
-      this.localStorage.setItem('boat', boat).subscribe(data => {
-        this.emitRouting.emit('/editar-crucero/'+boat['id']);
-      });
-    }
 
-      /************************************************************
-    * Metodo para redireccionar a la vista de añadir un restaurante *
-    *************************************************************/
-   public goToEditRestaurant(restaurant: Object){
-    this.localStorage.setItem('restaurant', restaurant).subscribe(data => {
-      // console.log(restaurant);
-      this.emitRouting.emit('/editar-restaurant/' + restaurant['id']);
-    });
-  }
 
     /**********************************************************************
     * Metodo para redireccionar a la vista para agregar un hotel          *
@@ -113,36 +97,33 @@ export class TableResponsiveComponent implements OnChanges {
     }
 
     /**********************************************************************
-    * Metodo para redireccionar a la vista para agregar un restaurante          *
-    ************************************************************************/
-   public goToAddRestaurant() {
-    this.emitRouting.emit('/agregar-restaurant');
-  }
-
-  /**********************************************************************
-    * Metodo para ir a editar el hotel                                    *
-    ***********************************************************************/
-   /*public goToEditRestaurant() {
-      this.emitRouting.emit('/editar-restaurant');
-  }*/
-
-    /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
     public gotoAdd(type: string){
       if (type === 'hotel'){
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
-        this.goToAddRestaurant();
+        const modalRef = this.modalService.open(RegisterRestaurantComponent);
       }
     }
+
 
     /**********************************************************************
     * Metodo que es llamado por el boton editar                           *
     ***********************************************************************/
     public goToEdit(type: string){
-      if (type === 'hotel') {
+      if (type === 'hotel'){
         this.goToEditHotel();
       }
     }
+
+
+    RegisterRestaurantModal() {
+      const modalRef = this.modalService.open(RegisterRestaurantComponent);
+    }
+
+    EditRestaurantModal() {
+      const modalRef = this.modalService.open(EditRestaurantComponent);
+    }
+
 }

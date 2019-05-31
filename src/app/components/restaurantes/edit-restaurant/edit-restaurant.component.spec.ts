@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditRestaurantComponent } from './edit-restaurant.component';
 
-describe('EditHotelComponent', () => {
+describe('EditRestaurantComponent', () => {
   let component: EditRestaurantComponent;
   let fixture: ComponentFixture<EditRestaurantComponent>;
 
