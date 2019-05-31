@@ -9,7 +9,8 @@ import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms'
 @Component({
   selector: 'app-edit-hotel',
   templateUrl: './edit-hotel.component.html',
-  styleUrls: ['./edit-hotel.component.scss']
+  styleUrls: ['./edit-hotel.component.scss'],
+  providers: [ApiService]
 })
 export class EditHotelComponent implements OnInit {
 
