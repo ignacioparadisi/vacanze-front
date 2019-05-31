@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 //* Import de interfaces *//
 import { Cruiser } from '../../interfaces/cruiser';
-
+import { ApiService } from '../../services/api.service';
 //** Import de components **//
 import { LocalStorageService } from '../../services/local-storage.service';
 
@@ -12,7 +12,8 @@ import { LocalStorageService } from '../../services/local-storage.service';
 @Component({
   selector: 'app-table-responsive',
   templateUrl: './table-responsive.component.html',
-  styleUrls: ['./table-responsive.component.scss']
+  styleUrls: ['./table-responsive.component.scss'],
+  providers: [ ApiService ]
 })
 
 export class TableResponsiveComponent implements OnChanges {

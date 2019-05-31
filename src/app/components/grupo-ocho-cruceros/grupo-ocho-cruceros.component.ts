@@ -8,7 +8,8 @@ import { environment as url } from '../../../environments/environment';
 @Component({
   selector: 'app-grupo-ocho-cruceros',
   templateUrl: './grupo-ocho-cruceros.component.html',
-  styleUrls: ['./grupo-ocho-cruceros.component.scss']
+  styleUrls: ['./grupo-ocho-cruceros.component.scss'],
+  providers: [ApiService]
 })
 
 export class GrupoOchoCrucerosComponent implements OnInit {

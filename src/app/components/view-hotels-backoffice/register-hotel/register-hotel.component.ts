@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-hotel',
   templateUrl: './register-hotel.component.html',
-  styleUrls: ['./register-hotel.component.scss']
+  styleUrls: ['./register-hotel.component.scss'],
+  providers: [ApiService]
 })
 export class RegisterHotelComponent implements OnInit {
 
