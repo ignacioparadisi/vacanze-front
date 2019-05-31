@@ -95,21 +95,39 @@ export class HabitacionGrupoTrece implements OnInit {
           this.myForm.get('city').markAsTouched();
           this.myForm.get('fechaOne').markAsTouched();
           this.myForm.get('fechaTwo').markAsTouched();
-          this.myForm.get('hot_id').markAsTouched();
       }
 
-    submit(id : number) {
+    submit(hotel : Object) {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
         let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
 
+
+        reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+            reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+           reservation.fk_user = 1;//localStorage.getItem.
+           reservation.hotel = hotel;
+           reservation.user="";
+           reservation.id=0;
+          delete reservation.city;
+          delete reservation.fechaOne;
+          delete reservation.fechaTwo;
+          delete reservation.country;
+        console.log(reservation);
+        if (this.myForm.valid) {
+            this.apiService.postUrl('reservationrooms', reservation).then(
+                response => {
+                    console.log(response);
+                }, error => {
+                    console.log(error);
+                }
+            );
+        }
+
+
         if (fechas === 1) {
 
-            reservation.CheckIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
-            reservation.CheckOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-           reservation.fk_user_id = 1;//localStorage.getItem.
-           reservation.hot_fk = id;
-          delete reservation.city;
+            
 
             if (this.myForm.valid) {
                 this.apiService.postUrl('reservationrooms', reservation).then(

@@ -123,24 +123,16 @@
                 <td>{{hotel.pricePerRoom}}$</td>
                 <td>lorem ipsum</td>
                 <td>
-                  <button 
-                  class="btn btn-outline-dark"
-                  style="cursor: pointer;" 
-                  (click)="open(content, car._id)" 
-                  data-toggle="tooltip" 
-                  data-placement="top" 
-                >
-                <swal
-                #addSwal
-                title="¿Desea reservar?"
-                type="question"
-                [showCancelButton]="true"
-                [focusCancel]="true"
-                (confirm)="submit(hotel.id)" [options]="{ confirmButtonText: 'Si, estoy
-                seguro', cancelButtonText: 'Cancelar' }">
-                </swal>
-                  <i class="fa fa-cart-plus"></i>
-                </button>&nbsp;&nbsp;</td>
+                  <swal
+                      #addSwal
+                      title="¿Desea Reservar?"
+                      type="question"
+                      [showCancelButton]="true"
+                      [focusCancel]="true"
+                      (confirm)="submit(hotel)" [options]="{ confirmButtonText: 'Si, estoy
+                      seguro', cancelButtonText: 'Cancelar' }">
+                  </swal>
+                  <button [swal]="addSwal" class="btn btn-outline-dark"><i class="fa fa-cart-plus"></i></button></td>
               </tr>
             </tbody>
           </table>
