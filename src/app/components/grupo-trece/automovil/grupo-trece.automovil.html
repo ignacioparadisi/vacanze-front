@@ -71,7 +71,7 @@
                       <div class="form-group">
                         <label style="color: white" for=""><strong>Ciudad</strong></label>
                         <select class="form-control" formControlName="city"
-                        (ngModelChange)="getCarsByCity()"
+                        
                         >
                           <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
                         </select>
@@ -92,7 +92,7 @@
               </div>
               <div class="row">
                   <div class="col-md-12">
-                    <button class="btn btn-success" type="submit">Buscar</button>
+                    <button class="btn btn-success" type="submit" (click)="getCarsByCity()">Buscar</button>
                   </div>
               </div>
           </form>
@@ -125,10 +125,19 @@
                   <button 
                   class="btn btn-outline-dark"
                   style="cursor: pointer;" 
-                  (click)="openModalActions($event, reservar-automovil, 'reservar', true)" 
+                  (click)="open(content, car._id)" 
                   data-toggle="tooltip" 
                   data-placement="top" 
                 >
+                <swal
+                #addSwal
+                title="¿Desea reservar?"
+                type="question"
+                [showCancelButton]="true"
+                [focusCancel]="true"
+                (confirm)="submit(car._id)" [options]="{ confirmButtonText: 'Si, estoy
+                seguro', cancelButtonText: 'Cancelar' }">
+                </swal>
                   <i class="fa fa-cart-plus"></i>
                 </button>&nbsp;&nbsp;</td>
               </tr>

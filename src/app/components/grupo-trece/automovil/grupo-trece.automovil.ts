@@ -19,6 +19,7 @@ export class AutomovilGrupoTrece implements OnInit {
     public countries = [];
     public cities = [];
     public closeResult: string;
+    public aut_id;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
@@ -99,7 +100,7 @@ export class AutomovilGrupoTrece implements OnInit {
         this.myForm.get('aut_id').markAsTouched();
     }
 
-    submit() {
+    submit(id : number) {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
         let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
@@ -109,11 +110,11 @@ export class AutomovilGrupoTrece implements OnInit {
             reservation.CheckIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
             reservation.CheckOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
           //  reservation.fk_user_id = localStorage.getItem.
-           reservation.ra_aut_fk = parseInt(reservation.aut_id,10);
+           reservation.ra_aut_fk = id;
           delete reservation.city;
 
             if (this.myForm.valid) {
-                this.apiService.postUrl('reservationrooms', reservation).then(
+                this.apiService.postUrl('reservationautomobile', reservation).then(
                     response => {
                         console.log(response);
                     }, error => {
@@ -153,6 +154,7 @@ export class AutomovilGrupoTrece implements OnInit {
         document.getElementById("datefieldDev").setAttribute("min", todaye);
       }
 
+
     open(content, id: number) {
         this.getCar(id);
         this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
@@ -177,6 +179,7 @@ export class AutomovilGrupoTrece implements OnInit {
       }
 
     public openModalActions(event, data: Object, type: string, deleted? : boolean){
+     //   this.submit();
         event.preventDefault();
         let config: SweetAlertOptions = {
           title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
