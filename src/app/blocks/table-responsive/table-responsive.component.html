@@ -87,7 +87,7 @@
                         class="form-check-input align-self-start"
                         id="estatus-checkbox"
                         [checked]="hotel?.isActive"
-                        (click)="openModalActions($event, hotel, type, false)"
+                        (click)="openModalActions($event, hotel, type)"
                         title = "Desactivar/Activar {{type}}">
                     </td>
                     <td>
@@ -151,7 +151,7 @@
                         data-toggle="tooltip"
                         data-placement="top"
                         title="Editar {{type}}"
-                        (click)="EditRestaurantModal()"
+                        (click)="goToEditRestaurant(restaurante)"
                       >
                         <i class="fa fa-edit"></i>
                       </button>
