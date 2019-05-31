@@ -47,6 +47,7 @@
 <!-- INTRODUCTION -->
 
 <div id = "paginaCliente" class="oculto">
+
 <div class="row">
 <div class="col-md-12">
   <div class="card mb-3">
@@ -105,10 +106,6 @@
                       <div class="form-group">
                         <input type="text" class="form-control" 
                         placeholder="Numero De Pasaporte">
-                      </div>
-                      <div class="form-group">
-                        <input type="text" class="form-control" 
-                        placeholder="Cedula">
                       </div>
                       <swal
                         #addSwal2
@@ -215,6 +212,14 @@
           <div class="card-body table-responsive">
             <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">       
               <div class="col text-center">
+                <div class="form-group">                 
+                  <input type="text" formControlName="serial" class="form-control input-lg" id="inputeste" placeholder="Serial de Equipaje" 
+                  [ngClass]="{
+                    'is-invalid': false,
+                    'is-valid': !formGroup.get('serial').hasError('required')
+                  }"/> 
+                </div>
+
                 <div class="form-group">
                   <input type="text" class="form-control input-lg" placeholder="Titulo" 
                   formControlName="titulo" 
@@ -574,12 +579,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>XSY-219</td>
-                            <td>Aeropuerto</td>
-                            <td>002345678910</td>
-                            <td>Abierto</td>
+                        <tr *ngFor="let claimAdmin of claimsAbiertos; let indiceAbierto=index">
+                            
+                            <th scope="row">{{indiceAbierto+1}}</th>
+                            <td>{{claimAdmin.id}}</td>
+                            <td>{{claimAdmin._title }}</td>
+                            <td>{{claimAdmin._description}}</td>
+                            <td>{{claimAdmin._status}}</td>
                             <td>
                               <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                               <swal
@@ -588,7 +594,7 @@
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
-                                (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
                               <button [swal]="deleteSwal1" class="button-delete"><i class="fa fa-trash" ></i></button>
                             </td>
@@ -618,12 +624,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>XSY-219</td>
-                            <td>Aeropuerto</td>
-                            <td>002345678910</td>
-                            <td>Cerrado</td>
+                        <tr *ngFor="let claimAdmin of claimsCerrados; let indiceCerrado=index">
+                            
+                            <th scope="row">{{indiceCerrado+1}}</th>
+                            <td>{{claimAdmin.id}}</td>
+                            <td>{{claimAdmin._title }}</td>
+                            <td>{{claimAdmin._description}}</td>
+                            <td>{{claimAdmin._status}}</td>
                             <td>
                               <button (click)="open(content)"><i class="fa fa-edit"></i></button>
                               <swal

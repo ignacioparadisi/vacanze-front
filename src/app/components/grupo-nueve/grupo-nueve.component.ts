@@ -18,7 +18,9 @@ export class GrupoNueveComponent implements OnInit {
   public formGroup: FormGroup;
   public closeResult: string;
   public claims : Claim[] = [];
-  
+  public claimsAbiertos : Claim[] = [];
+  public claimsCerrados : Claim[] = [];
+
   //Elementos del put
   public idPut : any;
   public titlePut : any;
@@ -30,12 +32,13 @@ export class GrupoNueveComponent implements OnInit {
 
   ngOnInit() {
 
-    this.service.getUrl(url.endpoint.default._get.getClaim,['0']).then(data =>{this.claims = data; console.log(data)})
+    this.getClaim()
 
     this.formGroup = new FormGroup({
+      serial: new FormControl(null, [Validators.required]),
       titulo: new FormControl(null, [Validators.required]),
       descripcion: new FormControl(null, [Validators.required])
-    });
+    })    
   }
 
   open(content, id : any, title : any, descr : any) {
@@ -52,9 +55,20 @@ export class GrupoNueveComponent implements OnInit {
   getClaim(){
     this.service.getUrl(url.endpoint.default._get.getClaim,['0']).then(data =>{this.claims=data; console.log(data)});
   }
+
+  getAdminClaimStatusAbierto(){
+    this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['ABIERTO'])
+    .then(data => {this.claimsAbiertos = data;                                                                                             
+      console.log(data)});
+  }
+
+  getAdminClaimStatusCerrado(){
+    this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['CERRADO'])
+    .then(data => {this.claimsCerrados = data;                                                                                             
+      console.log(data)});
+  }
   
-  postClaim(){
-    
+  postClaim(){  
     this.service
     .postUrl(url.endpoint.default._post.postClaim,{title: this.formGroup.get('titulo').value,
                                                    description: this.formGroup.get('descripcion').value})
@@ -167,19 +181,6 @@ export class GrupoNueveComponent implements OnInit {
     pagina.style.display = "block";
     liCliente.style.display = "none";
     liAdmin.style.display = "none";
-  }
-
-  listadoEquipaje(){
-    var pagina;
-pagina = document.getElementById('equipajeLista');
-    
-
-    if(pagina.style.display == 'none'){
-    pagina.style.display = 'block';
-    }
-    else{
-    pagina.style.display = 'none';
-    }
   }
 
   private getDismissReason(reason: any): string {
@@ -308,6 +309,19 @@ pagina = document.getElementById('equipajeLista');
     }
   }
 
+  listadoEquipaje(){
+    var pagina = document.getElementById('equipajeLista');
+    var ck_documento =<HTMLInputElement> document.getElementById("check_documento");
+    var ck_serial =<HTMLInputElement> document.getElementById("check_serial");
+    
+    var isCheckedDocumento = ck_documento.checked;
+    var isCheckedSerial = ck_serial.checked;
+
+    if(isCheckedDocumento || isCheckedSerial){
+    pagina.style.display = 'block';
+    }
+  }
+
   BusqEquipajeAdmin(){
     var ck_extraviado =<HTMLInputElement> document.getElementById("check_extraviado");
     var ck_entregado =<HTMLInputElement> document.getElementById("check_entregado");
@@ -377,16 +391,15 @@ pagina = document.getElementById('equipajeLista');
     var segundaopcion= document.getElementById("cerrados");
 
     if (isCheckedOpen) {
+        this.getAdminClaimStatusAbierto();
         primeraopcion.style.display = "block";
         segundaopcion.style.display = "none";
     }else
     if(isCheckedClose){
+       this.getAdminClaimStatusCerrado();
       segundaopcion.style.display = "block";
       primeraopcion.style.display = "none";
     }
   }
-
- 
-  
 
 }

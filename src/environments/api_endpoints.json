@@ -3,6 +3,7 @@
       "getHotel":"hotels",
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
+      "getClaimAdminStatus":"Claim/admin/{status}",
       "cruisers": {
         "get_cruisers": "cruiser"
       }
