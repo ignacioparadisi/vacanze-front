@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { containerRefreshEnd } from '@angular/core/src/render3';
@@ -13,7 +13,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class Grupo1Service {
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
   readonly BaseURI = 'https://localhost:44362/api';
@@ -52,7 +52,12 @@ export class ApiService {
       this.http.post(this.apiName + url, this.myInit['body'], httpOptions).toPromise()
     );
   }
-
+  sendEmail(formRecovery) {
+    return this.http.post(this.BaseURI + '/Email/Email', formRecovery);
+  }
+  login(formData) {
+    return this.http.post(this.BaseURI + '/Login/Login', formData);
+  }
   /*******************************************************
   * Metodo para realizar el consumo del API de tipo PUT  *
   ********************************************************/

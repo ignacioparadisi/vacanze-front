@@ -5,6 +5,7 @@ import { Router, ActivationStart, RouterOutlet } from '@angular/router';
 
 import { LayoutComponent } from '../../../layout/layout.component';
 import { GrupoUnoComponent } from '../grupo-uno.component';
+import { Grupo1Service } from '../../../services/grupo1/grupo1.service';
 
 
 
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
   //private service: ApiService; private router: Router; private toastr: ToastrService;private father: LayoutComponent;
 
 
-  constructor(private service: ApiService, private father: LayoutComponent, private router: Router, private landing: GrupoUnoComponent) {
+  constructor(private service: Grupo1Service, private father: LayoutComponent, private router: Router, private landing: GrupoUnoComponent) {
 
 
   }
@@ -48,10 +49,12 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.service.login(form.value).subscribe(
       (res: any) => {
-        localStorage.setItem('rol', res.role);
+        localStorage.setItem('id', res.id);
+        localStorage.setItem('rol', res.roles[0].name);
         localStorage.setItem('Email', res.email);
 
-        if (res.role == "Cliente") {
+
+        if (res.roles[0].name == 1) {
 
           this.StatusLogin = false;
           this.father.StatusHeader = true;
@@ -59,7 +62,7 @@ export class LoginComponent implements OnInit {
 
           this.router.navigateByUrl('/landing');
 
-        } else if (res.role == "Admin") {
+        } else if (res.roles[0].name != 1) {
           this.father.StatusHeader = true;
           this.father.StatusSideBar = true;
           this.StatusLogin = false;
