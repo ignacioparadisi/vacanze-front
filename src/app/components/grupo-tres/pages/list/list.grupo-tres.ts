@@ -4,6 +4,7 @@ import { ApiService } from '../../../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { compararFechas } from '../../../../utils/global_functions';
+import { compararCiudades } from '../../../../utils/global_functions';
 import * as moment from 'moment';
 import { CustomValidatorDirective } from '../../../../directives/validations/custom-validations.directive';
 
@@ -21,35 +22,64 @@ export class ListGrupoTres implements OnInit {
   public flights = [];
   public airplanes = [];
   public countries = [];
+  public citiesDeparture = [];
+  public citiesArrival = [];
   public flightForm: FormGroup;
   public compararFechas;
+  public compararCiudades;
   public id: number = null;
 
   constructor(private modalService: NgbModal, private apiService: ApiService, private fb: FormBuilder, private router: Router) {
     this.compararFechas = compararFechas;
+    this.compararCiudades = compararCiudades;
   }
 
   ngOnInit() {
     this.flightForm = this.fb.group({
-      plane: [null, Validators.required],
-      price: [null, Validators.required],
-      departure: [null, Validators.required],
-      arrival: [null, Validators.required],
-      loc_departure: [null, Validators.required],
-      loc_arrival: [null, Validators.required]
+      countryDeparture: [null, Validators.compose([Validators.required])],
+      locDeparture: [null, Validators.compose([Validators.required])],
+      countryArrival: [null, Validators.compose([Validators.required])],
+      locArrival: [null, Validators.compose([Validators.required])],
+      plane: [null, Validators.compose([Validators.required])],
+      price: [null, Validators.compose([Validators.required, CustomValidatorDirective.RegularNumbersPositive])],
+      departure: [null, Validators.compose([Validators.required])],
+      arrival: [null, Validators.compose([Validators.required])]
     });
     this.getFlights();
   }
 
 
-  getLocations() {
-    const requestURL = 'locations';
+  public getCountries() {
+    const requestURL = 'locations/countries';
     this.apiService.getUrl(requestURL).then(
       response => {
         this.countries = response;
         console.log(response);
-      },
-      error => {
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public getCitiesDeparture() {
+    const requestURL = 'locations/countries/' + this.flightForm.value.countryDeparture + '/cities';
+    this.apiService.getUrl(requestURL).then(
+      response => {
+        this.citiesDeparture = response;
+        console.log(response);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public getCitiesArrival() {
+    const requestURL = 'locations/countries/' + this.flightForm.value.countryArrival + '/cities';
+    this.apiService.getUrl(requestURL).then(
+      response => {
+        this.citiesArrival = response;
+        console.log(response);
+      }, error => {
         console.log(error);
       }
     );
@@ -89,7 +119,7 @@ export class ListGrupoTres implements OnInit {
         this.id = response.id;
         this.flight = response;
         this.getAirplanes();
-        this.getLocations();
+        this.getCountries();
       },
       error => {
         console.log(error);
@@ -105,14 +135,19 @@ export class ListGrupoTres implements OnInit {
     console.log(this.flightForm.value);
     const payload = this.flightForm.value;
     const fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
-    if (fechas === 1) {
+    let ciudades = this.compararCiudades(parseInt(payload.locDeparture, 10),parseInt(payload.locArrival, 10) );
+    if (fechas === 1 && ciudades === 1) {
       payload.departure = moment(payload.departure).format('MM-DD-YYYY HH:mm:ss');
       payload.arrival = moment(payload.arrival).format('MM-DD-YYYY HH:mm:ss');
       payload.plane = { id: parseInt(payload.plane, 10) };
       payload.price = parseInt(payload.price, 10);
-      payload.loc_departure = parseInt(payload.loc_departure, 10);
-      payload.loc_arrival = parseInt(payload.loc_arrival, 10);
+      payload.loc_departure = { id: parseInt(payload.locDeparture, 10)};
+      payload.loc_arrival = { id: parseInt(payload.locArrival, 10)};
       payload.id = this.id;
+      delete payload.locDeparture;
+      delete payload.locArrival;
+      delete payload.countryArrival;
+      delete payload.countryDeparture;
       if (this.flightForm.valid) {
         this.apiService.putUrl('flights', payload).then(
           response => {
@@ -151,7 +186,7 @@ export class ListGrupoTres implements OnInit {
     this.apiService.deleteUrl(requestURL).then(
       response => {
         console.log(response);
-        this.router.navigate(['/grupo-tres/listado']);
+        this.getFlights();
         console.log('Vuelo con el id=' + id + 'fue eliminado con éxito');
       }, error => {
         console.error(error);
