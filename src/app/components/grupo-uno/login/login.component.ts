@@ -70,12 +70,10 @@ export class LoginComponent implements OnInit {
         }
 
       },
-      /* err=>{
-         if(err.status==400)
-           this.toastr.error('data incorrect','Autentication Failed');
-           else
-           console.log(err);
-         }*/
+      err => {
+        if (err.status == 400 || err.status != 200)
+          alert("Ha ocurrido un error")
+      }
     );
   }
 
@@ -90,23 +88,23 @@ export class LoginComponent implements OnInit {
           this.StatusLogin = false;
           this.father.StatusHeader = true;
           this.father.StatusMain = false;
+          alert("Se le ha enviado un correo con exito")
+          this.router.navigateByUrl('/home');
 
-
-
-        } else if (res.role == "Admin") {
+        } /*else if (res.role == "Admin") {
           this.father.StatusHeader = true;
           this.father.StatusSideBar = true;
           this.StatusLogin = false;
           this.router.navigateByUrl('/home');
-        }
+        }*/
 
       },
-      /* err=>{
-         if(err.status==400)
-           this.toastr.error('data incorrect','Autentication Failed');
-           else
-           console.log(err);
-         }*/
+      err => {
+        if (err.status == 400 || err.status != 200) {
+          alert("Ha ocurrido un error")
+        } else if (err.status == 200)
+          alert("Envio de nueva contraseña a su correo")
+      }
     );
 
   }
