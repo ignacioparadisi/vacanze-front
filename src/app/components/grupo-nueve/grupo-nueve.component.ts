@@ -53,19 +53,23 @@ export class GrupoNueveComponent implements OnInit {
   }
 
   getClaim(){
-    this.service.getUrl(url.endpoint.default._get.getClaim,['0']).then(data =>{this.claims=data; console.log(data)});
+    this.service.getUrl(url.endpoint.default._get.getClaim,['0'])
+    .then(data =>{this.claims=data; console.log(data)})
+    .catch(data =>{console.log(data)});
   }
 
   getAdminClaimStatusAbierto(){
     this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['ABIERTO'])
     .then(data => {this.claimsAbiertos = data;                                                                                             
-      console.log(data)});
+      console.log(data)})
+    .catch(data =>{console.log(data)});
   }
 
   getAdminClaimStatusCerrado(){
     this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['CERRADO'])
     .then(data => {this.claimsCerrados = data;                                                                                             
-      console.log(data)});
+      console.log(data)})
+    .catch(data =>{console.log(data)});
   }
   
   postClaim(){  
@@ -76,7 +80,8 @@ export class GrupoNueveComponent implements OnInit {
              ,[this.formGroup.get('serial').value])
     .then(response => {console.log(response); 
                        this.claimCreatedSuccessfully(); 
-                       this.getClaim()});
+                       this.getClaim()})
+    .catch(data =>{console.log(data)});
   }
 
   private claimCreatedSuccessfully() {
@@ -93,7 +98,8 @@ export class GrupoNueveComponent implements OnInit {
     this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [id])
     .then(response => {console.log(response);
                        this.getClaim();
-                       this.claimDeleteSuccessfully()});
+                       this.claimDeleteSuccessfully()})
+    .catch(data =>{console.log(data)});
   }
 
   private claimDeleteSuccessfully() {
@@ -132,31 +138,48 @@ export class GrupoNueveComponent implements OnInit {
   putAll(id : any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,
                         {title: this.titlePut,
-                         description: this.descrPut},[id]).then(
-    response => {console.log(response); 
-                 this.putClaimStatus(id)});
+                         description: this.descrPut},[id])
+                         .then(
+                         response => {console.log(response); 
+                         this.putClaimStatus(id)})
+                         .catch(data =>{console.log(data)});
   }
 
   putClaimTD(id : any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,
                         {title: this.titlePut,
-                         description: this.descrPut},[id]).then(
-    response => {console.log(response); 
-                 this.getClaim();
-                 this.claimUpdateSuccessfully()});
+                         description: this.descrPut},[id])
+                        .then(
+                        response => {console.log(response); 
+                        this.getClaim();
+                        this.claimUpdateSuccessfully()})
+                        .catch(data =>{console.log(data.error); 
+                                       this.claimUpdateFailed(data.error)});
   }
 
   putClaimStatus(id: any){
-    this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id]).then(
+    this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id])
+    .then(
       response => {console.log(response); 
                    this.getClaim();
-                   this.claimUpdateSuccessfully()});
+                   this.claimUpdateSuccessfully()})
+    .catch(data =>{console.log(data)});
   }
 
   private claimUpdateSuccessfully() {
     let config: SweetAlertOptions = {
       title: 'Claim has been updated successfully',
       type: 'success',
+      showConfirmButton: true,
+      timer: 2500
+    }
+    Swal.fire(config);
+  }
+
+  private claimUpdateFailed(error : string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
       showConfirmButton: true,
       timer: 2500
     }
