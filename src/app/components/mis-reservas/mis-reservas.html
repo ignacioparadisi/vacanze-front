@@ -1,1 +1,120 @@
-<h1>it works</h1>
+<div class="row">
+  <div class="col-md-12">
+
+
+    <div class="card mb-3">
+      <div class="card-header">
+        Reservas de automoviles
+      </div>
+      <div class="card-body table-responsive">
+        <div class="row">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Marca</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Capacidad de Pasajeros</th>
+                <th scope="col">Precio por dia</th>
+                <th scope="col">Fecha de Alquiler</th>
+                <th scope="col">Fecha de Devolucion</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>MIENTRAS</td>
+                <td>MIENTRAS</td>
+                <td>MIENTRAS</td>
+                <td>MIENTRAS$</td>
+                <td>MIENTRAS</td>
+                <td>MIENTRAS</td>
+                <td>
+                  <button
+                  class="btn btn-outline-danger"
+                  style="cursor: pointer;"
+                  (click)="openModalActions($event, restaurante, 'restaurante', true)"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Eliminar {{type}}"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>&nbsp;&nbsp;
+                <button
+                  class="btn btn-outline-info"
+                  style="cursor: pointer; width: 39px;"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Editar {{type}}"
+                  (click)="EditRestaurantModal()"
+                >
+                  <i class="fa fa-edit"></i>
+                </button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="row">
+  <div class="col-md-12">
+<div class="card mb-3">
+  <div class="card-header">
+    Listado de habitaciones
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Hotel</th>
+            <th scope="col">Capacidad Habitacion</th>
+            <th scope="col">Precio por noche</th>
+            <th scope="col">Cantidad Disponible</th>
+            <th scope="col">CheckIn</th>
+            <th scope="col">CheckOut</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>mientras</td>
+            <td>mientras</td>
+            <td>mientras$</td>
+            <td>lorem ipsum</td>
+            <td>mientras</td>
+            <td>mientras</td>
+            <td>
+              <button
+                  class="btn btn-outline-danger"
+                  style="cursor: pointer;"
+                  (click)="openModalActions($event, restaurante, 'restaurante', true)"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Eliminar {{type}}"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>&nbsp;&nbsp;
+                <button
+                  class="btn btn-outline-info"
+                  style="cursor: pointer; width: 39px;"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Editar {{type}}"
+                  (click)="EditRestaurantModal()"
+                >
+                  <i class="fa fa-edit"></i>
+                </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+</div>
