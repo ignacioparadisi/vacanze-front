@@ -6,11 +6,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { PeopleFlight } from '../../../classes/people_flight';
 import { Router } from '@angular/router';
+import { environment as url } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-flight-reservations',
   templateUrl: './flight-reservations.component.html',
-  styleUrls: ['./flight-reservations.component.scss']
+  styleUrls: ['./flight-reservations.component.scss'],
+  
 })
 export class FlightReservationsComponent implements OnInit {
  
@@ -25,6 +27,7 @@ export class FlightReservationsComponent implements OnInit {
   public disabledPpl:boolean=false;
   public isChecked;
   public subM:boolean=false;
+  public listRes = [];
     constructor(private api: ApiService, private router: Router) { }
         
    private selectedTyp: string="";
@@ -129,19 +132,39 @@ export class FlightReservationsComponent implements OnInit {
     }
 
   }
+  json = {
+    "_seatNum": 2,
+    "_timestamp": '2019/05/31 13:00:00.59',
+    "_numPas": 1,
+    "_id_user": 1,
+    "_id_pay": 1,
+    "_id_fli": 1
+  }
+  public getListFlights() {
+    console.log('llame al metodo');
+    // API URL
+    //const requestURL = 'flight-reservation';
+    this.api.postUrl(url.endpoint.default._post.postResFlight,this.json).then(
+        response => {
+            this.listRes = response;
+            console.log(response);
+        },
+        error => {
+            console.log(error);
+        }
+    );
+}
   onSubmit() {
      if (this.form.get('origen').valid && this.form.get('destino').valid
      && (this.form.get('adultFlights').value !=-1 || this.disabledPpl==true) && (this.form.get('fechaE').valid || this.disabled==true)
      && (this.form.get('fechaS').valid || this.disabledOut==true)) {
+      this.getListFlights();
       this.router.navigate(['flight-reservations/list-reservations']);
     } else {
       this.subM=true;
     }
   }
   
-  public  postResFlight(){
-     this.api.postUrl('','ssssssssssssssss');
 
-  }
 
 }
