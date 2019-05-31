@@ -54,22 +54,23 @@
       <div class="card-header">
         Buscar habitación
       </div>
-      <div class="card-body">
+      <div class="card-body roomcito">
         <form [formGroup]="myForm" (ngSubmit)="buscador()">
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Pais</label>
+                <label style="color: white" for=""><strong>Pais</strong></label>
                 <select class="form-control" formControlName="country"
                 (ngModelChange)="getCities()"
                 >
                   <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                 </select>
+              
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Ciudad</label>
+                <label style="color: white" for=""><strong>Ciudad</strong></label>
                 <select class="form-control" formControlName="city"
                 (ngModelChange)="getHotelsByCity()"
                 >
@@ -79,13 +80,13 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Fecha de checkin</label>
+                <label style="color: white" for=""><strong>Fecha de Checkin</strong></label>
                 <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Fecha de checkout</label>
+                <label style="color: white" for=""><strong>Fecha de Checkout</strong></label>
                 <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
               </div>
             </div>
