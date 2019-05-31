@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms'
 import { environment as url } from '../../../../environments/environment';
 import { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
+import { transformImageToBase64 } from '../../../utils/global_functions';
 
 @Component({
   selector: 'app-register-restaurant',
@@ -15,6 +16,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-restaurant.component.scss']
 })
 export class RegisterRestaurantComponent implements OnInit {
+
+public transformImageToBase64;
+public urlImage: string;
 
 public registrationForm: FormGroup = new FormGroup({
     name : new FormControl(null,[
@@ -56,8 +60,7 @@ public registrationForm: FormGroup = new FormGroup({
       Validators.max(5)
     ]),
     image: new FormControl(null, [
-      Validators.required,
-      Validators.min(0)
+      Validators.required
     ]),
     type: new FormControl(null,[
       Validators.required,
@@ -67,7 +70,9 @@ public registrationForm: FormGroup = new FormGroup({
     // TODO -> añadir piture y location
   });
 
-  constructor(private _location: Location, private service: ApiService){}
+  constructor(private _location: Location, private service: ApiService){
+    this.transformImageToBase64 = transformImageToBase64;
+  }
 
   ngOnInit() {
   }
@@ -104,8 +109,10 @@ public registrationForm: FormGroup = new FormGroup({
     return this.registrationForm.get('stars');
   }
 
-  get image(){
-    return this.registrationForm.get('image');
+  public getImage(event){
+    this.transformImageToBase64(event, image => {
+      this.urlImage = image;
+    });
   }
 
   get type(){
@@ -119,6 +126,7 @@ public registrationForm: FormGroup = new FormGroup({
 
 
   public onSubmit(){
+    this.registrationForm.value.picture = this.urlImage;
     this.service
     .postUrl(url.endpoint.default._post.postRestaurant,
       {
@@ -129,7 +137,7 @@ public registrationForm: FormGroup = new FormGroup({
         specialty: this.registrationForm.get('type').value,
         price: this.registrationForm.get('price').value,
         businessName: this.registrationForm.get('businessName').value,
-        picture: "logo",
+        picture: 'this.registrationForm.value.picture',
         description: this.registrationForm.get('description').value,
         phone: this.registrationForm.get('phone').value,
         location: 1,

@@ -113,12 +113,12 @@
 
      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
        <div class="form-group">
-      	<label>Subir Imagen</label>
+      	<label>Subir Imagen</label><br>
       	<input [ngClass]="{
           'is-invalid': image.invalid && image.touched,
           'is-valid': image.valid && image.touched
         }"
-        formControlName="image" type="file" class="form-control">
+        formControlName="image" type="file">
         <div *ngIf="image.invalid && image.touched">
          <small *ngIf="image.errors?.pattern" class ="text-danger">No parece ser una imagen valida.</small>
         </div>

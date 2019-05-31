@@ -4,6 +4,7 @@ import { Role } from '../../../classes/role';
 import { Location } from "@angular/common";
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 
 @Component({
@@ -64,9 +65,7 @@ export class EditRestaurantComponent implements OnInit {
       ])
     });
 
-
-
-    constructor(private _location: Location){}
+    constructor(private _location: Location, private localStorage: LocalStorageService){}
 
     ngOnInit() {
     }
