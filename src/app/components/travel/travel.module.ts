@@ -10,6 +10,8 @@ import { DetailTravelComponent } from './detail-travel/detail-travel.component';
 import { CarouselComponent } from './detail-travel/carousel/carousel.component';
 import { ModifyTravelComponent } from './modify-travel/modify-travel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CitiesTravelComponent } from './cities-travel/cities-travel.component';
+import { AddCityComponent } from './cities-travel/add-city/add-city';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CreateTravelComponent,
     DetailTravelComponent,
     CarouselComponent,
-    ModifyTravelComponent
+    ModifyTravelComponent,
+    CitiesTravelComponent,
+    AddCityComponent
   ],
   imports: [
     CommonModule,

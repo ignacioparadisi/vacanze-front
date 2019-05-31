@@ -6,7 +6,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-8">
-                <h5 (click)="travelDetails(travel.id)">{{travel.name}}</h5>
+                <h5 (click)="travelCities(travel.id)">{{travel.name}}</h5>
               </div>
               <div class="col-1 mr-1">
                 <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description"></modify-travel>
@@ -18,7 +18,7 @@
               </div>
             </div>
             <hr>
-            <p class="card-text" (click)="travelDetails(travel.id)">{{travel.description}}</p>
+            <p class="card-text" (click)="travelCities(travel.id)">{{travel.description}}</p>
           </div>
         </div>
       </div>

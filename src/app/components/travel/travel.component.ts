@@ -33,8 +33,8 @@ export class TravelComponent implements OnInit {
         );
     }
 
-    private travelDetails(id: number) {
-        this.router.navigate(['travel', id])
+    private travelCities(id: number) {
+        this.router.navigate(['travel', id, 'cities'])
     }
 
     private travelDelete(id: number) {
