@@ -1,7 +1,9 @@
 <app-table-responsive-reservas
   [headerTitle]="getHeaderTitle()"
-  [tableData]="getRestaurantReservation()"
+  [tableData]="getRestaurants()"
   [tableHeaders]="getHeaderRestaurantReservation()"
   [type]="'rest-reserva'"
   >
 </app-table-responsive-reservas>
+
+<button class="btn btn-danger" (click)="goBack()" type="button">Go Back.</button>

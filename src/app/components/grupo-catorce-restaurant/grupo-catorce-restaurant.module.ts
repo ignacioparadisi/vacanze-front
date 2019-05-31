@@ -7,7 +7,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BuscarRestaurantComponent } from './buscar-restaurant/buscar-restaurant.component'
 import { SeleccionarRestaurantComponent } from './seleccionar-restaurant/seleccionar-restaurant.component'
-
+import { ApiService } from '../../services/api.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { SeleccionarRestaurantComponent } from './seleccionar-restaurant/selecci
     SweetAlert2Module.forRoot(),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ApiService],
   exports: [
     TableResponsiveReservasComponent
   ]

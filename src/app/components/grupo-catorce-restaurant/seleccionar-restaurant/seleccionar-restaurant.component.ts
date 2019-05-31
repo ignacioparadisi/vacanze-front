@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../../services/api.service';
+import { environment as url } from '../../../../environments/environment';
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-seleccionar-restaurant',
@@ -10,9 +13,10 @@ export class SeleccionarRestaurantComponent implements OnInit {
   private tableRestaurantReservationHeader: Array<String>;
   private tableData: Array<Object>;
   private headerTitle: string;
-
-  constructor() { 
-    this.headerTitle = "List of the restaurants for the choosen date!";
+  public restaurants = []
+  
+  constructor(private api: ApiService,private _location: Location) { 
+    this.headerTitle = "List of the restaurants for the choosen date and location!";
 
     // Headers de la tabla dinamica
     this.tableRestaurantReservationHeader = [
@@ -24,47 +28,30 @@ export class SeleccionarRestaurantComponent implements OnInit {
       "Precio",
       "Descripcion",
       "Telefono"
-    ];
-
-    this.tableData = [
-      {
-        "imagen" : 1,
-        "nombre": "Queen Elizabeth",
-        "direccion": 'Maracay',
-        "capacidad": 100,
-        "especialidad": "Comida italiana",
-        "precio": 300.4,
-        "descripcion": "Restaurante familiar de comida italiana",
-        "telefono": "0243-2351429"
-      },
-      {
-        "imagen" : 2,
-        "nombre": "Queen Mary",
-        "direccion": 'Caracas',
-        "capacidad": 200,
-        "especialidad": "Comida alemana",
-        "precio": 203,
-        "descripcion": "Restaurante familiar de comida alemana",
-        "telefono": "0212-2362719"
-      },
-      {
-        "imagen" : 3,
-        "nombre": "Mohamed",
-        "direccion": 'Valencia',
-        "capacidad": 50,
-        "especialidad": "Comida arabe",
-        "precio": 354,
-        "descripcion": "Restaurante familiar de comida arabe",
-        "telefono": "0241-2351429"
-      },
     ]
+
+    this.loadRestaurants()
   }
 
   ngOnInit() {
     console.log("Auida")
   } 
 
-  public getRestaurantReservation(){
+  public loadRestaurants(){
+    
+    //enpoint es uno de los aributos de esa clase enviroment
+    //default es el url base de la clase enviroment
+    this.api.getUrl(url.endpoint.default._get.getRestaurant)
+    .then(response => {
+          this.tableData = response,
+          console.log(response)
+          console.log(this.tableData)
+    }).catch( error => {
+          console.log('Error carga inicial de restaurantes', error);
+    });
+  }
+
+  public getRestaurants() {
     return this.tableData;
   }
 
@@ -74,5 +61,9 @@ export class SeleccionarRestaurantComponent implements OnInit {
 
   public getHeaderTitle(){
     return this.headerTitle;
+  }
+
+  public goBack(){
+    this._location.back();
   }
 }

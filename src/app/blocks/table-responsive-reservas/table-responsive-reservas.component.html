@@ -13,14 +13,14 @@
         <!--Tabla de reserva de restaurant-->
         <tbody *ngIf="type === 'rest-reserva'">
           <tr *ngFor="let reserva of tableData">
-            <td>{{ reserva?.imagen }}</td>
-            <td>{{ reserva?.nombre }}</td>
-            <td>{{ reserva?.direccion }}</td>
-            <td>{{ reserva?.capacidad }}</td>
-            <td>{{ reserva?.especialidad }}</td>
-            <td>{{ reserva?.precio }} $</td>
+            <td>{{ reserva?.picture }}</td>
+            <td>{{ reserva?.name }}</td>
+            <td>{{ reserva?.location }}</td>
+            <td>{{ reserva?.capacity }}</td>
+            <td>{{ reserva?.specialty }}</td>
+            <td>{{ reserva?.price }} $</td>
             <td>{{ reserva?.descripcion }}</td>
-            <td>{{ reserva?.telefono }}</td>
+            <td>{{ reserva?.phone }}</td>
             <td>
               <button 
                 class="btn btn-outline-dark"

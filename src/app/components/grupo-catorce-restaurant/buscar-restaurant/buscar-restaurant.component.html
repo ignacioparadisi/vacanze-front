@@ -1,73 +1,51 @@
 <div id="fondo"> 
   <div class="container-fluid" >
     <h1 class="page-header-title">Find your table for any occasion</h1>
-    <form [formGroup]="formGroup" (ngSubmit) = "onSubmit()">
+    <form [formGroup]="formGroup" >
       <div class="row form-group ml-3 mr-3" id="center-form">
       
         <div class="col ">
           <div class="form-group input-group-prepend">
-            <!-- <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div> -->
-            <input [ngClass]="{
-              'is-invalid': fechaReserva.invalid && fechaReserva.touched,
-              'is-valid': fechaReserva.valid
-            }"
-            type="date" class="form-control" formControlName="fechaReserva" min=date>  
-            <div *ngIf="fechaReserva.invalid && fechaReserva.touched">
-              <small *ngIf="fechaReserva.errors?.required" class ="text-danger">Se requiere seleccionar el ranking</small>
-            </div>
+            <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+            <input id="reserva" type="date" class="form-control" formControlName="fechaReserva" [class.alert-danger]="formGroup.get('fechaReserva').invalid && subM">  
           </div>
+          <span *ngIf="formGroup.get('fechaReserva').invalid && subM"  style="color:white">Date required.</span>
         </div>
 
         <div class="col ">
           <div class="form-group input-group-prepend">
-            <!-- <div class="input-group-text"><i class="fa fa-hourglass-half" aria-hidden="true"></i></div> -->
-            <select [ngClass]="{
-              'is-invalid': horaReserva.invalid && horaReserva.touched,
-              'is-valid': horaReserva.valid
-            }"
-            class="form-control custom-select mr-sm-2" formControlName="horaReserva" class="form-control">
-              <option value="-1">Hour</option>
-              <option *ngFor='let hour of hours' value="{{hour.id}}}">{{hour.hour}}</option>
+            <div class="input-group-text"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+            <select id="hora" class="custom-select form-control" formControlName="horaReserva" class="form-control" [class.alert-danger]="formGroup.get('horaReserva').value==-1 && subM">
+              <option value="-1" disabled>Hour</option>
+              <option *ngFor='let hour of horaReserva' value="{{hour.id }}">{{hour.hour}}</option>
             </select>
-            <div *ngIf="horaReserva.invalid && horaReserva.touched">
-              <small *ngIf="horaReserva.errors?.required" class ="text-danger">Se requiere seleccionar el ranking</small>
-            </div>
           </div> 
+          <span *ngIf="formGroup.get('horaReserva').value==-1 && subM"  style="color:white">Hour required.</span>
         </div>
 
         <div class="col ">
           <div class="form-group input-group-prepend">
-            <!-- <div class="input-group-text"><i class="fa fa-users" aria-hidden="true"></i></div> -->
-            <select [ngClass]="{
-              'is-invalid': cantidadPersonas.invalid && cantidadPersonas.touched,
-              'is-valid': cantidadPersonas.valid
-            }"
-            class="form-control custom-select mr-sm-2" formControlName="cantidadPersonas" class="form-control">
-              <option value="-1">People</option>
-              <option *ngFor="let cant of countPeople" value="{{cant.id}}"> {{cant.name}}</option>
+            <div class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></div>
+            <select id="people" class="custom-select form-control" formControlName="cantidadPersonas" class="form-control" [class.alert-danger]="formGroup.get('cantidadPersonas').value==-1 && subM">
+              <option value="-1" disabled>People</option>
+              <option *ngFor="let cant of cantidadPersonas" value="{{cant.id}}"> {{cant.name}}</option>
             </select>
-            <div *ngIf="cantidadPersonas.invalid && cantidadPersonas.touched">
-              <small *ngIf="cantidadPersonas.errors?.required" class ="text-danger">Se requiere seleccionar el ranking</small>
-            </div>
-          </div>
+          </div> 
+          <span *ngIf="formGroup.get('cantidadPersonas').value==-1 && subM"  style="color:white">Hour required.</span>
         </div>
 
-        <div class="col mx-sm-3">
-          <div class="form-group input-group-prepend">
-            <!-- <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div> -->
-            <input [ngClass]="{
-              'is-invalid': ciudad.invalid && ciudad.touched,
-              'is-valid': ciudad.valid && ciudad.touched
-            }" 
-            [class.is-invalid]="ciudad.invalid && ciudad.touched"
-            type="text" formControlName="ciudad" placeholder="City" class="form-control">
-            <div *ngIf="ciudad.invalid && ciudad.touched">
-              <small *ngIf="ciudad.errors?.required" style="background-color: white;" class ="text-danger">You need a city for the reservation.</small>
-            </div>
+        <div class="col">
+          <div class="form-group input-group-prepend" >
+            <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+            <input  type="text" class="form-control" [class.alert-danger]="formGroup.get('ciudad').invalid && subM" placeholder="City" formControlName="ciudad">
           </div>
+          <span *ngIf="formGroup.get('ciudad').invalid && subM" style="color: white;">City required.</span>
         </div>
+        
       </div>
-      <button [disabled]="!registrationForm.valid" type="submit" class="btn btn-danger mb-3"  data-toggle="button" aria-pressed="false" autocomplete="off">Let's go</button>      
+      
+      <button (click)="onSubmit()" id="boton" class="btn btn-danger mb-3">Let's go.</button>
+      
     </form>
   </div>
 </div>

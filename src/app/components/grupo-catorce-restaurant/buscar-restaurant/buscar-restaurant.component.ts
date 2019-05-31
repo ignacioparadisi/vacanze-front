@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { reservationRestaurant } from '../../../classes/reservation-restaurant'
-import { reservationHour } from '../../../classes/reservation-hours'
+import { ApiService } from '../../../services/api.service';
+import { reservationRestaurant } from '../../../classes/reservation-restaurant' //class
+import { reservationHour } from '../../../classes/reservation-hours' //class
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,59 +13,50 @@ import { Router } from '@angular/router';
 
 export class BuscarRestaurantComponent implements OnInit {
   
-  public countPeople: reservationRestaurant[]=[]
-  public hours: reservationHour[] = []
-  public date = this.actualDate()
+  public cantidadPersonas: reservationRestaurant[]=[]
+  public horaReserva: reservationHour[] = []
+  public subM: boolean = false
+  public formGroup: FormGroup
 
-  constructor(private router: Router) { }
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.peopleDinner()
     this.hourDinner()
-    this.actualDate()
-  }
-
-  public formGroup: FormGroup = new FormGroup({
-      
-    cantidadPersonas: new FormControl(-1, [
-      Validators.required
-    ]),
-    fechaReserva: new FormControl(null, [
-      Validators.required
-    ]),
-    horaReserva: new FormControl(-1, [
-      Validators.required
-    ]),
-    ciudad: new FormControl(null, [
-      Validators.required
-    ])
-  })
-
-  get cantidadPersonas(){
-    return this.formGroup.get('cantidadPersonas')
-  }
-
-  get fechaReserva(){
-    return this.formGroup.get('fechaReserva')
-  }
-
-  get horaReserva(){
-    return this.formGroup.get('horaReserva')
-  }
-
-  get ciudad(){
-    return this.formGroup.get('ciudad')
+    var date = this.actualDate()
+    this.formGroup = new FormGroup({
+      cantidadPersonas: new FormControl(-1, [
+        Validators.required
+      ]),
+      fechaReserva: new FormControl(null, [
+        Validators.required
+      ]),
+      horaReserva: new FormControl(-1, [
+        Validators.required
+      ]),
+      ciudad: new FormControl(null, [
+        Validators.required
+      ])
+    })
+    document.getElementById("reserva").setAttribute("min", date);
   }
 
   public onSubmit() {
-    console.log('this is fine')
-    console.log(this.formGroup.get('ciudad').value)
-    this.router.navigate(['restaurant-reservation/list-restaurant']);
+    if(this.formGroup.get('horaReserva').value != -1 && this.formGroup.get('ciudad').valid
+      && this.formGroup.get('cantidadPersonas').value != -1 && this.formGroup.get('fechaReserva').valid){
+      console.log('this is fine')
+      console.log(this.formGroup.get('horaReserva').value)
+      this.router.navigate(['restaurant-reservation/list-restaurant']);
+    }
+    else{
+      this.subM =true
+      console.log('error')
+    }
   }
  
 
   private peopleDinner(): reservationRestaurant[]{
-    this.countPeople = [
+    this.cantidadPersonas = [
       new reservationRestaurant(1, '1 people'),
       new reservationRestaurant(2, '2 people'),
       new reservationRestaurant(3, '3 people'),
@@ -72,11 +64,11 @@ export class BuscarRestaurantComponent implements OnInit {
       new reservationRestaurant(5, '5 people'),
       new reservationRestaurant(6, '6 people')
     ]
-    return this.countPeople
+    return this.cantidadPersonas
   }
 
   private hourDinner(): reservationHour[]{
-    this.hours =[
+    this.horaReserva =[
       new reservationHour(12,'12:00 pm'),
       new reservationHour(1, '1:00 pm'),
       new reservationHour(2, '2:00 pm'),
@@ -90,7 +82,7 @@ export class BuscarRestaurantComponent implements OnInit {
       new reservationHour(10, '10:00 pm'),
       new reservationHour(11, '11:00 pm')
     ]
-    return this.hours
+    return this.horaReserva
   }
 
   private actualDate(){
