@@ -91,23 +91,28 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     public markAllAsTouched() {
-        this.myForm.get('locDeparture').markAsTouched();
-        this.myForm.get('locArrival').markAsTouched();
-        this.myForm.get('plane').markAsTouched();
-        this.myForm.get('price').markAsTouched();
-        this.myForm.get('departure').markAsTouched();
-        this.myForm.get('arrival').markAsTouched();
-    }
+        //  this.myForm.get('country').markAsTouched();
+          this.myForm.get('city').markAsTouched();
+          this.myForm.get('fechaOne').markAsTouched();
+          this.myForm.get('fechaTwo').markAsTouched();
+          this.myForm.get('hot_id').markAsTouched();
+      }
 
-    submit() {
+    submit(id : number) {
         this.markAllAsTouched();
-        const payload = this.myForm.value;
-        let fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
+        const reservation = this.myForm.value;
+        let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
 
         if (fechas === 1) {
 
+            reservation.CheckIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+            reservation.CheckOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+           reservation.fk_user_id = 1;//localStorage.getItem.
+           reservation.hot_fk = id;
+          delete reservation.city;
+
             if (this.myForm.valid) {
-                this.apiService.postUrl('reservationrooms', payload).then(
+                this.apiService.postUrl('reservationrooms', reservation).then(
                     response => {
                         console.log(response);
                     }, error => {

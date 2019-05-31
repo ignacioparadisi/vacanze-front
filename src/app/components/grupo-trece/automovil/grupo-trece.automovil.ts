@@ -97,24 +97,41 @@ export class AutomovilGrupoTrece implements OnInit {
         this.myForm.get('city').markAsTouched();
         this.myForm.get('fechaOne').markAsTouched();
         this.myForm.get('fechaTwo').markAsTouched();
-        this.myForm.get('aut_id').markAsTouched();
     }
 
-    submit(id : number) {
+    submit(car : Object) {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
         let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
 
-        if (fechas === 1) {
+        reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+        reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+      //  reservation.fk_user_id = localStorage.getItem.
+      reservation.fk_user = 1;
+       reservation.automobile = car;
+       reservation.user="";
+       reservation.id=0;
+       
+      delete reservation.city;
+      delete reservation.fechaOne;
+      delete reservation.fechaTwo;
+      delete reservation.country;
+        console.log(reservation);
+      this.apiService.postUrl('reservationautomobiles', reservation).then(
+        response => {
+            console.log(response);
+        }, error => {
+            console.log(error);
+        }
+        );
 
-            reservation.CheckIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
-            reservation.CheckOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-          //  reservation.fk_user_id = localStorage.getItem.
-           reservation.ra_aut_fk = id;
-          delete reservation.city;
+
+       if (fechas === 1) {
+
+          
 
             if (this.myForm.valid) {
-                this.apiService.postUrl('reservationautomobile', reservation).then(
+                this.apiService.postUrl('reservationautomobiles', reservation).then(
                     response => {
                         console.log(response);
                     }, error => {
