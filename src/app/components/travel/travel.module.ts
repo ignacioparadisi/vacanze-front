@@ -7,7 +7,6 @@ import { CreateTravelComponent } from './create-travel/create-travel';
 import { NgbModalModule, NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgbCarouselModule } from "@ng-bootstrap/ng-bootstrap";
 import { DetailTravelComponent } from './detail-travel/detail-travel.component';
-import { CarouselComponent } from './detail-travel/carousel/carousel.component';
 import { ModifyTravelComponent } from './modify-travel/modify-travel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CitiesTravelComponent } from './cities-travel/cities-travel.component';
@@ -18,7 +17,6 @@ import { AddCityComponent } from './cities-travel/add-city/add-city';
     TravelComponent,
     CreateTravelComponent,
     DetailTravelComponent,
-    CarouselComponent,
     ModifyTravelComponent,
     CitiesTravelComponent,
     AddCityComponent
