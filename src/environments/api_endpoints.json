@@ -20,7 +20,9 @@
         "putHotel":"hotels/{id}"
     },
     "_delete": {
-        "deleteClaim":"Claim/{id}",
-        "deleteHotel":"hotels/{id}"
+      "deleteClaim":"Claim/{id}",
+      "cruisers": {
+        "delete_cruiser": "cruiser/{id}"
+      }
     }
 }
