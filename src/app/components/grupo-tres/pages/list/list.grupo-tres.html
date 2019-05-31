@@ -8,30 +8,30 @@
     <div class="modal-body">
         <div class="card">
             <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                <p><strong>Lugar de origen:</strong> {{flight?.loc_departure?.city}}, {{flight?.loc_departure?.country}}</p>
-                </div>
-                <div class="col-md-6">
-                <p><strong>Lugar de destino:</strong> {{flight?.loc_arrival?.city}}, {{flight?.loc_arrival?.country}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                <p><strong>Fecha de salida:</strong> {{flight?.departure}}</p>
-                </div>
-                <div class="col-md-6">
-                <p><strong>Fecha de llegada:</strong> {{flight?.arrival}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                <p><strong>Avión:</strong> {{flight.plane?.model}}</p>
-                </div>
-                <div class="col-md-6">
-                <p><strong>Precio:</strong> $ {{flight?.price}}</p>
-                </div>
-            </div>
+              <div class="row">
+                  <div class="col-md-6">
+                  <p><strong>Lugar de origen:</strong> {{flight?.loc_departure?.country}}, {{flight?.loc_departure?.city}}</p>
+                  </div>
+                  <div class="col-md-6">
+                  <p><strong>Lugar de destino:</strong> {{flight?.loc_arrival?.country}}, {{flight?.loc_arrival?.city}}</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                  <p><strong>Fecha de salida:</strong> {{flight?.departure}}</p>
+                  </div>
+                  <div class="col-md-6">
+                  <p><strong>Fecha de llegada:</strong> {{flight?.arrival}}</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                  <p><strong>Avión:</strong> {{flight?.plane?.model}}</p>
+                  </div>
+                  <div class="col-md-6">
+                  <p><strong>Precio:</strong> $ {{flight?.price}}</p>
+                  </div>
+              </div>
             </div>
         </div>
         <form [formGroup]="flightForm">
@@ -112,7 +112,7 @@
                   <select class="form-control" formControlName="plane" [ngClass]="{'is-invalid': invalid('plane', flightForm), 'is-valid': valid('plane',
                                 flightForm)}">
                     <option *ngFor="let airplane of airplanes let i = index;" [value]="airplane.id">
-                      {{airplane?.model}}</option>
+                      Modelo: {{airplane?.model}} - Autonomía: {{airplane?.autonomy}}</option>
                   </select>
                   <div *ngIf="invalid('plane', flightForm)" class="invalid-feedback">
                     Por favor seleccione un avión
@@ -166,6 +166,18 @@
             </div>
           </div>
         </form>
+        <ngb-alert type="success" *ngIf="messageSuccess">
+            <strong>Exito! </strong> {{mensaje?.message}}
+        </ngb-alert>
+        <ngb-alert type="danger" *ngIf="errores">
+            <p><strong>¡ERROR! </strong>No se pudo editar el registro debido a distintos problemas, recuerde lo siguiente: </p>
+            <ul *ngIf="(fechas != 1 || ciudades != 1) && visible">
+                <li>Todos los campos son obligatorios</li>
+                <li>La fecha y hora de llegada al destino debe ser mayor que la fecha de salida del origen.</li>
+                <li>La ciudad de destino no puede ser igual a la ciudad de salida.</li>
+            </ul>
+            <p *ngIf="messageDanger">{{mensaje?.message}}</p>
+        </ngb-alert>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-outline-success" (click)="onFormSubmit()">Editar</button>

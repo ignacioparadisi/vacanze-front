@@ -111,6 +111,8 @@ export class NewGrupoTres implements OnInit {
         this.form.get('price').markAsTouched();
         this.form.get('departure').markAsTouched();
         this.form.get('arrival').markAsTouched();
+        this.form.get('countryArrival').markAsTouched();
+        this.form.get('countryDeparture').markAsTouched();
     }
 
 
@@ -145,10 +147,12 @@ export class NewGrupoTres implements OnInit {
                         console.log(response);
                     }, error => {
                         this.mensaje = error;
+                        this.errores = true;
                         this.messageDanger = true;
                         setTimeout(()=>{
+                            this.errores = false;
                             this.messageDanger = false;
-                       }, 3000);
+                       }, 5000);
                         console.log(error);
                     }
                 );
@@ -157,9 +161,9 @@ export class NewGrupoTres implements OnInit {
             this.errores = true;
             this.visible = true;
             setTimeout(()=>{  
+                this.errores = false;
                 this.visible = false;
-           }, 3000);
-            console.log('La fecha de llegada no puede ser anterior a la de salida.');
+           }, 5000);
         }
     }
 
