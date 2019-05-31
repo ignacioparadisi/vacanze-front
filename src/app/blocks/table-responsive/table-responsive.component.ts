@@ -89,6 +89,16 @@ export class TableResponsiveComponent implements OnChanges {
       });
     }
 
+      /************************************************************
+    * Metodo para redireccionar a la vista de añadir un restaurante *
+    *************************************************************/
+   public goToEditRestaurant(restaurant: Object){
+    this.localStorage.setItem('restaurant', restaurant).subscribe(data => {
+      // console.log(restaurant);
+      this.emitRouting.emit('/editar-restaurant/' + restaurant['id']);
+    });
+  }
+
 
     /**********************************************************************
     * Metodo para redireccionar a la vista para agregar un hotel          *
@@ -115,9 +125,9 @@ export class TableResponsiveComponent implements OnChanges {
   /**********************************************************************
     * Metodo para ir a editar el hotel                                    *
     ***********************************************************************/
-   public goToEditRestaurant() {
+   /*public goToEditRestaurant() {
       this.emitRouting.emit('/editar-restaurant');
-  }
+  }*/
 
     /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
@@ -134,10 +144,8 @@ export class TableResponsiveComponent implements OnChanges {
     * Metodo que es llamado por el boton editar                           *
     ***********************************************************************/
     public goToEdit(type: string){
-      if (type === 'hotel'){
+      if (type === 'hotel') {
         this.goToEditHotel();
-      } else if (type === 'restaurantes') {
-        this.goToEditRestaurant();
       }
     }
 }

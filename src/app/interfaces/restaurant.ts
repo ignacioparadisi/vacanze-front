@@ -8,7 +8,7 @@ export interface Restaurant {
     businessName: string,
     picture: string,
     description: number,
-    phone: number
+    phone: number,
     location: number,
     address: string
 }

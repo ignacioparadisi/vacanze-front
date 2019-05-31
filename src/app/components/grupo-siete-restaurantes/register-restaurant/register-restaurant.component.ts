@@ -72,6 +72,7 @@ public registrationForm: FormGroup = new FormGroup({
 
   constructor(private _location: Location, private service: ApiService){
     this.transformImageToBase64 = transformImageToBase64;
+    this.urlImage = null;
   }
 
   ngOnInit() {
@@ -137,7 +138,7 @@ public registrationForm: FormGroup = new FormGroup({
         specialty: this.registrationForm.get('type').value,
         price: this.registrationForm.get('price').value,
         businessName: this.registrationForm.get('businessName').value,
-        picture: 'this.registrationForm.value.picture',
+        picture: this.urlImage,
         description: this.registrationForm.get('description').value,
         phone: this.registrationForm.get('phone').value,
         location: 1,

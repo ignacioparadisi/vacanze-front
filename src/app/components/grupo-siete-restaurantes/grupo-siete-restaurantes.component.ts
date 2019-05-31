@@ -28,9 +28,6 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   public isEditingRestaurant: boolean;
   public isCreatingRestaurant: boolean;
 
-  ngOnInit() {
-  }
-
   constructor(private router: Router, private service: ApiService) {
     this.headerTitle = 'Lista de Restaurantes';
     this.tableRestaurantsHeader = ['#', 'Nombre', 'Capacidad',
@@ -40,11 +37,26 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
     this.loadRestaurants();
   }
 
+  ngOnInit() {
+    if(this.router.url === '/administrar-restaurantes/agregar-restaurant' ||
+        this.router.url.indexOf('editar-restaurant') !== -1){
+      this.isEditingRestaurant = true;
+      this.isCreatingRestaurant = true;
+    }
+    else {
+      this.isEditingRestaurant = false;
+      this.isCreatingRestaurant = false;
+    }
+    this.loadRestaurants();
+  }
+
   public getAlertAction(action: string) {
     console.log(action['delete']);
     if (action['delete']) {
-      // console.log(action);
-      this.deleteRestaurant(action['id']);
+      if (action['confirmed']) {
+        // console.log(action);
+        this.deleteRestaurant(action['id']);
+      }
     } else {
       console.log('se quiere actualizar el estatus del restaurantes ', action);
       this.changeRestaurantStatus(action);
@@ -52,22 +64,22 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   }
 
 
-  public getCurrentRoute(route){
+  public getCurrentRoute(route) {
     if (route === '/agregar-restaurant') {
       this.isEditingRestaurant = true;
       this.isCreatingRestaurant = false;
       this.router.navigate(['administrar-restaurantes', 'agregar-restaurant']);
-    } else if (route === '/editar-restaurant') {
+    } else if (route.indexOf('/editar-restaurant') !== -1) {
       this.isCreatingRestaurant = true;
-      this.isEditingRestaurant = false;
-      this.router.navigate(['administrar-restaurantes', 'editar-restaurant']);
+      this.isEditingRestaurant = true;
+      this.router.navigate(['administrar-restaurantes', 'editar-restaurant', route.split('/')[2] ]);
     } else {
       this.isCreatingRestaurant = false;
       this.isEditingRestaurant = false;
     }
   }
 
-  public getDeactivatedComponent(component){
+  public getDeactivatedComponent(component) {
     this.loadRestaurants();
     this.getCurrentRoute('/administrar-restaurantes');
   }
@@ -77,7 +89,7 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
         .getUrl(url.endpoint.default._get.getRestaurant)
         .then(response => {
               // console.log("Cargan los restaurantes", response),
-              this.tableData = response
+              this.tableData = response;
         }).catch( error => {
               console.log('Error carga inicial de restaurantes', error);
         });
@@ -91,43 +103,31 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
               // console.log("Respuesta al borrar restaurant",response.status),
               // no hay excepcion pero el status no es 200
               this.deleteRestaurantById(response[id.toString()]);
-              this.alertStatus(response.status, true);
+              this.alertStatus(200, true);
         }).catch( error => {
+              this.alertStatus(500, true);
               console.log('Error en el delete del restaurante', error);
         });
   }
-
-  /* public getDeleteAlert(data){
-    // Si marco confirmar en la moda, quiero borrar el crucero
-    if(data['confirmed']){
-      console.log('se ejecuto');
-      this.service.deleteUrl(url.endpoint.default._delete.cruisers.deleteRestaurant, [data['id']])
-        .then(response => {
-          this.deleteRestaurantById(response['id']);
-        })
-        .catch(error => {
-        })
-    }
-  } */
 
   public changeRestaurantStatus(restaurant: any) {
         this.service
         .putUrl(url.endpoint.default._put.putRestaurant, restaurant, [restaurant.id.toString()])
         .then(response => {
               console.log('Exito al modificar ', restaurant.id),
-              this.alertStatus(response.status, false)
+              this.alertStatus(response.status, false);
         }).catch( error => {
-              console.log('Error actualizando el estatus del restaurante')
+              console.log('Error actualizando el estatus del restaurante');
         });
   }
 
   private alertStatus(statusCode: number, deleted: boolean) {
-        let config: SweetAlertOptions = {
+        const config: SweetAlertOptions = {
           // tslint:disable-next-line:max-line-length
           title: (statusCode !== 200 ? 'Se ha producido un error' : (deleted ? 'Restaurante eliminado' : 'Se cambió el estatus del restaurante')),
           type:  (statusCode === 200 ? 'success' : 'error'),
           showConfirmButton: true
-        }
+        };
         Swal.fire(config).then( result => {
           this.loadRestaurants();
         });
@@ -147,25 +147,25 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   }
 
   /*********************************************
-  * Metodo para setear la variable de cruceros *
+  * Metodo para setear la variable de restaurantes *
   **********************************************/
- public setRestaurants(restaurants: Array<Object>){
+ public setRestaurants(restaurants: Array<Object>) {
   this.tableData = restaurants;
 }
 
 /************************************************
-* Metodo para retornar la variable de cruceros  *
+* Metodo para retornar la variable de restaurantes  *
 *************************************************/
-public getVariableRestaurants(): Array<Object>{
+public getVariableRestaurants(): Array<Object> {
   return this.tableData;
 }
 
   /***************************************************************
-  * Metodo que se ejecuta para actualizar el arreglo de cruceros *
-  * debido a la elminacion del crucero por el id                 *
+  * Metodo que se ejecuta para actualizar el arreglo de restaurantes *
+  * debido a la elminacion del restaurante por el id                 *
   ****************************************************************/
 
- public deleteRestaurantById(id: number){
+ public deleteRestaurantById(id: number) {
   let restaurants = this.getVariableRestaurants();
   restaurants = restaurants.filter(restaurant => restaurant['id'] !== id); // Filtro todos los que no tienen el id
   this.setRestaurants(restaurants);
