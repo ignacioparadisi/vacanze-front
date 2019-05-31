@@ -37,6 +37,8 @@ public registrationForm: FormGroup = new FormGroup({
       Validators.min(1)
     ]),
     address: new FormControl(null,[
+      Validators.required,
+      Validators.minLength(5),
       Validators.maxLength(50)
     ]),
     price: new FormControl(null,[
@@ -45,6 +47,7 @@ public registrationForm: FormGroup = new FormGroup({
       Validators.min(1)
     ]),
     phone : new FormControl(null,[
+      Validators.required,
       Validators.pattern("^((\\+)|(00)|(\\*)|())[0-9]{3,14}((\\#)|())$")
     ]),
     stars: new FormControl(null,[
@@ -56,36 +59,20 @@ public registrationForm: FormGroup = new FormGroup({
       Validators.required,
       Validators.min(0)
     ]),
-    type: new FormControl(-1, [
+    type: new FormControl(null,[
       Validators.required,
-      Validators.min(0)
+      Validators.minLength(5),
+      Validators.maxLength(50)
     ])
     // TODO -> añadir piture y location
   });
 
-  public types: Type[] = [];
-
   constructor(private _location: Location, private service: ApiService){}
 
   ngOnInit() {
-    this.fetchTypes();
   }
 
-  private fetchTypes(): Type[] {
-    this.types = [
-      new Type(0, 'Arabe'),
-      new Type(1, 'Italiana'),
-      new Type(2, 'Hindú'),
-      new Type(3, 'Japonesa'),
-      new Type(4, 'Mexicana'),
-      new Type(5, 'Mediterranea'),
-      new Type(6, 'Rapida'),
-      new Type(7, 'Vegana')
-    ];
-    return this.types;
-  }
-
-  /*get name(){
+  get name(){
     return this.registrationForm.get('name');
   }
 
@@ -123,7 +110,7 @@ public registrationForm: FormGroup = new FormGroup({
 
   get type(){
     return this.registrationForm.get('type');
-  }*/
+  }
 
 
   public goToViewRestaurants(){
@@ -135,7 +122,7 @@ public registrationForm: FormGroup = new FormGroup({
     this.service
     .postUrl(url.endpoint.default._post.postRestaurant,
       {
-        name: this.registrationForm.get('nameRestaurant').value,
+        name: this.registrationForm.get('name').value,
         capacity: this.registrationForm.get('capacity').value,
         isActive : true,
         qualify: this.registrationForm.get('stars').value,

@@ -100,7 +100,7 @@
       	<label>Dirección</label>
       	<input [ngClass]="{
           'is-invalid': address.invalid && address.touched,
-          'is-valid': address.valid
+          'is-valid': address.valid && address.touched
         }"
         [class.is-invalid]="address.invalid && address.touched" formControlName="address" type="text" class="form-control" >
         <div *ngIf="address.invalid && address.touched">
@@ -128,7 +128,7 @@
 
      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
        <div class="form-group">
-      	<label>Cantidad de estrellas</label>
+      	<label>Cantidad de estrellas (1 - 5)</label>
         <input [ngClass]="{
           'is-invalid': stars.invalid && stars.touched,
           'is-valid': stars.valid
@@ -144,23 +144,18 @@
 
      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
       <div class="form-group">
-       <label>Tipo de Comida</label>
-       <select class="form-control" formControlName="type"
-            [ngClass]="{
-              'is-invalid': submitted && form['type'].errors,
-              'is-valid': !form['type'].errors
-            }">
-            <option value="-1" disabled>Seleccione un Tipo de Comida</option>
-            <option *ngFor="let type of types" value="{{ type.name }}">{{ type.name }}</option>
-          </select>
-          <div
-            *ngIf="submitted && form['type'].errors"
-            class="invalid-feedback" >
-            <div *ngIf="form['type'].errors.min">
-              Se debe seleccionar un tipo de comida.
-            </div>
-          </div>
-     </div>
+      	<label>Tipo de Comida (Ej. Japonesa, Mexicana, Rapida)</label>
+      	<input [ngClass]="{
+          'is-invalid': type.invalid && type.touched,
+          'is-valid': type.valid && type.touched
+        }"
+        [class.is-invalid]="type.invalid && type.touched" formControlName="type" type="text" class="form-control" >
+        <div *ngIf="type.invalid && type.touched">
+          <small *ngIf="type.errors?.required" class ="text-danger"> El tipo de comida es requerido </small>
+          <small *ngIf="type.errors?.minlength" class ="text-danger"> El tipo de comida debe tener al menos 5 caracteres </small>
+          <small *ngIf="type.errors?.maxlength" class ="text-danger"> El tipo de comida no puede tener mas de 100 caracteres </small>
+        </div>
+      </div>
     </div>
 
      <!-- TODO - LOCATION -->

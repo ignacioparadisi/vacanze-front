@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Restaurant } from '../../interfaces/restaurant';
 import { environment as url } from '../../../environments/environment';
 // tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
@@ -21,6 +22,7 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   private tableRestaurantsHeader: Array<String>;
   private tableData: Array<Object>;
   private headerTitle: string;
+  private restaurants: Array<Restaurant>;
 
   // para saber en que ruta se encuentra
   public isEditingRestaurant: boolean;
@@ -87,11 +89,26 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
         .then(response => {
               // console.log("Respuesta al borrar restaurant",response.status),
               // no hay excepcion pero el status no es 200
-              this.alertStatus(response.status, true)
+              this.deleteRestaurantById(response[id.toString()]);
+              this.alertStatus(response.status, true);
+              this.loadRestaurants();
         }).catch( error => {
-              console.log('Error en el delete del restaurante', error)
+              console.log('Error en el delete del restaurante', error);
         });
   }
+
+  /* public getDeleteAlert(data){
+    // Si marco confirmar en la moda, quiero borrar el crucero
+    if(data['confirmed']){
+      console.log('se ejecuto');
+      this.service.deleteUrl(url.endpoint.default._delete.cruisers.deleteRestaurant, [data['id']])
+        .then(response => {
+          this.deleteRestaurantById(response['id']);
+        })
+        .catch(error => {
+        })
+    }
+  } */
 
   public changeRestaurantStatus(restaurant: any) {
         this.service
@@ -127,5 +144,30 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   public getHeaderTitle() {
     return this.headerTitle;
   }
+
+  /*********************************************
+  * Metodo para setear la variable de cruceros *
+  **********************************************/
+ public setRestaurants(restaurants: Array<Object>){
+  this.tableData = restaurants;
+}
+
+/************************************************
+* Metodo para retornar la variable de cruceros  *
+*************************************************/
+public getVariableRestaurants(): Array<Object>{
+  return this.tableData;
+}
+
+  /***************************************************************
+  * Metodo que se ejecuta para actualizar el arreglo de cruceros *
+  * debido a la elminacion del crucero por el id                 *
+  ****************************************************************/
+
+ public deleteRestaurantById(id: number){
+  let restaurants = this.getVariableRestaurants();
+  restaurants = restaurants.filter(restaurant => restaurant['id'] !== id); // Filtro todos los que no tienen el id
+  this.setRestaurants(restaurants);
+ }
 
 }

@@ -6,8 +6,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Cruiser } from '../../interfaces/cruiser';
 
 //** Import de components **//
-import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
-import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 
@@ -114,6 +112,13 @@ export class TableResponsiveComponent implements OnChanges {
     this.emitRouting.emit('/agregar-restaurant');
   }
 
+  /**********************************************************************
+    * Metodo para ir a editar el hotel                                    *
+    ***********************************************************************/
+   public goToEditRestaurant() {
+      this.emitRouting.emit('/editar-restaurant');
+  }
+
     /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
@@ -121,10 +126,7 @@ export class TableResponsiveComponent implements OnChanges {
       if (type === 'hotel'){
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
-        const modalRef = this.modalService.open(RegisterRestaurantComponent);
-        
         this.goToAddRestaurant();
-        //const modalRef = this.modalService.open(RegisterRestaurantComponent);
       }
     }
 
@@ -134,16 +136,8 @@ export class TableResponsiveComponent implements OnChanges {
     public goToEdit(type: string){
       if (type === 'hotel'){
         this.goToEditHotel();
+      } else if (type === 'restaurantes') {
+        this.goToEditRestaurant();
       }
     }
-
-
-    RegisterRestaurantModal() {
-      const modalRef = this.modalService.open(RegisterRestaurantComponent);
-    }
-
-    EditRestaurantModal() {
-      const modalRef = this.modalService.open(EditRestaurantComponent);
-    }
-
 }
