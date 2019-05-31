@@ -17,10 +17,13 @@
     },
     "_put": {
         "putClaimStatus":"Claim/{id}",
-        "putHotel":"hotels/{id}"
+        "putHotel":"hotels/{id}",
+        "putRestaurant":"restaurants"
     },
     "_delete": {
       "deleteClaim":"Claim/{id}",
+      "deleteHotel":"hotels/{id}",
+      "deleteRestaurant":"restaurants/{id}",
       "cruisers": {
         "delete_cruiser": "cruiser/{id}"
       }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter,Output } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../../utils/global_functions';
 import * as moment from 'moment';
@@ -14,8 +15,12 @@ import * as moment from 'moment';
 export class AutomovilGrupoTrece implements OnInit {
     myForm: FormGroup;
     public compararFechas;
-    public car = [];
+    public cars = [];
+    public countries = [];
+    public cities = [];
     public closeResult: string;
+
+    @Output() public actionAlertEventEmitter = new EventEmitter();
 
     constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
         this.compararFechas = compararFechas;
@@ -28,6 +33,8 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     ngOnInit() {
+        this.getCountries();
+        this.initializaDate();
     }
 
     getCar(id: number) {
@@ -47,6 +54,78 @@ export class AutomovilGrupoTrece implements OnInit {
         console.log("Estoy en getCars");
     }
 
+    getCountries(){
+        const requestURL = "locations/countries/";
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.countries = response;
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+    getCities(){
+        const requestURL = "locations/countries/"+this.myForm.value.country+"/cities/";
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.cities = response;
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+    getCarsByCity(){
+        const requestURL = "Auto/consultplaceStatus/"+this.myForm.value.city+"/true/";
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.cars = response;
+            },
+            error => {
+                console.log(error);
+                console.log(this.cars);
+            }
+        );
+    }
+
+    public markAllAsTouched() {
+      //  this.myForm.get('country').markAsTouched();
+        this.myForm.get('city').markAsTouched();
+        this.myForm.get('fechaOne').markAsTouched();
+        this.myForm.get('fechaTwo').markAsTouched();
+        this.myForm.get('aut_id').markAsTouched();
+    }
+
+    submit() {
+        this.markAllAsTouched();
+        const reservation = this.myForm.value;
+        let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+
+        if (fechas === 1) {
+
+            reservation.CheckIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+            reservation.CheckOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+          //  reservation.fk_user_id = localStorage.getItem.
+           reservation.ra_aut_fk = parseInt(reservation.aut_id,10);
+          delete reservation.city;
+
+            if (this.myForm.valid) {
+                this.apiService.postUrl('reservationrooms', reservation).then(
+                    response => {
+                        console.log(response);
+                    }, error => {
+                        console.log(error);
+                    }
+                );
+            }
+        } else {
+            console.log('La fecha de llegada no puede ser anterior a la de salida.');
+        }
+    }
+
     buscador(){
         let payload = this.myForm.value;
         if (this.myForm.valid){
@@ -54,6 +133,25 @@ export class AutomovilGrupoTrece implements OnInit {
             this.getCars();
         }
     }
+
+    initializaDate(){
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        var de = '' +dd
+        var me = '' +mm
+         if(dd<10){
+                de='0'+dd
+            } 
+            if(mm<10){
+               var me='0'+mm
+            } 
+        
+       var todaye = yyyy+'-'+me+'-'+de;
+        document.getElementById("datefieldAlq").setAttribute("min", todaye);
+        document.getElementById("datefieldDev").setAttribute("min", todaye);
+      }
 
     open(content, id: number) {
         this.getCar(id);
@@ -73,5 +171,24 @@ export class AutomovilGrupoTrece implements OnInit {
             return `with: ${reason}`;
         }
     }
+
+    public messageAlert(event: Object){
+        this.actionAlertEventEmitter.emit(event);
+      }
+
+    public openModalActions(event, data: Object, type: string, deleted? : boolean){
+        event.preventDefault();
+        let config: SweetAlertOptions = {
+          title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+          confirmButtonText: 'Confirmar',
+          cancelButtonText: 'Cancelar',
+          showCancelButton: true,
+          type: 'question',
+          focusCancel: true
+        }
+        Swal.fire(config).then(result => {
+          this.messageAlert(data);
+        })
+      }
 
 }
