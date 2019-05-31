@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, Validators } from "@angular/forms";
-
+import { FormBuilder} from "@angular/forms";
+import { ApiService} from '../../services/api.service';
+import { Router } from '@angular/router';
+import { Order } from '../../interfaces/Order';
+import { environment as url } from '../../../environments/environment';
 @Component({
     selector: 'app-grupo-once-pago',
     templateUrl: './grupo-once-pago.component.html',
-    styleUrls: ['./grupo-once-pago.component.scss']
+    styleUrls: ['./grupo-once-pago.component.scss'],
+    providers: [ApiService]
+
 
 })
 export class GrupoOncePagoComponent implements OnInit {
@@ -14,7 +19,8 @@ export class GrupoOncePagoComponent implements OnInit {
     selected: number = 0;
 
 
-    constructor(private modalService: NgbModal, public fb: FormBuilder) { }
+    constructor(private modalService: NgbModal, public fb: FormBuilder,
+        private router: Router, private serv: ApiService) { }
 
     open(content) {
         
@@ -42,13 +48,11 @@ export class GrupoOncePagoComponent implements OnInit {
     }
 
     public payMethods = [];
-    public orderList = [];
-    
+    private orderList: Array<Order>;
 
     ngOnInit() {
-
         this.payMethods = this.getPaymentMethod();
-        this.orderList = this.getOrderList();
+        this.getOrders();
         this.GetSubTotal();
         this.GetComision();
         this.GetTotal();
@@ -126,8 +130,8 @@ export class GrupoOncePagoComponent implements OnInit {
 
     GetSubTotal()
     {
-        var subTotal = this.getOrderList().reduce(function(prev, cur) {
-            return prev + cur.precio;
+        var subTotal = this.getVariableOrders().reduce(function(prev, cur) {
+            return prev + cur.price;
           }, 0);
           return subTotal;
     }
@@ -156,6 +160,27 @@ export class GrupoOncePagoComponent implements OnInit {
           { "id": 3, "name": "Camioneta 4x4","cantidad":1,"precio":12500,"brand": "Hertz" },
         ];
       }
+
+
+
+  public getOrders(){
+
+    this.serv.getUrl(url.endpoint.default._get.Orders,['1','3'])
+      .then(response => {
+        this.setOrderList(response);
+      })
+      .catch(error => {
+
+      })
+  }
+
+  public setOrderList(orderList: Array<Order>){
+   
+    this.orderList = orderList;
+  }
+  public getVariableOrders(): Array<Order>{
+    return this.orderList;
+  }
 
 
 

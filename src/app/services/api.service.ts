@@ -29,6 +29,7 @@ export class ApiService {
             });
         }
         return <Promise<any>>this.http.get(this.apiName + url).toPromise();
+        
     }
 
     /*******************************************************

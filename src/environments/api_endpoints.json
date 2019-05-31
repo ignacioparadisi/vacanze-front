@@ -5,7 +5,8 @@
       "getClaim":"Claim/{id}",
       "cruisers": {
         "get_cruisers": "cruiser"
-      }
+      },
+      "Orders":"payment/id/{id}/type/{type}"
     },
     "_post": {
       "postClaim":"Claim",

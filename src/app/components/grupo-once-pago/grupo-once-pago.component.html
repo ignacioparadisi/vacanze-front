@@ -117,16 +117,16 @@
                                         src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
                                         style="width: 72px; height: 72px;"> </a>
                                 <div class="media-body">
-                                    <h6 class="media-heading"><a href="#">{{ord.name}}</a></h6>
+                                    <h6 class="media-heading"><a href="#">{{ord.descrip}}</a></h6>
                                     <h6 class="media-heading"> by <a href="#">{{ord.brand}}</a></h6>
                                     <span>Dias reservados: </span><span
-                                        class="text-success"><strong>{{ord.cantidad}}</strong></span>
+                                        class="text-success"><strong>{{ord.QTY}}</strong></span>
                                 </div>
                             </div>
                         </td>
                         <td>   </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.precio}}</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.precio * ord.cantidad}}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.price}}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.price * ord.qty}}</strong></td>
                             
                     </tr>
                     <tr>
