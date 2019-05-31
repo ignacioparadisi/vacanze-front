@@ -14,13 +14,12 @@ import { environment as url } from '../../../environments/environment';
 
 export class GrupoOchoCrucerosComponent implements OnInit {
 
-  public isRouteActive: boolean; // Variable para saber si cambio a la vista de habitaciones
+  public checks: Object; // Variable para saber si cambio a la vista de rutas
   private cruisers: Array<Cruiser>;
   private tableBoatsHeader: Array<string>;
   private tableRoutesHeader: Array<string>;
 
   constructor(private router: Router, private api: ApiService){
-    this.isRouteActive = false;
     // Headers de la tabla dinamica
     this.tableBoatsHeader = [
       "#",
@@ -31,7 +30,11 @@ export class GrupoOchoCrucerosComponent implements OnInit {
       "Linea",
       "Status"
     ];
-
+    this.checks = {
+      routes: false,
+      edit: false,
+      add: false
+    }
     /* this.tableRoutesHeader = [
       "#",
       "Nombre",
@@ -45,26 +48,57 @@ export class GrupoOchoCrucerosComponent implements OnInit {
 
   ngOnInit(){
     if(this.router.url === '/cruisers/agregar-crucero'){
-      this.isRouteActive = true;
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = true;
     }
-    else {
-      this.isRouteActive = false;
+    else if(this.router.url.indexOf('editar-crucero') !== -1){
+      this.checks['routes'] = false;
+      this.checks['edit'] = true;
+      this.checks['add'] = false;
     }
     this.getCruisers();
   }
 
-  public getCurrentRoute(route){
+  public getCurrentRoute(route, param?: string){
     if(route === '/agregar-crucero'){
-      this.isRouteActive = true;
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = true;
+
       this.router.navigate(['cruisers', 'agregar-crucero']);
     }
+    else if(route.toString().indexOf('/editar-crucero') !== -1){
+      this.checks['routes'] = false;
+      this.checks['edit'] = true;
+      this.checks['add'] = false;
+
+      this.router.navigate(['cruisers', route.split('/')[1], route.split('/')[2]]);
+    }
     else {
-      this.isRouteActive = false;
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = false;
     }
   }
 
   public getDeactivatedComponent(component){
+    this.getCruisers();
     this.getCurrentRoute('/cruisers');
+  }
+
+  public getDeleteAlert(data){
+    // Si marco confirmar en la moda, quiero borrar el crucero
+    if(data['confirmed']){
+      console.log("se ejecuto");
+      this.api.deleteUrl(url.endpoint.default._delete.cruisers.delete_cruiser, [data['id']])
+        .then(response => {
+          this.deleteCruiserById(response['id']);  
+        })
+        .catch(error => {
+          
+        })
+    }
   }
 
   /*******************************************
@@ -96,5 +130,16 @@ export class GrupoOchoCrucerosComponent implements OnInit {
 
   public getTableHeaders(): Array<string>{
     return this.tableBoatsHeader;
+  }
+
+  /***************************************************************
+  * Metodo que se ejecuta para actualizar el arreglo de cruceros *
+  * debido a la elminacion del crucero por el id                 *
+  ****************************************************************/
+
+  public deleteCruiserById(id: number){
+    let cruisers = this.getVariableCruisers();
+    cruisers = cruisers.filter(cruiser => cruiser['id'] !== id); // Filtro todos los que no tienen el id
+    this.setCruisers(cruisers);
   }
 }

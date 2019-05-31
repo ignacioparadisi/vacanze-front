@@ -51,7 +51,6 @@ export class TableResponsiveComponent implements OnChanges {
   * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
   **************************************************************************/
   public openModalActions(event, data: Object, type: string, deleted? : boolean){
-    event.preventDefault();
     let config: SweetAlertOptions = {
       title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
       confirmButtonText: 'Confirmar',
