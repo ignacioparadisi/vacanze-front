@@ -28,6 +28,10 @@ const routes: Routes = [
         path: 'grupo-trece',
         loadChildren: '../components/grupo-trece/grupo-trece.module#GrupoTreceModule'
       },
+      {
+        path: 'mis-reservas',
+        loadChildren: '../components/Mis Reservas/mis-reservas.module#MisReservasModule'
+      },
       /* Ruta para Backoffice de Cruceros */
       {
         path: 'cruisers',
