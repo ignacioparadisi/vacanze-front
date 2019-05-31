@@ -70,8 +70,10 @@ export class GrupoNueveComponent implements OnInit {
   
   postClaim(){  
     this.service
-    .postUrl(url.endpoint.default._post.postClaim,{title: this.formGroup.get('titulo').value,
-                                                   description: this.formGroup.get('descripcion').value})
+    .postUrl(url.endpoint.default._post.postClaim
+             ,{title: this.formGroup.get('titulo').value,
+               description: this.formGroup.get('descripcion').value}
+             ,[this.formGroup.get('serial').value])
     .then(response => {console.log(response); 
                        this.claimCreatedSuccessfully(); 
                        this.getClaim()});

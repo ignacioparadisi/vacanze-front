@@ -213,7 +213,7 @@
             <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">       
               <div class="col text-center">
                 <div class="form-group">                 
-                  <input type="text" formControlName="serial" class="form-control input-lg" id="inputeste" placeholder="Serial de Equipaje" 
+                  <input type="text" formControlName="serial" class="form-control input-lg" placeholder="Serial de Equipaje" 
                   [ngClass]="{
                     'is-invalid': false,
                     'is-valid': !formGroup.get('serial').hasError('required')
