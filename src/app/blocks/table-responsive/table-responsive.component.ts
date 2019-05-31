@@ -9,6 +9,7 @@ import { Cruiser } from '../../interfaces/cruiser';
 //** Import de components **//
 import { RegisterRestaurantComponent } from '../../components/restaurantes/register-restaurant/register-restaurant.component';
 import { EditRestaurantComponent } from '../../components/restaurantes/edit-restaurant/edit-restaurant.component';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
 
-  constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
+  constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) { // Agregando tooltip en boton de agregar
   }
 
   ngOnChanges(){
@@ -41,6 +42,8 @@ export class TableResponsiveComponent implements OnChanges {
     }
   }
 
+  
+  
   /**************************************************************************
   * Metodo para enviar la confirmación de la alerta                         *
   **************************************************************************/
@@ -52,7 +55,7 @@ export class TableResponsiveComponent implements OnChanges {
   * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
   **************************************************************************/
   public openModalActions(event, data: Object, type: string, deleted? : boolean){
-    event.preventDefault();
+    /* event.preventDefault(); */
     let config: SweetAlertOptions = {
       title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
       confirmButtonText: 'Confirmar',
@@ -62,6 +65,16 @@ export class TableResponsiveComponent implements OnChanges {
       focusCancel: true
     }
     Swal.fire(config).then(result => {
+<<<<<<< HEAD
+      data['delete'] = deleted; 
+=======
+>>>>>>> 82fcd94235724c312a47dc31fe36e27b54657e81
+      if(result && ('value' in result)){
+        data['confirmed'] = true;
+      }
+      else {
+        data['confirmed'] = false;
+      }
       this.messageAlert(data);
     })
   }
@@ -71,6 +84,15 @@ export class TableResponsiveComponent implements OnChanges {
     *************************************************************/
     public goToAddCruiser(){
       this.emitRouting.emit('/agregar-crucero');
+    }
+
+     /************************************************************
+    * Metodo para redireccionar a la vista de añadir un crucero *
+    *************************************************************/
+    public goToEditCruiser(boat: Object){
+      this.localStorage.setItem('boat', boat).subscribe(data => {
+        this.emitRouting.emit('/editar-crucero/'+boat['id']);
+      });
     }
 
 
@@ -97,6 +119,7 @@ export class TableResponsiveComponent implements OnChanges {
         this.goToAddHotel();
       } else if (type === 'restaurantes') {
         const modalRef = this.modalService.open(RegisterRestaurantComponent);
+        
       }
     }
 

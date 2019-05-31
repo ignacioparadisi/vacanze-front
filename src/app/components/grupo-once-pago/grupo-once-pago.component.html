@@ -1,126 +1,172 @@
 <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-                <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Payment Details
-                        </h3>
+    <div class="modal-header">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Payment Details
+            </h3>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="mp1">Metodo de pago</label>
+                    <select class="custom-select" (change)="selectOption($event.target.value)" ng-model="selected">
+                            <option [value]="0">
+                                    Seleccione..
+                            </option>
+                        <option *ngFor="let paymethod of payMethods" [value]="paymethod.id">
+                            {{paymethod.name}}
+                        </option>
+                    </select>
+                </div>
+                <div id="refere" class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Refere</span>
                     </div>
+                    <input type="text" class="form-control" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div id="bank" class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Banco</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div id="detbank" class="row">
+                    <div class="col-md-6">
+                        <div id="user" class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Default"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="pass" class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Clave</span>
+                            </div>
+                            <input type="password" class="form-control" aria-label="Default"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                </div>
+                <div id="tarj" class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Tarjeta</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div id="dettarj" class="row">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">MMYY</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Default"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">CVV</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Default"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-                                <div class="panel panel-default">
-  
-                                    <div class="panel-body">
-                                        <form role="form">
-                                        <div class="form-group">
-                                            <label for="cardNumber">
-                                                CARD NUMBER</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
-                                                    required autofocus />
-                                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-7 col-md-7">
-                                                <div class="form-group">
-                                                    <label for="expityMonth">
-                                                        EXPIRY DATE</label>
-                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                                        <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
-                                                    </div>
-                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                                        <input type="text" class="form-control" id="expityYear" placeholder="YY" required /></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-5 col-md-5 pull-right">
-                                                <div class="form-group">
-                                                    <label for="cvCode">
-                                                        CV CODE</label>
-                                                    <input type="password" class="form-control" id="cvCode" placeholder="CV" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <ul class="nav nav-pills nav-stacked">
-                                    <li class="active">
-                                    </li>
-                                </ul>
-                                <br/>
-                               
-        </div>
-        <div class="modal-footer">
-                <button class="btn btn-info btn-lg btn-block">Pay</button>
-        </div>
-    </ng-template>
-    
-    
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+            </li>
+        </ul>
+        <br />
+
+    </div>
+    <div class="modal-footer">
+        <button id="btnpay" class="btn btn-info btn-lg btn-block">Pagar $ {{GetTotal()}}</button>
+    </div>
+</ng-template>
+
+
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Product</th>
-                        <th class="text-center">Price</th>
+                        <th>Item</th>
+                        <td>   </td>
+                        <th class="text-center">Precio</th>
                         <th class="text-center">Total</th>
-                        <th> </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor=" let ord of orderList" >
+                    <tr *ngFor=" let ord of orderList">
                         <td class="col-sm-8 col-md-6">
-                        <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
-                            <div class="media-body">
-                                <h6 class="media-heading"><a href="#">{{ord.name}}</a></h6>
-                                <h6 class="media-heading"> by <a href="#">{{ord.brand}}</a></h6>
-                                <span>Status: </span><span class="text-success"><strong>{{ord.cantidad}}</strong></span>
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#"> <img class="media-object"
+                                        src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
+                                        style="width: 72px; height: 72px;"> </a>
+                                <div class="media-body">
+                                    <h6 class="media-heading"><a href="#">{{ord.name}}</a></h6>
+                                    <h6 class="media-heading"> by <a href="#">{{ord.brand}}</a></h6>
+                                    <span>Dias reservados: </span><span
+                                        class="text-success"><strong>{{ord.cantidad}}</strong></span>
+                                </div>
                             </div>
-                        </div></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ord.precio}}</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ord.precio}}</strong></td>
-                        <td class="col-sm-1 col-md-1">
-                        <button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove
-                        </button></td>
+                        </td>
+                        <td>   </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.precio}}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.precio * ord.cantidad}}</strong></td>
+                            
                     </tr>
                     <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h6>Subtotal</h6></td>
-                        <td class="text-right"><h6><strong>$24.59</strong></h6></td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h6>Estimated shipping</h6></td>
-                        <td class="text-right"><h6><strong>$6.94</strong></h6></td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h4>Total</h4></td>
-                        <td class="text-right"><h4><strong>$31.53</strong></h4></td>
-                    </tr>
-                        <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td>
-                        <button class="btn btn-success" (click)="open(content)">CheckOut</button>
+                            <h6>Subtotal</h6>
+                        </td>
+                        <td class="text-center">
+                            <h6><strong>${{GetSubTotal()}}</strong></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>
+                            <h6>Comision%</h6>
+                        </td>
+                        <td class="text-center">
+                            <h6><strong>${{GetComision()}}</strong></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>
+                            <h4>Total</h4>
+                        </td>
+                        <td class="text-right">
+                            <h4><strong>${{GetTotal()}}</strong></h4>
+                        </td>
+                    </tr>
+                    <td>   </td>
+                    <td>   <button class="btn btn-lg btn-success" (click)="open(content)">CheckOut</button>  </td>
+                    <td>   </td>
+                    <td>   </td>
+                           
                 </tbody>
             </table>
-       
+          
         </div>
     </div>
-
-    <h1>  Lista de payment  </h1>
-    <ul *ngFor= "let payment of payMethods">   
-        <li>    
-            {{payment.name}}
-        </li>
-    </ul>
 </div>
-
-
