@@ -79,7 +79,7 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     getCarsByCity(){
-        const requestURL = "Auto/consultplaceStatus/1/true/";
+        const requestURL = "Auto/consultplaceStatus/"+this.myForm.value.city+"/true/";
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.cars = response;
@@ -89,6 +89,41 @@ export class AutomovilGrupoTrece implements OnInit {
                 console.log(this.cars);
             }
         );
+    }
+
+    public markAllAsTouched() {
+      //  this.myForm.get('country').markAsTouched();
+        this.myForm.get('city').markAsTouched();
+        this.myForm.get('fechaOne').markAsTouched();
+        this.myForm.get('fechaTwo').markAsTouched();
+        this.myForm.get('aut_id').markAsTouched();
+    }
+
+    submit() {
+        this.markAllAsTouched();
+        const reservation = this.myForm.value;
+        let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+
+        if (fechas === 1) {
+
+            reservation.CheckIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+            reservation.CheckOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+          //  reservation.fk_user_id = localStorage.getItem.
+           reservation.ra_aut_fk = parseInt(reservation.aut_id,10);
+          delete reservation.city;
+
+            if (this.myForm.valid) {
+                this.apiService.postUrl('reservationrooms', reservation).then(
+                    response => {
+                        console.log(response);
+                    }, error => {
+                        console.log(error);
+                    }
+                );
+            }
+        } else {
+            console.log('La fecha de llegada no puede ser anterior a la de salida.');
+        }
     }
 
     buscador(){
