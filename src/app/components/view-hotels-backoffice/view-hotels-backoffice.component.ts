@@ -73,7 +73,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
         this.service
         .getUrl(url.endpoint.default._get.getHotel)
         .then(response => {
-              this.tableData = response,
+              //this.tableData = response,
               console.log(response)
         }).catch( error => {
               console.log("Error carga inicial de hoteles", error);
