@@ -14,6 +14,8 @@ import * as moment from 'moment';
 })
 export class MisReservas implements OnInit {
     myForm: FormGroup;
+    public carreservations;
+    public roomreservations;
     public closeResult: string;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
@@ -24,6 +26,8 @@ export class MisReservas implements OnInit {
     }
 
     ngOnInit() {
+      //this.getAutomobileReservations();
+      this.getRoomReservations();
     }
 
      /**************************************************************************
@@ -64,4 +68,31 @@ export class MisReservas implements OnInit {
    public goToEdit(type: string){
 
   }
+
+  /**********************************************************************
+    * Metodo que es llamado para mostrar las reservas de ese usuario                          *
+    ***********************************************************************/
+  getAutomobileReservations(){
+    const requestURL = "reservationautomobiles/?user=1";
+    this.apiService.getUrl(requestURL).then(
+        response => {
+            this.carreservations = response;
+        },
+        error => {
+            console.log(error);
+        }
+    );
+}
+
+getRoomReservations(){
+  const requestURL = "reservationrooms/?user=1";
+  this.apiService.getUrl(requestURL).then(
+      response => {
+          this.roomreservations = response;
+      },
+      error => {
+          console.log(error);
+      }
+  );
+}
 }

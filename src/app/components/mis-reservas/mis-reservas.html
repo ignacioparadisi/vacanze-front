@@ -4,6 +4,7 @@
 <!--
   Listado de Reserva de Automoviles
 -->
+<!--
     <div class="card mb-3">
       <div class="card-header">
         Reservas de automoviles
@@ -12,7 +13,7 @@
         <div class="row">
           <table class="table">
             <thead class="thead-dark">
-              <tr>
+              <tr >
                 <th scope="col">Marca</th>
                 <th scope="col">Modelo</th>
                 <th scope="col">Capacidad de Pasajeros</th>
@@ -23,13 +24,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>MIENTRAS</td>
-                <td>MIENTRAS</td>
-                <td>MIENTRAS</td>
-                <td>MIENTRAS$</td>
-                <td>MIENTRAS</td>
-                <td>MIENTRAS</td>
+              <tr *ngFor="let carreservation of carreservations">
+                <td>{{carreservation.automobile._make}}</td>
+                <td>{{carreservation.automobile._model}}</td>
+                <td>{{carreservation.automobile._capacity}}</td>
+                <td>{{carreservation.automobile._price}}$</td>
+                <td>{{carreservation.checkIn}}</td>
+                <td>{{carreservation.checkOut}}</td>
                 <td>
                   <button
                   class="btn btn-outline-danger"
@@ -70,7 +71,7 @@
     </div>
   </div>
 </div>
-
+-->
 
 
 <!--
@@ -88,6 +89,7 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Hotel</th>
+            <th scope="col">Estrellas</th>
             <th scope="col">Capacidad Habitacion</th>
             <th scope="col">Precio por noche</th>
             <th scope="col">Cantidad Disponible</th>
@@ -97,13 +99,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>mientras</td>
-            <td>mientras</td>
-            <td>mientras$</td>
-            <td>lorem ipsum</td>
-            <td>mientras</td>
-            <td>mientras</td>
+          <tr *ngFor="let roomreservation of roomreservations">
+            <td>{{roomreservation.hotel.name}}</td>
+            <td>{{roomreservation.hotel.stars}}<i class="fa fa-star" aria-hidden="true"></i>
+            </td>
+            <td>{{roomreservation.hotel.roomCapacity}}</td>
+            <td>{{roomreservation.hotel.pricePerRoom}}$</td>
+            <td>{{roomreservation.hotel.phone}}</td>
+            <td>{{roomreservation.checkIn}}</td>
+            <td>{{roomreservation.checkOut}}</td>
             <td>
               <button
                   class="btn btn-outline-danger"
