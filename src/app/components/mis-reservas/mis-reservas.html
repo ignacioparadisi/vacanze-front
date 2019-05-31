@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-md-12">
 
-
+<!--
+  Listado de Reserva de Automoviles
+-->
     <div class="card mb-3">
       <div class="card-header">
         Reservas de automoviles
@@ -32,7 +34,7 @@
                   <button
                   class="btn btn-outline-danger"
                   style="cursor: pointer;"
-                  (click)="openModalActions($event, restaurante, 'restaurante', true)"
+                  (click)="openModalActions($event, restaurante, 'automovil', true)"
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Eliminar {{type}}"
@@ -60,12 +62,14 @@
 
 
 
-
+<!--
+  Listado de Reserva de Habitaciones
+-->
 <div class="row">
   <div class="col-md-12">
 <div class="card mb-3">
   <div class="card-header">
-    Listado de habitaciones
+    Reservas de habitaciones
   </div>
   <div class="card-body table-responsive">
     <div class="row">
@@ -93,7 +97,7 @@
               <button
                   class="btn btn-outline-danger"
                   style="cursor: pointer;"
-                  (click)="openModalActions($event, restaurante, 'restaurante', true)"
+                  (click)="openModalActions($event, restaurante, 'habitacion', true)"
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Eliminar {{type}}"

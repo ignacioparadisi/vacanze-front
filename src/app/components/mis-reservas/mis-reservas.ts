@@ -25,4 +25,43 @@ export class MisReservas implements OnInit {
 
     ngOnInit() {
     }
+
+     /**************************************************************************
+  * Metodo para enviar la confirmación de la alerta                         *
+  **************************************************************************/
+  public messageAlert(event: Object){
+    this.actionAlertEventEmitter.emit(event);
+  }
+
+      /************************************************************************
+  * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
+  **************************************************************************/
+  public openModalActions(event, data: Object, type: string, deleted? : boolean){
+    event.preventDefault();
+    let config: SweetAlertOptions = {
+      title: '¿' + (deleted ? 'Desea eliminar la reservacion de ':'Desea cambiar el status del ') + type + '?',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      type: 'question',
+      focusCancel: true
+    }
+    Swal.fire(config).then(result => {
+      data['delete'] = deleted;
+      if(result && ('value' in result)){
+        data['confirmed'] = true;
+      }
+      else {
+        data['confirmed'] = false;
+      }
+      this.messageAlert(data);
+    })
+  }
+
+    /**********************************************************************
+    * Metodo que es llamado por el boton editar                           *
+    ***********************************************************************/
+   public goToEdit(type: string){
+
+  }
 }
