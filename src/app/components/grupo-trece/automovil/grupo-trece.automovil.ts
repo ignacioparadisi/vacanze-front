@@ -15,7 +15,7 @@ import * as moment from 'moment';
 export class AutomovilGrupoTrece implements OnInit {
     myForm: FormGroup;
     public compararFechas;
-    public car = [];
+    public cars = [];
     public countries = [];
     public cities = [];
     public closeResult: string;
@@ -74,6 +74,19 @@ export class AutomovilGrupoTrece implements OnInit {
             },
             error => {
                 console.log(error);
+            }
+        );
+    }
+
+    getCarsByCity(){
+        const requestURL = "Auto/consultplaceStatus/1/true/";
+        this.apiService.getUrl(requestURL).then(
+            response => {
+                this.cars = response;
+            },
+            error => {
+                console.log(error);
+                console.log(this.cars);
             }
         );
     }
