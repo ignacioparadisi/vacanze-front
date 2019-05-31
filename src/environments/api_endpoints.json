@@ -19,6 +19,9 @@
       "putClaimStatus":"Claim/{id}"
     },
     "_delete": {
-      "deleteClaim":"Claim/{id}"
+      "deleteClaim":"Claim/{id}",
+      "cruisers": {
+        "delete_cruiser": "cruiser/{id}"
+      }
     }
 }
