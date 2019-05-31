@@ -26,7 +26,7 @@ export class TableResponsiveComponent implements OnChanges {
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
 
-  constructor(private router: Router, private modalService: NgbModal) { // Agregando tooltip en boton de agregar
+  constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) {
   }
 
   ngOnChanges(){
