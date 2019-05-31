@@ -5,6 +5,14 @@
                 Agregar rutas y formalizar vuelos
             </div>
             <div class="card-body">
+                <ngb-alert type="success" *ngIf="messageSuccess">
+                    <strong>Exito! </strong> {{mensaje.message}}
+                </ngb-alert>
+                <ngb-alert type="danger" *ngIf="errores">
+                    <p *ngIf="fechas != 1 && visible"><strong>Error! </strong> La fecha y hora de llegada debe ser mayor que la de salida</p>
+                    <p *ngIf="ciudades != 1 && visible"><strong>Error! </strong> La ciudad de llegada no debe ser igual que la de salida</p>
+                    <p *ngIf="messageDanger"><strong>Error! </strong> {{mensaje.message}}</p>
+                </ngb-alert>
                 
                 <form [formGroup]="form" (submit)="submit()">
                     <div>
