@@ -9,7 +9,8 @@ const routes: Routes = [
   {
       path: '',
       component: GrupoCatorceRestaurantComponent
-  }
+  },
+  {path:'list-restaurant',component:SeleccionarRestaurantComponent }
 ];
 
 @NgModule({

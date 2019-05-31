@@ -4,7 +4,7 @@ import { GrupoCatorceRestaurantRoutingModule } from './grupo-catorce-restaurant-
 import { GrupoCatorceRestaurantComponent } from './grupo-catorce-restaurant.component'
 import { TableResponsiveReservasComponent  } from "../../blocks/table-responsive-reservas/table-responsive-reservas.component";
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BuscarRestaurantComponent } from './buscar-restaurant/buscar-restaurant.component'
 import { SeleccionarRestaurantComponent } from './seleccionar-restaurant/seleccionar-restaurant.component'
 
@@ -19,7 +19,9 @@ import { SeleccionarRestaurantComponent } from './seleccionar-restaurant/selecci
   imports: [
     CommonModule,
     GrupoCatorceRestaurantRoutingModule,
-    SweetAlert2Module.forRoot()
+    FormsModule,
+    SweetAlert2Module.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [],
   exports: [

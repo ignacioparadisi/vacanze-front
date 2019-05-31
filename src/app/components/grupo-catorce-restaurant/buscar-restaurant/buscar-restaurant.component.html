@@ -1,59 +1,74 @@
 <div id="fondo"> 
   <div class="container-fluid" >
     <h1 class="page-header-title">Find your table for any occasion</h1>
-    <div class="row form-group ml-3 mr-3" id="center-form">
-      <div class="col ">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-          <input type="date" class="form-control" name="fechaReserva">  
+    <form [formGroup]="formGroup" (ngSubmit) = "onSubmit()">
+      <div class="row form-group ml-3 mr-3" id="center-form">
+      
+        <div class="col ">
+          <div class="form-group input-group-prepend">
+            <!-- <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div> -->
+            <input [ngClass]="{
+              'is-invalid': fechaReserva.invalid && fechaReserva.touched,
+              'is-valid': fechaReserva.valid
+            }"
+            type="date" class="form-control" formControlName="fechaReserva" min=date>  
+            <div *ngIf="fechaReserva.invalid && fechaReserva.touched">
+              <small *ngIf="fechaReserva.errors?.required" class ="text-danger">Se requiere seleccionar el ranking</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col ">
+          <div class="form-group input-group-prepend">
+            <!-- <div class="input-group-text"><i class="fa fa-hourglass-half" aria-hidden="true"></i></div> -->
+            <select [ngClass]="{
+              'is-invalid': horaReserva.invalid && horaReserva.touched,
+              'is-valid': horaReserva.valid
+            }"
+            class="form-control custom-select mr-sm-2" formControlName="horaReserva" class="form-control">
+              <option value="-1">Hour</option>
+              <option *ngFor='let hour of hours' value="{{hour.id}}}">{{hour.hour}}</option>
+            </select>
+            <div *ngIf="horaReserva.invalid && horaReserva.touched">
+              <small *ngIf="horaReserva.errors?.required" class ="text-danger">Se requiere seleccionar el ranking</small>
+            </div>
+          </div> 
+        </div>
+
+        <div class="col ">
+          <div class="form-group input-group-prepend">
+            <!-- <div class="input-group-text"><i class="fa fa-users" aria-hidden="true"></i></div> -->
+            <select [ngClass]="{
+              'is-invalid': cantidadPersonas.invalid && cantidadPersonas.touched,
+              'is-valid': cantidadPersonas.valid
+            }"
+            class="form-control custom-select mr-sm-2" formControlName="cantidadPersonas" class="form-control">
+              <option value="-1">People</option>
+              <option *ngFor="let cant of countPeople" value="{{cant.id}}"> {{cant.name}}</option>
+            </select>
+            <div *ngIf="cantidadPersonas.invalid && cantidadPersonas.touched">
+              <small *ngIf="cantidadPersonas.errors?.required" class ="text-danger">Se requiere seleccionar el ranking</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col mx-sm-3">
+          <div class="form-group input-group-prepend">
+            <!-- <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div> -->
+            <input [ngClass]="{
+              'is-invalid': ciudad.invalid && ciudad.touched,
+              'is-valid': ciudad.valid && ciudad.touched
+            }" 
+            [class.is-invalid]="ciudad.invalid && ciudad.touched"
+            type="text" formControlName="ciudad" placeholder="City" class="form-control">
+            <div *ngIf="ciudad.invalid && ciudad.touched">
+              <small *ngIf="ciudad.errors?.required" style="background-color: white;" class ="text-danger">You need a city for the reservation.</small>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="col ">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-hourglass-half" aria-hidden="true"></i></div>
-          <select class="form-control custom-select mr-sm-2" id="horaReserva" >
-            <option value="-1" selected>Hora</option>
-            <option value="12">12:00 pm</option>
-            <option value="1" >1:00 pm</option>
-            <option value="2" >2:00 pm</option>
-            <option value="3" >3:00 pm</option>
-            <option value="4" >4:00 pm</option>
-            <option value="5" >5:00 pm</option>
-            <option value="6" >6:00 pm</option>
-            <option value="7" >7:00 pm</option>
-            <option value="8" >8:00 pm</option>
-            <option value="9" >9:00 pm</option>
-            <option value="10" >10:00 pm</option>
-            <option value="11" >11:00 pm</option>
-          </select>
-        </div> 
-      </div>
-
-      <div class="col ">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-users" aria-hidden="true"></i></div>
-          <select class="form-control custom-select mr-sm-2" id="cantidadPersonas">
-            <option value="-1" selected>Cantidad</option>
-            <option value="1">1 people</option>
-            <option value="2" >2 people</option>
-            <option value="3" >3 people</option>
-            <option value="4" >4 people</option>
-            <option value="5" >5 people</option>
-            <option value="Large party">Large party</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col mx-sm-3">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
-          <input type="text" class="form-control" id="ciudad" placeholder="City" required>
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-danger mb-3">Let's go</button>
+      <button [disabled]="!registrationForm.valid" type="submit" class="btn btn-danger mb-3"  data-toggle="button" aria-pressed="false" autocomplete="off">Let's go</button>      
+    </form>
   </div>
 </div>
-
-<app-seleccionar-restaurant></app-seleccionar-restaurant>
+<!-- <app-seleccionar-restaurant></app-seleccionar-restaurant> -->
