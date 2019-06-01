@@ -41,13 +41,17 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   }
 
 
+
   public getAlertAction(action: Object) {
-    if(action['delete']){
-      //console.log(action);
-      this.deleteHotel(action['id']);
-    }else{
-      console.log("se quiere actualizar el estatus del hotel ",action);
-      this.changeHotelStatus(action);
+    console.log(action);
+    if(action['confirmed']){
+      if(action['delete']){
+        //console.log(action);
+        this.deleteHotel(action['id']);
+      } else{
+        console.log("se quiere actualizar el estatus del hotel ",action);
+        this.changeHotelStatus(action);
+      }
     }
   }
 
@@ -72,6 +76,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
 
 
   public getDeactivatedComponent(component){
+    this.loadHotels();
     this.getCurrentRoute('/administrar-hoteles');
   }
 
@@ -95,22 +100,24 @@ export class ViewHotelsBackofficeComponent implements OnInit {
         this.service
         .deleteUrl(url.endpoint.default._delete.deleteHotel, [id.toString()])
         .then(response =>{
-              //console.log("Respuesta al borrar hotel",response.status),
-              //no hay excepcion pero el status no es 200
-              this.alertStatus(response.status, true)
+              //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
+              this.alertStatus(200,true)
         }).catch( error => {
               console.log("Error en el delete del hotel", error)
         });
   }
 
+
+
   public changeHotelStatus(hotel: any){
+        hotel['isActive']=!hotel['isActive'];
         this.service
         .putUrl(url.endpoint.default._put.putHotel, hotel, [hotel.id.toString()])
         .then(response => {
-              console.log("Exito al modificar ",hotel.id),
-              this.alertStatus(response.status, false)
+              //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
+              this.alertStatus(200, false)
         }).catch( error => {
-              console.log("Error actualizando el estatus del hotel")
+              console.log("Error actualizando el estatus del hotel", error)
         });
   }
 
