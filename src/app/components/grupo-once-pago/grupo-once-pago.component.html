@@ -1,4 +1,3 @@
-
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
         <div class="panel-heading">
@@ -14,9 +13,9 @@
                 <div class="form-group">
                     <label for="mp1">Metodo de pago</label>
                     <select class="custom-select" (change)="selectOption($event.target.value)" ng-model="selected">
-                            <option [value]="0">
-                                    Seleccione..
-                            </option>
+                        <option [value]="0">
+                            Seleccione..
+                        </option>
                         <option *ngFor="let paymethod of payMethods" [value]="paymethod.id">
                             {{paymethod.name}}
                         </option>
@@ -98,32 +97,80 @@
 </ng-template>
 
 <ng-template #content2 let-c="close" let-d="dismiss">
-        <div class="modal-header">
+    <div class="modal-header">
         <h4>Cargar reserva</h4>
-        </div>
-        <div class="modal-body"> 
-                        
-        </div>
-        <div class="modal-footer">
-                <h1>holaa</h1>
-        </div>
+    </div>
     
+    <div class="modal-body">
+            <div class="row">  
+                    <div class="container-fluid">
+                        <H4>Automobiles</H4>
+                            <select class="form-control form-control-md">
+                                    <option>Small select</option>
+                            </select>
+                    </div>
+                    
+                    
+            </div>
+    </div>
+    <div class="modal-body">
+            <div class="row">  
+                    <div class="container-fluid">
+                            <H4>Habitaciones</H4>
+                            <select class="form-control form-control-md">
+                                    <option>Small select</option>
+                            </select>
+                    </div>
+                    
+                    
+            </div>
+    </div>
+    <div class="modal-body">
+            <div class="row">  
+                    <div class="container-fluid">
+                            <H4>Restaurantes</H4>
+                            <select class="form-control form-control-md">
+                                    <option>Small select</option>
+                            </select>
+                    </div>
+                    
+                    
+            </div>
+    </div>
+    <div class="modal-body">
+            <div class="row">  
+                    <div class="container-fluid">
+                            <H4>Cruceros</H4>
+                            <select class="form-control form-control-md">
+                                    <option>Small select</option>
+                            </select>
+                    </div>
+                    
+                    
+            </div>
+    </div>
+    <div class="modal-footer">
+        <h1><a class="btn btn-info" (click)="open(content2)">
+                <i class="fa fa-fw fa-play"></i>
+                Cargar</a></h1>
+    </div>
+
 </ng-template>
 
 <div class="container">
-    <div>   
-            <a class="btn btn-info" (click)="open(content2)">
-                    <i class="fa fa-fw fa-edit"></i>
-                Change</a>
+    <div>
+        <a class="btn btn-info" (click)="open(content2)">
+            <i class="fa fa-fw fa-edit"></i>
+            Change</a>
     </div>
     <div>
-          
+
     </div>
-      
+
 
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
-                <h2 class="text-center">Detalle de la reserva</h2>
+            <h2 class="text-center">Detalle de la reserva</h2>
             <table class="table table-hover" (onLoad)="open(content)">
                 <thead>
                     <tr>
@@ -151,7 +198,7 @@
                         <td>   </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.price}}</strong></td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.price * ord.qty}}</strong></td>
-                            
+
                     </tr>
                     <tr>
                         <td>   </td>
@@ -184,24 +231,24 @@
                         </td>
                     </tr>
                     <td>   </td>
-                    <td>       
+                    <td>  
                     </td>
                     <td>   </td>
-                    <td>   </td>
-                           
+                    <td> </td>
+
                 </tbody>
                 <div class="row">
-                        <div class="col-sm-6 col-md-6 col-md-offset-1">
-                               
-                            </div>
-                        <div class="col-sm-6 col-md-6 col-md-offset-1">
+                    <div class="col-sm-6 col-md-6 col-md-offset-1">
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-md-offset-1">
                         <a class="btn btn-lg btn-success text-center" (click)="openPayment(content)">
-                                <i class="fa fa-fw fa-shopping-cart"></i>
+                            <i class="fa fa-fw fa-shopping-cart"></i>
                             CheckOut
                         </a>
                     </div>
                 </div>
-            </table>   
+            </table>
         </div>
     </div>
 </div>
