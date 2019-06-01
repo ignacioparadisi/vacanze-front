@@ -1,33 +1,29 @@
 <div class="container">
   <div class="row">
-
-    <!-- <Card de viaje -->
-    <div class="col-auto mb-3" *ngFor="let travel of travels; let id = index">
-      <div class="card text-center clickable" style="width: 18rem;">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-10">
-              <h5>{{travel.name}}</h5>
+      <!-- <Card de viaje -->
+      <div class="col-auto mb-3" *ngFor="let travel of travels; let id = index">
+        <div class="card text-center clickable" style="width: 18rem;">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <h5 (click)="travelCities(travel.id)">{{travel.name}}</h5>
+              </div>
+              <div class="col-1 mr-1">
+                <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description"></modify-travel>
+              </div>
+              <div class="col-1">
+                <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje" (click)="travelDelete(travel.id)">
+                  <i class="fa fa-xs fa-trash"></i>
+                </button>
+              </div>
             </div>
-            <div class="col-1">
-              <a class="fa fa-xs fa-trash" style="color:red"></a>
-            </div>
+            <hr>
+            <p class="card-text" (click)="travelCities(travel.id)">{{travel.description}}</p>
           </div>
-          <hr>
-          <p class="card-text">{{travel.description}}</p>
         </div>
       </div>
-    </div>
-    <!-- Card de viaje/> -->
-
+      <!-- Card de viaje/> -->
   </div>
 
-  <div class="d-flex justify-content-end align-items-end w-100" style="height: 295px;">
-    <div class="kreep">
-      <button (click)="openModal()" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top"
-        title="Agregar {{type}}">
-        <i class="fa fa-plus"></i>
-      </button>
-    </div>
-  </div>
+  <create-travel (spread)="getTravels()"></create-travel>
 </div>
