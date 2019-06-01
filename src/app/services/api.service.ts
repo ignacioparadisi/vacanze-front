@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { containerRefreshEnd } from '@angular/core/src/render3';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -15,13 +12,11 @@ const httpOptions = {
 })
 export class ApiService {
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'https://localhost:44362/api';
   private apiName = environment.baseApiUrl;
   private myInit = {
   };
 
-
+  constructor(private http: HttpClient) { }
 
   /*******************************************************
   * Metodo para realizar el consumo del API de tipo GET  *
@@ -101,11 +96,5 @@ export class ApiService {
       this.http.delete(this.apiName + url, this.myInit['body']).toPromise()
     );
   }
-
-
-  // =================================================================================
-  // ==Llamado a la API para el envio de corre de recuperacion de contraseña==========
-  // =================================================================================
-
 
 }

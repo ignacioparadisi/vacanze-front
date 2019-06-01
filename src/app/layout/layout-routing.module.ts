@@ -78,11 +78,7 @@ const routes: Routes = [
       {
         path: 'restaurant-reservation',
         loadChildren:
-<<<<<<< HEAD
           '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
-=======
-        '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
->>>>>>> origin/develop
       },
       {
         path: 'users',
