@@ -4,7 +4,8 @@
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
       "cruisers": {
-        "get_cruisers": "cruiser"
+        "get_cruisers": "cruiser",
+        "get_layovers": "cruiser/{cruiserId}/layover"
       }
     },
     "_post": {
