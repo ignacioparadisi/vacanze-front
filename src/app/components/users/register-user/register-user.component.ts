@@ -16,6 +16,7 @@ import { SweetAlertOptions } from 'sweetalert2';
 export class RegisterUserComponent implements OnInit {
 
   @Input() user: User;
+  @Input() isClient: boolean;
 
   public state: string = 'none';
   public submitted: boolean = false;
@@ -28,7 +29,7 @@ export class RegisterUserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.createFormGroup()
+    this.createFormGroup();
     this.fetchRoles();
     if (this.user) {
       this.fillFormGroup();
@@ -49,7 +50,9 @@ export class RegisterUserComponent implements OnInit {
       }
     }).catch(error => {
       if (error.status === 0) {
-        console.log('No se pudo conectar al servidor');
+        this.showErrorAlert("No se pudo conecta al servidor para obtener los roles.")
+      } else {
+        this.showErrorAlert(error.error);
       }
     });
   }
@@ -96,7 +99,12 @@ export class RegisterUserComponent implements OnInit {
     }
 
     const user: User = this.getUserFromForm();
-    this.createUser(user);
+    if (this.user) {
+      this.updateUser(user, this.user.id);
+    } else {
+      this.createUser(user);
+    }
+
 
   }
 
@@ -145,16 +153,35 @@ export class RegisterUserComponent implements OnInit {
     this.apiService.postUrl('users', user).then(user => {
       this.state = 'success';
       this.activeModal.close(true);
-      this.userCreatedSuccessfully();
+      this.showSuccessMessage('Usuario creado de manera exitosa');
     }).catch(error => {
       this.state = 'error';
-      this.showErrorAlert(error.error);
+      if (error.status == 0) {
+        this.showErrorAlert("No se pudo conecta al servidor para crear al usuario.")
+      } else {
+        this.showErrorAlert(error.error);
+      }
     });
   }
 
-  private userCreatedSuccessfully() {
+  private updateUser(user: User, id: number) {
+    this.apiService.putUrl(`users/${id}`, user).then(user => {
+      this.state = 'success';
+      this.activeModal.close(true);
+      this.showSuccessMessage('Usuario actualizado de manera exitosa');
+    }).catch(error => {
+      this.state = 'error';
+      if (error.status == 0) {
+        this.showErrorAlert("No se pudo conecta al servidor para actualizar al usuario.")
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
+  private showSuccessMessage(title: string) {
     let config: SweetAlertOptions = {
-      title: 'Usuario creado de manera exitosa',
+      title: title,
       type: 'success',
       showConfirmButton: false,
       timer: 1800
