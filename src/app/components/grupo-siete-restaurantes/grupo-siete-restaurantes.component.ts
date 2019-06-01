@@ -9,6 +9,7 @@ import { Restaurant } from '../../interfaces/restaurant';
 import { environment as url } from '../../../environments/environment';
 // tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
+import { LocalStorageService } from '../../services/local-storage.service';
 
 
 @Component({
@@ -23,12 +24,13 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   private tableData: Array<Object>;
   private headerTitle: string;
   private restaurants: Array<Restaurant>;
+  public RisActive: boolean;
 
   // para saber en que ruta se encuentra
   public isEditingRestaurant: boolean;
   public isCreatingRestaurant: boolean;
 
-  constructor(private router: Router, private service: ApiService) {
+  constructor(private router: Router, private service: ApiService, private localStorage: LocalStorageService) {
     this.headerTitle = 'Lista de Restaurantes';
     this.tableRestaurantsHeader = ['#', 'Nombre', 'Capacidad',
                                    'Calificación', 'Especialidad',
@@ -58,8 +60,10 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
         this.deleteRestaurant(action['id']);
       }
     } else {
-      console.log('se quiere actualizar el estatus del restaurantes ', action);
-      this.changeRestaurantStatus(action);
+      if (action['confirmed']) {
+          console.log('se quiere actualizar el estatus del restaurantes ', action);
+          this.changeRestaurantStatus(action);
+      }
     }
   }
 
@@ -110,15 +114,76 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
         });
   }
 
-  public changeRestaurantStatus(restaurant: any) {
-        this.service
-        .putUrl(url.endpoint.default._put.putRestaurant, restaurant, [restaurant.id.toString()])
-        .then(response => {
+  public changeRestaurantStatus(restaurant) {
+      console.log('llegue aqui', restaurant);
+      if (restaurant['isActive'] === true) {
+          this.service
+          .putUrl(url.endpoint.default._put.putRestaurant,
+            {
+              id: restaurant['id'],
+              name: restaurant['name'],
+              capacity: restaurant['capacity'],
+              isActive : false,
+              qualify: restaurant['qualify'],
+              specialty: restaurant['specialty'],
+              price: restaurant['price'],
+              businessName: restaurant['businessName'],
+              picture: restaurant['picture'],
+              description: restaurant['description'],
+              phone: restaurant['phone'],
+              location: restaurant['location'],
+              address: restaurant['address']
+            })
+          .then(
+            response => {
+              this.restaurantEditedSuccessfully();
               console.log('Exito al modificar ', restaurant.id),
-              this.alertStatus(response.status, false);
-        }).catch( error => {
-              console.log('Error actualizando el estatus del restaurante');
-        });
+              this.alertStatus(200, true);
+            }).catch(
+              error => {
+                console.log('Error actualizando el estatus del restaurante');
+              }
+            );
+        } else {
+          this.service
+          .putUrl(url.endpoint.default._put.putRestaurant,
+            {
+              id: restaurant['id'],
+              name: restaurant['name'],
+              capacity: restaurant['capacity'],
+              isActive : true,
+              qualify: restaurant['qualify'],
+              specialty: restaurant['specialty'],
+              price: restaurant['price'],
+              businessName: restaurant['businessName'],
+              picture: restaurant['picture'],
+              description: restaurant['description'],
+              phone: restaurant['phone'],
+              location: restaurant['location'],
+              address: restaurant['address']
+            })
+          .then(
+            response => {
+              this.restaurantEditedSuccessfully();
+              console.log('Exito al modificar ', restaurant.id),
+              this.alertStatus(200, true);
+            }).catch(
+              error => {
+                console.log('Error actualizando el estatus del restaurante');
+              }
+            );
+        }
+  }
+
+  private restaurantEditedSuccessfully() {
+    let config: SweetAlertOptions = {
+      title: 'Restaurante actualizado',
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    };
+    Swal.fire(config).then( result => {
+    });
   }
 
   private alertStatus(statusCode: number, deleted: boolean) {
