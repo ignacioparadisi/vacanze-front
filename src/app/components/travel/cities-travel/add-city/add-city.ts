@@ -15,11 +15,12 @@ export class AddCityComponent {
 
   @Output() spread = new EventEmitter();
   activeModal: NgbModalRef;
-  public formGroup: FormGroup;
-  cityForm: FormGroup;
+  private travel = JSON.parse(localStorage.getItem("travel"));
   countries: Array<object>
   cities: Array<any>
-  selectedCities: any = [];
+  travelCities: Array<any>
+  selectedCities: Array<any> = [];
+  hasSelectedCities: boolean = false
 
   constructor(private modalService: NgbModal, private apiService: ApiService) {
   }
@@ -28,13 +29,7 @@ export class AddCityComponent {
     this.activeModal = this.modalService.open(content);
     this.selectedCities = [];
     this.getCountries();
-    /*this.travelForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      userId: new FormControl('5', Validators.required),
-      dateIni: new FormControl('', Validators.required),
-      dateEnd: new FormControl('', Validators.required)
-    });*/
+    this.getTravelCities();
   }
 
   closeModal() {
@@ -56,7 +51,20 @@ export class AddCityComponent {
 
   getCities(countryId: number) {
     this.apiService.getUrl('locations/countries/{countryId}/cities', [countryId.toString()]).then(
-      (resp) => { this.cities = resp; console.log(this.cities) },
+      (resp) => this.cities = resp,
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );
+  }
+
+  getTravelCities() {
+    this.apiService.getUrl('travels/{travelId}/locations', [String(this.travel.id)]).then(
+      (resp) => this.travelCities = resp,
       (fail) => {
         Swal.fire({
           title: 'Error: ' + fail.status,
@@ -68,30 +76,39 @@ export class AddCityComponent {
   }
 
   addCity(id: number) {
-    console.log(id);
-    const city = this.cities.find(x => x.id == id);
-    const name = city.city
-    this.selectedCities.push(
-      {
-        id,
-        name
-      }
-    )
-    console.log(this.selectedCities)
+    const newCity = this.cities.find(x => x.id == id);
+    const city = newCity.city
+    const country = newCity.country
+    if (!(this.travelCities.find(x => x.id == id))) {
+      this.selectedCities.push(
+        {
+          id,
+          city,
+          country
+        }
+      )
+      this.hasSelectedCities = true;
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        html: 'La ciudad <strong>' + city + '</strong> del país <strong>' + country + '</strong> ya existe en el viaje',
+        type: 'error',
+      })
+    }
   }
 
   popCity(cityName: string) {
     this.selectedCities.splice(this.selectedCities.indexOf(cityName), 1);
+    if (this.selectedCities.length == 0) this.hasSelectedCities = false;
   }
 
   addCities() {
-    console.log(this.selectedCities)
-    /*this.apiService.postUrl('travels', this.travelForm.value).then(
+    this.apiService.postUrl('travels/{travelId}/locations', this.selectedCities, [String(this.travel.id)]).then(
       (resp) => {
         this.closeModal();
         Swal.fire({
           title: '!Éxito¡',
-          text: 'El viaje se creo satisfactoriamente.',
+          text: 'Las ciudades se añadieron satisfactoriamente.',
           type: 'success'
         });
         this.spread.emit();
@@ -103,6 +120,6 @@ export class AddCityComponent {
           type: 'error',
         })
       }
-    );*/
+    );
   }
 }

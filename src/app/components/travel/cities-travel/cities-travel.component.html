@@ -1,10 +1,15 @@
 <div class="container">
   <div class="row">
-    <h3>{{travel.name}}</h3>
-  </div>
-  <div class="row">
-      <h5>{{travel.description}}</h5>
+    <div class="col">
+      <h3>{{travel.name}}</h3>
     </div>
+    <div class="col-2">
+      <button class="btn btn-secondary" routerLink="/travel">Regresar</button>
+    </div>
+  </div>
+  <div class="row ml-2">
+    <h5>{{travel.description}}</h5>
+  </div>
   <hr>
   <div class="row">
     <!-- <Card de ciudades -->
@@ -13,7 +18,8 @@
         <div class="card-body">
           <div class="row align-items-center">
             <div class="col-10">
-              <h5 (click)="travelDetails(city.id)">{{city.country}} <hr> {{city.city}}</h5>
+              <h5 (click)="travelDetails(city.id)">{{city.country}}
+                <hr> {{city.city}}</h5>
             </div>
             <div class="col-1">
               <button class="btn btn-sm btn-outline-danger" title="Eliminar ciudad" (click)="deleteCity(city.id)">
