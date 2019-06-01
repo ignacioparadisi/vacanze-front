@@ -19,6 +19,7 @@ import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
   imports: [
     HttpClientModule,
     CommonModule,
+    FormsModule,
     LayoutRoutingModule,
     NgbModalModule,
     FormsModule,
