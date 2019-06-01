@@ -28,6 +28,11 @@ export class ListGrupoTres implements OnInit {
   public compararFechas;
   public compararCiudades;
   public id: number = null;
+  public errores : boolean = false;
+  public messageSuccess : boolean = false;
+  public messageDanger : boolean = false;
+  public visible : boolean = false;
+  public mensaje: [];
 
   constructor(private modalService: NgbModal, private apiService: ApiService, private fb: FormBuilder, private router: Router) {
     this.compararFechas = compararFechas;
@@ -131,8 +136,19 @@ export class ListGrupoTres implements OnInit {
     this.modalService.dismissAll('Cross click');
   }
 
+  public markAllAsTouched() {
+    this.flightForm.get('locDeparture').markAsTouched();
+    this.flightForm.get('locArrival').markAsTouched();
+    this.flightForm.get('plane').markAsTouched();
+    this.flightForm.get('price').markAsTouched();
+    this.flightForm.get('departure').markAsTouched();
+    this.flightForm.get('arrival').markAsTouched();
+    this.flightForm.get('countryArrival').markAsTouched();
+    this.flightForm.get('countryDeparture').markAsTouched();
+}
+
   onFormSubmit() {
-    console.log(this.flightForm.value);
+    this.markAllAsTouched();
     const payload = this.flightForm.value;
     const fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
     let ciudades = this.compararCiudades(parseInt(payload.locDeparture, 10),parseInt(payload.locArrival, 10) );
@@ -151,14 +167,35 @@ export class ListGrupoTres implements OnInit {
       if (this.flightForm.valid) {
         this.apiService.putUrl('flights', payload).then(
           response => {
-            this.cerrarModal();
-            this.getFlights();
+            this.mensaje = response;
+            this.messageSuccess = true;
+            setTimeout(()=>{
+                this.messageSuccess = false;
+                this.flightForm.reset();
+                this.cerrarModal();
+                this.getFlights();
+            }, 3000);
+            
             console.log(response);
-          }, (err) => {
-            console.log(err);
+          }, (error) => {
+            this.mensaje = error;
+            this.errores = true;
+            this.messageDanger = true;
+            setTimeout(()=>{
+                this.errores = false;
+                this.messageDanger = false;
+            }, 5000);
+            console.log(error);
           }
         );
       }
+    } else{
+      this.errores = true;
+      this.visible = true;
+      setTimeout(()=>{  
+          this.errores = false;
+          this.visible = false;
+      }, 5000);
     }
   }
 
