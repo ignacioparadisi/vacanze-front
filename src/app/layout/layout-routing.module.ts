@@ -28,6 +28,10 @@ const routes: Routes = [
         path: 'grupo-trece',
         loadChildren: '../components/grupo-trece/grupo-trece.module#GrupoTreceModule'
       },
+      {
+        path: 'mis-reservas',
+        loadChildren: '../components/mis-reservas/mis-reservas.module#MisReservasModule'
+      },
       /* Ruta para Backoffice de Cruceros */
       {
         path: 'cruisers',
@@ -43,6 +47,10 @@ const routes: Routes = [
         loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       },
       {
+        path: 'administrar-restaurantes',
+        loadChildren: '../components/grupo-siete-restaurantes/grupo-siete-restaurantes.module#GrupoSieteRestaurantesModule'
+      },
+      {
         path: 'travel',
         loadChildren: '../components/travel/travel.module#TravelModule'
       },
@@ -52,13 +60,8 @@ const routes: Routes = [
           '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
       },
       {
-        path: 'restaurantes',
-        loadChildren:
-          '../components/restaurantes/restaurantes.module#RestaurantesModule'
-      },
-      {
         path: 'restaurant-reservation',
-        loadChildren: 
+        loadChildren:
         '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
       },
       {
