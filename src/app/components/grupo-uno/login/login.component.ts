@@ -27,9 +27,6 @@ export class LoginComponent implements OnInit {
     Email: '',
     Password: ''
   }
-  //private service: ApiService; private router: Router; private toastr: ToastrService;private father: LayoutComponent;
-
-
   constructor(private service: ApiService, private father: LayoutComponent, private router: Router, private landing: GrupoUnoComponent) {
 
 
@@ -39,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   }
   onSubmit(form: NgForm) {
-      this.service.postUrl('Login/Login', form.value).then(
+    this.service.postUrl('Login/Login', form.value).then(
       (res: any) => {
         localStorage.setItem('id', res.id);
         localStorage.setItem('rol', res.roles[0].name);
@@ -61,7 +58,7 @@ export class LoginComponent implements OnInit {
     );
   }
   RecoverySubmit(recoveryForm: NgForm) {
-      this.service.postUrl('Email/Email', recoveryForm.value).then(
+    this.service.postUrl('Email/Email', recoveryForm.value).then(
       (res: any) => {
         localStorage.setItem('Email', res.email);
         if (res.email) {

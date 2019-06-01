@@ -17,13 +17,14 @@ import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
     SidebarComponent
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     LayoutRoutingModule,
     NgbModalModule,
     FormsModule,
     ReactiveFormsModule,
-    SweetAlert2Module.forRoot(),
-    HttpClientModule
+    SweetAlert2Module.forRoot()
+
   ]
 })
 export class LayoutModule { }
