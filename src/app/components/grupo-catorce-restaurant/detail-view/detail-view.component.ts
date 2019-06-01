@@ -13,8 +13,9 @@ import { environment as url } from '../../../../environments/environment';
 export class DetailViewComponent implements OnInit {
 
   public isDataLoaded: boolean =false
-  public restaurant ='' //Variable que agarrara el JSON de lo datos del restaurant del LS
-  public formInfo=' ' //Variable que agarrara el JSON de lo datos del usuario/Init form del LS
+  public restaurant  //Variable que agarrara el JSON de lo datos del restaurant del LS
+  public formInfo //Variable que agarrara el JSON de lo datos del usuario/Init form del LS
+  public date = ''
 
   constructor(private router: Router,
     private localStorage: LocalStorageService,
@@ -24,6 +25,7 @@ export class DetailViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.date = this.actualDate()
     this.getLocalStorage()
   }
 
@@ -39,6 +41,27 @@ export class DetailViewComponent implements OnInit {
     })
   }
 
+  private actualDate(){
+    var date = new Date()
+
+    var month = date.getMonth()+1
+    var year = date.getFullYear()
+    var day = date.getDate()
+    
+    if (month<10){
+      if(day <10){
+        var fecha = year +'-0'+ month+'-0'+day
+        return fecha
+      }
+      var fecha = year +'-0'+ month+'-'+day
+      return fecha
+    }
+    else{
+      var fecha = year +'-'+ month+'-'+day
+      return fecha
+    }
+  }
+
   public goBack(){
     //TODO eliminar los datos de resRestaurant del LocalStorage
     this.localStorage.removeItem('resRestaurant')
@@ -46,5 +69,21 @@ export class DetailViewComponent implements OnInit {
     this.restaurant = ''
     this.isDataLoaded = false
     this._location.back()
+  }
+
+  public onSubmit(){
+    //postResRestaurant
+    console.log('en submit')
+    this.api.postUrl(url.endpoint.default._post.postResRestaurant,{
+      fecha_res: this.formInfo.timeStamp,
+      cant_people: this.formInfo.cantPeople,
+      date: this.date,
+      user_id :this.formInfo.userID,
+      rest_id: this.restaurant.id
+    }).then(response =>{
+      console.log('Registro, revisar postres')
+    }).catch(error => {
+      console.log('error por algun motivo')
+    })
   }
 }
