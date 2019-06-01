@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService} from '../../services/api.service';
 import { Claim } from "../../classes/claim";
+import { Baggage } from "../../classes/baggage";
 import { environment as url} from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';
@@ -20,6 +21,7 @@ export class GrupoNueveComponent implements OnInit {
   public claims : Claim[] = [];
   public claimsAbiertos : Claim[] = [];
   public claimsCerrados : Claim[] = [];
+  public BaggageExtraviados : Baggage[] = [];
 
   //Elementos del put
   public idPut : any;
@@ -32,7 +34,9 @@ export class GrupoNueveComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getClaim()
+    //this.getClaim()
+
+    this.getAdminBaggageStatusExtraviado()
 
     this.formGroup = new FormGroup({
       serial: new FormControl(null, [Validators.required]),
@@ -71,6 +75,14 @@ export class GrupoNueveComponent implements OnInit {
       console.log(data)})
     .catch(data =>{console.log(data)});
   }
+
+  getAdminBaggageStatusExtraviado(){
+    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['EXTRAVIADO'])
+    .then(data => {this.BaggageExtraviados = data;                                                                                             
+      console.log(data)})
+    .catch(data =>{console.log(data)});
+  }
+  
   
   postClaim(){  
     this.service

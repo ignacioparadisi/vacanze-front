@@ -4,6 +4,7 @@
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
+      "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
       "cruisers": {
         "get_cruisers": "cruiser"
       }

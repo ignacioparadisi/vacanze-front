@@ -437,34 +437,22 @@
                   <div class="card-body table-responsive">
                       <table class="table">
                           <thead>
-                          <tr>
+                           <tr>
                               <th>#</th>
                               <th>Serial</th>
                               <th>Descripción</th>
                               <th>Estatus</th>
-                              <th>Fecha y Hora</th>
                               <th>Acciones</th>
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
-                              <th scope="row">1</th>
-                              <td>XSY-210</td>
-                              <td>Moscú</td>
-                              <td>Extraviado</td>
-                              <td>04-05-2019 00:00</td>
+                          <tr *ngFor="let BaggageAdmin of BaggageExtraviados; let indiceExtraviado=index">
+                              <th scope="row">{{indiceExtraviado+1}}</th>
+                              <td>{{BaggageAdmin._id}}</td>
+                              <td>{{BaggageAdmin._description}}</td>
+                              <td>{{BaggageAdmin._status}}</td>
                               <td>
                                 <button class="ver"><i class="fa fa-edit"></i></button>
-                              </td>
-                          </tr>
-                          <tr>
-                              <th scope="row">2</th>
-                              <td>XSY-215</td>
-                              <td>Roma</td>
-                              <td>Extraviado</td>
-                              <td>05-05-2019 00:00</td>
-                              <td>
-                                  <button class="ver"><i class="fa fa-edit"></i></button>
                               </td>
                           </tr>
                           </tbody>
