@@ -7,6 +7,15 @@ export function compararFechas(ini: Date, fin: Date) {
     }
 }
 
+export function compararCiudades(salida: number, destino: number) {
+    console.log(salida, destino);
+    if ( salida != destino ) {
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
 export function transformImageToBase64(event, accept) {
     if (event.target.files && event.target.files[0]) {
         var reader: any = new FileReader();
