@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, NgModule } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder} from "@angular/forms";
+import { FormBuilder, FormsModule} from "@angular/forms";
 import { ApiService} from '../../services/api.service';
 import { Router } from '@angular/router';
 import { Order } from '../../interfaces/Order';
 import { environment as url } from '../../../environments/environment';
+
+
 @Component({
     selector: 'app-grupo-once-pago',
     templateUrl: './grupo-once-pago.component.html',
@@ -19,7 +21,6 @@ export class GrupoOncePagoComponent implements OnInit {
     closeResult: string;
     selected: number = 0;
     @ViewChild('content2') content2: ElementRef
-
 
     constructor(private modalService: NgbModal, public fb: FormBuilder,
         private router: Router, private serv: ApiService) { }
@@ -59,6 +60,7 @@ export class GrupoOncePagoComponent implements OnInit {
     }
 
     public payMethods = [];
+    public reserva = [];
     private orderList: Array<Order>;
 
     ngOnInit() {
@@ -70,6 +72,7 @@ export class GrupoOncePagoComponent implements OnInit {
         this.GetSubTotal();     
         this.GetComision();
         this.GetTotal();
+        this.reserva = this.getReserva();
        
     }
     selectOption(id: number) {
@@ -173,6 +176,14 @@ export class GrupoOncePagoComponent implements OnInit {
           { "id": 1,"image":"", "descrip": "Crucero mar caribe", "qty":5, "price":25000,"priceTotal":25000, "brand": "Royal Caribean" },
           { "id": 2, "image":"", "descrip": "Habitacion master Hilton","qty":3, "price":50000,"priceTotal":25000,"brand": "Hilton ca" },
           { "id": 3, "image":"", "descrip": "Camioneta 4x4","qty":1,"price":12500,"priceTotal":25000, "brand": "Hertz" },
+        ];
+      }
+      getReserva() {
+        return [
+          { "id": 1, "name": "re1" },
+          { "id": 2, "name": "re2" },
+          { "id": 3, "name": "ree3" },
+          { "id": 4, "name": "aaaa" }
         ];
       }
 
