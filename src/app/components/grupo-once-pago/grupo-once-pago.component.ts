@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder} from "@angular/forms";
 import { ApiService} from '../../services/api.service';
@@ -13,10 +13,12 @@ import { environment as url } from '../../../environments/environment';
 
 
 })
+
 export class GrupoOncePagoComponent implements OnInit {
 
     closeResult: string;
     selected: number = 0;
+    @ViewChild('content2') content2: ElementRef
 
 
     constructor(private modalService: NgbModal, public fb: FormBuilder,
@@ -29,13 +31,22 @@ export class GrupoOncePagoComponent implements OnInit {
         }, (reason) => {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
-        document.getElementById("refere").hidden=true;
-        document.getElementById("tarj").hidden=true;
-        document.getElementById("dettarj").hidden=true;
-        document.getElementById("detbank").hidden=true;
-        document.getElementById("bank").hidden=true;
-        document.getElementById("btnpay").hidden=true;
     }
+    
+    openPayment(content) {
+        
+      this.modalService.open(content).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+      document.getElementById("refere").hidden=true;
+      document.getElementById("tarj").hidden=true;
+      document.getElementById("dettarj").hidden=true;
+      document.getElementById("detbank").hidden=true;
+      document.getElementById("bank").hidden=true;
+      document.getElementById("btnpay").hidden=true;
+  }
 
     private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
@@ -51,11 +62,15 @@ export class GrupoOncePagoComponent implements OnInit {
     private orderList: Array<Order>;
 
     ngOnInit() {
+     
         this.payMethods = this.getPaymentMethod();
+        this.orderList = this.getOrderList();
         this.getOrders();
-        this.GetSubTotal();
+        this.open(this.content2);
+        this.GetSubTotal();     
         this.GetComision();
         this.GetTotal();
+       
     }
     selectOption(id: number) {
         console.log(id);
@@ -155,9 +170,9 @@ export class GrupoOncePagoComponent implements OnInit {
       }
       getOrderList() {
         return[
-          { "id": 1, "name": "Crucero mar caribe", "cantidad":5, "precio":25000, "brand": "Royal Caribean" },
-          { "id": 2, "name": "Habitacion master Hilton","cantidad":3, "precio":50000,"brand": "Hilton ca" },
-          { "id": 3, "name": "Camioneta 4x4","cantidad":1,"precio":12500,"brand": "Hertz" },
+          { "id": 1,"image":"", "descrip": "Crucero mar caribe", "qty":5, "price":25000,"priceTotal":25000, "brand": "Royal Caribean" },
+          { "id": 2, "image":"", "descrip": "Habitacion master Hilton","qty":3, "price":50000,"priceTotal":25000,"brand": "Hilton ca" },
+          { "id": 3, "image":"", "descrip": "Camioneta 4x4","qty":1,"price":12500,"priceTotal":25000, "brand": "Hertz" },
         ];
       }
 
@@ -170,13 +185,14 @@ export class GrupoOncePagoComponent implements OnInit {
         this.setOrderList(response);
       })
       .catch(error => {
-
+        return 
       })
   }
 
   public setOrderList(orderList: Array<Order>){
    
     this.orderList = orderList;
+
   }
   public getVariableOrders(): Array<Order>{
     return this.orderList;

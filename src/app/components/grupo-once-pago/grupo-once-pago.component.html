@@ -1,3 +1,4 @@
+
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
         <div class="panel-heading">
@@ -96,11 +97,34 @@
     </div>
 </ng-template>
 
+<ng-template #content2 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+<h1>holaa</h1>
+        </div>
+        <div class="modal-body">
+                <h1>holaa</h1> 
+        </div>
+        <div class="modal-footer">
+                <h1>holaa</h1>
+        </div>
+    
+</ng-template>
 
 <div class="container">
+    <div>   
+            <a class="btn btn-info" (click)="open(content2)">
+                    <i class="fa fa-fw fa-edit"></i>
+                Change</a>
+    </div>
+    <div>
+          
+    </div>
+      
+
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
-            <table class="table table-hover">
+                <h2 class="text-center">Detalle de la reserva</h2>
+            <table class="table table-hover" (onLoad)="open(content)">
                 <thead>
                     <tr>
                         <th>Item</th>
@@ -160,13 +184,24 @@
                         </td>
                     </tr>
                     <td>   </td>
-                    <td>   <button class="btn btn-lg btn-success" (click)="open(content)">CheckOut</button>  </td>
+                    <td>       
+                    </td>
                     <td>   </td>
                     <td>   </td>
                            
                 </tbody>
-            </table>
-          
+                <div class="row">
+                        <div class="col-sm-6 col-md-6 col-md-offset-1">
+                               
+                            </div>
+                        <div class="col-sm-6 col-md-6 col-md-offset-1">
+                        <a class="btn btn-lg btn-success text-center" (click)="openPayment(content)">
+                                <i class="fa fa-fw fa-shopping-cart"></i>
+                            CheckOut
+                        </a>
+                    </div>
+                </div>
+            </table>   
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@ export interface Order {
     id: number,
     descrip: string,
     image: string,
-    brand: number,
+    brand: string,
     price: number,
     priceTotal: number
 }
