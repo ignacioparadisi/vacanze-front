@@ -13,7 +13,7 @@ html {
 
   display: grid;
   margin-left: 0%;
-  margin-bottom: 5%;
+  margin-bottom: 7%;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   grid-gap: 20px;
@@ -159,5 +159,9 @@ footer {
         }
 			}
 		}
-	}
+  }
+  div.vaca{
+    margin-left: 48%;
+    
+  }
 }

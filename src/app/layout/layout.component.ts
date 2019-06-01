@@ -18,11 +18,11 @@ export class LayoutComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    var rol = localStorage.getItem('rol');
-    var email = localStorage.getItem('Email');
-    if (isNullOrUndefined(rol) || isNullOrUndefined(email)) {
-      this.router.navigate(['/grupo-uno']);
-    }
+    // var rol = localStorage.getItem('rol');
+    // var email = localStorage.getItem('Email');
+    // if (isNullOrUndefined(rol) || isNullOrUndefined(email)) {
+    //   this.router.navigate(['/grupo-uno']);
+    // }
   }
 
   receiveCollapsed($event) {
