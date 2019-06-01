@@ -117,6 +117,8 @@ export class AutomovilGrupoTrece implements OnInit {
       delete reservation.fechaTwo;
       delete reservation.country;
         console.log(reservation);
+
+        
       this.apiService.postUrl('reservationautomobiles', reservation).then(
         response => {
             console.log(response);
