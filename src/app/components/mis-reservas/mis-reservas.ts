@@ -17,11 +17,15 @@ export class MisReservas implements OnInit {
     public carreservations ="";
     public roomreservations="";
     public closeResult: string;
+    public id: number = null;
+    public roomreservation = [];
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
     constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
         this.myForm = this.fb.group({
+          fechaOne: ['', [Validators.required]],
+            fechaTwo: ['', [Validators.required]]
         });
     }
 
@@ -127,4 +131,39 @@ public deleteRoomReservation(id: number) {
     }
   );
 }
+
+getRoomReservation(id: number) {
+  console.log('ID: ' + id);
+  const requestURL = `reservationrooms/${id}`;
+  this.apiService.getUrl(requestURL).then(
+    response => {
+      this.id = response.id;
+      this.roomreservation = response;
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
+
+open(content, id: number) {
+ this.getRoomReservation(id);
+ id;
+  this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+}
+
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+  } else {
+      return `with: ${reason}`;
+  }
+}
+
 }

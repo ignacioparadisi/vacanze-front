@@ -14,7 +14,7 @@ import * as moment from 'moment';
 })
 export class HabitacionGrupoTrece implements OnInit {
     myForm: FormGroup;
-    public compararFechas;
+    public compararFechas : any;
     public countries = [];
     public cities = [];
     public hotels = [];

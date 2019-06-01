@@ -74,6 +74,74 @@
 </div>
 -->
 
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reserva de habitación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>Hotel: </strong></p>
+        <p>{{roomreservation?.hotel?.name}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Estrellas: </strong></p>
+        <p>{{roomreservation?.hotel?.stars}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Capacidad Habitacion: </strong></p>
+        <p>{{roomreservation?.hotel?.roomCapacity}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Precio por noche: </strong></p>
+        <p>{{roomreservation?.hotel?.pricePerRoom}}$</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>Ciudad: </strong></p>
+        <p>{{roomreservation?.hotel?.location?.city}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>CheckIn: </strong></p>
+        <p>{{roomreservation?.checkIn}}</p>
+        
+        
+        
+      </div>
+      <div class="col-md-3">
+        <p><strong>CheckOut:</strong></p>
+        <p>{{roomreservation?.checkOut}}</p>
+        
+      </div>
+      
+      <div class="col-md-3">
+        <p><strong>Precio total: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+          
+          </div>
+      <div class="col-md-3">
+        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
+        </div>
+    </div>
+  </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+  </div>
+</ng-template>
 
 <!--
   Listado de Reserva de Habitaciones
@@ -129,7 +197,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar {{type}}"
-                  (click)="EditRestaurantModal()"
+                  (click)="open(content,roomreservation.id)"
                 >
                   <i class="fa fa-edit"></i>
                 </button>&nbsp;&nbsp;

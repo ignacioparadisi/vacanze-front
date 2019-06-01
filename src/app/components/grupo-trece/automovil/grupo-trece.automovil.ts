@@ -14,7 +14,7 @@ import * as moment from 'moment';
 })
 export class AutomovilGrupoTrece implements OnInit {
     myForm: FormGroup;
-    public compararFechas;
+    public compararFechas : any;
     public cars = [];
     public countries = [];
     public cities = [];
