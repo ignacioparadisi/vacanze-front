@@ -1,10 +1,9 @@
-<div class="row">
-  <div class="col-md-12">
-
 <!--
   Listado de Reserva de Automoviles
 -->
 <!--
+<div class="row">
+  <div class="col-md-12">
     <div class="card mb-3">
       <div class="card-header">
         Reservas de automoviles
@@ -16,7 +15,7 @@
               <tr >
                 <th scope="col">Marca</th>
                 <th scope="col">Modelo</th>
-                <th scope="col">Capacidad de Pasajeros</th>
+                <th scope="col">Puestos</th>
                 <th scope="col">Precio por dia</th>
                 <th scope="col">Fecha de Alquiler</th>
                 <th scope="col">Fecha de Devolucion</th>
@@ -32,14 +31,16 @@
                 <td>{{carreservation.checkIn}}</td>
                 <td>{{carreservation.checkOut}}</td>
                 <td>
-                  <button
-                  class="btn btn-outline-danger"
-                  style="cursor: pointer;"
-                  (click)="openModalActions($event, restaurante, 'automovil', true)"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Eliminar {{type}}"
-                >
+                <swal
+                #deleteSwal
+                title="¿Desea eliminar la reservacion?"
+                type="question"
+                [showCancelButton]="true"
+                [focusCancel]="true"
+                (confirm)="deleteAutomobileReservation(carreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
+                 seguro', cancelButtonText: 'Cancelar' }">
+                 </swal>
+                <button [swal]="deleteSwal" class="btn btn-outline-danger">
                   <i class="fa fa-trash"></i>
                 </button>&nbsp;&nbsp;
                 <button
@@ -48,7 +49,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar {{type}}"
-                  (click)="EditRestaurantModal()"
+                  
                 >
                   <i class="fa fa-edit"></i>
                 </button>&nbsp;&nbsp;
@@ -58,7 +59,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar {{type}}"
-                  (click)="EditRestaurantModal()"
+                  
                 >
                   <i class="fa fa-credit-card"></i>
                 </button>
@@ -77,6 +78,7 @@
 <!--
   Listado de Reserva de Habitaciones
 -->
+
 <div class="row">
   <div class="col-md-12">
 <div class="card mb-3">
@@ -101,22 +103,24 @@
         <tbody>
           <tr *ngFor="let roomreservation of roomreservations">
             <td>{{roomreservation.hotel.name}}</td>
-            <td>{{roomreservation.hotel.stars}}<i class="fa fa-star" aria-hidden="true"></i>
+            <td align="center">{{roomreservation.hotel.stars}}<i class="fa fa-star" aria-hidden="true"></i>
             </td>
-            <td>{{roomreservation.hotel.roomCapacity}}</td>
+            <td align="center">{{roomreservation.hotel.roomCapacity}}</td>
             <td>{{roomreservation.hotel.pricePerRoom}}$</td>
             <td>{{roomreservation.hotel.phone}}</td>
             <td>{{roomreservation.checkIn}}</td>
             <td>{{roomreservation.checkOut}}</td>
             <td>
-              <button
-                  class="btn btn-outline-danger"
-                  style="cursor: pointer;"
-                  (click)="openModalActions($event, restaurante, 'habitacion', true)"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Eliminar {{type}}"
-                >
+              <swal
+                #deleteSwal
+                title="¿Desea eliminar la reservacion?"
+                type="question"
+                [showCancelButton]="true"
+                [focusCancel]="true"
+                (confirm)="deleteRoomReservation(roomreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
+                 seguro', cancelButtonText: 'Cancelar' }">
+                 </swal>
+                <button [swal]="deleteSwal" class="btn btn-outline-danger">
                   <i class="fa fa-trash"></i>
                 </button>&nbsp;&nbsp;
                 <button

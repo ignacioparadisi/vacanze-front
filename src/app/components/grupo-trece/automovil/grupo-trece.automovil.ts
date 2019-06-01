@@ -34,8 +34,8 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     ngOnInit() {
-        this.getCountries();
         this.initializaDate();
+        this.getCountries();
     }
 
     getCar(id: number) {

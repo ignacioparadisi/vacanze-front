@@ -9,13 +9,13 @@ import * as moment from 'moment';
 @Component({
     selector: 'mis-reservas',
     templateUrl: './mis-reservas.html',
-    styleUrls: ['./mis-reservas.scss'],
+   // styleUrls: ['./mis-reservas.scss'],
     providers: [ApiService]
 })
 export class MisReservas implements OnInit {
     myForm: FormGroup;
-    public carreservations;
-    public roomreservations;
+    public carreservations ="";
+    public roomreservations="";
     public closeResult: string;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
@@ -26,8 +26,8 @@ export class MisReservas implements OnInit {
     }
 
     ngOnInit() {
-      //this.getAutomobileReservations();
-      this.getRoomReservations();
+     // this.getAutomobileReservations();
+     this.getRoomReservations();
     }
 
      /**************************************************************************
@@ -73,9 +73,11 @@ export class MisReservas implements OnInit {
     * Metodo que es llamado para mostrar las reservas de ese usuario                          *
     ***********************************************************************/
   getAutomobileReservations(){
+    console.log("Estoy en getAutomobileReservations");
     const requestURL = "reservationautomobiles/?user=1";
     this.apiService.getUrl(requestURL).then(
         response => {
+          console.log(response);
             this.carreservations = response;
         },
         error => {
@@ -85,14 +87,42 @@ export class MisReservas implements OnInit {
 }
 
 getRoomReservations(){
+  console.log("Estoy en getRoomReservations");
   const requestURL = "reservationrooms/?user=1";
   this.apiService.getUrl(requestURL).then(
       response => {
+        console.log(response);
           this.roomreservations = response;
       },
       error => {
           console.log(error);
       }
+  );
+}
+
+public deleteAutomobileReservation(id: number) {
+  const requestURL = `reservationautomobiles/${id}`;
+  this.apiService.deleteUrl(requestURL).then(
+    response => {
+      console.log(response);
+      this.getAutomobileReservations();
+      console.log('Reservacion con el id=' + id + 'fue eliminada');
+    }, error => {
+      console.error(error);
+    }
+  );
+}
+
+public deleteRoomReservation(id: number) {
+  const requestURL = `reservationrooms/${id}`;
+  this.apiService.deleteUrl(requestURL).then(
+    response => {
+      console.log(response);
+      this.getAutomobileReservations();
+      console.log('Reservacion con el id=' + id + 'fue eliminada');
+    }, error => {
+      console.error(error);
+    }
   );
 }
 }
