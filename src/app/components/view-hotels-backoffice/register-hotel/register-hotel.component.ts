@@ -108,8 +108,6 @@ public registrationForm : FormGroup = new FormGroup({
 
   public getImage(event){
     this.transformImageToBase64(event, image => {
-      console.log(image.length),
-      console.log(image),
       this.urlImage = image
     });
   }

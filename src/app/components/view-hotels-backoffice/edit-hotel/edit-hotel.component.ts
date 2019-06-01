@@ -31,7 +31,6 @@ export class EditHotelComponent implements OnInit {
               private localStorage: LocalStorageService){
                 this.isDataLoaded = false;
                 this.transformImageToBase64 = transformImageToBase64;
-                this.urlImage = null;
               }
 
 
@@ -86,6 +85,9 @@ export class EditHotelComponent implements OnInit {
             Validators.required,
             Validators.min(1),
             Validators.max(5)
+          ]),
+          image: new FormControl(this.urlImage, [
+            Validators.required
           ])
         });
       }
@@ -125,6 +127,12 @@ export class EditHotelComponent implements OnInit {
     }
 
 
+    public getImage(event){
+      this.transformImageToBase64(event, image => {
+        this.urlImage = image
+      });
+    }
+
 
     public goToViewHotels(){
       this._location.back();
@@ -147,7 +155,7 @@ export class EditHotelComponent implements OnInit {
           pricePerRoom: this.registrationForm.get('pricePerRoom').value,
           phone: this.registrationForm.get('phone').value,
           website: this.registrationForm.get('website').value,
-          picture: "ffdsfdsfsdfsdioj", // TODO -> convertidor base64
+          picture: this.urlImage,
           stars: this.registrationForm.get('stars').value,
           location: {
             "id" : 1
