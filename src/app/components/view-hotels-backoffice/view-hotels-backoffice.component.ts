@@ -73,10 +73,10 @@ export class ViewHotelsBackofficeComponent implements OnInit {
       this.isCreatingHotel = false;
       this.router.navigate(['administrar-hoteles','agregar-hotel']);
     }
-    else if (route === '/editar-hotel'){
+    else if (route.indexOf('/editar-hotel') !== -1){
       this.isCreatingHotel = true;
       this.isEditingHotel = false;
-      this.router.navigate(['administrar-hoteles','editar-hotel']);
+      this.router.navigate(['administrar-hoteles','editar-hotel', route.split('/')[2]]);
     }
     else{
       this.isCreatingHotel = false;

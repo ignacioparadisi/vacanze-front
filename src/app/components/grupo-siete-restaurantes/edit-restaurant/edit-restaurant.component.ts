@@ -134,7 +134,7 @@ export class EditRestaurantComponent implements OnInit {
       return this.registrationForm.get('stars');
     }
 
-    public getImage(event){ 
+    public getImage(event){
       this.transformImageToBase64(event, image => {
         this.urlImage = image;
       });
