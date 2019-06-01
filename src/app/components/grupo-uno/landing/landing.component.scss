@@ -4,6 +4,7 @@ html {
   -webkit-font-smoothing: antialiased;
   padding: 20px 0;
   margin-left: 30%;
+  
 }
 
 .band {
@@ -53,6 +54,12 @@ html {
   position: relative;
   top: 0;
   transition: all .1s ease-in;
+}
+
+.card .img{
+  padding-bottom: 60%;
+  background-size: 90%;
+  background-position: center center;
 }
 
 .card:hover {
