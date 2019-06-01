@@ -19,7 +19,7 @@ export class AutomovilGrupoTrece implements OnInit {
     public countries = [];
     public cities = [];
     public closeResult: string;
-    public aut_id;
+   // public aut_id;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
