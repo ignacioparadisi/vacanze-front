@@ -6,7 +6,7 @@
       "cruisers": {
         "get_cruisers": "cruiser"
       },
-      "Orders":"payment/id/{id}/type/{type}",
+      "Orders":"payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
       "getPaymentMethod":"payment"
     },
     "_post": {

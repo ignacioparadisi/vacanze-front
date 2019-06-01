@@ -172,25 +172,25 @@
         </div>
     </div>
     <div class="modal-footer">
-        <h1><a class="btn btn-info" (click)="open(content2)">
+        <h1><a class="btn btn-info" (click)="getOrders()">
                 <i class="fa fa-fw fa-play"></i>
                 Cargar</a></h1>
     </div>
 
 </ng-template>
 
-<div class="container">
+<div  class="container">
     <div>
         <a class="btn btn-info" (click)="open(content2)">
             <i class="fa fa-fw fa-edit"></i>
-            Change</a>
+            Cambiar Reserva</a>
     </div>
     <div>
 
     </div>
 
 
-    <div class="row">
+    <div id="orderframe" class="row">
         <div class="col-sm-12 col-md-12 col-md-offset-1">
             <h2 class="text-center">Reservas a pagar</h2>
             <table class="table table-hover">
@@ -259,7 +259,7 @@
                     <td> </td>
 
                 </tbody>
-                <div class="row">
+                <div id="btncheck" class="row">
                     <div class="col-sm-6 col-md-6 col-md-offset-1">
 
                     </div>

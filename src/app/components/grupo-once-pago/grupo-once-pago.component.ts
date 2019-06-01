@@ -34,6 +34,10 @@ export class GrupoOncePagoComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    this.idSelectAuto ='0';
+    this.idSelectHab  ='0';
+    this.idSelectRes  ='0';
+    this.idSelectCru  ='0';
   }
 
   openPayment(content) {
@@ -67,6 +71,11 @@ export class GrupoOncePagoComponent implements OnInit {
   public reservaRes = [];
   public reservaCru = [];
 
+  public idSelectAuto: string;
+  public idSelectHab: string;
+  public idSelectRes: string;
+  public idSelectCru: string;
+
   private orderList: Array<Order>;
   public payMethods: Array<PayMethods>;
   public bill: Bill;
@@ -83,7 +92,7 @@ export class GrupoOncePagoComponent implements OnInit {
 
 
 
-    this.getOrders();
+    //this.getOrders();
     this.getPayMethods();
     this.open(this.content2);
     this.GetSubTotal();
@@ -92,6 +101,21 @@ export class GrupoOncePagoComponent implements OnInit {
    
 
   }
+
+  selectOptionResAuto(id:string){
+    this.idSelectAuto =id;
+  }
+  selectOptionResHab(id:string){
+    this.idSelectHab =id;
+  }
+  selectOptionResRes(id:string){
+    this.idSelectRes =id;
+  }
+  selectOptionResCru(id:string){
+    this.idSelectCru =id;
+  }
+
+
   selectOption(id: number) {
 
     this.idMethod = name;
@@ -226,16 +250,24 @@ export class GrupoOncePagoComponent implements OnInit {
   }
 
 
-
   public getOrders() {
 
-    this.serv.getUrl(url.endpoint.default._get.Orders, ['1', '3'])
+    this.serv.getUrl(url.endpoint.default._get.Orders, [this.idSelectAuto,this.idSelectHab,this.idSelectRes,this.idSelectCru])
       .then(response => {
+        document.getElementById("orderframe").hidden = false;
         this.setOrderList(response);
+        console.log(response);
+        
       })
       .catch(error => {
-        return
+        this.notInfoResponse()
+
       })
+      if (this.modalService.hasOpenModals())
+      {
+       this.modalService.dismissAll();
+      }
+    
   }
 
   public setOrderList(orderList: Array<Order>) {
@@ -278,10 +310,17 @@ export class GrupoOncePagoComponent implements OnInit {
       .catch(error => {
         console.log("error", error);
       })
-
+      if (this.modalService.hasOpenModals())
+      {
+       this.modalService.dismissAll();
+      }
   }
 
-
+public notInfoResponse()
+{
+  this.setOrderList([]);
+  document.getElementById("orderframe").hidden = true;
+}
 
 
 
