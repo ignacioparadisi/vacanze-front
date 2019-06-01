@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 //* Import de interfaces *//
 import { Cruiser } from '../../interfaces/cruiser';
-
+import { ApiService } from '../../services/api.service';
 //** Import de components **//
 import { LocalStorageService } from '../../services/local-storage.service';
 
@@ -12,7 +12,8 @@ import { LocalStorageService } from '../../services/local-storage.service';
 @Component({
   selector: 'app-table-responsive',
   templateUrl: './table-responsive.component.html',
-  styleUrls: ['./table-responsive.component.scss']
+  styleUrls: ['./table-responsive.component.scss'],
+  providers: [ ApiService ]
 })
 
 export class TableResponsiveComponent implements OnChanges {
@@ -50,7 +51,6 @@ export class TableResponsiveComponent implements OnChanges {
   * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
   **************************************************************************/
   public openModalActions(event, data: Object, type: string, deleted? : boolean){
-    event.preventDefault();
     let config: SweetAlertOptions = {
       title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
       confirmButtonText: 'Confirmar',

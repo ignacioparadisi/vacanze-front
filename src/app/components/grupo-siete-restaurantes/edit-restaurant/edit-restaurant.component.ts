@@ -89,10 +89,7 @@ export class EditRestaurantComponent implements OnInit {
             Validators.min(1),
             Validators.max(5)
           ]),
-          image: new FormControl(this.urlImage, [
-            Validators.required,
-            Validators.min(0)
-          ]),
+          image: new FormControl(this.urlImage, []),
           type: new FormControl(data['specialty'],[
             Validators.required,
             Validators.minLength(5),
