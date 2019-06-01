@@ -39,16 +39,30 @@
           tortor vel tellus pulvinar feugiat.</p>
       </ng-template>
     </ngb-tab>
-    <ngb-tab title="Restaurantes" id="Restaurant">
+    <ngb-tab title="Restaurantes" id="restaurant">
       <ng-template ngbTabContent>
-        <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla
-          facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget
-          tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et
-          molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent
-          fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut
-          bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec
-          tortor vel tellus pulvinar feugiat.</p>
+        <div class="container mt-3" *ngFor="let restReservation of restReservations" style="border: 1px solid; max-width: 55rem;">
+          <div class="row d-flex justify-content-center mt-3">
+            <h5 style="text-align: center">{{restReservation.restaurant.businessname}}</h5>
+          </div>
+          <hr>
+          <div class="row">
+            <p class="col d-flex justify-content-center">
+              Especialidad: {{restReservation.restaurant.specialty}}
+              <br>
+              Ubicación: {{restReservation.restaurant.address_specs}}
+              <br>
+              Teléfono: {{restReservation.restaurant.tlf}}
+            </p>
+            <p class="col d-flex justify-content-center">
+              Fecha: {{restReservation.date}}
+              <br>
+              Capacidad: {{restReservation.capacity}}
+              <br>
+              Monto: {{restReservation.restaurant.price}}
+            </p>
+          </div>
+        </div>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>
