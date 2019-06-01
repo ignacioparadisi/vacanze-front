@@ -9,8 +9,6 @@ import { Restaurant } from '../../interfaces/restaurant';
 import { environment as url } from '../../../environments/environment';
 // tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
-import { LocalStorageService } from '../../services/local-storage.service';
-
 
 @Component({
   selector: 'app-grupo-siete-restaurantes',
@@ -29,7 +27,7 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   public isEditingRestaurant: boolean;
   public isCreatingRestaurant: boolean;
 
-  constructor(private router: Router, private service: ApiService, private localStorage: LocalStorageService) {
+  constructor(private router: Router, private service: ApiService) {
     this.headerTitle = 'Lista de Restaurantes';
     this.tableRestaurantsHeader = ['#', 'Nombre', 'Capacidad',
                                    'Calificación', 'Especialidad',
@@ -114,7 +112,6 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   }
 
   public changeRestaurantStatus(restaurant) {
-      console.log('llegue aqui', restaurant);
       if (restaurant['isActive'] === true) {
           this.service
           .putUrl(url.endpoint.default._put.putRestaurant,
@@ -137,7 +134,8 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
             response => {
               this.restaurantEditedSuccessfully();
               console.log('Exito al modificar ', restaurant.id),
-              this.alertStatus(200, true);
+              // this.alertStatus(200, true);
+              this.loadRestaurants();
             }).catch(
               error => {
                 console.log('Error actualizando el estatus del restaurante');
@@ -165,7 +163,8 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
             response => {
               this.restaurantEditedSuccessfully();
               console.log('Exito al modificar ', restaurant.id),
-              this.alertStatus(200, true);
+              // this.alertStatus(200, true);
+              this.loadRestaurants();
             }).catch(
               error => {
                 console.log('Error actualizando el estatus del restaurante');
@@ -196,7 +195,6 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
           this.loadRestaurants();
         });
   }
-
 
   public getRestaurants() {
     return this.tableData;
