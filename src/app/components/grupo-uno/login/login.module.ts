@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgForm,
     HttpClientModule
 
-  ]
+  ],
+
 })
 export class LoginModule { }
