@@ -2,6 +2,9 @@ import { Component, OnInit,Input } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { FlightReservationsComponent } from '../flight-reservations/flight-reservations.component';
+import { environment as url } from '../../../../environments/environment';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-list-reservations',
@@ -9,8 +12,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-reservations.component.scss']
 })
 export class ListReservationsComponent implements OnInit {
+  @Input() num: number;
+  public listResFlight: Array<object>;
+  public nume:number;
   closeResult: string;
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private api: ApiService) { }
   
  openDetail(content) {
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
@@ -28,10 +34,27 @@ export class ListReservationsComponent implements OnInit {
           return  `with: ${reason}`;
       }
   }
-
-
+  
+   getListFlights() {
+    console.log('llame al metodo');
+    // API URL
+    //const requestURL = 'flight-reservation';
+    this.api.getUrl(url.endpoint.default._get.getResFlight).then(
+        response => {
+            this.listResFlight = response;
+            console.log(response);
+            console.log("listResFlight:",this.listResFlight.length);
+  
+        },
+        error => {
+            console.log(error);
+        }
+    );
+  }
 
   ngOnInit() {
+    this.getListFlights();
+    console.log("num tiene:",this.nume);
   }
 
 

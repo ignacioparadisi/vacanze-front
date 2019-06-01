@@ -7,6 +7,7 @@ import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_di
 import { PeopleFlight } from '../../../classes/people_flight';
 import { Router } from '@angular/router';
 import { environment as url } from '../../../../environments/environment';
+import { ListReservationsComponent } from '../list-reservations/list-reservations.component';
 
 @Component({
   selector: 'app-flight-reservations',
@@ -26,7 +27,7 @@ export class FlightReservationsComponent implements OnInit {
   public disabledOut:boolean=false;
   public disabledPpl:boolean=false;
   public isChecked;
-  public numero:number=44;
+  public numero:number=34;
   public subM:boolean=false;
   public listRes = [];
   public listResFlight: Array<Object>;
@@ -35,6 +36,7 @@ export class FlightReservationsComponent implements OnInit {
    private selectedTyp: string="";
    
   ngOnInit() {
+    
     this.typeFlight();
     this.adultFlight();
     this.form=new FormGroup({
@@ -45,9 +47,15 @@ export class FlightReservationsComponent implements OnInit {
       fechaE:new FormControl(null, [Validators.required])
     })
     var today = new Date();
-    var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+today.getDate();
+    var day=today.getDate();
+    if (day<10) {
+      var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+"0"+today.getDate();
+    }else{
+      var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+today.getDate();
+    }
     var getSelectedOut =<HTMLInputElement> document.getElementById("out_id");
     var getSelectedEnt =<HTMLInputElement> document.getElementById("entry_id");
+    console.log(dateComp);
     document.getElementById("out_id").setAttribute("min", dateComp);
     document.getElementById("entry_id").setAttribute("min", dateComp);
     var dateRe= document.getElementById("out_id");
@@ -156,7 +164,7 @@ export class FlightReservationsComponent implements OnInit {
         }
     );
 }
-public getListFlights() {
+/*public getListFlights() {
   console.log('llame al metodo');
   // API URL
   //const requestURL = 'flight-reservation';
@@ -164,20 +172,22 @@ public getListFlights() {
       response => {
           this.listResFlight = response;
           console.log(response);
-          console.log(this.listResFlight.values);
+          console.log("listResFlight:",this.listResFlight.length);
 
       },
       error => {
           console.log(error);
       }
   );
-}
+}*/
+
   onSubmit() {
      if (this.form.get('origen').valid && this.form.get('destino').valid
      && (this.form.get('adultFlights').value !=-1 || this.disabledPpl==true) && (this.form.get('fechaE').valid || this.disabled==true)
      && (this.form.get('fechaS').valid || this.disabledOut==true)) {
-      this.getListFlights();
-      this.router.navigate(['flight-reservations/list-reservations']);
+     // this.getListFlights();
+      this.numero=66;
+       this.router.navigate(['flight-reservations/list-reservations']);
     } else {
       this.subM=true;
     }
