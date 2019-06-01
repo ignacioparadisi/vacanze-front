@@ -33,8 +33,9 @@ export class TravelComponent implements OnInit {
         );
     }
 
-    private travelCities(id: number) {
-        this.router.navigate(['travel', id, 'cities'])
+    private travelCities(travel) {
+        localStorage.setItem("travel", JSON.stringify(travel));
+        this.router.navigate(['travel', travel.id, 'cities'])
     }
 
     private travelDelete(id: number) {

@@ -9,12 +9,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class CitiesTravelComponent implements OnInit {
 
   private cities: Array<object>;
-  private travelId: number;
+  private travel = JSON.parse(localStorage.getItem("travel"));
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.travelId = Number(this.activatedRoute.snapshot.paramMap.get("travelId"));
     this.getCities();
   }
 
@@ -43,6 +42,6 @@ export class CitiesTravelComponent implements OnInit {
   }
 
   travelDetails(cityId: number) {
-    this.router.navigate(['travel', this.travelId, 'city', cityId]);
+    this.router.navigate(['travel', this.travel.id, 'city', cityId]);
   }
 }
