@@ -16,7 +16,7 @@ const httpOptions = {
 export class ApiService {
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'https://localhost:44362/api';
+  readonly BaseURI = 'https://localhost:5001/api';
   private apiName = environment.baseApiUrl;
   private myInit = {
   };
