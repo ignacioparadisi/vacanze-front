@@ -6,8 +6,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { environment as url } from '../../../environments/environment';
-//tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
+import { HotelsService} from './services/hotels.service';
+
 
 
 @Component({
@@ -19,19 +20,27 @@ import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-r
 
 export class ViewHotelsBackofficeComponent implements OnInit {
 
+
   private tableHotelsHeader: Array<String>;
   private tableData: Array<Object>;
   private headerTitle: string;
-
-  //para saber en que ruta se encuentra
   public isEditingHotel: boolean;
   public isCreatingHotel: boolean;
+
+
+  constructor(
+    private router: Router,
+    private service: ApiService,
+    private _hotelservice: HotelsService
+  ) {
+    this.headerTitle = _hotelservice.getHeaderTitle();
+    this.tableHotelsHeader = _hotelservice.getHotelsHeaders();
+  }
 
 
 
   ngOnChanges(){
   }
-
 
 
   ngOnInit() {
@@ -45,14 +54,6 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     }
     this.loadHotels();
   }
-
-
-
-  constructor(private router: Router, private service: ApiService) {
-    this.headerTitle = "Lista de hoteles";
-    this.tableHotelsHeader = ["#","Nombre","Habitaciones","Teléfono","Sitio Web","Estatus"];
-  }
-
 
 
   public getAlertAction(hotel: Object) {
@@ -114,6 +115,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
               //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
               this.alertStatus(200,true)
         }).catch( error => {
+              this.alertStatus(500, false),
               console.log("Error en el delete del hotel", error)
         });
   }
@@ -128,6 +130,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
               //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
               this.alertStatus(200, false)
         }).catch( error => {
+              this.alertStatus(500, false),
               console.log("Error actualizando el estatus del hotel", error)
         });
   }

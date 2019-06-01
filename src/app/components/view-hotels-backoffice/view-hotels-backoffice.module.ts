@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../services/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterHotelComponent } from './register-hotel/register-hotel.component';
+import { HotelsService} from './services/hotels.service';
 
 //importar el modulo de grupos ocho que es la que hace la declaracion principal
 //del componente tableresponsive y un componente no puede estar en dos declaraciones de modulo distintas
@@ -30,6 +31,9 @@ import { EditHotelComponent } from './edit-hotel/edit-hotel.component';
     ReactiveFormsModule,
     TableResponsiveModule
   ],
-  providers: [ApiService]
+  providers: [
+    ApiService,
+    HotelsService
+  ]
 })
 export class ViewHotelsBackofficeModule { }
