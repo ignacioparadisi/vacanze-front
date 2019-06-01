@@ -1,0 +1,188 @@
+<p>
+  Editar Restaurante
+</p>
+<div *ngIf="isDataLoaded">
+  <form [formGroup]="registrationForm" (ngSubmit) = "onSubmit()">
+    <div class="row">
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Nombre del Restaurante</label>
+          <input [ngClass]="{
+            'is-invalid': name.invalid && name.touched,
+            'is-valid': name.valid
+          }"
+          [class.is-invalid]="name.invalid && name.touched" formControlName="name" type="text" class="form-control" >
+          <div *ngIf="name.invalid && name.touched">
+            <small *ngIf="name.errors?.required" class ="text-danger"> El nombre es requerido </small>
+            <small *ngIf="name.errors?.minlength" class ="text-danger"> El nombre debe tener al menos 5 caracteres </small>
+            <small *ngIf="name.errors?.maxlength" class ="text-danger"> El nombre no puede tener mas de 100 caracteres </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Razon Social</label>
+          <input [ngClass]="{
+            'is-invalid': businessName.invalid && businessName.touched,
+            'is-valid': businessName.valid
+          }"
+          [class.is-invalid]="businessName.invalid && businessName.touched" formControlName="businessName" type="text" class="form-control" >
+          <div *ngIf="businessName.invalid && businessName.touched">
+            <small *ngIf="businessName.errors?.required" class ="text-danger"> El nombre es requerido </small>
+            <small *ngIf="businessName.errors?.minlength" class ="text-danger"> El nombre debe tener al menos 5 caracteres </small>
+            <small *ngIf="businessName.errors?.maxlength" class ="text-danger"> El nombre no puede tener mas de 100 caracteres </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Descripción</label>
+          <input [ngClass]="{
+            'is-invalid': description.invalid && description.touched,
+            'is-valid': description.valid
+          }"
+          [class.is-invalid]="description.invalid && description.touched" formControlName="description" type="text" class="form-control" >
+          <div *ngIf="description.invalid && description.touched">
+            <small *ngIf="description.errors?.required" class ="text-danger"> La descripción es requerida </small>
+            <small *ngIf="description.errors?.minlength" class ="text-danger"> La descripción debe tener al menos 5 caracteres </small>
+            <small *ngIf="description.errors?.maxlength" class ="text-danger"> La descripción no puede tener mas de 100 caracteres </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+        <label>Precio Promedio</label>
+        <input [ngClass]="{
+          'is-invalid': price.invalid && price.touched,
+          'is-valid': price.valid
+        }"
+        formControlName="price" type="number" class="form-control" min="0">
+        <div *ngIf="price.invalid && price.touched">
+          <small *ngIf="price.errors?.required" class ="text-danger">Se requiere especificar el precio promedio</small>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Capacidad</label>
+          <input [ngClass]="{
+            'is-invalid': capacity.invalid && capacity.touched,
+            'is-valid': capacity.valid
+          }"
+          formControlName="capacity" type="number" class="form-control" min="0">
+          <div *ngIf="capacity.invalid && capacity.touched">
+            <small *ngIf="capacity.errors?.required" class ="text-danger">Se requiere especificar la capacidad del restaurante</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Telefono</label>
+          <input [ngClass]="{
+            'is-invalid': phone.invalid && phone.touched,
+            'is-valid': phone.valid
+          }"
+          formControlName="phone" type="text" class="form-control">
+          <div *ngIf="phone.invalid && phone.touched">
+            <small *ngIf="phone.errors?.pattern" class ="text-danger">No parece ser un teléfono válido</small>
+          </div>
+          </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Dirección</label>
+          <input [ngClass]="{
+            'is-invalid': address.invalid && address.touched,
+            'is-valid': address.valid
+          }"
+          [class.is-invalid]="address.invalid && address.touched" formControlName="address" type="text" class="form-control" >
+          <div *ngIf="address.invalid && address.touched">
+            <small *ngIf="address.errors?.required" class ="text-danger"> La dirección es requerida </small>
+            <small *ngIf="address.errors?.minlength" class ="text-danger"> La dirección debe tener al menos 5 caracteres </small>
+            <small *ngIf="address.errors?.maxlength" class ="text-danger"> La dirección no puede tener mas de 100 caracteres </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Subir Imagen</label><br>
+          <input type="file" (change)="getImage($event)">
+        </div>
+      </div>
+
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Cantidad de estrellas (1 - 5)</label>
+          <input [ngClass]="{
+            'is-invalid': stars.invalid && stars.touched,
+            'is-valid': stars.valid
+          }"
+          formControlName="stars" type="number" class="form-control" min="0" max="5">
+          <div *ngIf="stars.invalid && stars.touched">
+          <small *ngIf="stars.errors?.required" class ="text-danger">Se requiere seleccionar el ranking</small>
+          <small *ngIf="stars.errors?.min" class ="text-danger">Mayor a 0</small>
+          <small *ngIf="stars.errors?.max" class ="text-danger">Menor a 5</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Tipo de Comida (Ej. Japonesa, Mexicana, Rapida)</label>
+          <input [ngClass]="{
+            'is-invalid': type.invalid && type.touched,
+            'is-valid': type.valid 
+          }"
+          [class.is-invalid]="type.invalid && type.touched" formControlName="type" type="text" class="form-control" >
+          <div *ngIf="type.invalid && type.touched">
+            <small *ngIf="type.errors?.required" class ="text-danger"> El tipo de comida es requerido </small>
+            <small *ngIf="type.errors?.minlength" class ="text-danger"> El tipo de comida debe tener al menos 5 caracteres </small>
+            <small *ngIf="type.errors?.maxlength" class ="text-danger"> El tipo de comida no puede tener mas de 100 caracteres </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Selecione un país</label>
+          <select type="text" class="form-control" (change)="selectCountry($event)" formControlName="country">
+            <option *ngFor="let country of countries" value={{country.id}} >
+                {{country.country}}
+            </option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Selecione la ciudad</label>
+          <select type="text" class="form-control" formControlName="city">
+            <option *ngFor="let city of cities" value={{city.id}}>
+                {{city.city}}
+            </option>
+        </select>
+        </div>
+      </div>
+
+      <!-- TODO - LOCATION -->
+
+    </div>
+
+    <div class="grupo-botones">
+      <button [disabled]="!registrationForm.valid" class="btn btn-outline-info" type="submit" >Guardar</button>
+      <button class="btn btn-outline-danger" (click)="goToViewRestaurants()" title="Cancelar registro de restaurante" type="button">Cancelar</button>
+    </div>
+
+  </form>
+</div>
+
+ <!-- TODO: INPUT DE PAIS Y CIUDAD -->

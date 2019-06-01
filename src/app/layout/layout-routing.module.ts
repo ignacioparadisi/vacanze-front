@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, UrlSegment } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -9,8 +10,18 @@ const routes: Routes = [
     children: [
       /* Inicio */
       {
-        path: '',
-        loadChildren: '../components/home/home.module#HomeModule'
+        path: "",
+        /* redirectTo: '/grupo-uno',
+         pathMatch: 'full'*/
+        loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
+      },
+      {
+        path: "landing",
+        loadChildren: "../components/grupo-uno/landing/landing.module#LandingModule"
+      },
+      {
+        path: "home",
+        loadChildren: "../components/home/home.module#HomeModule"
       },
       {
         path: 'grupo-uno',
@@ -28,6 +39,10 @@ const routes: Routes = [
         path: 'grupo-trece',
         loadChildren: '../components/grupo-trece/grupo-trece.module#GrupoTreceModule'
       },
+      {
+        path: 'mis-reservas',
+        loadChildren: '../components/mis-reservas/mis-reservas.module#MisReservasModule'
+      },
       /* Ruta para Backoffice de Cruceros */
       {
         path: 'cruisers',
@@ -43,6 +58,10 @@ const routes: Routes = [
         loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       },
       {
+        path: 'administrar-restaurantes',
+        loadChildren: '../components/grupo-siete-restaurantes/grupo-siete-restaurantes.module#GrupoSieteRestaurantesModule'
+      },
+      {
         path: 'travel',
         loadChildren: '../components/travel/travel.module#TravelModule'
       },
@@ -52,14 +71,9 @@ const routes: Routes = [
           '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
       },
       {
-        path: 'restaurantes',
-        loadChildren:
-          '../components/restaurantes/restaurantes.module#RestaurantesModule'
-      },
-      {
         path: 'restaurant-reservation',
-        loadChildren: 
-        '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
+        loadChildren:
+          '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
       },
       {
         path: 'users',
@@ -68,7 +82,8 @@ const routes: Routes = [
       {
         path: 'grupo-cinco',
         loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
-      }
+      },
+
 
     ]
   }
