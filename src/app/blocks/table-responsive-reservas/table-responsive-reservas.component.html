@@ -24,12 +24,10 @@
             <td>
               <button 
                 class="btn btn-outline-dark"
-                style="cursor: pointer;" 
-                (click)="openModalActions($event, reserva?.name, 'reservar', true)" 
-                data-toggle="tooltip" 
-                data-placement="top" 
-                title="Reservar {{type}}"
-              >
+                (click)="goToDetailView()"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Reservar restaurant {{reserva?.name}}">
                 <i class="fa fa-cart-plus"></i>
               </button>&nbsp;&nbsp;
             </td>
