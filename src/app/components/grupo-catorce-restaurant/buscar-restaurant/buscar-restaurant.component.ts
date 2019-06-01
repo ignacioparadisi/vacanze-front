@@ -52,12 +52,13 @@ export class BuscarRestaurantComponent implements OnInit {
         cantPeople: this.formGroup.get('cantidadPersonas').value,
         ciudad:this.formGroup.get('ciudad').value
       }
-      // this.localStorage.setItem('boat', boat).subscribe(data => {
-      //   this.emitRouting.emit('/editar-crucero/'+boat['id']);
-      // });
-      console.log('estoy en la vista 1')
-      console.log(datosReserva)
-      this.router.navigate(['restaurant-reservation/list-restaurant']);
+     
+      this.localStorage.setItem('formReserva', datosReserva).subscribe(datosReserva =>{
+        //console.log('estoy en la vista 1')
+        console.log('Datos de la reserva',datosReserva)
+        this.router.navigate(['restaurant-reservation/list-restaurant']);
+      })
+      
     }
     else{
       this.subM =true
@@ -65,7 +66,6 @@ export class BuscarRestaurantComponent implements OnInit {
     }
   }
  
-
   private peopleDinner(): reservationRestaurant[]{
     this.cantidadPersonas = [
       new reservationRestaurant(1, '1 people'),
@@ -104,6 +104,10 @@ export class BuscarRestaurantComponent implements OnInit {
     var day = date.getDate()
     
     if (month<10){
+      if(day <10){
+        var fecha = year +'-0'+ month+'-0'+day
+        return fecha
+      }
       var fecha = year +'-0'+ month+'-'+day
       return fecha
     }
@@ -112,4 +116,6 @@ export class BuscarRestaurantComponent implements OnInit {
       return fecha
     }
   }
+
+  
 }

@@ -24,6 +24,9 @@ export class TableResponsiveReservasComponent implements OnChanges {
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
 
+  public isDataLoaded: boolean = false //Variable para saber si se cargaron los datos del LocalStorage
+  public formData //Variable a la cual le asigno los datos que me traje del formulario
+
   constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) { // Agregando tooltip en boton de agregar
   }
  
@@ -49,9 +52,9 @@ export class TableResponsiveReservasComponent implements OnChanges {
     this.actionAlertEventEmitter.emit(event);
   }
 
-    /************************************************************************
-    * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
-    **************************************************************************/
+  /************************************************************************
+  * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
+  **************************************************************************/
   public openModalActions(event, data: Object, type: string, resgister? : boolean){
     event.preventDefault();
     let config: SweetAlertOptions = {
@@ -67,14 +70,31 @@ export class TableResponsiveReservasComponent implements OnChanges {
     })
   }
 
-    /************************************************************
-    * Metodo para redireccionar a la vista de añadir listar el 
-    * restaurant que quiere reservar *
-    *************************************************************/
-  public goToDetailView(){
-    console.log('estoy en el detail view')
-    this.emitRouting.emit('restaurant-reservation/list-restaurant/detail-view')
-    //this.router.navigate(['restaurant-reservation/list-restaurant/detail-view']);
+  /************************************************************
+  * Metodo para redireccionar a la vista de añadir listar el 
+  * restaurant que quiere reservar *
+  *************************************************************/
+  public goToDetailView(reserva: Object){
+    //console.log('Datos del restaurant',reserva)
+    //console.log('estoy en el detail view')
+    this.localStorage.getItem('formReserva').subscribe(storedRes =>{
+      if(storedRes){
+        this.isDataLoaded = true
+        this.formData = storedRes
+      }
+    })
+    
+    if(this.isDataLoaded === true){
+
+      var datos ={
+        reservation: reserva,
+        userDatos: this.formData
+      }
+      //Significa que el usuario hizo todos los pasos para llegar a la ventana
+      this.localStorage.setItem('resRestaurant', datos).subscribe(datos =>{
+        this.router.navigate(['restaurant-reservation/list-restaurant/detail-view']);      
+      })
+    }
   }
   
 }

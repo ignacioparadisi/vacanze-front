@@ -15,9 +15,12 @@ export class SeleccionarRestaurantComponent implements OnInit {
   private tableData: Array<Object>;
   private headerTitle: string;
   public restaurants = []
-  public formData = this.localStorage.getItem('formReserva')
+  public formData
+  public isDataLoaded: boolean = false
 
-  constructor(private api: ApiService,private _location: Location,private localStorage: LocalStorageService) { 
+  constructor(private api: ApiService,
+    private _location: Location,
+    private localStorage: LocalStorageService) { 
     this.headerTitle = "List of the restaurants for the choosen date and location!";
 
     // Headers de la tabla dinamica
@@ -37,7 +40,12 @@ export class SeleccionarRestaurantComponent implements OnInit {
 
   ngOnInit() {
     console.log("Auida")
-    console.log(this.formData)
+    this.localStorage.getItem('formReserva').subscribe(storedRes =>{
+      if(storedRes){
+        this.isDataLoaded = true
+        this.formData = storedRes
+      }
+    })
   } 
 
   public loadRestaurants(){
@@ -46,9 +54,8 @@ export class SeleccionarRestaurantComponent implements OnInit {
     //default es el url base de la clase enviroment
     this.api.getUrl(url.endpoint.default._get.getRestaurant)
     .then(response => {
-          this.tableData = response,
-          console.log(response)
-          console.log(this.tableData)
+      this.tableData = response,
+      console.log(this.tableData)
     }).catch( error => {
           console.log('Error carga inicial de restaurantes', error);
     });
@@ -67,6 +74,10 @@ export class SeleccionarRestaurantComponent implements OnInit {
   }
 
   public goBack(){
+    //TODO eliminar los datos del LocalStorage (lo del formReserva)
+    this.localStorage.removeItem('formReserva')
+    this.formData =''
+    this.isDataLoaded = false
     this._location.back();
   }
 }
