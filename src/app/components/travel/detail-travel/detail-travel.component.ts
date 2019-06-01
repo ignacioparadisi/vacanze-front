@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detail-travel',
@@ -10,7 +11,9 @@ export class DetailTravelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
   }
 
+  onTabChange(event: NgbTabChangeEvent) {
+    console.log(event.nextId)
+  }
 }

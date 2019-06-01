@@ -4,8 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TravelRoutingModule } from './travel-routing.module';
 import { TravelComponent } from './travel.component';
 import { CreateTravelComponent } from './create-travel/create-travel';
-import { NgbModalModule, NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
-import { NgbCarouselModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModalModule, NgbDatepickerModule, NgbTabsetModule } from "@ng-bootstrap/ng-bootstrap";
 import { DetailTravelComponent } from './detail-travel/detail-travel.component';
 import { ModifyTravelComponent } from './modify-travel/modify-travel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +25,7 @@ import { AddCityComponent } from './cities-travel/add-city/add-city';
     TravelRoutingModule,
     HttpClientModule,
     NgbModalModule,
-    NgbCarouselModule,
+    NgbTabsetModule,
     FormsModule,
     ReactiveFormsModule,
     NgbDatepickerModule
