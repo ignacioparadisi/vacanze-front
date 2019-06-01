@@ -28,29 +28,40 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   public isCreatingHotel: boolean;
 
 
+
   ngOnChanges(){
   }
 
-  ngOnInit() {
-  }
 
-  constructor(private router: Router, private service: ApiService) {
-    this.headerTitle = "Lista de hoteles";
-    this.tableHotelsHeader = ["#","Nombre","Habitaciones","Teléfono","Sitio Web","Estatus"];
+
+  ngOnInit() {
+    if(this.router.url === '/administrar-hoteles/agregar-hotel' || this.router.url.indexOf('editar-hotel') !== -1){
+      this.isEditingHotel = true;
+      this.isCreatingHotel = true;
+    }
+    else {
+      this.isEditingHotel = false;
+      this.isCreatingHotel= false;
+    }
     this.loadHotels();
   }
 
 
 
-  public getAlertAction(action: Object) {
-    console.log(action);
-    if(action['confirmed']){
-      if(action['delete']){
-        //console.log(action);
-        this.deleteHotel(action['id']);
+  constructor(private router: Router, private service: ApiService) {
+    this.headerTitle = "Lista de hoteles";
+    this.tableHotelsHeader = ["#","Nombre","Habitaciones","Teléfono","Sitio Web","Estatus"];
+  }
+
+
+
+  public getAlertAction(hotel: Object) {
+    console.log(hotel);
+    if(hotel['confirmed']){
+      if(hotel['delete']){
+        this.deleteHotel(hotel['id']);
       } else{
-        console.log("se quiere actualizar el estatus del hotel ",action);
-        this.changeHotelStatus(action);
+        this.changeHotelStatus(hotel);
       }
     }
   }
