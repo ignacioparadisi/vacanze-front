@@ -101,6 +101,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
               //console.log("Cargan los hoteles", response),
               this.tableData = response
         }).catch( error => {
+              this.alertStatus(500, false)
               console.log("Error carga inicial de hoteles", error);
         });
   }
