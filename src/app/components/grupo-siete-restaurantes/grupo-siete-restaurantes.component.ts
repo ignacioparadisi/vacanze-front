@@ -24,7 +24,6 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   private tableData: Array<Object>;
   private headerTitle: string;
   private restaurants: Array<Restaurant>;
-  public RisActive: boolean;
 
   // para saber en que ruta se encuentra
   public isEditingRestaurant: boolean;
