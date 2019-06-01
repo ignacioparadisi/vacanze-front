@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
           this.isPushed = true;
           this.isShow = false;
           this.isShowLogin = true;
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/landing');
         }
       }, error => {
         if (error.status == 400 || error.status != 200)
