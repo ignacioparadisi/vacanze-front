@@ -1,17 +1,17 @@
 export class reservationHour{
 
-    private _id:number
+    private _id:string
     private _hour: string
 
-    constructor(id: number, name: string) {
+    constructor(id: string, name: string) {
       this._id = id;
       this._hour = name;
     }
 
-    public get id(): number {
+    public get id(): string {
       return this._id;
     }
-    public set id(value: number) {
+    public set id(value: string) {
       this._id = value;
     }
     

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { environment as url } from '../../../../environments/environment';
 import { Location } from "@angular/common";
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-seleccionar-restaurant',
@@ -14,8 +15,9 @@ export class SeleccionarRestaurantComponent implements OnInit {
   private tableData: Array<Object>;
   private headerTitle: string;
   public restaurants = []
-  
-  constructor(private api: ApiService,private _location: Location) { 
+  public formData = this.localStorage.getItem('formReserva')
+
+  constructor(private api: ApiService,private _location: Location,private localStorage: LocalStorageService) { 
     this.headerTitle = "List of the restaurants for the choosen date and location!";
 
     // Headers de la tabla dinamica
@@ -35,6 +37,7 @@ export class SeleccionarRestaurantComponent implements OnInit {
 
   ngOnInit() {
     console.log("Auida")
+    console.log(this.formData)
   } 
 
   public loadRestaurants(){

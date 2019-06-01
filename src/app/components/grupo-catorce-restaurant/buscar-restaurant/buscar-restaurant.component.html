@@ -50,3 +50,22 @@
   </div>
 </div>
 <!-- <app-seleccionar-restaurant></app-seleccionar-restaurant> -->
+<script>
+  $(function(){
+    $('#pais').on('change', findCity);
+  })
+
+  function findCity(){
+    var pais = $this.val()
+    $.get('/findCity'+pais+'/pertenece', (data)=>{
+
+      var html_select = '<option value="">City</option>'
+      $('#city').html(html_select)
+
+      for(var i =0; i< data.length; i++){
+        html_select += '<option value="'+data[i].id+'">'+data[i].name+'</option>'
+        $('city').html(html_select)
+      }
+    })
+  }
+</script>
