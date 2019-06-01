@@ -40,15 +40,11 @@
       <i class="fa fa-fw fa-user"></i>&nbsp;
       <span>Usuarios</span>
     </a>
-    <!-- <a (click)="openRegisterRestaurant()" class="list-group-item">
-      <i class="fa fa-fw fa-cutlery"></i>&nbsp;
-      <span>Registrar Restaurante</span>
-    </a> -->
     <a routerLink="/administrar-hoteles" class="list-group-item">
       <i class="fa fa-bed"></i>&nbsp;
       <span>Hoteles</span>
     </a>
-    <a routerLink="/restaurantes" class="list-group-item">
+    <a routerLink="/administrar-restaurantes" class="list-group-item">
       <i class="fa fa-fw fa-cutlery"></i>&nbsp;
       <span>Restaurantes</span>
     </a>
@@ -56,20 +52,28 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Reservar Vuelo</span>
     </a>
-    <a routerLink="/grupo-trece-habitacion" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-      <span>Reservar Habitación</span>
+            <a routerLink="/grupo-trece/automovil" class="list-group-item">
+              <i class="fa fa-car"></i>&nbsp;
+              <span>Reservar Automóvil</span>
+            </a>
+            <a routerLink="/grupo-trece/habitacion" class="list-group-item">
+              <i class="fa fa-bed"></i>&nbsp;
+              <span>Reservar Habitación</span>
+            </a>
+    <a routerLink="/restaurant-reservation" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-cutlery"></i>&nbsp;
+      <span>Reservar Restaurant</span>
     </a>
-    <a routerLink="/grupo-trece-automovil" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-      <span>Reservar Automóvil</span>
+    <a routerLink="/mis-reservas" class="list-group-item">
+      <i class="fa fa-pencil-square-o"></i>&nbsp;
+      <span>Mis Reservas</span>
     </a>
-    <a routerLink="/cruceros" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a routerLink="/cruisers" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-ship"></i>&nbsp;
       <span>Cruceros</span>
-    </a>
+    </a>    
     <a routerLink="/travel" class="list-group-item">
-      <i class="fa fa-fw fa-calendar"></i>&nbsp;
+      <i class="fa fa-fw fa-compass"></i>&nbsp;
       <span>Viajes</span>
     </a>
   </div>
