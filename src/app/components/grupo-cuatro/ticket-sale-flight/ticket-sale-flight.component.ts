@@ -37,7 +37,8 @@ export class TicketSaleFlightComponent implements OnInit {
       origen: new FormControl(null, [Validators.required]),
       destino: new FormControl(null, [Validators.required]),
       fechaS:new FormControl(null, [Validators.required]),
-      fechaE:new FormControl(null, [Validators.required])
+      fechaE:new FormControl(null, [Validators.required]),
+      pasaporte:new FormControl(null, [Validators.required])
     })
     var today = new Date();
     var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+today.getDate();
@@ -62,6 +63,27 @@ export class TicketSaleFlightComponent implements OnInit {
         return this.typeFlights; 
      }
 
+     pantallaConReserva(){
+      var pagina, liSinReserva, liConReserva;
+      pagina = document.getElementById('paginaConReserva');
+      liSinReserva = document.getElementById('li-sin-reserva');
+      liConReserva = document.getElementById('li-con-reserva');
+  
+      pagina.style.display = "block";
+      liSinReserva.style.display = "none";
+      liConReserva.style.display = "none";
+    }
+  
+    pantallaSinReserva(){
+      var pagina, liSinReserva, liConReserva;
+      pagina = document.getElementById('paginaSinReserva');
+      liSinReserva = document.getElementById('li-sin-reserva');
+      liConReserva = document.getElementById('li-con-reserva');
+  
+      pagina.style.display = "block";
+      liSinReserva.style.display = "none";
+      liConReserva.style.display = "none";
+    }
  
   private adultFlight():PeopleFlight[]{
       this.adultFlights=[
@@ -104,7 +126,7 @@ export class TicketSaleFlightComponent implements OnInit {
       
     }
   }
-    checkboxSelected(event: any){
+ /*    checkboxSelected(event: any){
     var element =<HTMLInputElement> document.getElementById("date_id");
     this.isChecked= element.checked;
     var input= document.getElementById("entry_id");
@@ -128,7 +150,15 @@ export class TicketSaleFlightComponent implements OnInit {
        this.disabledPpl=false;
     }
 
+  } */
+  listadoReserva(){
+   // if (this.form.get('pasaporte').valid && this.form.get('nacionalidad').value !=-1 ) {
+     this.router.navigate(['grupo-cuatro/ticket-list-flight']);
+   /* } else {
+     this.subM=true;
+   } */
   }
+
   onSubmit() {
      if (this.form.get('origen').valid && this.form.get('destino').valid
      && (this.form.get('adultFlights').value !=-1 || this.disabledPpl==true) && (this.form.get('fechaE').valid || this.disabled==true)
