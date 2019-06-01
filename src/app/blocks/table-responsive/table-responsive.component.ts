@@ -121,13 +121,6 @@ export class TableResponsiveComponent implements OnChanges {
     this.emitRouting.emit('/agregar-restaurant');
   }
 
-  /**********************************************************************
-    * Metodo para ir a editar el hotel                                    *
-    ***********************************************************************/
-   /*public goToEditRestaurant() {
-      this.emitRouting.emit('/editar-restaurant');
-  }*/
-
     /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
     ***********************************************************************/
