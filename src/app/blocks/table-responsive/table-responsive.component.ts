@@ -75,7 +75,7 @@ export class TableResponsiveComponent implements OnChanges {
     * Metodo para redireccionar a la vista de añadir un crucero *
     *************************************************************/
     public goToAddCruiser(){
-      this.emitRouting.emit('/agregar-crucero');
+      this.emitRouting.emit('/add-cruiser');
     }
   
      /************************************************************
@@ -83,11 +83,11 @@ export class TableResponsiveComponent implements OnChanges {
     *************************************************************/
     public goToEditCruiser(boat: Object){
       this.localStorage.setItem('boat', boat).subscribe(data => {
-        this.emitRouting.emit('/editar-crucero/'+boat['id']);
+        this.emitRouting.emit('/edit-cruiser/'+boat['id']);
       });
     }
 
-      /************************************************************
+   /************************************************************
     * Metodo para redireccionar a la vista de añadir un restaurante *
     *************************************************************/
    public goToEditRestaurant(restaurant: Object){
@@ -135,6 +135,9 @@ export class TableResponsiveComponent implements OnChanges {
       } else if (type === 'restaurantes') {
         this.goToAddRestaurant();
       }
+      else if( type === 'cruceros'){
+        this.goToAddCruiser();
+      }
     }
 
     /**********************************************************************
@@ -144,5 +147,15 @@ export class TableResponsiveComponent implements OnChanges {
       if (type === 'hotel') {
         this.goToEditHotel();
       }
+    }
+
+    public goToEditRoute(boat: Object){
+      this.localStorage.setItem('boat', boat).subscribe(data => {
+        this.emitRouting.emit(boat['id']+'/layovers');
+      })
+    }
+
+    public goToAddNewRoute(boat: Object){
+      this.emitRouting.emit('/add-cruiser-routes/'+boat['id']);
     }
 }
