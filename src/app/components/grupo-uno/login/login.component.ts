@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
 
   @ViewChild(RouterOutlet) outlet: RouterOutlet;
   @ViewChild('Recovery') Recovery: ElementRef;
+  isPushed = true;
+  isShow = false;
   TodoForm: FormGroup;
   StatusLogin = true;
   formModel = {
@@ -36,6 +38,8 @@ export class LoginComponent implements OnInit {
 
   }
   onSubmit(form: NgForm) {
+    this.isPushed = false;
+    this.isShow = true;
     this.service.postUrl('Login/Login', form.value).then(
       (res: any) => {
         localStorage.setItem('id', res.id);
@@ -44,20 +48,27 @@ export class LoginComponent implements OnInit {
         if (res.roles[0].name == 1) {
           this.StatusLogin = false;
           this.father.StatusHeader = true;
+          this.isPushed = true;
+          this.isShow = false;
           this.router.navigateByUrl('/landing');
         } else if (res.roles[0].name != 1) {
           this.father.StatusHeader = true;
           this.father.StatusSideBar = true;
           this.StatusLogin = false;
+          this.isPushed = true;
+          this.isShow = false;
           this.router.navigateByUrl('/home');
         }
       }, error => {
         if (error.status == 400 || error.status != 200)
           alert("Ha ocurrido un error")
+        this.isPushed = true;
+        this.isShow = false;
       }
     );
   }
   RecoverySubmit(recoveryForm: NgForm) {
+
     this.service.postUrl('Email/Email', recoveryForm.value).then(
       (res: any) => {
         localStorage.setItem('Email', res.email);

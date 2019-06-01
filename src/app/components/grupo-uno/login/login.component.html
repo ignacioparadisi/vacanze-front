@@ -27,8 +27,10 @@
           </div>
 
 
-          <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid"
+          <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid" *ngIf="isPushed"
             (deactivate)='onDeactivate($event)' style="font-size: 25px;font-weight: bold;">Iniciar Sesion</button>
+          <p *ngIf="isShow" style="color:white;font-weight: bold; text-align: center; font-size: 24px;">Please
+            Wait.............</p>
         </form>
         <p>¿No tienes cuenta? <a href="">¡¡Registrate!!</a></p>
         <footer class="page-copyright">
