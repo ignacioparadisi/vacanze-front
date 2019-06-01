@@ -6,7 +6,8 @@
       "cruisers": {
         "get_cruisers": "cruiser"
       },
-      "Orders":"payment/id/{id}/type/{type}"
+      "Orders":"payment/id/{id}/type/{type}",
+      "getPaymentMethod":"payment"
     },
     "_post": {
       "postClaim":"Claim",
@@ -14,7 +15,8 @@
       "postRestaurant": "restaurants",
       "cruisers": {
         "post_cruiser": "cruiser"
-      }
+      },
+      "addPayment":"payment"
     },
     "_put": {
       "putClaimStatus":"Claim/{id}"
