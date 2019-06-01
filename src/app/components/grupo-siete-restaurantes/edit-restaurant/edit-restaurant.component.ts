@@ -23,11 +23,14 @@ export class EditRestaurantComponent implements OnInit {
     public registrationForm: FormGroup;
     public transformImageToBase64;
     public isDataLoaded: boolean;
+    public countries: any[];
+    public cities: any[];
 
     constructor(private _location: Location, private localStorage: LocalStorageService, private service: ApiService){
       this.isDataLoaded = false;
       this.transformImageToBase64 = transformImageToBase64;
       this.urlImage = null;
+      this.getCountry();
     }
 
     ngOnInit() {
@@ -94,9 +97,34 @@ export class EditRestaurantComponent implements OnInit {
             Validators.required,
             Validators.minLength(5),
             Validators.maxLength(50)
+          ]),
+          country: new FormControl(null, [
+          ]),
+          city: new FormControl(null, [
           ])
         });
       }
+    }
+
+    public getCity(id: number) {
+      this.service
+          .getUrl(url.endpoint.default._get.getCity, [id.toString()])
+          .then(response => {
+              this.cities = response;
+      }, error => console.error(error));
+    }
+
+    public getCountry() {
+      this.service
+          .getUrl(url.endpoint.default._get.getCountry)
+          .then(response => {
+              this.countries = response;
+      }, error => console.error(error));
+    }
+
+    public selectCountry(event) {
+      console.log(event.target.value);
+      this.getCity(event.target.value);
     }
 
     get name(){
@@ -188,7 +216,7 @@ export class EditRestaurantComponent implements OnInit {
             picture: this.urlImage,
             description: this.registrationForm.get('description').value,
             phone: this.registrationForm.get('phone').value,
-            location: 1,
+            location: this.registrationForm.get('city').value,
             address: this.registrationForm.get('address').value
           })
         .then(
