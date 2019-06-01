@@ -13,19 +13,19 @@
         <!--Tabla de reserva de restaurant-->
         <tbody *ngIf="type === 'rest-reserva'">
           <tr *ngFor="let reserva of tableData">
-            <td>{{ reserva?.picture }}</td>
+            <td><img src="{{ reserva?.picture }}" ></td>
             <td>{{ reserva?.name }}</td>
             <td>{{ reserva?.location }}</td>
             <td>{{ reserva?.capacity }}</td>
             <td>{{ reserva?.specialty }}</td>
             <td>{{ reserva?.price }} $</td>
-            <td>{{ reserva?.descripcion }}</td>
+            <td>{{ reserva?.description }}</td>
             <td>{{ reserva?.phone }}</td>
             <td>
               <button 
                 class="btn btn-outline-dark"
                 style="cursor: pointer;" 
-                (click)="openModalActions($event, reservar-restaurante, 'reservar', true)" 
+                (click)="openModalActions($event, reserva?.name, 'reservar', true)" 
                 data-toggle="tooltip" 
                 data-placement="top" 
                 title="Reservar {{type}}"

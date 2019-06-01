@@ -47,12 +47,12 @@ export class TableResponsiveReservasComponent implements OnChanges {
     /************************************************************************
     * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
     **************************************************************************/
-    public openModalActions(event, data: Object, type: string, deleted? : boolean){
+    public openModalActions(event, data: Object, type: string, resgister? : boolean){
       event.preventDefault();
       let config: SweetAlertOptions = {
-        title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
-        confirmButtonText: 'Confirmar',
+        title: '¿' + (resgister ? 'Desea '+ type +' una mesa del restaurant ':'Desea cambiar el status del ') + data + '?',
         cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Confirmar',
         showCancelButton: true,
         type: 'question',
         focusCancel: true
@@ -60,5 +60,9 @@ export class TableResponsiveReservasComponent implements OnChanges {
       Swal.fire(config).then(result => {
         this.messageAlert(data);
       })
+    }
+
+    public goToRegister(){
+      this.emitRouting.emit('/confirmation');
     }
 }
