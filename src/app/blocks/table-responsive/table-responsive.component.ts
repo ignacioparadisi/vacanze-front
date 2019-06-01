@@ -60,7 +60,7 @@ export class TableResponsiveComponent implements OnChanges {
       focusCancel: true
     }
     Swal.fire(config).then(result => {
-      data['delete'] = deleted; 
+      data['delete'] = deleted;
       if(result && ('value' in result)){
         data['confirmed'] = true;
       }
@@ -77,7 +77,7 @@ export class TableResponsiveComponent implements OnChanges {
     public goToAddCruiser(){
       this.emitRouting.emit('/agregar-crucero');
     }
-  
+
      /************************************************************
     * Metodo para redireccionar a la vista de añadir un crucero *
     *************************************************************/
@@ -108,8 +108,10 @@ export class TableResponsiveComponent implements OnChanges {
     /**********************************************************************
     * Metodo para ir a editar el hotel                                    *
     ***********************************************************************/
-    public goToEditHotel(){
-      this.emitRouting.emit('/editar-hotel');
+    public goToEditHotel(hotel: Object){
+      this.localStorage.setItem('hotel',  hotel).subscribe(data =>{
+        this.emitRouting.emit('/editar-hotel/' + hotel['id']);
+      });
     }
 
     /**********************************************************************
@@ -137,12 +139,4 @@ export class TableResponsiveComponent implements OnChanges {
       }
     }
 
-    /**********************************************************************
-    * Metodo que es llamado por el boton editar                           *
-    ***********************************************************************/
-    public goToEdit(type: string){
-      if (type === 'hotel') {
-        this.goToEditHotel();
-      }
-    }
 }
