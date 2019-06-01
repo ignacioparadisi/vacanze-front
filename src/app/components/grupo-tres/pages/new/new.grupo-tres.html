@@ -5,6 +5,18 @@
                 Agregar rutas y formalizar vuelos
             </div>
             <div class="card-body">
+                <ngb-alert type="success" *ngIf="messageSuccess">
+                    <strong>Exito! </strong> {{mensaje?.message}}
+                </ngb-alert>
+                <ngb-alert type="danger" *ngIf="errores">
+                    <p><strong>¡ERROR! </strong>No se pudo crear el registro debido a distintos problemas, recuerde lo siguiente: </p>
+                    <ul *ngIf="(fechas != 1 || ciudades != 1) && visible">
+                        <li>Todos los campos son obligatorios</li>
+                        <li>La fecha y hora de llegada al destino debe ser mayor que la fecha de salida del origen.</li>
+                        <li>La ciudad de destino no puede ser igual a la ciudad de salida.</li>
+                    </ul>
+                    <p *ngIf="messageDanger">{{mensaje?.message}}</p>
+                </ngb-alert>
                 
                 <form [formGroup]="form" (submit)="submit()">
                     <div>
@@ -40,7 +52,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                          <label for="">Ciudad de origen</label>
+                                          <label for="">Ciudad de origen </label>
                                           <select class="form-control" 
                                             formControlName="locDeparture"
                                             [ngClass]="{'is-invalid': invalid('locDeparture', form), 'is-valid': valid('locDeparture', form)}">
@@ -48,7 +60,7 @@
                                               [value]="city.id">{{city.city}}</option>
                                           </select>
                                           <div *ngIf="invalid('locDeparture', form)" class="invalid-feedback">
-                                            Por favor seleccione un país
+                                            Por favor seleccione una ciudad
                                           </div>
                                           <div *ngIf="valid('locDeparture', form)" class="valid-feedback">
                                             ¡Excelente!
@@ -81,7 +93,7 @@
                                               [value]="city.id">{{city.city}}</option>
                                           </select>
                                           <div *ngIf="invalid('locArrival', form)" class="invalid-feedback">
-                                            Por favor seleccione un país
+                                            Por favor seleccione una ciudad
                                           </div>
                                           <div *ngIf="valid('locArrival', form)" class="valid-feedback">
                                             ¡Excelente!
@@ -128,7 +140,7 @@
                                                 [ngClass]="{'is-invalid': invalid('plane', form), 'is-valid': valid('plane', form)}">
                                                 <option *ngFor="let airplane of airplanes let i = index;"
                                                 [value]="airplane.id">
-                                                {{airplane.model}}</option>
+                                                Modelo: {{airplane?.model}} - Autonomía: {{airplane?.autonomy}}</option>
                                             </select>
                                             <div *ngIf="invalid('plane', form)" class="invalid-feedback">
                                                 Por favor seleccione un avión
