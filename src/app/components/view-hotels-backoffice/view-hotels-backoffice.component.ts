@@ -41,8 +41,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   }
 
 
-  public getAlertAction(action: string) {
-    console.log(action['delete']);
+  public getAlertAction(action: Object) {
     if(action['delete']){
       //console.log(action);
       this.deleteHotel(action['id']);
