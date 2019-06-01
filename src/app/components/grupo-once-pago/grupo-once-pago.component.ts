@@ -5,8 +5,8 @@ import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { Order } from '../../interfaces/Order';
 import { environment as url } from '../../../environments/environment';
-import { payMethods } from 'src/app/interfaces/paymethods';
-import { Bill } from 'src/app/interfaces/bill';
+import { PayMethods } from '../../interfaces/paymethods';
+import { Bill } from '../../interfaces/bill';
 
 
 @Component({
@@ -61,30 +61,44 @@ export class GrupoOncePagoComponent implements OnInit {
     }
   }
 
-  public payMethods = [];
-  public reserva = [];
+
+  public reservaAuto = [];
+  public reservaHab = [];
+  public reservaRes = [];
+  public reservaCru = [];
+
   private orderList: Array<Order>;
-  private tpayMethods: Array<payMethods>;
+  public payMethods: Array<PayMethods>;
   public bill: Bill;
-  public idMethod: number;
+  public idMethod: string;
   ngOnInit() {
 
     this.payMethods = this.getPaymentMethod();
     this.orderList = this.getOrderList();
+    this.reservaAuto = this.getReserv_Auto();
+    this.reservaHab = this.getReserv_Hab();
+    this.reservaRes = this.getReserv_Res();
+    this.reservaCru = this.getReserv_Cru();
+
+
+
+
     this.getOrders();
     this.getPayMethods();
     this.open(this.content2);
     this.GetSubTotal();
     this.GetComision();
     this.GetTotal();
-    this.reserva = this.getReserva();
+   
 
   }
   selectOption(id: number) {
 
-    this.idMethod = id;
+    this.idMethod = name;
+    console.log(name)
     //TDC
     if (id == 1) {
+      this.idMethod = "CREDITO";
       document.getElementById("refere").hidden = true;
       document.getElementById("tarj").hidden = false;
       document.getElementById("dettarj").hidden = false;
@@ -96,8 +110,8 @@ export class GrupoOncePagoComponent implements OnInit {
 
     //TDB
     else if (id == 2) {
+      this.idMethod = "DEBITO";
       document.getElementById("refere").hidden = true;
-      // document.getElementById("bank").hidden=false;
       document.getElementById("detbank").hidden = false;
       document.getElementById("tarj").hidden = false;
       document.getElementById("dettarj").hidden = true;
@@ -108,8 +122,9 @@ export class GrupoOncePagoComponent implements OnInit {
 
 
 
-    //EFEC
+    //TRANSFERENCIA
     else if (id == 3) {
+      this.idMethod = "TRANSFERENCIA";
       document.getElementById("refere").hidden = false;
       document.getElementById("tarj").hidden = true;
       document.getElementById("dettarj").hidden = true;
@@ -119,8 +134,9 @@ export class GrupoOncePagoComponent implements OnInit {
     }
 
 
-    //TRANS
+    //EFECTIVO
     else if (id == 4) {
+      this.idMethod = "EFECTIVO";
       document.getElementById("refere").hidden = false;
       document.getElementById("tarj").hidden = true;
       document.getElementById("dettarj").hidden = true;
@@ -175,7 +191,32 @@ export class GrupoOncePagoComponent implements OnInit {
       { "id": 3, "image": "", "descrip": "Camioneta 4x4", "qty": 1, "price": 12500, "priceTotal": 25000, "brand": "Hertz" },
     ];
   }
-  getReserva() {
+
+  getReserv_Auto() {
+    return [
+      { "id": 2523, "name": "Auto1" },
+      { "id": 2524, "name": "Auto2" },
+      { "id": 2525, "name": "Auto3" },
+      { "id": 2526, "name": "Auto4" }
+    ];
+  }
+  getReserv_Hab() {
+    return [
+      { "id": 102, "name": "hab1" },
+      { "id": 103, "name": "hab2" },
+      { "id": 104, "name": "hab3" },
+      { "id": 105, "name": "hab4" }
+    ];
+  }
+  getReserv_Res() {
+    return [
+      { "id": 1, "name": "re1" },
+      { "id": 2, "name": "re2" },
+      { "id": 3, "name": "ree3" },
+      { "id": 4, "name": "aaaa" }
+    ];
+  }
+  getReserv_Cru() {
     return [
       { "id": 1, "name": "re1" },
       { "id": 2, "name": "re2" },
@@ -217,10 +258,10 @@ export class GrupoOncePagoComponent implements OnInit {
 
   }
 
-  public setPayMethods(paymethods: payMethods) {
+  public setPayMethods(paymethods: Array<PayMethods>) {
     this.payMethods = paymethods;
   }
-  public getVariablePayMethods(): Array<Order> {
+  public getVariablePayMethods(): Array<PayMethods> {
     return this.payMethods;
   }
 

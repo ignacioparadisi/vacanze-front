@@ -92,7 +92,8 @@
 
     </div>
     <div class="modal-footer">
-        <button id="btnpay" (click)="postPayment()" class="btn btn-info btn-lg btn-block">Pagar $ {{GetTotal()}}</button>
+        <button id="btnpay" (click)="postPayment()" class="btn btn-info btn-lg btn-block">Pagar $
+            {{GetTotal()}}</button>
     </div>
 </ng-template>
 
@@ -100,54 +101,75 @@
     <div class="modal-header">
         <h4>Cargar reserva</h4>
     </div>
-    
+
     <div class="modal-body">
-            <div class="row">  
-                    <div class="container-fluid">
-                        <H4>Automobiles</H4>
-                            <select class="form-control form-control-md">
-                                    <option>Small select</option>
-                            </select>
-                    </div>
-                    
-                    
+        <div class="row">
+            <div class="container-fluid">
+                <H4>Automobiles</H4>
+                <select class="custom-select" (change)="selectOptionResAuto($event.target.value)" ng-model="selected">
+                    <option [value]="0">
+                        Seleccione..
+                    </option>
+                    <option *ngFor="let det of reservaAuto" [value]="det.id">
+                        {{ '#'+det.id+' ' +det.name}}
+                    </option>
+                </select>
             </div>
+
+
+        </div>
     </div>
     <div class="modal-body">
-            <div class="row">  
-                    <div class="container-fluid">
-                            <H4>Habitaciones</H4>
-                            <select class="form-control form-control-md">
-                                    <option>Small select</option>
-                            </select>
-                    </div>
-                    
-                    
+        <div class="row">
+            <div class="container-fluid">
+                <H4>Habitaciones</H4>
+                <select class="custom-select" (change)="selectOptionResHab($event.target.value)" ng-model="selected">
+                    <option [value]="0">
+                        Seleccione..
+                    </option>
+                    <option *ngFor="let det of reservaHab" [value]="det.id">
+                        {{ '#'+det.id+' ' +det.name}}
+                    </option>
+                </select>
+
             </div>
+
+
+        </div>
     </div>
     <div class="modal-body">
-            <div class="row">  
-                    <div class="container-fluid">
-                            <H4>Restaurantes</H4>
-                            <select class="form-control form-control-md">
-                                    <option>Small select</option>
-                            </select>
-                    </div>
-                    
-                    
+        <div class="row">
+            <div class="container-fluid">
+                <H4>Restaurantes</H4>
+                <select class="custom-select" (change)="selectOptionResRes($event.target.value)" ng-model="selected">
+                    <option [value]="0">
+                        Seleccione..
+                    </option>
+                    <option *ngFor="let det of reservaRes" [value]="det.id">
+                        {{ '#'+det.id+' ' +det.name}}
+                    </option>
+                </select>
             </div>
+
+
+        </div>
     </div>
     <div class="modal-body">
-            <div class="row">  
-                    <div class="container-fluid">
-                            <H4>Cruceros</H4>
-                            <select class="form-control form-control-md">
-                                    <option>Small select</option>
-                            </select>
-                    </div>
-                    
-                    
+        <div class="row">
+            <div class="container-fluid">
+                <H4>Cruceros</H4>
+                <select class="custom-select" (change)="selectOptionResCru($event.target.value)" ng-model="selected">
+                    <option [value]="0">
+                        Seleccione..
+                    </option>
+                    <option *ngFor="let det of reservaCru" [value]="det.id">
+                        {{ '#'+det.id+' ' +det.name}}
+                    </option>
+                </select>
             </div>
+
+
+        </div>
     </div>
     <div class="modal-footer">
         <h1><a class="btn btn-info" (click)="open(content2)">
@@ -169,8 +191,8 @@
 
 
     <div class="row">
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
-            <h2 class="text-center">Detalle de la reserva</h2>
+        <div class="col-sm-12 col-md-12 col-md-offset-1">
+            <h2 class="text-center">Reservas a pagar</h2>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -191,7 +213,7 @@
                                     <h6 class="media-heading"><a href="#">{{ord.descrip}}</a></h6>
                                     <h6 class="media-heading"> by <a href="#">{{ord.brand}}</a></h6>
                                     <span>Dias reservados: </span><span
-                                        class="text-success"><strong>{{ord.QTY}}</strong></span>
+                                        class="text-success"><strong>{{ord.qty}}</strong></span>
                                 </div>
                             </div>
                         </td>
