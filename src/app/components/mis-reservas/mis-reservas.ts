@@ -109,6 +109,7 @@ public deleteAutomobileReservation(id: number) {
       console.log('Reservacion con el id=' + id + 'fue eliminada');
     }, error => {
       console.error(error);
+      this.getAutomobileReservations();
     }
   );
 }
@@ -118,10 +119,11 @@ public deleteRoomReservation(id: number) {
   this.apiService.deleteUrl(requestURL).then(
     response => {
       console.log(response);
-      this.getAutomobileReservations();
+      this.getRoomReservations()
       console.log('Reservacion con el id=' + id + 'fue eliminada');
     }, error => {
       console.error(error);
+      this.getRoomReservations();
     }
   );
 }
