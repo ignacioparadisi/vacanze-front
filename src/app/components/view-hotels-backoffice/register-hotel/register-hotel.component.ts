@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms'
 import { environment as url } from '../../../../environments/environment';
 import { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
+import { transformImageToBase64 } from '../../../utils/global_functions';
 
 @Component({
   selector: 'app-register-hotel',
@@ -15,6 +16,11 @@ import { Router } from '@angular/router';
   providers: [ApiService]
 })
 export class RegisterHotelComponent implements OnInit {
+
+
+public transformImageToBase64;
+public urlImage: string;
+
 
 public registrationForm : FormGroup = new FormGroup({
     name : new FormControl(null,[
@@ -48,13 +54,21 @@ public registrationForm : FormGroup = new FormGroup({
       Validators.required,
       Validators.min(1),
       Validators.max(5)
+    ]),
+    image: new FormControl(null, [
+      Validators.required
     ])
-    // TODO -> añadir piture y location
+    // TODO -> location
   });
 
 
 
-  constructor(private _location: Location, private service: ApiService){}
+
+  constructor(private _location: Location, private service: ApiService){
+    this.transformImageToBase64 = transformImageToBase64;
+    this.urlImage = null;
+  }
+
 
   ngOnInit() {
   }
@@ -92,6 +106,14 @@ public registrationForm : FormGroup = new FormGroup({
   }
 
 
+  public getImage(event){
+    this.transformImageToBase64(event, image => {
+      console.log(image.length),
+      console.log(image),
+      this.urlImage = image
+    });
+  }
+
 
   public goToViewHotels(){
     this._location.back();
@@ -110,7 +132,7 @@ public registrationForm : FormGroup = new FormGroup({
         pricePerRoom: this.registrationForm.get('pricePerRoom').value,
         phone: this.registrationForm.get('phone').value,
         website: this.registrationForm.get('website').value,
-        picture: "ffdsfdsfsdfsdioj", // TODO -> convertidor base64
+        picture: this.urlImage,
         stars: this.registrationForm.get('stars').value,
         location: {
           "id" : 1

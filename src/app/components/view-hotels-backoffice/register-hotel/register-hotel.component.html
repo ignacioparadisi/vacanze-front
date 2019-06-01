@@ -125,11 +125,20 @@
         }"
         [class.is-invalid]="addressSpecification.invalid && addressSpecification.touched" formControlName="addressSpecification" type="text" class="form-control" >
         <div *ngIf="addressSpecification.invalid && addressSpecification.touched">
-          <small *ngIf="addressSpecification.errors?.maxlength" class ="text-danger"> El nombre no puede tener mas de 50 caracteres </small>
+          <small *ngIf="addressSpecification.errors?.maxlength" class ="text-danger">Esta especificacion no puede tener mas de 50 caracteres </small>
         </div>
       </div>
     </div>
 
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <div class = "custom-file">
+          <input formControlName="image" type="file"  id="validatedCustomFile" class="custom-file-input"  (change)="getImage($event)">
+          <label class="custom-file-label" for="validatedCustomFile">Elegir foto del hotel...</label>
+          <small *ngIf="urlImage!=null" class ="text-success"> Archivo seleccionado</small>
+        </div>
+      </div>
+    </div>
 
    </div>
 
