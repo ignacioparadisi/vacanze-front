@@ -6,6 +6,7 @@ import { TypeFlight } from '../../../classes/type_flight';
 import Swal from 'sweetalert2';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { PeopleFlight } from '../../../classes/people_flight';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-sale-flight',
@@ -16,90 +17,53 @@ export class TicketSaleFlightComponent implements OnInit {
   public form: FormGroup;
   public typeFlights: TypeFlight[]=[];
   public adultFlights:PeopleFlight[]=[];
-  
-  constructor(private api: ApiService, private modalService: NgbModal) { }
+  public active:boolean=false;
+  public cont:number=3;
+  public arrayNumber: number[] = [1,2];
+  public disabled:boolean=true;
+  public disabledOut:boolean=false;
+  public disabledPpl:boolean=false;
+  public isChecked;
+  public subM:boolean=false;
+    constructor(private api: ApiService, private router: Router) { }
+        
    private selectedTyp: string="";
- 
-
+   
   ngOnInit() {
-    //this.fetchFlight();
     this.typeFlight();
     this.adultFlight();
-   
     this.form=new FormGroup({
-      ClassFlight: new FormControl(-1, [Validators.required]),
-      name: new FormControl(null, [Validators.required]),
+      adultFlights: new FormControl(-1,Validators.required),
       origen: new FormControl(null, [Validators.required]),
       destino: new FormControl(null, [Validators.required]),
       fechaS:new FormControl(null, [Validators.required]),
-      fechaE:new FormControl(null, [Validators.required]),
-      pasaporte: new FormControl(null, [Validators.required]),
-      cedula: new FormControl(null, [Validators.required])
-    
+      fechaE:new FormControl(null, [Validators.required])
     })
-  
+    var today = new Date();
+    var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+today.getDate();
+    var getSelectedOut =<HTMLInputElement> document.getElementById("out_id");
+    var getSelectedEnt =<HTMLInputElement> document.getElementById("entry_id");
+    document.getElementById("out_id").setAttribute("min", dateComp);
+    document.getElementById("entry_id").setAttribute("min", dateComp);
+    var dateRe= document.getElementById("out_id");
+    var dateGo= document.getElementById("entry_id");
+    dateRe.addEventListener("change",function () {
+      document.getElementById("entry_id").setAttribute("min", getSelectedOut.value.toString());
+     });
+    dateGo.addEventListener('change',function () {
+      document.getElementById("out_id").setAttribute("max", getSelectedEnt.value.toString());
+    })
+   }
+     private typeFlight(): TypeFlight[]{
+        this.typeFlights=[
+        new TypeFlight(0,'Ida'),
+        new TypeFlight(1,'Ida y Vuelta ')
+       ];
+        return this.typeFlights; 
+     }
 
-}
-
-
-
-checkeadoNumeroReserva(event: any){
-
-  var ck_numeroReserva =<HTMLInputElement> document.getElementById("check_numeroReserva");
-  var ck_pasaporte =<HTMLInputElement> document.getElementById("check_pasaporte");
-
-  var isCheckedNumeroReserva = ck_numeroReserva.checked;
-  var isCheckedPasaporte= ck_pasaporte.checked;
-  var primeraOpcion= document.getElementById("numero_reserva");
-  var segundaOpcion= document.getElementById("pasaporte");
-  if (isCheckedNumeroReserva) {
-    primeraOpcion.style.display = 'flex';
-      
-    if(isCheckedPasaporte){
-     segundaOpcion.style.display = 'none';
-     ck_pasaporte.click()
-    }
- }
- else{
-  segundaOpcion.style.display = 'none';
  
-  }
-}
-checkeadoPasaporte(event: any){
-
-  var ck_numeroReserva =<HTMLInputElement> document.getElementById("check_numeroReserva");
-  var ck_pasaporte =<HTMLInputElement> document.getElementById("check_pasaporte");
-
-  var isCheckedNumeroReserva = ck_numeroReserva.checked;
-  var isCheckedPasaporte= ck_pasaporte.checked;
-  var primeraOpcion= document.getElementById("numero_reserva");
-  var segundaOpcion= document.getElementById("pasaporte");
-  if (isCheckedPasaporte) {
-    segundaOpcion.style.display = 'flex';
-      
-    if(isCheckedNumeroReserva){
-      primeraOpcion.style.display = 'none';
-     ck_numeroReserva.click()
-    }
- }
- else{
-   primeraOpcion.style.display = 'none';
- 
-  }
-}
-
-  private typeFlight(): TypeFlight[]{
-    this.typeFlights=[
-      new TypeFlight(0,'Ida'),
-      new TypeFlight(1,'Ida y Vuelta '),
-    ];
-    return this.typeFlights; 
-  }
-
-
   private adultFlight():PeopleFlight[]{
-
-  
       this.adultFlights=[
         new PeopleFlight(1,'a'),
         new PeopleFlight(2,'a'),
@@ -112,40 +76,72 @@ checkeadoPasaporte(event: any){
         new PeopleFlight(9,'a'),
         new PeopleFlight(10,'a'),
       ];
-  
+   
     return this.adultFlights;
   }
   radioChangeHandler(event: any){
     this.selectedTyp = event.target.id ;
     var input= document.getElementById("entry_id");
     var output= document.getElementById("out_id");
-    var element =<HTMLInputElement> document.getElementById("date_id");
-    element.checked = null;
     if (this.selectedTyp=="0") {
-      input.setAttribute("disabled","true");
+      if (!this.isChecked) {
+        input.setAttribute("disabled","true");
       output.removeAttribute("disabled");
-    }else{
-      input.removeAttribute("disabled");
-      output.removeAttribute("disabled");
-
-      console.log(2);
+      this.disabled=true;
+      }
+      this.disabled=true;
+      }else{
+      if(this.selectedTyp=="2"){
+        this.arrayNumber;
+        this.disabled=false;
+       }else{
+           if (!this.isChecked && this.disabled==true) {
+           input.removeAttribute("disabled");
+           output.removeAttribute("disabled");
+           this.disabled=false;
+          }
+      }
+      
     }
   }
-  checkboxSelected(event: any){
+    checkboxSelected(event: any){
     var element =<HTMLInputElement> document.getElementById("date_id");
-    var isChecked= element.checked;
+    this.isChecked= element.checked;
     var input= document.getElementById("entry_id");
     var output= document.getElementById("out_id");
-    if (isChecked) {
-      console.log(1);
+    var ppl= document.getElementById("peopleId");
+    if (this.isChecked) {
       input.setAttribute("disabled","true");
       output.setAttribute("disabled","true");
-
+      ppl.setAttribute("disabled","true");
+      this.disabledOut=true;
+      this.disabled=true;
+      this.disabledPpl=true;
     }else{
-      input.removeAttribute("disabled");
+      if (this.disabled==false || this.selectedTyp=="1") {
+        input.removeAttribute("disabled");
+        this.disabled=false;
+      }
+      ppl.removeAttribute("disabled");
       output.removeAttribute("disabled");
-      console.log(2);
+       this.disabledOut=false;
+       this.disabledPpl=false;
     }
 
   }
+  onSubmit() {
+     if (this.form.get('origen').valid && this.form.get('destino').valid
+     && (this.form.get('adultFlights').value !=-1 || this.disabledPpl==true) && (this.form.get('fechaE').valid || this.disabled==true)
+     && (this.form.get('fechaS').valid || this.disabledOut==true)) {
+      this.router.navigate(['grupo-cuatro/ticket-list-flight']);
+    } else {
+      this.subM=true;
+    }
+  }
+  
+  public  postResFlight(){
+     this.api.postUrl('','ssssssssssssssss');
+
+  }
+
 }

@@ -6,16 +6,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../../services/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { TicketSaleFlightComponent } from './ticket-sale-flight/ticket-sale-flight.component';
 import { CheckInComponent } from './check-in/check-in.component';
 import { TicketSaleShipComponent } from './ticket-sale-ship/ticket-sale-ship.component';
 import {GrupoCuatroRoutingModule} from './grupo-cuatro-routing.module';
+import { TicketListFlightComponent } from './ticket-list-flight/ticket-list-flight.component';
 
 @NgModule({
   declarations: [
     TicketSaleFlightComponent,
     CheckInComponent,
-    TicketSaleShipComponent
+    TicketSaleShipComponent,
+    TicketListFlightComponent
     ],
   imports: [
     GrupoCuatroRoutingModule,
