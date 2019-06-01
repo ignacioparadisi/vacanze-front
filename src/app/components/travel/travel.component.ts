@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class TravelComponent implements OnInit {
 
+    private userId = JSON.parse(localStorage.getItem("id"));
     private travels: Array<object>;
 
     constructor(private router: Router, private apiService: ApiService) {
@@ -21,7 +22,7 @@ export class TravelComponent implements OnInit {
     }
 
     private getTravels() {
-        this.apiService.getUrl('users/{user}/travels', ['5']).then(
+        this.apiService.getUrl('users/{user}/travels', [this.userId]).then(
             (resp) => this.travels = resp,
             (fail) => {
                 Swal.fire({
