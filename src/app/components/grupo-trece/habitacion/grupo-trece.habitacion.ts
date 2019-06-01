@@ -91,23 +91,46 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     public markAllAsTouched() {
-        this.myForm.get('locDeparture').markAsTouched();
-        this.myForm.get('locArrival').markAsTouched();
-        this.myForm.get('plane').markAsTouched();
-        this.myForm.get('price').markAsTouched();
-        this.myForm.get('departure').markAsTouched();
-        this.myForm.get('arrival').markAsTouched();
-    }
+        //  this.myForm.get('country').markAsTouched();
+          this.myForm.get('city').markAsTouched();
+          this.myForm.get('fechaOne').markAsTouched();
+          this.myForm.get('fechaTwo').markAsTouched();
+      }
 
-    submit() {
+    submit(hotel : Object) {
         this.markAllAsTouched();
-        const payload = this.myForm.value;
-        let fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
+        const reservation = this.myForm.value;
+        let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+
+
+        reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+            reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+           reservation.fk_user = 1;//localStorage.getItem.
+           reservation.hotel = hotel;
+           reservation.user="";
+           reservation.id=0;
+          delete reservation.city;
+          delete reservation.fechaOne;
+          delete reservation.fechaTwo;
+          delete reservation.country;
+        console.log(reservation);
+        if (this.myForm.valid) {
+            this.apiService.postUrl('reservationrooms', reservation).then(
+                response => {
+                    console.log(response);
+                }, error => {
+                    console.log(error);
+                }
+            );
+        }
+
 
         if (fechas === 1) {
 
+            
+
             if (this.myForm.valid) {
-                this.apiService.postUrl('reservationrooms', payload).then(
+                this.apiService.postUrl('reservationrooms', reservation).then(
                     response => {
                         console.log(response);
                     }, error => {

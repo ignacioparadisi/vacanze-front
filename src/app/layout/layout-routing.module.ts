@@ -30,7 +30,7 @@ const routes: Routes = [
       },
       {
         path: 'mis-reservas',
-        loadChildren: '../components/Mis Reservas/mis-reservas.module#MisReservasModule'
+        loadChildren: '../components/mis-reservas/mis-reservas.module#MisReservasModule'
       },
       /* Ruta para Backoffice de Cruceros */
       {

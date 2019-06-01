@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MisReservas } from './mis-reservas';
 
 const routes: Routes = [
-    { path: '' },
+    { path: '', component: MisReservas, pathMatch: 'full'  },
     { path: ''},
 ];
 
