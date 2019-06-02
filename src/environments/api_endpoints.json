@@ -35,7 +35,8 @@
       "deleteHotel":"hotels/{id}",
       "deleteRestaurant":"restaurants/{id}",
       "cruisers": {
-        "delete_cruiser": "cruiser/{id}"
+        "delete_cruiser": "cruiser/{id}",
+        "delete_routes": "cruiser/layover/{id}"
       }
     }
 }

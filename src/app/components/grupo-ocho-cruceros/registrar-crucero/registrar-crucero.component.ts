@@ -174,6 +174,8 @@ export class RegistrarCruceroComponent implements OnInit {
     }
     else {
       form['id'] = this.cruiser['id'];
+      form['status'] = this.cruiser['status'];
+      
       this.api.putUrl(url.endpoint.default._post.cruisers.post_cruiser, form)
       .then(response => {
         this.registrationForm.reset(); // Limpio los campos del formulario
@@ -189,7 +191,7 @@ export class RegistrarCruceroComponent implements OnInit {
 
   private errorOcurred(action: string){
     let config: SweetAlertOptions = {
-      title: 'Ha ocurrido un error al ' +action+' el restaurante',
+      title: 'Ha ocurrido un error al ' +action+' el crucero',
       type: 'error',
       showConfirmButton: true,
       timer: 1500
