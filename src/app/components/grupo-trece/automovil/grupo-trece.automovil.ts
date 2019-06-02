@@ -14,7 +14,7 @@ import * as moment from 'moment';
 })
 export class AutomovilGrupoTrece implements OnInit {
     myForm: FormGroup;
-    public compararFechas;
+    public compararFechas : any;
     public cars = [];
     public countries = [];
     public cities = [];
@@ -80,6 +80,12 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     getCarsByCity(){
+        this.markAllAsTouched();
+        const reservation = this.myForm.value;
+        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+
+        if (this.myForm.valid && fechas === 1){
         const requestURL = "Auto/consultplaceStatus/"+this.myForm.value.city+"/true/";
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -90,10 +96,11 @@ export class AutomovilGrupoTrece implements OnInit {
                 console.log(this.cars);
             }
         );
+        }
     }
 
     public markAllAsTouched() {
-      //  this.myForm.get('country').markAsTouched();
+        this.myForm.get('country').markAsTouched();
         this.myForm.get('city').markAsTouched();
         this.myForm.get('fechaOne').markAsTouched();
         this.myForm.get('fechaTwo').markAsTouched();
@@ -102,12 +109,14 @@ export class AutomovilGrupoTrece implements OnInit {
     submit(car : Object) {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
-        let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-
+        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+        var fk_user = localStorage.getItem('id');
+        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-      //  reservation.fk_user_id = localStorage.getItem.
-      reservation.fk_user = 1;
+        reservation.fk_user_id = fk_user; // esto cuando se solucione el put
+        reservation.fk_user = 1;
        reservation.automobile = car;
        reservation.user="";
        reservation.id=0;
@@ -156,7 +165,7 @@ export class AutomovilGrupoTrece implements OnInit {
 
     initializaDate(){
         var today = new Date();
-        var dd = today.getDate();
+        var dd = today.getDate()+1;
         var mm = today.getMonth()+1; //January is 0!
         var yyyy = today.getFullYear();
         var de = '' +dd
@@ -212,5 +221,13 @@ export class AutomovilGrupoTrece implements OnInit {
           this.messageAlert(data);
         })
       }
+
+      public invalid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && !form.get(controlName).valid;
+    }
+
+    public valid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && form.get(controlName).valid;
+    }
 
 }
