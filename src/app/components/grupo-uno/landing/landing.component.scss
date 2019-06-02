@@ -35,6 +35,20 @@ html {
   }
 }
 
+@media only screen and (min-width: 600px) {
+  .band {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .item-11 {
+    grid-column: 3/ span 2;
+  }
+
+  .item-11 h1 {
+    font-size: 30px;
+  }
+}
+
 @media only screen and (min-width: 850px) {
   .band {
     grid-template-columns: 1fr 1fr 1fr 1fr;
