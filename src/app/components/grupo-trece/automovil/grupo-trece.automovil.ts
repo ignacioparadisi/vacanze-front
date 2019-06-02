@@ -80,6 +80,8 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     getCarsByCity(){
+        this.markAllAsTouched();
+        if (this.myForm.valid){
         const requestURL = "Auto/consultplaceStatus/"+this.myForm.value.city+"/true/";
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -90,10 +92,11 @@ export class AutomovilGrupoTrece implements OnInit {
                 console.log(this.cars);
             }
         );
+        }
     }
 
     public markAllAsTouched() {
-      //  this.myForm.get('country').markAsTouched();
+        this.myForm.get('country').markAsTouched();
         this.myForm.get('city').markAsTouched();
         this.myForm.get('fechaOne').markAsTouched();
         this.myForm.get('fechaTwo').markAsTouched();
@@ -212,5 +215,13 @@ export class AutomovilGrupoTrece implements OnInit {
           this.messageAlert(data);
         })
       }
+
+      public invalid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && !form.get(controlName).valid;
+    }
+
+    public valid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && form.get(controlName).valid;
+    }
 
 }

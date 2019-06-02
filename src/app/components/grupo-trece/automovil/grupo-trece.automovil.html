@@ -62,31 +62,58 @@
                         <label style="color: white" for=""><strong>Pais</strong></label>
                         <select class="form-control" formControlName="country"
                         (ngModelChange)="getCities()"
+                        [ngClass]="{'is-invalid': invalid('country', myForm), 'is-valid': valid('country', myForm)}"
                         >
                           <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                         </select>
+                        <div *ngIf="invalid('country', myForm)" class="invalid-feedback">
+                          Por favor seleccione una ciudad
+                        </div>
+                        <div *ngIf="valid('country', myForm)" class="valid-feedback">
+                          ¡Excelente!
+                        </div>
                     </div>
                   </div>
                   <div class="col-md-3">
                       <div class="form-group">
                         <label style="color: white" for=""><strong>Ciudad</strong></label>
                         <select class="form-control" formControlName="city"
-                        
+                        [ngClass]="{'is-invalid': invalid('city', myForm), 'is-valid': valid('city', myForm)}"
                         >
                           <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
                         </select>
+                        <div *ngIf="invalid('city', myForm)" class="invalid-feedback">
+                          Por favor seleccione una ciudad
+                        </div>
+                        <div *ngIf="valid('city', myForm)" class="valid-feedback">
+                          ¡Excelente!
+                        </div>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="form-group">
                         <label style="color: white" for=""><strong>Fecha de Alquiler</strong></label>
-                        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
+                        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq"
+                        [ngClass]="{'is-invalid': invalid('fechaOne', myForm), 'is-valid': valid('fechaOne', myForm)}">
+                        <div *ngIf="invalid('fechaOne', myForm)" class="invalid-feedback">
+                          Por favor seleccione la fecha de alquiler del vehiculo.
+                        </div>
+                        <div *ngIf="valid('fechaOne', myForm)" class="valid-feedback">
+                          ¡Excelente!
+                        </div>
                       </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
                       <label style="color: white" for=""><strong>Fecha de devolución</strong></label>
-                      <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
+                      <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev"
+                      [ngClass]="{'is-invalid': invalid('fechaTwo', myForm), 'is-valid': valid('fechaTwo', myForm)}">
+                        <div *ngIf="invalid('fechaTwo', myForm)" class="invalid-feedback">
+                          Por favor seleccione la fecha de devolucion del vehiculo.
+                        </div>
+                        <div *ngIf="valid('fechaTwo', myForm)" class="valid-feedback">
+                          ¡Excelente!
+                        </div>
                     </div>
                   </div>
               </div>
