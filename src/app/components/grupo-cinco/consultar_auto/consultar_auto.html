@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-header">
-                Agregar automovil
+                Agregar automovil 
             </div>
             <div class="card-body">
                 
@@ -14,7 +14,7 @@
                                   <div class="row">
                                       <div class="col-md-3">
                                           <div class="form-group">
-                                              <label for="">Ciudad</label>
+                                              <label style="color: black" for=""><strong>Ciudad</strong></label>
                                               <select class="form-control" 
 
                                                 formControlName="ciudad"
@@ -33,7 +33,7 @@
                                       
                                       <div class="col-md-3">
                                           <div class="form-group">
-                                            <label for="">matricula</label>
+                                              <label style="color: black" for=""><strong>Matricula</strong></label>
                                             <input class="form-control" 
                                             formControlName="matricula"
                                             [ngClass]="{'is-invalid': invalid('matricula', form), 'is-valid': valid('matricula', form)}">
@@ -48,7 +48,7 @@
 
                                       <div class="col-md-3">
                                           <div class="form-group">
-                                            <label for="">marca</label>
+                                              <label style="color: black" for=""><strong>Marca</strong></label>
                                             <input class="form-control" 
                                             formControlName="marca"
                                             [ngClass]="{'is-invalid': invalid('marca', form), 'is-valid': valid('marca', form)}">
@@ -63,7 +63,7 @@
 
                                       <div class="col-md-3">
                                           <div class="form-group">
-                                            <label for="">modelo</label>
+                                              <label style="color: black" for=""><strong>Modelo</strong></label>
                                             <input class="form-control" 
                                             formControlName="modelo"
                                             [ngClass]="{'is-invalid': invalid('modelo', form), 'is-valid': valid('modelo', form)}">
@@ -79,12 +79,12 @@
                                   <div class="row">
                                       <div class="col-md-3">
                                           <div class="form-group">
-                                              <label for="">Estatus del auto </label>
+                                              <label style="color: black" for=""><strong>Estatus del vehiculo</strong></label>
                                               <select class="form-control" 
 
                                                 formControlName="estatus"
                                                 [ngClass]="{'is-invalid':form.get('estatus').touched && !form.get('estatus').valid, 'is-valid':form.get('estatus').touched && form.get('estatus').valid}">
-                                                <option value="-1" disabled> Ciudad</option>
+                                                <option value="-1" disabled> Estatus del vehiculo</option>
                                                 <option value="true" > activo</option>
                                                 <option value="false" > reservado</option>
                                               </select>
@@ -99,7 +99,7 @@
                                       </div>    
                                       <div class="col-md-3">
                                           <div class="form-group">
-                                            <label for="">capacidad</label>
+                                              <label style="color: black" for=""><strong>Capacidad</strong></label>
                                             <input class="form-control"  type="number" min="0"
                                             formControlName="capacidad"
                                             [ngClass]="{'is-invalid': invalid('capacidad', form), 'is-valid': valid('capacidad', form)}">
@@ -113,7 +113,7 @@
                                       </div>
                                       <div class="col-md-3">
                                           <div class="form-group">
-                                            <label for="">Precio ($)</label>
+                                              <label style="color: black" for=""><strong>Precio ($)</strong></label>
                                             <input class="form-control"  type="number" min="0"
                                             formControlName="precio"
                                             [ngClass]="{'is-invalid': invalid('precio', form), 'is-valid': valid('precio', form)}">
