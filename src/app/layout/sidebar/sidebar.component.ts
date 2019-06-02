@@ -12,7 +12,23 @@ export class SidebarComponent implements OnInit {
   collapsed: boolean;
   showMenu: string;
   pushRightClass: string;
-
+  isLanding = true;
+  isReclamoEquipaje = true;
+  isReclamoClaim = true;
+  isAuto = true;
+  isAviones = true;
+  isCreacionVuelos = true;
+  isListadoVuelos = true;
+  isUsuarios = true;
+  isHoteles = true;
+  isRestaurantes = true;
+  isReservaVuelo = true;
+  isReservaAuto = true;
+  isReservaHab = true;
+  isReservaRest = true;
+  isMisReservas = true;
+  isCruceros = true;
+  isViajes = true;
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
   constructor(public router: Router, private modalService: NgbModal) {
@@ -22,6 +38,7 @@ export class SidebarComponent implements OnInit {
       }
     });
   }
+
 
   ngOnInit() {
     this.isActive = false;
