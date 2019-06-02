@@ -4,6 +4,10 @@ import { ApiService } from '../../../services/api.service';
 import { Router, RouterOutlet } from '@angular/router';
 import { LayoutComponent } from '../../../layout/layout.component';
 import { GrupoUnoComponent } from '../grupo-uno.component';
+import { LocalStorageService } from '../../../services/local-storage.service';
+import {User} from "../../../classes/user";
+import {RegisterUserComponent} from "../../users/register-user/register-user.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 
 
@@ -26,14 +30,21 @@ export class LoginComponent implements OnInit {
   isShow = false;
   isShowLogin = true;
   isShowPmodal = false;
+
   TodoForm: FormGroup;
   StatusLogin = true;
   formModel = {
     Email: '',
     Password: ''
   }
-  constructor(private service: ApiService, private father: LayoutComponent, private router: Router, private landing: GrupoUnoComponent) {
 
+  constructor(private service: ApiService,
+              private storage: LocalStorageService,
+              private localStorage: LocalStorageService,
+              private father: LayoutComponent,
+              private router: Router,
+              private landing: GrupoUnoComponent,
+              private modalService: NgbModal) {
 
   }
 
@@ -46,9 +57,15 @@ export class LoginComponent implements OnInit {
     this.isShowLogin = false;
     this.service.postUrl('Login/Login', form.value).then(
       (res: any) => {
-        localStorage.setItem('id', res.id);
-        localStorage.setItem('rol', res.roles[0].name);
-        localStorage.setItem('Email', res.email);
+        this.storage.setItem('id', res.id).subscribe(id => {
+          console.log('Id del usuario por bdd', id)
+        });
+        this.storage.setItem('rol', res.roles[0].name).subscribe(name => {
+          console.log('Rol del usuario', name)
+        });
+        this.storage.setItem('Email', res.email).subscribe(email => {
+          console.log('Emai del usuario', email)
+        });
         if (res.roles[0].name == 1) {
           this.StatusLogin = false;
           this.father.StatusHeader = true;
@@ -73,12 +90,15 @@ export class LoginComponent implements OnInit {
         this.isShowLogin = true;
       }
     );
+
   }
   RecoverySubmit(recoveryForm: NgForm) {
     this.isShowPmodal = true
     this.service.postUrl('Email/Email', recoveryForm.value).then(
       (res: any) => {
-        localStorage.setItem('Email', res.email);
+        this.storage.setItem('Email', res.email).subscribe(email => {
+          console.log('Email del usuario', email)
+        });
         if (res.email) {
           this.StatusLogin = false;
           this.father.StatusHeader = true;
@@ -97,5 +117,10 @@ export class LoginComponent implements OnInit {
         this.isShowPmodal = false;
       }
     );
+  }
+
+  openAddUserModal(user?: User) {
+    const modalRef = this.modalService.open(RegisterUserComponent, { centered: true });
+    modalRef.componentInstance.isClient = true;
   }
 }

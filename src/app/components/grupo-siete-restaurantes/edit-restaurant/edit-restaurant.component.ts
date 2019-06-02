@@ -25,6 +25,8 @@ export class EditRestaurantComponent implements OnInit {
     public isDataLoaded: boolean;
     public countries: any[];
     public cities: any[];
+    public location: any[];
+    public pp: string;
 
     constructor(private _location: Location, private localStorage: LocalStorageService, private service: ApiService){
       this.isDataLoaded = false;
@@ -37,11 +39,14 @@ export class EditRestaurantComponent implements OnInit {
       console.log('AQUI ESTOY');
       this.localStorage.getItem('restaurant').subscribe(data => {
         if (data) {
+          this.createNewFormGroup(data);
           this.isDataLoaded = true;
           console.log('Aqui tambien');
           this.restaurant = data;
-          console.log(data);
-          this.createNewFormGroup(data);
+          this.getLocation(data.location, location => {
+            console.log(data);
+            console.log(location);
+          });
         }
       });
     }
@@ -106,6 +111,16 @@ export class EditRestaurantComponent implements OnInit {
       }
     }
 
+    public getLocation(id: number, accept){
+      this.service
+          .getUrl(url.endpoint.default._get.getCity, [id.toString()])
+          .then(response => {
+              this.location = response;
+              this.location = this.location.find(loc => loc['id'] === id);
+              accept(this.location);
+      }, error => console.error(error));
+    }
+
     public getCity(id: number) {
       this.service
           .getUrl(url.endpoint.default._get.getCity, [id.toString()])
@@ -123,7 +138,7 @@ export class EditRestaurantComponent implements OnInit {
     }
 
     public selectCountry(event) {
-      console.log(event.target.value);
+      console.log("holaaaaa", event.target.value);
       this.getCity(event.target.value);
     }
 
@@ -159,7 +174,7 @@ export class EditRestaurantComponent implements OnInit {
       return this.registrationForm.get('stars');
     }
 
-    public getImage(event){ 
+    public getImage(event){
       this.transformImageToBase64(event, image => {
         this.urlImage = image;
       });
