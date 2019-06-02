@@ -22,7 +22,7 @@ export class FlightReservationsComponent implements OnInit {
   public adultFlights:PeopleFlight[]=[];
   public active:boolean=false;
   public cont:number=3;
-  public arrayNumber: number[] = [1,2];
+  public arrayNumber: number[];
   public disabled:boolean=true;
   public disabledOut:boolean=false;
   public disabledPpl:boolean=false;
@@ -30,7 +30,13 @@ export class FlightReservationsComponent implements OnInit {
   public numero:number=34;
   public subM:boolean=false;
   public listRes = [];
-  public listResFlight: Array<Object>;
+  public listFlight = [];
+  //public listFlight: Array<Object>;
+  public listFlightRes: Array<Object>;
+  public dateOut:Date;
+  public dateIn:Date;
+  public price:number;
+
     constructor(private api: ApiService, private router: Router) { }
         
    private selectedTyp: string="";
@@ -46,7 +52,9 @@ export class FlightReservationsComponent implements OnInit {
       fechaS:new FormControl(null, [Validators.required]),
       fechaE:new FormControl(null, [Validators.required])
     })
+    //validacion de fechas
     var today = new Date();
+    console.log(today);
     var day=today.getDate();
     if (day<10) {
       var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+"0"+today.getDate();
@@ -67,6 +75,7 @@ export class FlightReservationsComponent implements OnInit {
       document.getElementById("out_id").setAttribute("max", getSelectedEnt.value.toString());
     })
    }
+   //fin de validacion de fechas
      private typeFlight(): TypeFlight[]{
         this.typeFlights=[
         new TypeFlight(0,'Ida'),
@@ -92,6 +101,7 @@ export class FlightReservationsComponent implements OnInit {
    
     return this.adultFlights;
   }
+  //validaciones para el radio button
   radioChangeHandler(event: any){
     this.selectedTyp = event.target.id ;
     var input= document.getElementById("entry_id");
@@ -117,6 +127,7 @@ export class FlightReservationsComponent implements OnInit {
       
     }
   }
+  //validaciones del checkbox
     checkboxSelected(event: any){
     var element =<HTMLInputElement> document.getElementById("date_id");
     this.isChecked= element.checked;
@@ -150,6 +161,7 @@ export class FlightReservationsComponent implements OnInit {
     "_id_pay": 1,
     "_id_fli": 1
   }
+  
   public postListFlights() {
     console.log('llame al metodo');
     // API URL
@@ -164,32 +176,61 @@ export class FlightReservationsComponent implements OnInit {
         }
     );
 }
-/*public getListFlights() {
-  console.log('llame al metodo');
+//metodo que devuelve el id del origen y destino
+ getIdCity() {
+  console.log('llame al metodo getidlist');
   // API URL
   //const requestURL = 'flight-reservation';
-  this.api.getUrl(url.endpoint.default._get.getResFlight).then(
+  this.api.getUrl(url.endpoint.default._get.getIdCity+'/'
+  +this.form.get('origen').value+'/'+this.form.get('destino').value).then(
       response => {
-          this.listResFlight = response;
+          this.arrayNumber = response;
+          this.getListFlight(this.arrayNumber[0],this.arrayNumber[1]);
           console.log(response);
-          console.log("listResFlight:",this.listResFlight.length);
+          console.log("arrayNumber:",this.arrayNumber.length);
 
       },
       error => {
           console.log(error);
       }
   );
-}*/
+}
+//metodo que devuelve los vuelos
+getListFlight(i: number,j: number) {
+  console.log('llame al metodo listFlight');
+  // API URL
+  //const requestURL = 'flight-reservation';
+  this.api.getUrl(url.endpoint.default._get.getListFlight+'/'
+  +i+'/'+j).then(
+      response => {
+          this.listFlightRes = response;
+          console.log(response);
+        
+          console.log("listFlightRes tiene:",this.listFlightRes);
+          console.log("listFlightRes arrival:",this.listFlightRes.length);
+
+      },
+      error => {
+          console.log(error);
+      }
+  );
+}
 
   onSubmit() {
+    this.subM=true;
+
      if (this.form.get('origen').valid && this.form.get('destino').valid
-     && (this.form.get('adultFlights').value !=-1 || this.disabledPpl==true) && (this.form.get('fechaE').valid || this.disabled==true)
-     && (this.form.get('fechaS').valid || this.disabledOut==true)) {
-     // this.getListFlights();
+     && (this.disabledPpl==true) && (this.disabled==true)
+     && (this.disabledOut==true)) {
+      this.getIdCity();
       this.numero=66;
-       this.router.navigate(['flight-reservations/list-reservations']);
-    } else {
-      this.subM=true;
+      console.log("entro en el normal")
+      // this.router.navigate(['flight-reservations/list-reservations']);
+    } else if  (this.form.get('origen').valid && this.form.get('destino').valid && this.form.get('fechaS').valid && this.disabled==true && this.form.get('adultFlights').value!=-1) {
+      console.log("metodo de busqueda por ida")
+    } else if (this.form.get('origen').valid && this.form.get('destino').valid && (this.disabledOut==false)&&(this.disabled==false)&&this.form.get('fechaE').valid) {
+      console.log("otra metodo de busqueda por ida y vuelta")
+     
     }
   }
   

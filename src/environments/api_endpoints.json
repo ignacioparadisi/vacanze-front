@@ -3,6 +3,8 @@
       "getHotel":"hotels",
       "getRestaurant":"restaurants",
       "getResFlight":"list-reservation-flight/1",
+      "getListFlight":"flights/locations",
+      "getIdCity":"id-return-city",
       "getClaim":"Claim/{id}",
       "cruisers": {
         "get_cruisers": "cruiser"

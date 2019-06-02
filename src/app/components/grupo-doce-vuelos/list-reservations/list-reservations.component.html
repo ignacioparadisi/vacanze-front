@@ -10,10 +10,10 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <h6>País</h6>
+            <h6>País Origen</h6>
           </div>
           <div class="form-group">
-            <h6>Vuelo</h6> 
+            <h6>Pais Destino</h6> 
           </div>
           <div class="form-group">
             <h6>Fecha de salida</h6> 
@@ -37,7 +37,7 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="c('Close click')" [swal]="addSwal">Reservar</button>
+    <button type="button" class="btn btn-success" (submit)="addReservation()" [swal]="addSwal">Reservar</button>
 </div>
 </ng-template>
 <div class="col-lg-12">
@@ -50,7 +50,7 @@
           <table class="table">
               <thead class="thead-dark">
                 <tr>
-                    <th>Avión</th>
+                  
                     <th>Fecha de salida</th>
                     <th>Fecha de regreso</th>
                     <th>Asientos disponibles</th>
@@ -59,12 +59,12 @@
                 </tr>
               </thead>
               <tbody >
-                <tr *ngFor="let resFli of listResFlight">
-                  <td>{{num}} </td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
+                <tr  *ngFor="let item of longi">
+                
+                  <td>{{item.arrival}}</td>
+                  <td>{{item.departure}}</td>
+                  <td>2</td>
+                  <td>{{item.price}}</td>
                   <td> <div >
                     <button (click)="openDetail(content)" class="btn btn-primary" >Ver Detalle</button>
                     <swal

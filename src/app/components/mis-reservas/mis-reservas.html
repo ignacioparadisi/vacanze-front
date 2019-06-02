@@ -1,7 +1,7 @@
 <!--
   Listado de Reserva de Automoviles
 -->
-<!--
+
 <div class="row">
   <div class="col-md-12">
     <div class="card mb-3">
@@ -72,7 +72,7 @@
     </div>
   </div>
 </div>
--->
+
 
 
 <!--
@@ -139,6 +139,76 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar {{type}}"
+                  (click)="EditRestaurantModal()"
+                >
+                  <i class="fa fa-credit-card"></i>
+                </button>
+              
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!--
+  Listado de Reserva de vuelos
+-->
+
+<div class="row">
+  <div class="col-md-12">
+<div class="card mb-3">
+  <div class="card-header">
+    Reservas de vuelos
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"># Asiento</th>
+            <th scope="col">Fecha de reservación</th>
+            <th scope="col"># Pasajeros</th>
+            <th scope="col">País Origen</th>
+            <th scope="col">País Destino</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Acción</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fliRes of flightReservations">
+            <td>{{fliRes._seatNum}}</td>
+            <td align="center">{{fliRes._timestamp}}
+            </td>
+            <td align="center">{{fliRes._numPas}}</td>
+            <td>{{fliRes._id}}</td>
+            <td>4</td>
+            <td>5</td>
+           
+            <td> {{fliRes._id}}
+              <swal
+                #deleteSwal
+                title="¿Desea eliminar la reservacion?"
+                type="question"
+                [showCancelButton]="true"
+                [focusCancel]="true"
+                (confirm)="deleteFlightReservation(fliRes._id)" [options]="{ confirmButtonText: 'Si, estoy
+                 seguro', cancelButtonText: 'Cancelar' }">
+                 </swal>
+                <button [swal]="deleteSwal" class="btn btn-outline-danger">
+                  <i class="fa fa-trash"></i>
+                </button>&nbsp;&nbsp;
+                
+                <button
+                  class="btn btn-outline-info"
+                  style="cursor: pointer; width: 39px;"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Pagar {{type}}"
                   (click)="EditRestaurantModal()"
                 >
                   <i class="fa fa-credit-card"></i>

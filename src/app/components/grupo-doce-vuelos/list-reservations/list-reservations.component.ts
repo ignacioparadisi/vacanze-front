@@ -13,7 +13,12 @@ import { ApiService } from '../../../services/api.service';
 })
 export class ListReservationsComponent implements OnInit {
   @Input() num: number;
-  public listResFlight: Array<object>;
+  @Input() longi: [];
+  @Input() dateS: Date;
+  @Input() dateE: Date;
+  @Input() price: number;
+
+ // public listResFlight: Array<object>;
   public nume:number;
   closeResult: string;
   constructor(private modalService: NgbModal, private api: ApiService) { }
@@ -35,7 +40,7 @@ export class ListReservationsComponent implements OnInit {
       }
   }
   
-   getListFlights() {
+  /* getListFlights() {
     console.log('llame al metodo');
     // API URL
     //const requestURL = 'flight-reservation';
@@ -50,11 +55,13 @@ export class ListReservationsComponent implements OnInit {
             console.log(error);
         }
     );
-  }
+  }*/
 
   ngOnInit() {
-    this.getListFlights();
+   // this.getListFlights();
     console.log("num tiene:",this.nume);
+    console.log("dateE tiene:",this.dateE);
+
   }
 
 

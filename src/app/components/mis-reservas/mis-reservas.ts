@@ -5,6 +5,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../utils/global_functions';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'mis-reservas',
@@ -14,13 +15,15 @@ import * as moment from 'moment';
 })
 export class MisReservas implements OnInit {
     myForm: FormGroup;
+    public _id:number;
     public carreservations ="";
     public roomreservations="";
     public closeResult: string;
+    public flightReservations=[];
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
-    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
+    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService,private router: Router) {
         this.myForm = this.fb.group({
         });
     }
@@ -28,6 +31,7 @@ export class MisReservas implements OnInit {
     ngOnInit() {
      // this.getAutomobileReservations();
      this.getRoomReservations();
+     this.getFlightReservations();
     }
 
      /**************************************************************************
@@ -54,6 +58,8 @@ export class MisReservas implements OnInit {
       data['delete'] = deleted;
       if(result && ('value' in result)){
         data['confirmed'] = true;
+        this.deleteFlightReservation(this._id);
+       
       }
       else {
         data['confirmed'] = false;
@@ -124,6 +130,31 @@ public deleteRoomReservation(id: number) {
     }, error => {
       console.error(error);
       this.getRoomReservations();
+    }
+  );
+}
+getFlightReservations(){
+  console.log("Estoy en getFlightReservations");
+  const requestURL = "list-reservation-flight/1";
+  this.apiService.getUrl(requestURL).then(
+      response => {
+        console.log("mylistreeees:",response);
+          this.flightReservations = response;
+      },
+      error => {
+          console.log(error);
+      }
+  );
+}
+ deleteFlightReservation(id: number) {
+   console.log("id tiene:",id);
+  const requestURL = `delete-reservation-flight/${id}`;
+  this.apiService.deleteUrl(requestURL).then(
+    response => {
+      console.log(response);
+     console.log('Reservacion con el id=1' + 'id '+ 'fue eliminada');
+    }, error => {
+      console.error(error);
     }
   );
 }
