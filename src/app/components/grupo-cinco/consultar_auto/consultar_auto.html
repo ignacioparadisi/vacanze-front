@@ -1,0 +1,164 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                Agregar automovil =)
+            </div>
+            <div class="card-body">
+                
+                <form [formGroup]="form" (submit)="submit()">
+                    <div>
+                        <div class="">
+                            <div class="bordercito">
+                                  <div class="row">
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                              <label for="">Ciudad</label>
+                                              <select class="form-control" 
+
+                                                formControlName="ciudad"
+                                                [ngClass]="{'is-invalid':form.get('ciudad').touched && !form.get('ciudad').valid, 'is-valid':form.get('ciudad').touched && form.get('ciudad').valid}">
+                                                  <option *ngFor="let country  of countries let i = index;" [value]="country .id">{{country.country}}</option>
+                                              </select>
+                                              <div *ngIf="form.get('ciudad').touched && !form.get('ciudad').valid" class="invalid-feedback">
+                                                  Por favor seleccione un país
+                                              </div>
+                                              <div *ngIf="form.get('ciudad').touched && form.get('ciudad').valid"
+                                                class="valid-feedback">
+                                                  ¡Excelente!
+                                              </div>
+                                          </div>
+                                      </div>    
+                                      
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                            <label for="">matricula</label>
+                                            <input class="form-control" 
+                                            formControlName="matricula"
+                                            [ngClass]="{'is-invalid': invalid('matricula', form), 'is-valid': valid('matricula', form)}">
+                                            <div *ngIf="invalid('matricula', form)" class="invalid-feedback">
+                                              Colocar una matricula
+                                            </div>
+                                            <div *ngIf="valid('matricula', form)" class="valid-feedback">
+                                              ¡Excelente!
+                                            </div>
+                                          </div>
+                                       </div>
+
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                            <label for="">marca</label>
+                                            <input class="form-control" 
+                                            formControlName="marca"
+                                            [ngClass]="{'is-invalid': invalid('marca', form), 'is-valid': valid('marca', form)}">
+                                            <div *ngIf="invalid('marca', form)" class="invalid-feedback">
+                                              Colocar una marca
+                                            </div>
+                                            <div *ngIf="valid('marca', form)" class="valid-feedback">
+                                              ¡Excelente!
+                                            </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                            <label for="">modelo</label>
+                                            <input class="form-control" 
+                                            formControlName="modelo"
+                                            [ngClass]="{'is-invalid': invalid('modelo', form), 'is-valid': valid('modelo', form)}">
+                                            <div *ngIf="invalid('modelo', form)" class="invalid-feedback">
+                                              Colocar una marca
+                                            </div>
+                                            <div *ngIf="valid('modelo', form)" class="valid-feedback">
+                                              ¡Excelente!
+                                            </div>
+                                          </div>
+                                      </div>                        
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                              <label for="">Estatus del auto </label>
+                                              <select class="form-control" 
+
+                                                formControlName="estatus"
+                                                [ngClass]="{'is-invalid':form.get('estatus').touched && !form.get('estatus').valid, 'is-valid':form.get('estatus').touched && form.get('estatus').valid}">
+                                                <option value="-1" disabled> Ciudad</option>
+                                                <option value="true" > activo</option>
+                                                <option value="false" > reservado</option>
+                                              </select>
+                                              <div *ngIf="form.get('estatus').touched && !form.get('estatus').valid" class="invalid-feedback">
+                                                  Por favor seleccione un país
+                                              </div>
+                                              <div *ngIf="form.get('estatus').touched && form.get('estatus').valid"
+                                                class="valid-feedback">
+                                                  ¡Excelente!
+                                              </div>
+                                          </div>
+                                      </div>    
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                            <label for="">capacidad</label>
+                                            <input class="form-control"  type="number" min="0"
+                                            formControlName="capacidad"
+                                            [ngClass]="{'is-invalid': invalid('capacidad', form), 'is-valid': valid('capacidad', form)}">
+                                            <div *ngIf="invalid('capacidad', form)" class="invalid-feedback">
+                                              Colocar una capacidad
+                                            </div>
+                                            <div *ngIf="valid('capacidad', form)" class="valid-feedback">
+                                              ¡Excelente!
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                            <label for="">Precio ($)</label>
+                                            <input class="form-control"  type="number" min="0"
+                                            formControlName="precio"
+                                            [ngClass]="{'is-invalid': invalid('precio', form), 'is-valid': valid('precio', form)}">
+                                            <div *ngIf="invalid('precio', form)" class="invalid-feedback">
+                                              Colocar una precio
+                                            </div>
+                                            <div *ngIf="valid('precio', form)" class="valid-feedback">
+                                              ¡Excelente!
+                                            </div>
+                                          </div>
+                                      </div>
+                                  
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                            <label for="">foto</label>
+                                            <input class="form-control" 
+                                            formControlName="foto"
+                                            [ngClass]="{'is-invalid': invalid('foto', form), 'is-valid': valid('foto', form)}">
+                                            <div *ngIf="invalid('foto', form)" class="invalid-feedback">
+                                              Colocar una foto
+                                            </div>
+                                            <div *ngIf="valid('foto', form)" class="valid-feedback">
+                                              ¡Excelente!
+                                            </div>
+                                          </div>
+                                       </div>
+
+
+                                  
+                                  
+                                  </div>
+                            
+                              
+                              
+                                 </div>
+                           </div>
+                      </div>
+                  </form>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-outline-success" (click)="agregarcarro()">agregar auto</button>
+                  </div>
+
+
+              </div>
+          </div>
+      </div>
+ </div>
+ 
