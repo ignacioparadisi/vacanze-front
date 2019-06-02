@@ -1,7 +1,76 @@
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modificar Reserva de habitación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>Marca: </strong></p>
+        <p>{{carreservation?.automobile?._make}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Modelo: </strong></p>
+        <p>{{carreservation?.automobile?._model}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Capacidad: </strong></p>
+        <p>{{carreservation?.automobile?._capacity}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Precio por dia: </strong></p>
+        <p>{{carreservation?.automobile?._price}}$</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>Ciudad: </strong></p>
+        <p>{{carreservation?.automobile?._place}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>CheckIn: </strong></p>
+        <p>{{carreservation?.checkIn}}</p>
+        
+        
+        
+      </div>
+      <div class="col-md-3">
+        <p><strong>CheckOut:</strong></p>
+        <p>{{carreservation?.checkOut}}</p>
+        
+      </div>
+      
+      <div class="col-md-3">
+        <p><strong>Precio total: </strong></p>
+        <span [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?._price)">lorem ipsum</span>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+          
+          </div>
+      <div class="col-md-3">
+        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
+        </div>
+    </div>
+  </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Actualizar</button>
+  </div>
+</ng-template>
+
 <!--
   Listado de Reserva de Automoviles
 -->
-<!--
+
 <div class="row">
   <div class="col-md-12">
     <div class="card mb-3">
@@ -49,7 +118,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar {{type}}"
-                  
+                  (click)="openCar(content2,carreservation.id)"
                 >
                   <i class="fa fa-edit"></i>
                 </button>&nbsp;&nbsp;
@@ -72,8 +141,11 @@
     </div>
   </div>
 </div>
--->
 
+
+<!--
+  Modal de Reserva de Habitaciones
+-->
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Reserva de habitación</h4>
@@ -146,7 +218,6 @@
 <!--
   Listado de Reserva de Habitaciones
 -->
-
 <div class="row">
   <div class="col-md-12">
 <div class="card mb-3">
@@ -197,7 +268,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar {{type}}"
-                  (click)="open(content,roomreservation.id)"
+                  (click)="openRoom(content,roomreservation.id)"
                 >
                   <i class="fa fa-edit"></i>
                 </button>&nbsp;&nbsp;

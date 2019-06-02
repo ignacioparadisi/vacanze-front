@@ -5,6 +5,8 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../utils/global_functions';
 import * as moment from 'moment';
+import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import { Timestamp } from 'rxjs';
 
 @Component({
     selector: 'mis-reservas',
@@ -18,7 +20,9 @@ export class MisReservas implements OnInit {
     public roomreservations="";
     public closeResult: string;
     public id: number = null;
+    public totalcost : number = null;
     public roomreservation = [];
+    public carreservation = [];
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
@@ -30,7 +34,8 @@ export class MisReservas implements OnInit {
     }
 
     ngOnInit() {
-     // this.getAutomobileReservations();
+    
+    this.getAutomobileReservations();
      this.getRoomReservations();
     }
 
@@ -146,15 +151,55 @@ getRoomReservation(id: number) {
   );
 }
 
-open(content, id: number) {
+getCarReservation(id: number) {
+  console.log('ID: ' + id);
+  const requestURL = `reservationautomobiles/${id}`;
+  this.apiService.getUrl(requestURL).then(
+    response => {
+      this.id = response.id;
+      this.carreservation = response;
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
+
+getDaysFrom2Dates(date1:any, date2:any,price:number){
+  //var prueba1 =new Date("01/05/2019");
+ // var prueba2 =new Date("01/02/2019");
+ var parseDate1 = new Date(date1);
+ var parseDate2 = new Date(date2);
+ console.log(parseDate1);
+ console.log(date2);
+  this.totalcost = (parseDate2.getDate() - parseDate1.getDate());
+  console.log("dayDif"+this.totalcost);
+  this.totalcost = Math.round(this.totalcost);
+  console.log("dayDifference "+ this.totalcost);
+  this.totalcost = price * this.totalcost;
+  console.log(this.totalcost);
+ // return this.totalcost;
+}
+
+openRoom(content, id: number) {
  this.getRoomReservation(id);
- id;
+
   this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
   });
 }
+
+openCar(content, id: number) {
+  this.getCarReservation(id);
+
+   this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
+       this.closeResult = `Closed with: ${result}`;
+   }, (reason) => {
+       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+   });
+ }
 
 private getDismissReason(reason: any): string {
   if (reason === ModalDismissReasons.ESC) {
