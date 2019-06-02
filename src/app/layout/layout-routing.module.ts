@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, UrlSegment } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -9,8 +10,18 @@ const routes: Routes = [
     children: [
       /* Inicio */
       {
-        path: '',
-        loadChildren: '../components/home/home.module#HomeModule'
+        path: "",
+        /* redirectTo: '/grupo-uno',
+         pathMatch: 'full'*/
+        loadChildren: '../components/grupo-uno/grupo-uno.module#GrupoUnoModule'
+      },
+      {
+        path: "landing",
+        loadChildren: "../components/grupo-uno/landing/landing.module#LandingModule"
+      },
+      {
+        path: "home",
+        loadChildren: "../components/home/home.module#HomeModule"
       },
       {
         path: 'grupo-uno',
@@ -34,7 +45,7 @@ const routes: Routes = [
       },
       /* Ruta para Backoffice de Cruceros */
       {
-        path: 'cruisers',
+        path: 'cruceros',
         loadChildren:
           '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },
@@ -62,7 +73,7 @@ const routes: Routes = [
       {
         path: 'restaurant-reservation',
         loadChildren:
-        '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
+          '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
       },
       {
         path: 'users',
@@ -71,7 +82,8 @@ const routes: Routes = [
       {
         path: 'grupo-cinco',
         loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
-      }
+      },
+
 
     ]
   }

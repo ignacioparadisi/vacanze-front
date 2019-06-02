@@ -14,7 +14,7 @@ import * as moment from 'moment';
 })
 export class HabitacionGrupoTrece implements OnInit {
     myForm: FormGroup;
-    public compararFechas;
+    public compararFechas : any;
     public countries = [];
     public cities = [];
     public hotels = [];
@@ -79,6 +79,11 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     getHotelsByCity(){
+        this.markAllAsTouched();
+        const reservation = this.myForm.value;
+        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+        if (this.myForm.valid && fechas === 1){
         const requestURL = "hotels/?location="+this.myForm.value.city;
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -88,10 +93,11 @@ export class HabitacionGrupoTrece implements OnInit {
                 console.log(error);
             }
         );
+        }
     }
 
     public markAllAsTouched() {
-        //  this.myForm.get('country').markAsTouched();
+          this.myForm.get('country').markAsTouched();
           this.myForm.get('city').markAsTouched();
           this.myForm.get('fechaOne').markAsTouched();
           this.myForm.get('fechaTwo').markAsTouched();
@@ -105,7 +111,9 @@ export class HabitacionGrupoTrece implements OnInit {
 
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
             reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-           reservation.fk_user = 1;//localStorage.getItem.
+            var fk_user = localStorage.getItem('id');
+            console.log(fk_user);
+           reservation.fk_user = fk_user
            reservation.hotel = hotel;
            reservation.user="";
            reservation.id=0;
@@ -207,5 +215,13 @@ export class HabitacionGrupoTrece implements OnInit {
           this.messageAlert(data);
         })
       }
+
+      public invalid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && !form.get(controlName).valid;
+    }
+
+    public valid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && form.get(controlName).valid;
+    }
 
 }

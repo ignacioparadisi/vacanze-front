@@ -1,12 +1,20 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
   <div class="list-group">
-    <a routerLink="/" class="list-group-item">
+    <!--<a routerLink="/" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Dashboard</span>
-    </a>
-    <a routerLink="/grupo-uno" class="list-group-item">
+    </a>-->
+    <!--<a routerLink="/grupo-uno" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Grupo Uno</span>
+    </a>-->
+    <a routerLink="/grupo-uno/landing" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Landing Page</span>
+    </a>
+    <a routerLink="/grupo-nueve" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Reclamo de Equipaje</span>
     </a>
     <a routerLink="/grupo-nueve" class="list-group-item">
       <i class="fa fa-fw fa-briefcase"></i>&nbsp;
@@ -52,14 +60,14 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Reservar Vuelo</span>
     </a>
-            <a routerLink="/grupo-trece/automovil" class="list-group-item">
-              <i class="fa fa-car"></i>&nbsp;
-              <span>Reservar Automóvil</span>
-            </a>
-            <a routerLink="/grupo-trece/habitacion" class="list-group-item">
-              <i class="fa fa-bed"></i>&nbsp;
-              <span>Reservar Habitación</span>
-            </a>
+    <a routerLink="/grupo-trece/automovil" class="list-group-item">
+      <i class="fa fa-car"></i>&nbsp;
+      <span>Reservar Automóvil</span>
+    </a>
+    <a routerLink="/grupo-trece/habitacion" class="list-group-item">
+      <i class="fa fa-bed"></i>&nbsp;
+      <span>Reservar Habitación</span>
+    </a>
     <a routerLink="/restaurant-reservation" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-cutlery"></i>&nbsp;
       <span>Reservar Restaurant</span>
@@ -68,10 +76,10 @@
       <i class="fa fa-pencil-square-o"></i>&nbsp;
       <span>Mis Reservas</span>
     </a>
-    <a routerLink="/cruisers" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a routerLink="/cruceros" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-ship"></i>&nbsp;
       <span>Cruceros</span>
-    </a>    
+    </a>
     <a routerLink="/travel" class="list-group-item">
       <i class="fa fa-fw fa-compass"></i>&nbsp;
       <span>Viajes</span>

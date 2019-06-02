@@ -19,6 +19,8 @@ export class RegisterRestaurantComponent implements OnInit {
 
 public transformImageToBase64;
 public urlImage: string;
+public countries: any[];
+public cities: any[];
 
 public registrationForm: FormGroup = new FormGroup({
     name : new FormControl(null,[
@@ -64,6 +66,12 @@ public registrationForm: FormGroup = new FormGroup({
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(50)
+    ]),
+    country: new FormControl(null, [
+      Validators.required
+    ]),
+    city: new FormControl(null, [
+      Validators.required
     ])
     // TODO -> añadir piture y location
   });
@@ -71,11 +79,29 @@ public registrationForm: FormGroup = new FormGroup({
   constructor(private _location: Location, private service: ApiService){
     this.transformImageToBase64 = transformImageToBase64;
     this.urlImage = null;
+    this.countries = [];
+    this.getCountry();
   }
 
   ngOnInit() {
   }
 
+  public getCity(id: number) {
+    this.service
+        .getUrl(url.endpoint.default._get.getCity, [id.toString()])
+        .then(response => {
+            this.cities = response;
+    }, error => console.error(error));
+  }
+
+  public getCountry() {
+    this.service
+        .getUrl(url.endpoint.default._get.getCountry)
+        .then(response => {
+            this.countries = response;
+    }, error => console.error(error));
+  }
+  
   get name(){
     return this.registrationForm.get('name');
   }
@@ -139,7 +165,7 @@ public registrationForm: FormGroup = new FormGroup({
         picture: this.urlImage,
         description: this.registrationForm.get('description').value,
         phone: this.registrationForm.get('phone').value,
-        location: 1,
+        location: this.registrationForm.get('city').value,
         address: this.registrationForm.get('address').value
       })
     .then(
@@ -182,5 +208,10 @@ public registrationForm: FormGroup = new FormGroup({
        this.goToViewRestaurants();
      });
    }
+
+   public selectCountry(event) {
+    console.log(event.target.value);
+    this.getCity(event.target.value);
+  }
 
 }
