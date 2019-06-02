@@ -80,25 +80,11 @@ const routes: Routes = [
         loadChildren: '../components/users/users-list/users-list.module#UsersListModule'
       },
       {
-<<<<<<< HEAD
-        path: 'ticket-sale',
-        loadChildren: '../components/ticket-sale/ticket-sale.module#TicketSaleModule'
-      },
-      {
-        path: 'ticket-sale-ship',
-        loadChildren: '../components/ticket-sale-ship/ticket-sale-ship.module#TicketSaleShipModule'
-      },
-      {
-        path: 'check-in',
-        loadChildren: '../components/check-in/check-in.module#CheckInModule'
-      }
-=======
         path: 'grupo-cinco',
         loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
       },
 
 
->>>>>>> ed876fb0b3faf408c699f5e282e21228d1139402
     ]
   }
 ];
