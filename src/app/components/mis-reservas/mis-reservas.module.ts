@@ -6,11 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MisReservasRoutingModule } from './mis-reservas.routing.module';
+import { MisReservas } from './mis-reservas';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-    declarations: [],
+    declarations: [MisReservas],
     imports: [
         CommonModule,
         FormsModule,

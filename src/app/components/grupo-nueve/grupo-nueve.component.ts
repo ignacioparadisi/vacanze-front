@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService} from '../../services/api.service';
 import { Claim } from "../../classes/claim";
+import { Baggage } from "../../classes/baggage";
 import { environment as url} from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';
@@ -18,7 +19,12 @@ export class GrupoNueveComponent implements OnInit {
   public formGroup: FormGroup;
   public closeResult: string;
   public claims : Claim[] = [];
-  
+  public claimsAbiertos : Claim[] = [];
+  public claimsCerrados : Claim[] = [];
+  public BaggageExtraviados : Baggage[] = [];
+  public BaggageEntregados : Baggage[] = [];
+  public BaggageEncontrados : Baggage[] = [];
+
   //Elementos del put
   public idPut : any;
   public titlePut : any;
@@ -30,12 +36,13 @@ export class GrupoNueveComponent implements OnInit {
 
   ngOnInit() {
 
-    this.service.getUrl(url.endpoint.default._get.getClaim,['0']).then(data =>{this.claims = data; console.log(data)})
+    this.getClaim()
 
     this.formGroup = new FormGroup({
+      serial: new FormControl(null, [Validators.required]),
       titulo: new FormControl(null, [Validators.required]),
       descripcion: new FormControl(null, [Validators.required])
-    });
+    })    
   }
 
   open(content, id : any, title : any, descr : any) {
@@ -50,17 +57,56 @@ export class GrupoNueveComponent implements OnInit {
   }
 
   getClaim(){
-    this.service.getUrl(url.endpoint.default._get.getClaim,['0']).then(data =>{this.claims=data; console.log(data)});
+    this.service.getUrl(url.endpoint.default._get.getClaim,['0'])
+    .then(data =>{this.claims=data; console.log(data)})
+    .catch(data =>{console.log(data)});
+  }
+
+  getAdminClaimStatusAbierto(){
+    this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['ABIERTO'])
+    .then(data => {this.claimsAbiertos = data;                                                                                             
+      console.log(data)})
+    .catch(data =>{console.log(data)});
+  }
+
+  getAdminClaimStatusCerrado(){
+    this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['CERRADO'])
+    .then(data => {this.claimsCerrados = data;                                                                                             
+      console.log(data)})
+    .catch(data =>{console.log(data)});
+  }
+
+  getAdminBaggageStatusExtraviado(){
+    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['EXTRAVIADO'])
+    .then(data => {this.BaggageExtraviados = data;                                                                                             
+      console.log(data)})
+    .catch(data =>{console.log(data)});
+  }
+
+  getAdminBaggageStatusEntregado(){
+    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['ENTREGADO'])
+    .then(data => {this.BaggageEntregados = data;                                                                                             
+      console.log(data)})
+    .catch(data =>{console.log(data)});
+  }
+
+  getAdminBaggageStatusEncontrado(){
+    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['ENCONTRADO'])
+    .then(data => {this.BaggageEncontrados = data;                                                                                             
+      console.log(data)})
+    .catch(data =>{console.log(data)});
   }
   
-  postClaim(){
-    
+  postClaim(){  
     this.service
-    .postUrl(url.endpoint.default._post.postClaim,{title: this.formGroup.get('titulo').value,
-                                                   description: this.formGroup.get('descripcion').value})
+    .postUrl(url.endpoint.default._post.postClaim
+             ,{title: this.formGroup.get('titulo').value,
+               description: this.formGroup.get('descripcion').value}
+             ,[this.formGroup.get('serial').value])
     .then(response => {console.log(response); 
                        this.claimCreatedSuccessfully(); 
-                       this.getClaim()});
+                       this.getClaim()})
+    .catch(data =>{console.log(data)});
   }
 
   private claimCreatedSuccessfully() {
@@ -77,7 +123,8 @@ export class GrupoNueveComponent implements OnInit {
     this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [id])
     .then(response => {console.log(response);
                        this.getClaim();
-                       this.claimDeleteSuccessfully()});
+                       this.claimDeleteSuccessfully()})
+    .catch(data =>{console.log(data)});
   }
 
   private claimDeleteSuccessfully() {
@@ -116,31 +163,48 @@ export class GrupoNueveComponent implements OnInit {
   putAll(id : any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,
                         {title: this.titlePut,
-                         description: this.descrPut},[id]).then(
-    response => {console.log(response); 
-                 this.putClaimStatus(id)});
+                         description: this.descrPut},[id])
+                         .then(
+                         response => {console.log(response); 
+                         this.putClaimStatus(id)})
+                         .catch(data =>{console.log(data)});
   }
 
   putClaimTD(id : any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,
                         {title: this.titlePut,
-                         description: this.descrPut},[id]).then(
-    response => {console.log(response); 
-                 this.getClaim();
-                 this.claimUpdateSuccessfully()});
+                         description: this.descrPut},[id])
+                        .then(
+                        response => {console.log(response); 
+                        this.getClaim();
+                        this.claimUpdateSuccessfully()})
+                        .catch(data =>{console.log(data.error); 
+                                       this.claimUpdateFailed(data.error)});
   }
 
   putClaimStatus(id: any){
-    this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id]).then(
+    this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id])
+    .then(
       response => {console.log(response); 
                    this.getClaim();
-                   this.claimUpdateSuccessfully()});
+                   this.claimUpdateSuccessfully()})
+    .catch(data =>{console.log(data)});
   }
 
   private claimUpdateSuccessfully() {
     let config: SweetAlertOptions = {
       title: 'Claim has been updated successfully',
       type: 'success',
+      showConfirmButton: true,
+      timer: 2500
+    }
+    Swal.fire(config);
+  }
+
+  private claimUpdateFailed(error : string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
       showConfirmButton: true,
       timer: 2500
     }
@@ -167,19 +231,6 @@ export class GrupoNueveComponent implements OnInit {
     pagina.style.display = "block";
     liCliente.style.display = "none";
     liAdmin.style.display = "none";
-  }
-
-  listadoEquipaje(){
-    var pagina;
-pagina = document.getElementById('equipajeLista');
-    
-
-    if(pagina.style.display == 'none'){
-    pagina.style.display = 'block';
-    }
-    else{
-    pagina.style.display = 'none';
-    }
   }
 
   private getDismissReason(reason: any): string {
@@ -308,6 +359,19 @@ pagina = document.getElementById('equipajeLista');
     }
   }
 
+  listadoEquipaje(){
+    var pagina = document.getElementById('equipajeLista');
+    var ck_documento =<HTMLInputElement> document.getElementById("check_documento");
+    var ck_serial =<HTMLInputElement> document.getElementById("check_serial");
+    
+    var isCheckedDocumento = ck_documento.checked;
+    var isCheckedSerial = ck_serial.checked;
+
+    if(isCheckedDocumento || isCheckedSerial){
+    pagina.style.display = 'block';
+    }
+  }
+
   BusqEquipajeAdmin(){
     var ck_extraviado =<HTMLInputElement> document.getElementById("check_extraviado");
     var ck_entregado =<HTMLInputElement> document.getElementById("check_entregado");
@@ -322,16 +386,19 @@ pagina = document.getElementById('equipajeLista');
     var terceraopcion= document.getElementById("encontrados");
 
     if (isCheckedExtrav) {
+      this.getAdminBaggageStatusExtraviado();
       primeraopcion.style.display = "block";
       segundaopcion.style.display = "none";
       terceraopcion.style.display = "none";
     }else
     if(isCheckedEntrega){
+      this.getAdminBaggageStatusEntregado();
       segundaopcion.style.display = "block";
       primeraopcion.style.display = "none";
       terceraopcion.style.display = "none";
     }else
     if(isCheckedEncont){
+      this.getAdminBaggageStatusEncontrado();
       terceraopcion.style.display = "block";
       primeraopcion.style.display = "none";
       segundaopcion.style.display = "none";
@@ -377,16 +444,15 @@ pagina = document.getElementById('equipajeLista');
     var segundaopcion= document.getElementById("cerrados");
 
     if (isCheckedOpen) {
+        this.getAdminClaimStatusAbierto();
         primeraopcion.style.display = "block";
         segundaopcion.style.display = "none";
     }else
     if(isCheckedClose){
+       this.getAdminClaimStatusCerrado();
       segundaopcion.style.display = "block";
       primeraopcion.style.display = "none";
     }
   }
-
- 
-  
 
 }

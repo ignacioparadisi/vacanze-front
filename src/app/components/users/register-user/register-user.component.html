@@ -7,16 +7,19 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="modal-body table-responsive">
     <!-- Role Field -->
-    <label>Roles</label><br />
-    <div class="btn-group btn-group-toggle">
-      <label *ngFor="let role of roles" class="btn-outline-info" ngbButtonLabel>
-        <input type="checkbox" [formControlName]="'role' + role.id" ngbButton (change)="checkboxValueChanged(role.id)">
-        {{ role.name }}
-      </label>
+    <div *ngIf="!isClient">
+      <label>Roles</label><br />
+      <div class="btn-group btn-group-toggle">
+        <label *ngFor="let role of roles" class="btn-outline-info" ngbButtonLabel>
+          <input type="checkbox" [formControlName]="'role' + role.id" ngbButton (change)="checkboxValueChanged(role.id)">
+          {{ role.name }}
+        </label>
+      </div>
+      <div *ngIf="submitted && !isRoleSelected()" class="role-required">
+        Se debe seleccionar un rol
+      </div>
     </div>
-    <div *ngIf="submitted && !isRoleSelected()" class="role-required">
-      Se debe seleccionar un rol
-    </div>
+
 
     <div class="row">
       <!-- Document ID Field -->
@@ -90,7 +93,7 @@
       </div>
     </div>
 
-    <!-- <div class="row">
+    <div *ngIf="isClient" class="row">
       <div class="col-md-12">
         <div class="form-group">
           <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" [ngClass]="{
@@ -109,7 +112,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div *ngIf="isClient" class="row">
       <div class="col-md-12">
         <div class="form-group">
           <input type="password" class="form-control" placeholder="Confirmar Contraseña"
@@ -124,7 +127,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="row">
       <div class="col-md-12 text-center">
@@ -136,6 +139,13 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-success">Agregar</button>
+    <button class="btn btn-success" [disabled]="state == 'loading'">
+      <span *ngIf="state == 'loading'" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span *ngIf="state == 'loading'"> Enviando...</span>
+      <span *ngIf="state !== 'loading'">
+        <span *ngIf="isEdit">Guardar</span>
+        <span *ngIf="!isEdit">Agregar</span>
+      </span>
+    </button>
   </div>
 </form>
