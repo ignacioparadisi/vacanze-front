@@ -8,6 +8,7 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 import { User } from "../../../classes/user";
 import { RegisterUserComponent } from "../../users/register-user/register-user.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 
 
 
@@ -18,7 +19,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [ApiService]
+  providers: [ApiService, SidebarComponent]
 })
 
 
@@ -44,7 +45,8 @@ export class LoginComponent implements OnInit {
     private father: LayoutComponent,
     private router: Router,
     private landing: GrupoUnoComponent,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private sideBar: SidebarComponent) {
 
   }
 
@@ -60,20 +62,25 @@ export class LoginComponent implements OnInit {
         this.storage.setItem('id', res.id).subscribe(id => {
           console.log('Id del usuario por bdd', id)
         });
-        this.storage.setItem('rol', res.roles[0].name).subscribe(name => {
-          console.log('Rol del usuario', name)
+        this.storage.setItem('rol', res.roles).subscribe(roles => {
+          console.log('Roles del usuario', roles)
         });
         this.storage.setItem('Email', res.email).subscribe(email => {
           console.log('Emai del usuario', email)
         });
-        if (res.roles[0].name == 1) {
+        if (res.roles[0].id == 1) {
           this.StatusLogin = false;
           this.father.StatusHeader = true;
           this.isPushed = true;
           this.isShow = false;
           this.isShowLogin = true;
           this.router.navigateByUrl('/landing');
-        } else if (res.roles[0].name != 1) {
+        } else if (res.roles[0].id != 1) {
+          /* for (var i = 0; i < res.roles.length; i++) {
+             if (res.roles[i].name == 3) {
+               this.sideBar.isLanding = false;
+             }
+           }*/
           this.father.StatusHeader = true;
           this.father.StatusSideBar = true;
           this.StatusLogin = false;

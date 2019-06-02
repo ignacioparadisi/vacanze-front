@@ -103,12 +103,12 @@
                     </button>&nbsp;&nbsp;
                     <button
                       class="btn btn-outline-info"
-                      (click)="goToEdit(type)"
+                      (click)="goToEditHotel(hotel)"
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Editar {{type}}">
                       <i class="fa fa-edit"></i>
-                    </button>                    
+                    </button>
                     </td>
                   </tr>
                 </tbody>
@@ -172,12 +172,12 @@
                       <td>{{ reserva?.descripcion }}</td>
                       <td>{{ reserva?.telefono }}</td>
                       <td>
-                          <button 
+                          <button
                             class="btn btn-outline-dark"
-                            style="cursor: pointer;" 
-                            (click)="openModalActions($event, reservar-restaurante, 'reservar', true)" 
-                            data-toggle="tooltip" 
-                            data-placement="top" 
+                            style="cursor: pointer;"
+                            (click)="openModalActions($event, reservar-restaurante, 'reservar', true)"
+                            data-toggle="tooltip"
+                            data-placement="top"
                             title="Reservar {{type}}"
                           >
                             <i class="fa fa-cart-plus"></i>

@@ -4,6 +4,8 @@
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
+      "getBaggageClientSerial":"Baggage/{id}",
+      "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
       "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
       "getCountry": "locations/countries",
       "getCity":"locations/countries/{id}/cities",
