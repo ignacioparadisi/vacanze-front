@@ -1,59 +1,71 @@
 <div id="fondo"> 
   <div class="container-fluid" >
     <h1 class="page-header-title">Find your table for any occasion</h1>
-    <div class="row form-group ml-3 mr-3" id="center-form">
-      <div class="col ">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-          <input type="date" class="form-control" name="fechaReserva">  
+    <form [formGroup]="formGroup" >
+      <div class="row form-group ml-3 mr-3" id="center-form">
+      
+        <div class="col ">
+          <div class="form-group input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+            <input id="reserva" type="date" class="form-control" formControlName="fechaReserva" [class.alert-danger]="formGroup.get('fechaReserva').invalid && subM">  
+          </div>
+          <span *ngIf="formGroup.get('fechaReserva').invalid && subM"  style="color:white">Date required.</span>
         </div>
-      </div>
 
-      <div class="col ">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-hourglass-half" aria-hidden="true"></i></div>
-          <select class="form-control custom-select mr-sm-2" id="horaReserva" >
-            <option value="-1" selected>Hora</option>
-            <option value="12">12:00 pm</option>
-            <option value="1" >1:00 pm</option>
-            <option value="2" >2:00 pm</option>
-            <option value="3" >3:00 pm</option>
-            <option value="4" >4:00 pm</option>
-            <option value="5" >5:00 pm</option>
-            <option value="6" >6:00 pm</option>
-            <option value="7" >7:00 pm</option>
-            <option value="8" >8:00 pm</option>
-            <option value="9" >9:00 pm</option>
-            <option value="10" >10:00 pm</option>
-            <option value="11" >11:00 pm</option>
-          </select>
-        </div> 
-      </div>
-
-      <div class="col ">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-users" aria-hidden="true"></i></div>
-          <select class="form-control custom-select mr-sm-2" id="cantidadPersonas">
-            <option value="-1" selected>Cantidad</option>
-            <option value="1">1 people</option>
-            <option value="2" >2 people</option>
-            <option value="3" >3 people</option>
-            <option value="4" >4 people</option>
-            <option value="5" >5 people</option>
-            <option value="Large party">Large party</option>
-          </select>
+        <div class="col ">
+          <div class="form-group input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+            <select id="hora" class="custom-select form-control" formControlName="horaReserva" class="form-control" [class.alert-danger]="formGroup.get('horaReserva').value==-1 && subM">
+              <option value="-1" disabled>Hour</option>
+              <option *ngFor='let hour of horaReserva' value="{{hour.id }}">{{hour.hour}}</option>
+            </select>
+          </div> 
+          <span *ngIf="formGroup.get('horaReserva').value==-1 && subM"  style="color:white">Hour required.</span>
         </div>
-      </div>
 
-      <div class="col mx-sm-3">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
-          <input type="text" class="form-control" id="ciudad" placeholder="City" required>
+        <div class="col ">
+          <div class="form-group input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></div>
+            <select id="people" class="custom-select form-control" formControlName="cantidadPersonas" class="form-control" [class.alert-danger]="formGroup.get('cantidadPersonas').value==-1 && subM">
+              <option value="-1" disabled>People</option>
+              <option *ngFor="let cant of cantidadPersonas" value="{{cant.id}}"> {{cant.name}}</option>
+            </select>
+          </div> 
+          <span *ngIf="formGroup.get('cantidadPersonas').value==-1 && subM"  style="color:white">Hour required.</span>
         </div>
+
+        <div class="col">
+          <div class="form-group input-group-prepend" >
+            <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+            <input  type="text" class="form-control" [class.alert-danger]="formGroup.get('ciudad').invalid && subM" placeholder="City" formControlName="ciudad">
+          </div>
+          <span *ngIf="formGroup.get('ciudad').invalid && subM" style="color: white;">City required.</span>
+        </div>
+        
       </div>
-    </div>
-    <button class="btn btn-danger mb-3">Let's go</button>
+      
+      <button (click)="onSubmit()" id="boton" class="btn btn-danger mb-3">Let's go.</button>
+      
+    </form>
   </div>
 </div>
+<!-- <app-seleccionar-restaurant></app-seleccionar-restaurant> -->
+<script>
+  $(function(){
+    $('#pais').on('change', findCity);
+  })
 
-<app-seleccionar-restaurant></app-seleccionar-restaurant>
+  function findCity(){
+    var pais = $this.val()
+    $.get('/findCity'+pais+'/pertenece', (data)=>{
+
+      var html_select = '<option value="">City</option>'
+      $('#city').html(html_select)
+
+      for(var i =0; i< data.length; i++){
+        html_select += '<option value="'+data[i].id+'">'+data[i].name+'</option>'
+        $('city').html(html_select)
+      }
+    })
+  }
+</script>
