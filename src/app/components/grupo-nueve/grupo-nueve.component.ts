@@ -15,12 +15,18 @@ import { SweetAlertOptions } from 'sweetalert2';
 })
 export class GrupoNueveComponent implements OnInit {
 
-  //Variables de Peticiones
+  //Variables de Interfaz
   public formGroup: FormGroup;
+  public formSearch: FormGroup;
   public closeResult: string;
+
+  //Variables para llenar (Claim)
   public claims : Claim[] = [];
   public claimsAbiertos : Claim[] = [];
   public claimsCerrados : Claim[] = [];
+
+  //Variables para llenar (Baggage)
+  public baggages : Baggage[] = []
   public BaggageExtraviados : Baggage[] = [];
   public BaggageEntregados : Baggage[] = [];
   public BaggageEncontrados : Baggage[] = [];
@@ -43,6 +49,10 @@ export class GrupoNueveComponent implements OnInit {
       titulo: new FormControl(null, [Validators.required]),
       descripcion: new FormControl(null, [Validators.required])
     })    
+
+    this.formSearch = new FormGroup({
+      id: new FormControl(null, [Validators.required])
+    })
   }
 
   open(content, id : any, title : any, descr : any) {
@@ -76,6 +86,16 @@ export class GrupoNueveComponent implements OnInit {
     .catch(data =>{console.log(data)});
   }
 
+  getClientBaggageSerial(id : string){    
+    this.service.getUrl(url.endpoint.default._get.getBaggageClientSerial, [id])
+    .then(data => {this.baggages = data; console.log(data)})
+  }
+
+  getClientBaggageDocument(id : string){    
+    this.service.getUrl(url.endpoint.default._get.getBaggageClientDocument, [id])
+    .then(data => {this.baggages = data; console.log(data)})
+  }
+
   getAdminBaggageStatusExtraviado(){
     this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['EXTRAVIADO'])
     .then(data => {this.BaggageExtraviados = data;                                                                                             
@@ -106,7 +126,8 @@ export class GrupoNueveComponent implements OnInit {
     .then(response => {console.log(response); 
                        this.claimCreatedSuccessfully(); 
                        this.getClaim()})
-    .catch(data =>{console.log(data)});
+    .catch(data =>{console.log(data.error); 
+                   this.claimCreatedFailed(data.error)});
   }
 
   private claimCreatedSuccessfully() {
@@ -115,6 +136,15 @@ export class GrupoNueveComponent implements OnInit {
       type: 'success',
       showConfirmButton: true,
       timer: 2500
+    }
+    Swal.fire(config);
+  }
+
+  private claimCreatedFailed(error : string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: true
     }
     Swal.fire(config);
   }
@@ -205,8 +235,7 @@ export class GrupoNueveComponent implements OnInit {
     let config: SweetAlertOptions = {
       title: error,
       type: 'error',
-      showConfirmButton: true,
-      timer: 2500
+      showConfirmButton: true
     }
     Swal.fire(config);
   }
@@ -367,7 +396,12 @@ export class GrupoNueveComponent implements OnInit {
     var isCheckedDocumento = ck_documento.checked;
     var isCheckedSerial = ck_serial.checked;
 
-    if(isCheckedDocumento || isCheckedSerial){
+    if(isCheckedDocumento){
+    this.getClientBaggageDocument(this.formSearch.get('id').value);
+    pagina.style.display = 'block';
+    }else
+    if(isCheckedSerial){
+    this.getClientBaggageSerial(this.formSearch.get('id').value);
     pagina.style.display = 'block';
     }
   }
