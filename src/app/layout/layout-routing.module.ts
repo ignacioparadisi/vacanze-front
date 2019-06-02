@@ -88,8 +88,6 @@ const routes: Routes = [
         path: 'grupo-cuatro',
         loadChildren: '../components/grupo-cuatro/grupo-cuatro.module#GrupoCuatroModule'
       }
-
-
     ]
   }
 ];
