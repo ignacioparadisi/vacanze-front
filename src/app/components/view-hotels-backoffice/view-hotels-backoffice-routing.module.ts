@@ -14,7 +14,7 @@ const routes: Routes = [
         component: RegisterHotelComponent
       },
       {
-        path: 'editar-hotel',
+        path: 'editar-hotel/:id',
         component: EditHotelComponent
       }
     ]

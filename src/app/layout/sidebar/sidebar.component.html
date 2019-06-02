@@ -1,21 +1,45 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
   <div class="list-group">
-    <a routerLink="/" class="list-group-item">
+    <!--<a routerLink="/" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Dashboard</span>
-    </a>
-    <a routerLink="/grupo-uno" class="list-group-item">
+    </a>-->
+    <!--<a routerLink="/grupo-uno" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Grupo Uno</span>
+    </a>-->
+    <a routerLink="/grupo-uno/landing" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Landing Page</span>
+    </a>
+    <a routerLink="/grupo-nueve" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Reclamo de Equipaje</span>
     </a>
     <a routerLink="/grupo-nueve" class="list-group-item">
       <i class="fa fa-fw fa-briefcase"></i>&nbsp;
       <span>Equipment Claim</span>
     </a>
-    <a routerLink="/grupo-cinco" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-      <span>Automóvil</span>
-    </a>
+    <div class="nested-menu">
+        <a class="list-group-item" (click)="addExpandClass('paginas')">
+            <i class="fa fa-plus"></i>&nbsp;
+            <span>Automoviles</span>
+        </a>
+        <li class="nested" [class.expand]="showMenu === 'paginas'">
+            <ul class="submenu">
+                <li>
+                    <a routerLink="/grupo-cinco/consultar" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                      <span>Consultar Automovil</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/grupo-cinco/registrar" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                      <span>Registrar automovil</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </div>
     <div class="nested-menu">
       <a class="list-group-item" (click)="addExpandClass('pages')">
         <i class="fa fa-plus"></i>&nbsp;
@@ -71,7 +95,7 @@
     <a routerLink="/cruisers" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-ship"></i>&nbsp;
       <span>Cruceros</span>
-    </a>    
+    </a>
     <a routerLink="/travel" class="list-group-item">
       <i class="fa fa-fw fa-compass"></i>&nbsp;
       <span>Viajes</span>

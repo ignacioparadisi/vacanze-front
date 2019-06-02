@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { CustomValidatorDirective } from '../../../../directives/validations/custom-validations.directive';
 import { compararFechas } from '../../../../utils/global_functions';
 import { compararCiudades } from '../../../../utils/global_functions';
+
 @Component({
     selector: 'app-new-grupo-tres',
     templateUrl: './new.grupo-tres.html',
@@ -26,6 +27,11 @@ export class NewGrupoTres implements OnInit {
     public contactList: FormArray;
     public compararFechas;
     public compararCiudades;
+    public errores : boolean = false;
+    public messageSuccess : boolean = false;
+    public messageDanger : boolean = false;
+    public visible : boolean = false;
+    public mensaje: [];
 
     constructor(private modalService: NgbModal, private fb: FormBuilder, private apiService: ApiService) {
         this.compararFechas = compararFechas;
@@ -45,8 +51,9 @@ export class NewGrupoTres implements OnInit {
         });
         this.getAirplanes();
         this.getCountries();
+                        
     }
-
+    
     public getAirplanes() {
         // API URL
         const requestURL = 'airplanes';
@@ -104,6 +111,8 @@ export class NewGrupoTres implements OnInit {
         this.form.get('price').markAsTouched();
         this.form.get('departure').markAsTouched();
         this.form.get('arrival').markAsTouched();
+        this.form.get('countryArrival').markAsTouched();
+        this.form.get('countryDeparture').markAsTouched();
     }
 
 
@@ -130,14 +139,31 @@ export class NewGrupoTres implements OnInit {
             if (this.form.valid) {
                 this.apiService.postUrl('flights', payload).then(
                     response => {
+                        this.mensaje = response;
+                        this.messageSuccess = true;
+                        setTimeout(()=>{
+                            this.messageSuccess = false;
+                       }, 3000);
                         console.log(response);
                     }, error => {
+                        this.mensaje = error;
+                        this.errores = true;
+                        this.messageDanger = true;
+                        setTimeout(()=>{
+                            this.errores = false;
+                            this.messageDanger = false;
+                       }, 5000);
                         console.log(error);
                     }
                 );
             }
         } else {
-            console.log('La fecha de llegada no puede ser anterior a la de salida.');
+            this.errores = true;
+            this.visible = true;
+            setTimeout(()=>{  
+                this.errores = false;
+                this.visible = false;
+           }, 5000);
         }
     }
 
@@ -166,5 +192,6 @@ export class NewGrupoTres implements OnInit {
             return `with: ${reason}`;
         }
     }
+    
 
 }

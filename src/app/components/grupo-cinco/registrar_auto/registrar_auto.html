@@ -1,0 +1,158 @@
+<ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Editar Automovil</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <form [formGroup]="formGroup" action="">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Placa">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Marca">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Modelo">
+                  </div>
+                  <select class="form-control" formControlName="ciudad">
+                    <option value="-1" disabled> Ciudad nueva</option>
+                    
+                  </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Capacidad">
+                    </div>
+                    <div class="form-group">
+                      <select class="form-control" formControlName="estado">
+                        <option value="-1" disabled> Estado del automovil</option>
+                        <option value="0">Activo</option>
+                        <option value="1">Suspendido</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Precio">
+                    </div>
+                  </div>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <swal
+            #editSwal
+            title="Automovil actualizado"
+            type="success"
+            showConfirmButton=false
+            timer=2500>
+          </swal>
+            <button type="button" class="btn btn-secondary" [swal]="editSwal" (click)="c('Close click')">Editar</button>
+        </div> 
+      </ng-template>
+
+
+<div class="row">
+        <div class="col-md-12">
+          <div class="card mb-3">
+            <div class="card-header">
+              Buscar habitación
+            </div>
+            <div class="card-body roomcito">
+              <form [formGroup]="myForm" (ngSubmit)="buscador()">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label style="color: black" for=""><strong>Ciudad</strong></label>
+                      <select class="form-control" formControlName="country"
+                      (ngModelChange)="getCities()"
+                      >
+                        <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
+                      </select>
+                    
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label style="color: black" for=""><strong>Placa</strong></label>
+                      <input type="text" class="form-control" placeholder="placa de autos" >
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label style="color: black" for=""><strong>cantidad de pasajeros</strong></label>
+                      <input type="text" class="form-control" placeholder="# de pasajeros">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label style="color: black" for=""><strong>Estado del auto</strong></label>
+                      <select class="form-control" formControlName="Estado" >
+                        <option value="1" >Disponible</option>
+                        <option value="2" >No Disponible</option>
+                      </select> 
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-success" type="submit">Buscar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      
+          <div class="card mb-3">
+            <div class="card-header">
+              Listado de Automovil
+            </div>
+            <div class="card-body table-responsive">
+              <div class="row">
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Matricula</th>
+                      <th scope="col">Marca</th>
+                      <th scope="col">Modelo</th>
+                      <th scope="col">Capacidad</th>
+                      <th scope="col">Estado del vehiculo</th>
+                      <th scope="col">Precio ($)</th>
+                      <th scope="col">Ciudad ubicada </th>
+                      <th scope="col">Foto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr  >
+                      <td scope="col">hola</td>
+                      <td scope="col">hola</td>
+                      <td scope="col">hola</td>
+                      <td scope="col">hola</td>
+                      <td scope="col">hola</td>
+                      <td scope="col">hola</td>
+                      <td scope="col">hola</td>
+                      <td scope="col">aqui va la imagen</td>
+                      <td>
+                          <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                          <swal
+                            #deleteSwal
+                            title="Desea eliminar el registro?"
+                            type="question"
+                            [showCancelButton]="true"
+                            [focusCancel]="true"
+                            (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                          </swal>
+                          <button [swal]="deleteSwal"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
