@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DetailTravelComponent implements OnInit {
 
   private travel = JSON.parse(localStorage.getItem("travel"));
-  private cityId = this.activatedRoute.snapshot.paramMap.get("id");
+  private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");;
   restReservations: Array<object>
   autoReservations: Array<object>
   hoteReservations: Array<object>
@@ -48,10 +48,10 @@ export class DetailTravelComponent implements OnInit {
         restaurant:
         {
           id: 22,
-          businessname: 'El rey de las carnes',
-          address_specs: 'Villa de cura via Bella Vista ',
+          businessname: 'Hereford Grill',
+          address_specs: 'Entre calles Caroní y Nueva York, Calle Madrid',
           specialty: 'Carnes',
-          tlf: '+582443541268',
+          tlf: '+582129929664',
           price: 200,
         }
       },
@@ -62,10 +62,10 @@ export class DetailTravelComponent implements OnInit {
         restaurant:
         {
           id: 42,
-          businessname: 'Pollo los llanos',
-          address_specs: 'Intercomunal de Cagua',
+          businessname: 'La Posada Del Pollo',
+          address_specs: 'Avenida Panteón',
           specialty: 'Pollos',
-          tlf: '+582445124365',
+          tlf: '+582125525058',
           price: 150,
         }
       },
@@ -208,6 +208,6 @@ export class DetailTravelComponent implements OnInit {
   }
 
   goDiary(){
-    this.router.navigate(['travel', this.travel.id, 'city', this.cityId])
+    this.router.navigate(['travel', this.travel.id, 'city', this.cityId, 'diary'])
   }
 }
