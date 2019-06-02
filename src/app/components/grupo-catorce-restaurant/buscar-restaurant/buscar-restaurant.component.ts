@@ -18,12 +18,15 @@ export class BuscarRestaurantComponent implements OnInit {
   public horaReserva: reservationHour[] = []
   public subM: boolean = false
   public formGroup: FormGroup
+  private isDataLoaded: boolean = false
+  private userId:number
 
   constructor(private api: ApiService, private router: Router,private localStorage: LocalStorageService) { }
 
   ngOnInit() {
     this.peopleDinner()
     this.hourDinner()
+    this.getLocalStorage()
     var date = this.actualDate()
     this.formGroup = new FormGroup({
       cantidadPersonas: new FormControl(-1, [
@@ -47,12 +50,12 @@ export class BuscarRestaurantComponent implements OnInit {
       && this.formGroup.get('cantidadPersonas').value != -1 && this.formGroup.get('fechaReserva').valid){
       
       var datosReserva ={
-        userID: 1, //TODO, esta cableado esperando por grupo de login
+        userID:1, //this.userId, //TODO, esta cableado esperando por grupo de login
         timeStamp: this.formGroup.get('fechaReserva').value+' '+this.formGroup.get('horaReserva').value,
         cantPeople: this.formGroup.get('cantidadPersonas').value,
         ciudad:this.formGroup.get('ciudad').value
       }
-     
+      console.log(this.userId)
       this.localStorage.setItem('formReserva', datosReserva).subscribe(datosReserva =>{
         //console.log('estoy en la vista 1')
         console.log('Datos de la reserva',datosReserva)
@@ -117,5 +120,12 @@ export class BuscarRestaurantComponent implements OnInit {
     }
   }
 
-  
+  public getLocalStorage(){
+    this.localStorage.getItem('id').subscribe(storedId =>{
+      if(storedId){
+        this.isDataLoaded = true
+        this.userId = storedId
+      }
+    })
+  }  
 }

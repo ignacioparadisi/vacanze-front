@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { Location } from "@angular/common";
 import { environment as url } from '../../../../environments/environment';
+import { SweetAlertOptions } from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detail-view',
@@ -39,6 +41,11 @@ export class DetailViewComponent implements OnInit {
         console.log('Datos del usuario que agarro el restaurant:', this.formInfo)
       }
     })
+  }
+
+  public destroyLocalStorage(){
+    this.localStorage.removeItem('resRestaurant')
+    this.localStorage.removeItem('formReserva')
   }
 
   private actualDate(){
@@ -81,9 +88,36 @@ export class DetailViewComponent implements OnInit {
       user_id :this.formInfo.userID,
       rest_id: this.restaurant.id
     }).then(response =>{
-      console.log('Registro, revisar postres')
+      console.log('Registro ID: ', response)
+      this.restaurantCreatedSuccessfully()
     }).catch(error => {
-      console.log('error por algun motivo')
+      console.log('error por algun motivo', error)
+      this.error()
     })
+  }
+
+  private error(){
+    let config: SweetAlertOptions = {
+      title: 'Sorry, not availability at this hour',
+      type: 'error',
+      showConfirmButton: true
+    }
+    Swal.fire(config).then( result =>{
+      this.goBack()
+    });
+  }
+
+  private restaurantCreatedSuccessfully(){
+    let config: SweetAlertOptions = {
+      title: 'Reservation added.',
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    }
+    Swal.fire(config).then( result =>{
+      console.log(result);
+      this.destroyLocalStorage()
+      this.router.navigate(['mis-reservas']);
+    });
   }
 }
