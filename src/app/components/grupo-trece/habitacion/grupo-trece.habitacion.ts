@@ -80,7 +80,10 @@ export class HabitacionGrupoTrece implements OnInit {
 
     getHotelsByCity(){
         this.markAllAsTouched();
-        if (this.myForm.valid){
+        const reservation = this.myForm.value;
+        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+        if (this.myForm.valid && fechas === 1){
         const requestURL = "hotels/?location="+this.myForm.value.city;
         this.apiService.getUrl(requestURL).then(
             response => {

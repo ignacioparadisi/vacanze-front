@@ -81,7 +81,11 @@ export class AutomovilGrupoTrece implements OnInit {
 
     getCarsByCity(){
         this.markAllAsTouched();
-        if (this.myForm.valid){
+        const reservation = this.myForm.value;
+        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+
+        if (this.myForm.valid && fechas === 1){
         const requestURL = "Auto/consultplaceStatus/"+this.myForm.value.city+"/true/";
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -105,8 +109,8 @@ export class AutomovilGrupoTrece implements OnInit {
     submit(car : Object) {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
-        let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-
+        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
       //  reservation.fk_user_id = localStorage.getItem.
@@ -159,7 +163,7 @@ export class AutomovilGrupoTrece implements OnInit {
 
     initializaDate(){
         var today = new Date();
-        var dd = today.getDate();
+        var dd = today.getDate()+1;
         var mm = today.getMonth()+1; //January is 0!
         var yyyy = today.getFullYear();
         var de = '' +dd
