@@ -79,6 +79,8 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     getHotelsByCity(){
+        this.markAllAsTouched();
+        if (this.myForm.valid){
         const requestURL = "hotels/?location="+this.myForm.value.city;
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -88,10 +90,11 @@ export class HabitacionGrupoTrece implements OnInit {
                 console.log(error);
             }
         );
+        }
     }
 
     public markAllAsTouched() {
-        //  this.myForm.get('country').markAsTouched();
+          this.myForm.get('country').markAsTouched();
           this.myForm.get('city').markAsTouched();
           this.myForm.get('fechaOne').markAsTouched();
           this.myForm.get('fechaTwo').markAsTouched();
@@ -207,5 +210,13 @@ export class HabitacionGrupoTrece implements OnInit {
           this.messageAlert(data);
         })
       }
+
+      public invalid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && !form.get(controlName).valid;
+    }
+
+    public valid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && form.get(controlName).valid;
+    }
 
 }

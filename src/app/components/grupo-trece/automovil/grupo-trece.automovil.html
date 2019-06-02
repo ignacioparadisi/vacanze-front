@@ -67,7 +67,7 @@
                           <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                         </select>
                         <div *ngIf="invalid('country', myForm)" class="invalid-feedback">
-                          Por favor seleccione una ciudad
+                          Por favor seleccione un pais
                         </div>
                         <div *ngIf="valid('country', myForm)" class="valid-feedback">
                           ¡Excelente!
