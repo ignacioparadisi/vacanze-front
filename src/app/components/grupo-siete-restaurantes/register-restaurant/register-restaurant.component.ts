@@ -209,4 +209,9 @@ public registrationForm: FormGroup = new FormGroup({
      });
    }
 
+   public selectCountry(event) {
+    console.log(event.target.value);
+    this.getCity(event.target.value);
+  }
+
 }
