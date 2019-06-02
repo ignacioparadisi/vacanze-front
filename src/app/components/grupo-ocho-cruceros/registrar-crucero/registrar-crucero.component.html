@@ -1,7 +1,7 @@
 
 <div class="card-header">
   <i class="fa fa-fw fa-ship"></i>&nbsp;
-  <span>{{ title?.split('|')[0] }} | <b> {{ title?.split('|')[1] }}</b></span><br><br>
+  <span>{{title}}</span><br><br>
 </div>
 <div class="card-body" *ngIf="formReady">
   <form [formGroup]="registrationForm">

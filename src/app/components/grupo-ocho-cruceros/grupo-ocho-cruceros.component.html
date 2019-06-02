@@ -1,5 +1,5 @@
 <app-cruceros 
-    *ngIf="!checks.routes && !checks.edit && !checks.add" 
+    *ngIf="!checks.routes && !checks.edit && !checks.add && !checks.addRoutes" 
     (emitRouting)="getCurrentRoute($event)" 
     [cruisers]="getVariableCruisers()" 
     [headers]="getTableHeaders()"
