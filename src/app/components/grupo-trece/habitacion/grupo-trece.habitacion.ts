@@ -111,7 +111,9 @@ export class HabitacionGrupoTrece implements OnInit {
 
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
             reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-           reservation.fk_user = 1;//localStorage.getItem.
+            var fk_user = localStorage.getItem('id');
+            console.log(fk_user);
+           reservation.fk_user = fk_user
            reservation.hotel = hotel;
            reservation.user="";
            reservation.id=0;

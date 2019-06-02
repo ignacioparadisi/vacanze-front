@@ -83,7 +83,8 @@ export class MisReservas implements OnInit {
     ***********************************************************************/
   getAutomobileReservations(){
     console.log("Estoy en getAutomobileReservations");
-    const requestURL = "reservationautomobiles/?user=1";
+    var user_id = localStorage.getItem('id');
+    const requestURL = "reservationautomobiles/?user="+user_id;
     this.apiService.getUrl(requestURL).then(
         response => {
           console.log(response);
@@ -97,7 +98,8 @@ export class MisReservas implements OnInit {
 
 getRoomReservations(){
   console.log("Estoy en getRoomReservations");
-  const requestURL = "reservationrooms/?user=1";
+  var user_id = localStorage.getItem('id');
+  const requestURL = "reservationrooms/?user="+user_id;
   this.apiService.getUrl(requestURL).then(
       response => {
         console.log(response);

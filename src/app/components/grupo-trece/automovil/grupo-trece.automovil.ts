@@ -113,8 +113,8 @@ export class AutomovilGrupoTrece implements OnInit {
         console.log(fechas);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-      //  reservation.fk_user_id = localStorage.getItem.
-      reservation.fk_user = 1;
+        reservation.fk_user_id = localStorage.getItem('id');
+     // reservation.fk_user = 1;
        reservation.automobile = car;
        reservation.user="";
        reservation.id=0;
