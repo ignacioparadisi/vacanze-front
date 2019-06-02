@@ -6,13 +6,20 @@
       "getListFlight":"flights/locations",
       "getIdCity":"id-return-city",
       "getClaim":"Claim/{id}",
+      "getClaimAdminStatus":"Claim/admin/{status}",
+      "getBaggageClientSerial":"Baggage/{id}",
+      "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
+      "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
+      "getCountry": "locations/countries",
+      "getCity":"locations/countries/{id}/cities",
       "cruisers": {
-        "get_cruisers": "cruiser"
+        "get_cruisers": "cruiser",
+        "get_layovers": "cruiser/{cruiserId}/layover"
       }
     },
     "_post": {
       "postResFlight": "flight-reservation",
-      "postClaim":"Claim",
+      "postClaim":"Claim/{id}",
       "postHotel":"hotels",
       "postRestaurant": "restaurants",
       "cruisers": {

@@ -31,7 +31,7 @@ export class MisReservas implements OnInit {
     ngOnInit() {
      // this.getAutomobileReservations();
      this.getRoomReservations();
-     this.getFlightReservations();
+    // this.getFlightReservations(this._id);
     }
 
      /**************************************************************************
@@ -133,9 +133,10 @@ public deleteRoomReservation(id: number) {
     }
   );
 }
-getFlightReservations(){
+//metodo para recibir reservas de vuelo
+getFlightReservations(id:number){
   console.log("Estoy en getFlightReservations");
-  const requestURL = "list-reservation-flight/1";
+  const requestURL = `list-reservation-flight/${id}`;  
   this.apiService.getUrl(requestURL).then(
       response => {
         console.log("mylistreeees:",response);
@@ -146,13 +147,14 @@ getFlightReservations(){
       }
   );
 }
+//metodo para eliminar reservas de vuelo
  deleteFlightReservation(id: number) {
    console.log("id tiene:",id);
   const requestURL = `delete-reservation-flight/${id}`;
   this.apiService.deleteUrl(requestURL).then(
     response => {
       console.log(response);
-     console.log('Reservacion con el id=1' + 'id '+ 'fue eliminada');
+     console.log('Reservacion con el id' + id + 'fue eliminada');
     }, error => {
       console.error(error);
     }

@@ -66,7 +66,16 @@
                   <td>2</td>
                   <td>{{item.price}}</td>
                   <td> <div >
-                    <button (click)="openDetail(content)" class="btn btn-primary" >Ver Detalle</button>
+                    <button 
+                    class="btn btn-outline-dark"
+                    style="cursor: pointer;" 
+                    (click)="openModal()" 
+                    data-toggle="tooltip" 
+                    data-placement="top" 
+                    title="Reservar {{type}}"
+                  >
+                    <i class="fa fa-cart-plus"></i>
+                  </button>&nbsp;&nbsp;
                     <swal
                         #addSwal
                         title="Reserva exitosa"
