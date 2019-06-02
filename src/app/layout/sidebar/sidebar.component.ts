@@ -29,6 +29,7 @@ export class SidebarComponent implements OnInit {
   isMisReservas = true;
   isCruceros = true;
   isViajes = true;
+  isPagos = true;
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
   constructor(public router: Router, private modalService: NgbModal) {
