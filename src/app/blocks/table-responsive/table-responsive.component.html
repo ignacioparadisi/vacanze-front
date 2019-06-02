@@ -4,7 +4,7 @@
         <i class="fa fa-fw fa-ship" *ngIf="type === 'cruceros'"></i>&nbsp;
         <i class="fa fa-bed" *ngIf="type === 'hotel'"></i>
         <i class="fa fa-fw fa-cutlery" *ngIf="type === 'restaurantes'"></i>
-        <i class="fa fa-binoculars" *ngIf="type === 'rutas'"></i>&nbsp;
+        <i class="fa fa-road" *ngIf="type === 'rutas'"></i>&nbsp;
         <span>{{ headerTitle }}</span>
       </div>
       <div class="card-body table-responsive">
@@ -17,7 +17,6 @@
               </thead>
               <tbody *ngIf="type === 'cruceros'; else hotelesElseBlock">
                 <tr *ngFor="let boat of tableData">
-                  <td>{{ boat?.id }}</td>
                   <td>{{ boat?.name }}</td>
                   <td>{{ boat?.capacity }}</td>
                   <td>{{ boat?.loadingShipCap }} Kg.</td>
@@ -34,7 +33,7 @@
                     >
                   </td>
                   <td>
-                    
+
                     <button
                       class="btn btn-outline-info"
                       data-toggle="tooltip"
@@ -64,7 +63,7 @@
                     </button>&nbsp;
                     <button
                       class="btn btn-outline-info"
-                      (click)="goToEditRoute(boat)"
+                      (click)="goToSeeRoutes(boat)"
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Ver rutas de {{boat?.name}}"
@@ -114,7 +113,7 @@
                 </tbody>
               </ng-template>
               <ng-template #restaurantesElseBlock>
-                <tbody *ngIf="type === 'restaurantes'; else restaurantesReservaElseBlock">
+                <tbody *ngIf="type === 'restaurantes'; else cruiserRoutesElseBlock">
                   <tr *ngFor="let restaurante of tableData">
                     <td>{{ restaurante?.name }}</td>
                     <td>{{ restaurante?.capacity }}</td>
@@ -158,42 +157,27 @@
                   </tr>
                 </tbody>
               </ng-template>
-
-              <!--Tabla de reserva de restaurant-->
-              <ng-template #restaurantesReservaElseBlock>
-                  <tbody *ngIf="type === 'rest-reserva'">
-                    <tr *ngFor="let reserva of tableData">
-                      <td>{{ reserva?.imagen }}</td>
-                      <td>{{ reserva?.nombre }}</td>
-                      <td>{{ reserva?.direccion }}</td>
-                      <td>{{ reserva?.capacidad }}</td>
-                      <td>{{ reserva?.especialidad }}</td>
-                      <td>{{ reserva?.precio }} $</td>
-                      <td>{{ reserva?.descripcion }}</td>
-                      <td>{{ reserva?.telefono }}</td>
-                      <td>
-                          <button
-                            class="btn btn-outline-dark"
-                            style="cursor: pointer;"
-                            (click)="openModalActions($event, reservar-restaurante, 'reservar', true)"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="Reservar {{type}}"
-                          >
-                            <i class="fa fa-cart-plus"></i>
-                          </button>&nbsp;&nbsp;
-                        </td>
-                    </tr>
-                  </tbody>
-                </ng-template>
+              <!--Tabla de rutas de un crucero-->
+              <ng-template #cruiserRoutesElseBlock>
+                <tbody *ngIf="type === 'rutas'">
+                  <tr *ngFor="let ruta of tableData">
+                    <td>{{ ruta?.departureDate.split(' ')[0] }}</td>
+                    <td>{{ ruta?.arrivalDate.split(' ')[0] }}</td>
+                    <td>{{ ruta?.price }} $</td>
+                    <td>{{ ruta?.locDeparture }}</td>
+                    <td>{{ ruta?.locArrival }}</td>
+                  </tr>
+                </tbody>
+              </ng-template>
           </table>
       </div>
   </div>
   <div class="d-flex justify-content-end w-100">
-    <div class="kreep">
-      <button (click)="gotoAdd(type)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
+    <div class="kreep" style="bottom: 14px; right: 14px; position: fixed;" *ngIf="type !== 'rutas'">
+      <button (click)="gotoAdd(type)" type="button" class="btn btn-success"  data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
         <i class="fa fa-plus"></i>
       </button>
     </div>
+    <button class="btn btn-danger btn-xl" (click)="goToCruiserTable()" *ngIf="type === 'rutas'" style="width: 15%">Volver a cruceros</button>
   </div>
 </div>

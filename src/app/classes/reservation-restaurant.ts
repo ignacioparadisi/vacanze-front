@@ -1,27 +1,25 @@
 export class reservationRestaurant{
 
-    public _id: number
-    public _cant: string
+    private _id: number;
+    private _name: string;
 
     constructor(id: number, name: string) {
-        this.id = id;
-        this.name = name;
+      this.id = id;
+      this.name = name;
     }
-  
+
     public get id(): number {
-        return this._id;
+      return this._id;
+    }
+    public set id(value: number) {
+      this._id = value;
     }
     
-    public set id(value: number) {
-        this._id = value;
-    }
-      
     public get name(): string {
-        return this._cant;
+      return this._name;
     }
-      
     public set name(value: string) {
-        this._cant = value;
+      this._name = value;
     }
 
 }

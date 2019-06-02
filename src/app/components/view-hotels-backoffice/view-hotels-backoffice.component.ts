@@ -38,10 +38,12 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   }
 
 
+  getLocationIdEmiter(id: string){
+    this.loadHotelsByLocation(parseInt(id));
+  }
 
   ngOnChanges(){
   }
-
 
   ngOnInit() {
     if(this.router.url === '/administrar-hoteles/agregar-hotel' || this.router.url.indexOf('editar-hotel') !== -1){
@@ -96,6 +98,19 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   public loadHotels(){
         this.service
         .getUrl(url.endpoint.default._get.getHotel)
+        .then(response => {
+              //console.log("Cargan los hoteles", response),
+              this.tableData = response
+        }).catch( error => {
+              this.alertStatus(500, false)
+              console.log("Error carga inicial de hoteles", error);
+        });
+  }
+
+
+  public loadHotelsByLocation(id: number){
+        this.service
+        .getUrl(url.endpoint.default._get.getHotelByLocation, [id.toString()])
         .then(response => {
               //console.log("Cargan los hoteles", response),
               this.tableData = response

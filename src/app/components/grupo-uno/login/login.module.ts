@@ -5,9 +5,9 @@ import { LoginRoutingModule } from './login-routing.module';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, SidebarComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,

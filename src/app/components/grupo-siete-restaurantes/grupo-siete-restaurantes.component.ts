@@ -104,6 +104,7 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
               // no hay excepcion pero el status no es 200
               this.deleteRestaurantById(response[id.toString()]);
               this.alertStatus(200, true);
+              this.loadRestaurants();
         }).catch( error => {
               this.alertStatus(500, true);
               console.log('Error en el delete del restaurante', error);
@@ -184,15 +185,14 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   }
 
   private alertStatus(statusCode: number, deleted: boolean) {
-        const config: SweetAlertOptions = {
-          // tslint:disable-next-line:max-line-length
-          title: (statusCode !== 200 ? 'Se ha producido un error' : (deleted ? 'Restaurante eliminado' : 'Se cambió el estatus del restaurante')),
-          type:  (statusCode === 200 ? 'success' : 'error'),
-          showConfirmButton: true
-        };
-        Swal.fire(config).then( result => {
-          this.loadRestaurants();
-        });
+    const config: SweetAlertOptions = {
+      title: (statusCode !== 200 ? 'Se ha producido un error' : (deleted ? 'Restaurante eliminado' : 'Se cambió el estatus del restaurante')),
+      type:  (statusCode === 200 ? 'success' : 'error'),
+      showConfirmButton: true
+    };
+    Swal.fire(config).then( result => {
+      
+    });
   }
 
   public getRestaurants() {
