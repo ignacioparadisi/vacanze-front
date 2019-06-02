@@ -94,17 +94,10 @@
       <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-body table-responsive carta-intro">
-              <form [formGroup]="formGroup" >
+              <form [formGroup]="formSearch" (ngSubmit)="listadoEquipaje()">
                 <div class="col-lg-12 text-center">
-                    <div class="form-group">
-                        <select class="form-control">
-                          <option value="-1" disabled> Nacionalidad</option>
-                          <option value="0">V</option>
-                          <option value="1">E</option>
-                        </select>
-                    </div>
                       <div class="form-group">
-                        <input type="text" class="form-control" 
+                        <input formControlName="id" type="text" class="form-control" 
                         placeholder="Numero De Pasaporte">
                       </div>
                       <swal
@@ -114,7 +107,10 @@
                         showConfirmButton=false
                         timer=2500>
                        </swal>
-                       <button (click) = "listadoEquipaje()" class="btn btn-success float-right button-search">Buscar</button>
+                       <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
+                          Buscar</button>
+                       <button class="btn btn-success" *ngIf="!formSearch.invalid" type="submit">
+                          Buscar</button>
                        <!-- [swal]="addSwal2" -->
                 </div>
               </form>
@@ -127,14 +123,16 @@
       <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-body table-responsive carta-intro">
-              <form>
+              <form [formGroup]="formSearch" (ngSubmit)="listadoEquipaje()">
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
-                        <input type="text" class="form-control" 
-                        placeholder="Numero De Serial">
+                          <input formControlName="id" type="text" class="form-control" 
+                          placeholder="Numero De Serial">
                       </div>
-                       <button (click) = "listadoEquipaje()" class="btn btn-success float-right button-search">Buscar</button>
-                       <!-- [swal]="addSwal2" -->
+                      <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
+                          Buscar</button>
+                      <button class="btn btn-success" *ngIf="!formSearch.invalid" type="submit">
+                          Buscar</button>
                 </div>
               </form>
             </div>
@@ -158,43 +156,17 @@
                         <th>Serial</th>
                         <th>Descripción</th>
                         <th>Estatus</th>
-                        <th>Fecha y Hora</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>XSY-210</td>
-                        <td>Moscú</td>
-                        <td>Retirado</td>
-                        <td>04-05-2019 00:00</td>
+                    <tr *ngFor="let baggage of baggages; let indice=index">
+                        <th scope="row">{{indice+1}}</th>
+                        <td>{{baggage._id}}</td>
+                        <td>{{baggage._description}}</td>
+                        <td>{{baggage._status}}</td>
                         <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>XSY-215</td>
-                        <td>Roma</td>
-                        <td>Retirado</td>
-                        <td>05-05-2019 00:00</td>
-                        <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>XSY-219</td>
-                        <td>NY City</td>
-                        <td>Perdido</td>
-                        <td>10-05-2019 00:00</td>
-                        <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>XSY-222</td>
-                        <td>Caracas</td>
-                        <td>Retirado</td>
-                        <td>10-05-2019 00:00</td>
-                        <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>
+                    </tr>    
                     </tbody>
                 </table>
             </div>
@@ -551,14 +523,15 @@
                             <td>{{claimAdmin._description}}</td>
                             <td>{{claimAdmin._status}}</td>
                             <td>
-                              <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                              <button (click)="open(content, 
+                              claimAdmin.id, claimAdmin._title, claimAdmin._description)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal1
                                 title="¿Desea Eliminar el Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
-                                (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                (confirm)="deleteClaim(claimAdmin.id)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
                               <button [swal]="deleteSwal1" class="button-delete"><i class="fa fa-trash" ></i></button>
                             </td>
@@ -596,14 +569,16 @@
                             <td>{{claimAdmin._description}}</td>
                             <td>{{claimAdmin._status}}</td>
                             <td>
-                              <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                              <button (click)="open(content, 
+                              claimAdmin.id, claimAdmin._title, claimAdmin._description)"><i class="fa fa-edit"></i>
+                              </button>
                               <swal
                                 #deleteSwal2
                                 title="¿Desea Eliminar el Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
-                                (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                (confirm)="deleteClaim(claimAdmin.id)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
                               <button class="button-delete" [swal]="deleteSwal2"><i class="fa fa-trash" ></i></button>
                             </td>
