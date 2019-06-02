@@ -1,6 +1,7 @@
 {
     "_get": {
       "getHotel":"hotels",
+      "getHotelByLocation":"hotels/?location={id}",
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
