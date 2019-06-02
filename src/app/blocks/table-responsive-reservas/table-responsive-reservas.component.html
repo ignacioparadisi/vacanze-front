@@ -6,17 +6,16 @@
         <thead class="thead-dark">
           <tr>
             <th *ngFor="let header of tableHeaders">{{ header }}</th>
-            <th>Reservar</th>
+            <th>Reserve</th>
           </tr>
         </thead>
 
         <!--Tabla de reserva de restaurant-->
         <tbody *ngIf="type === 'rest-reserva'">
           <tr *ngFor="let reserva of tableData">
-            <td><img src="{{ reserva?.picture }}" ></td>
+            <td><img style="width: 150px; height: 150px;"src="{{ reserva?.picture }}" ></td>
             <td>{{ reserva?.name }}</td>
-            <td>{{ reserva?.location }}</td>
-            <td>{{ reserva?.capacity }}</td>
+            <td>{{ reserva?.address }}</td>
             <td>{{ reserva?.specialty }}</td>
             <td>{{ reserva?.price }} $</td>
             <td>{{ reserva?.description }}</td>

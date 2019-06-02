@@ -25,14 +25,13 @@ export class SeleccionarRestaurantComponent implements OnInit {
 
     // Headers de la tabla dinamica
     this.tableRestaurantReservationHeader = [
-      "Imagen",
-      "Nombre",
-      "Direccion",
-      "Capacidad",
-      "Especialidad",
-      "Precio",
-      "Descripcion",
-      "Telefono"
+      "",
+      "Name",
+      "Address",
+      "Specialty",
+      "Price",
+      "Description",
+      "Contact"
     ]
 
     this.loadRestaurants()
