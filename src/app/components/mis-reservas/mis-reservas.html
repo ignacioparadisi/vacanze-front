@@ -194,17 +194,17 @@
           
           </div>
       <div class="col-md-3">
-        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldIn">
+        <input type="date" class="form-control" formControlName="fechaOneHotel" id="datefieldIn">
       </div>
       <div class="col-md-3">
-          <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldOut">
+          <input type="date" class="form-control" formControlName="fechaTwoHotel" id="datefieldOut">
         </div>
     </div>
   </form>
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="updateRoomReservation(roomreservation?.hotel,roomreservation.id);modal.close('Save click')">Cerrar</button>
   </div>
 </ng-template>
 

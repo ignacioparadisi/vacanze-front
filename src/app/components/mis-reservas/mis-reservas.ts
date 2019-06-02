@@ -31,7 +31,9 @@ export class MisReservas implements OnInit {
       this.compararFechas = compararFechas;  
       this.myForm = this.fb.group({
           fechaOne: ['', [Validators.required]],
-            fechaTwo: ['', [Validators.required]]
+            fechaTwo: ['', [Validators.required]],
+            fechaOneHotel: ['', [Validators.required]],
+            fechaTwoHotel: ['', [Validators.required]]
         });
     }
 
@@ -101,7 +103,8 @@ export class MisReservas implements OnInit {
 getRoomReservations(){
   console.log("Estoy en getRoomReservations");
   var user_id = localStorage.getItem('id');
-  const requestURL = "reservationrooms/?user="+user_id;
+ // const requestURL = "reservationrooms/?user="+user_id;
+ const requestURL = "reservationrooms/?user="+1;
   this.apiService.getUrl(requestURL).then(
       response => {
         console.log(response);
@@ -175,6 +178,44 @@ public updateAutomobileReservation(car:object,id:number) {
     }, error => {
       console.error(error);
       this.getAutomobileReservations();
+    }
+  );
+}
+
+public updateRoomReservation(hotel:object,id:number) {
+  console.log("carro: "+hotel);
+  console.log("id de la Reserva en Update: "+id);
+  const requestURL = 'reservationrooms';
+  const reservation = this.myForm.value;
+ // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+   //     console.log(fechas);
+        var fk_user = localStorage.getItem('id');
+        console.log("Usuario en ReservarAutomovil:"+fk_user);
+        reservation.checkIn = moment(reservation.fechaOneHotel).format('MM-DD-YYYY HH:mm:ss');
+        console.log("check:"+reservation.checkIn);
+        reservation.checkOut = moment(reservation.fechaTwoHotel).format('MM-DD-YYYY HH:mm:ss');
+        console.log("check:"+reservation.checkOut);
+     //   reservation.fk_user_id = fk_user; // esto cuando se solucione el put
+        reservation.fk_user = 1;
+       reservation.hotel = hotel;
+       reservation.user="";
+       reservation.id=id;
+       const fechas = this.compararFechas(new Date(reservation.fechaOneHotel), new Date(reservation.fechaTwoHotel));
+        console.log(fechas);
+      delete reservation.city;
+      delete reservation.fechaOneHotel;
+      delete reservation.fechaTwoHotel;
+      delete reservation.country;
+        console.log(reservation);
+        if(fechas===1)
+  this.apiService.putUrl(requestURL,reservation).then(
+    response => {
+      console.log(response,reservation);
+      this.getRoomReservations();
+      console.log('Reservacion fue actualizada');
+    }, error => {
+      console.error(error);
+      this.getRoomReservations();
     }
   );
 }
