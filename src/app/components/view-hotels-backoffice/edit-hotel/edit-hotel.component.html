@@ -2,7 +2,7 @@
   Editar Hotel
 </p>
 
-<form [formGroup]="registrationForm" (ngSubmit) = "onSubmit()">
+<form *ngIf="hotel" [formGroup]="registrationForm" (ngSubmit) = "onSubmit()">
    <div class="row">
 
      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
@@ -156,7 +156,7 @@
     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
       <div class="form-group">
         <div class = "custom-file">
-          <input formControlName="image" type="file"  id="validatedCustomFile" class="custom-file-input"  (change)="getImage($event)">
+          <input type="file"  id="validatedCustomFile" class="custom-file-input"  (change)="getImage($event)">
           <label class="custom-file-label" for="validatedCustomFile">Cambiar foto del hotel...</label>
           <small *ngIf="urlImage!=null" class ="text-success">Archivo seleccionado</small>
         </div>

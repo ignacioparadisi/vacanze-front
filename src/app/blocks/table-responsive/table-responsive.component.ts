@@ -115,11 +115,11 @@ export class TableResponsiveComponent implements OnChanges {
     }
 
     /**********************************************************************
-    * Metodo para redireccionar a la vista para agregar un restaurante          *
+    * Metodo para redireccionar a la vista para agregar un restaurante    *
     ************************************************************************/
-   public goToAddRestaurant() {
-    this.emitRouting.emit('/agregar-restaurant');
-  }
+    public goToAddRestaurant() {
+      this.emitRouting.emit('/agregar-restaurant');
+    }
 
     /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
@@ -131,5 +131,6 @@ export class TableResponsiveComponent implements OnChanges {
         this.goToAddRestaurant();
       }
     }
+
 
 }

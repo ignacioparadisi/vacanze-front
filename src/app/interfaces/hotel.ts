@@ -10,7 +10,5 @@ export interface Hotel{
   website: string,
   picture: string,
   stars: number,
-  location: number /*{ // por ahora el id de la ubicacion solamente
-    id : 1
-  }*/
+  location: number
 }

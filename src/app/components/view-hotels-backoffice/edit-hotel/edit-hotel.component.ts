@@ -93,9 +93,9 @@ export class EditHotelComponent implements OnInit {
           image: new FormControl(this.urlImage, [
             Validators.required
           ]),
-          country: new FormControl(null, [
+          country: new FormControl(storedHotel['location']['country'], [
           ]),
-          city: new FormControl(null, [
+          city: new FormControl(storedHotel['location']['city'], [
           ])
         });
       }
