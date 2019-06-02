@@ -76,7 +76,7 @@ export class TableResponsiveComponent implements OnChanges {
     * Metodo para redireccionar a la vista de añadir un crucero *
     *************************************************************/
     public goToAddCruiser(){
-      this.emitRouting.emit('/add-cruiser');
+      this.emitRouting.emit('/agregar-crucero');
     }
 
      /************************************************************
@@ -84,7 +84,7 @@ export class TableResponsiveComponent implements OnChanges {
     *************************************************************/
     public goToEditCruiser(boat: Object){
       this.localStorage.setItem('boat', boat).subscribe(data => {
-        this.emitRouting.emit('/edit-cruiser/'+boat['id']);
+        this.emitRouting.emit('/editar-crucero/'+boat['id']);
       });
     }
 
@@ -150,13 +150,13 @@ export class TableResponsiveComponent implements OnChanges {
       }
     }
 
-    public goToEditRoute(boat: Object){
+    public goToSeeRoutes(boat: Object){
       this.localStorage.setItem('boat', boat).subscribe(data => {
-        this.emitRouting.emit(boat['id']+'/layovers');
+        this.emitRouting.emit(boat['id']+'/rutas');
       })
     }
 
     public goToAddNewRoute(boat: Object){
-      this.emitRouting.emit('/add-cruiser-routes/'+boat['id']);
+      this.emitRouting.emit('/agregar-ruta/'+boat['id']);
     }
 }

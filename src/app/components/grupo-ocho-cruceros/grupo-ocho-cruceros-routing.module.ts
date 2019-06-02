@@ -12,19 +12,19 @@ const routes: Routes = [
       component: GrupoOchoCrucerosComponent,
       children: [
         {
-          path: 'add-cruiser',
+          path: 'agregar-crucero',
           component: RegistrarCruceroComponent
         },
         {
-          path: 'edit-cruiser/:id',
+          path: 'editar-crucero/:id',
           component: RegistrarCruceroComponent
         },
         {
-          path: ':id/layovers',
+          path: ':id/rutas',
           component: RutasComponent
         },
         {
-          path: 'add-cruiser-routes/:id',
+          path: 'agregar-ruta/:id',
           component: AgregarRutasComponent
         }
       ]

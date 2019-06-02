@@ -6,6 +6,8 @@ import { ApiService } from '../../../services/api.service';
 import { environment as url } from '../../../../environments/environment';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { Cruiser } from '../../../interfaces/cruiser';
+import Swal from 'sweetalert2';
+import { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: 'app-registrar-crucero',
@@ -166,9 +168,10 @@ export class RegistrarCruceroComponent implements OnInit {
       .then(response => {
         this.registrationForm.reset(); // Limpio los campos del formulario
         this.urlImage = null; // Reseteo el valor de la imagen que transforme a base 64
+        this.successfullyResponse(this.isButtonToAdd);
       })  
       .catch(error => {
-        console.log("error", error);
+        this.errorOcurred('agregar')
       })
     }
     else {
@@ -177,12 +180,35 @@ export class RegistrarCruceroComponent implements OnInit {
       .then(response => {
         this.registrationForm.reset(); // Limpio los campos del formulario
         this.urlImage = null; // Reseteo el valor de la imagen que transforme a base 64
+        this.successfullyResponse(this.isButtonToAdd);
       })  
       .catch(error => {
-        console.log("error", error);
+        this.errorOcurred('editar')
       })  
     }
     
+  }
+
+  private errorOcurred(action: string){
+    let config: SweetAlertOptions = {
+      title: 'Ha ocurrido un error al ' +action+' el restaurante',
+      type: 'error',
+      showConfirmButton: true,
+      timer: 1500
+    }
+    Swal.fire(config).then( result =>{
+      //console.log(result);
+    });
+  }
+
+  private successfullyResponse(isAdd: boolean){
+    let config: SweetAlertOptions = {
+      title: isAdd ? 'Crucero creado' : 'Crucero editado',
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    }
+    Swal.fire(config).then( result =>{});
   }
 
 }
