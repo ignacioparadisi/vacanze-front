@@ -25,11 +25,19 @@ export class TravelComponent implements OnInit {
         this.apiService.getUrl('users/{user}/travels', [this.userId]).then(
             (resp) => this.travels = resp,
             (fail) => {
-                Swal.fire({
-                    title: 'Error: ' + fail.status,
-                    text: fail.name + '. ' + fail.statusText,
-                    type: 'error',
-                })
+                if (fail.error) {
+                    Swal.fire({
+                        title: fail.error,
+                        type: 'info',
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Error: ' + fail.status,
+                        text: fail.name + '. ' + fail.statusText,
+                        type: 'error',
+                    })
+                }
+
             }
         );
     }
