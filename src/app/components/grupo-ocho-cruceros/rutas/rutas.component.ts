@@ -40,9 +40,7 @@ export class RutasComponent implements OnInit {
         }
         else {
           this.routesCruiser = [];
-          this.localStorage.getItem('boat').subscribe(data =>{
-            this.headerTitle = "No hay rutas disponibles para | " + cruiser['name'];
-          })  
+          this.headerTitle = "No hay rutas disponibles para | " + cruiser['name'];
         }
       })
     })
