@@ -5,6 +5,8 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../utils/global_functions';
 import * as moment from 'moment';
+import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import { Timestamp } from 'rxjs';
 
 @Component({
     selector: 'mis-reservas',
@@ -14,19 +16,27 @@ import * as moment from 'moment';
 })
 export class MisReservas implements OnInit {
     myForm: FormGroup;
+    public compararFechas : any;
     public carreservations ="";
     public roomreservations="";
     public closeResult: string;
+    public id: number = null;
+    public totalcost : number = null;
+    public roomreservation = [];
+    public carreservation = [];
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
     constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
-        this.myForm = this.fb.group({
+      this.compararFechas = compararFechas;  
+      this.myForm = this.fb.group({
+          fechaOne: ['', [Validators.required]],
+            fechaTwo: ['', [Validators.required]]
         });
     }
 
     ngOnInit() {
-     // this.getAutomobileReservations();
+    this.getAutomobileReservations();
      this.getRoomReservations();
     }
 
@@ -74,7 +84,9 @@ export class MisReservas implements OnInit {
     ***********************************************************************/
   getAutomobileReservations(){
     console.log("Estoy en getAutomobileReservations");
-    const requestURL = "reservationautomobiles/?user=1";
+    var user_id = localStorage.getItem('id');
+  //  const requestURL = "reservationautomobiles/?user="+user_id; 
+    const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
         response => {
           console.log(response);
@@ -88,7 +100,8 @@ export class MisReservas implements OnInit {
 
 getRoomReservations(){
   console.log("Estoy en getRoomReservations");
-  const requestURL = "reservationrooms/?user=1";
+  var user_id = localStorage.getItem('id');
+  const requestURL = "reservationrooms/?user="+user_id;
   this.apiService.getUrl(requestURL).then(
       response => {
         console.log(response);
@@ -127,4 +140,118 @@ public deleteRoomReservation(id: number) {
     }
   );
 }
+
+public updateAutomobileReservation(car:object,id:number) {
+  console.log("carro: "+car);
+  console.log("id de la Reserva en Update: "+id);
+  const requestURL = 'reservationautomobiles';
+  const reservation = this.myForm.value;
+ // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+   //     console.log(fechas);
+        var fk_user = localStorage.getItem('id');
+        console.log("Usuario en ReservarAutomovil:"+fk_user);
+        reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+        console.log("check:"+reservation.checkIn);
+        reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+        console.log("check:"+reservation.checkOut);
+     //   reservation.fk_user_id = fk_user; // esto cuando se solucione el put
+        reservation.fk_user = 1;
+       reservation.automobile = car;
+       reservation.user="";
+       reservation.id=id;
+       const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+      delete reservation.city;
+      delete reservation.fechaOne;
+      delete reservation.fechaTwo;
+      delete reservation.country;
+        console.log(reservation);
+        if(fechas===1)
+  this.apiService.putUrl(requestURL,reservation).then(
+    response => {
+      console.log(response,reservation);
+      this.getAutomobileReservations();
+      console.log('Reservacion fue actualizada');
+    }, error => {
+      console.error(error);
+      this.getAutomobileReservations();
+    }
+  );
+}
+
+getRoomReservation(id: number) {
+  console.log('ID: ' + id);
+  const requestURL = `reservationrooms/${id}`;
+  this.apiService.getUrl(requestURL).then(
+    response => {
+      this.id = response.id;
+      this.roomreservation = response;
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
+
+getCarReservation(id: number) {
+  console.log('ID: ' + id);
+  const requestURL = `reservationautomobiles/${id}`;
+  this.apiService.getUrl(requestURL).then(
+    response => {
+      this.id = response.id;
+      this.carreservation = response;
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
+
+getDaysFrom2Dates(date1:any, date2:any,price:number){
+  //var prueba1 =new Date("01/05/2019");
+ // var prueba2 =new Date("01/02/2019");
+ var parseDate1 = new Date(date1);
+ var parseDate2 = new Date(date2);
+ console.log(parseDate1);
+ console.log(date2);
+  this.totalcost = (parseDate2.getDate() - parseDate1.getDate());
+  console.log("dayDif"+this.totalcost);
+  this.totalcost = Math.round(this.totalcost);
+  console.log("dayDifference "+ this.totalcost);
+  this.totalcost = price * this.totalcost;
+  console.log(this.totalcost);
+ // return this.totalcost;
+}
+
+openRoom(content, id: number) {
+ this.getRoomReservation(id);
+
+  this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+}
+
+openCar(content, id: number) {
+  this.getCarReservation(id);
+
+   this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
+       this.closeResult = `Closed with: ${result}`;
+   }, (reason) => {
+       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+   });
+ }
+
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+  } else {
+      return `with: ${reason}`;
+  }
+}
+
+
 }
