@@ -168,7 +168,7 @@ export class RegistrarCruceroComponent implements OnInit {
         this.urlImage = null; // Reseteo el valor de la imagen que transforme a base 64
       })  
       .catch(error => {
-        console.log("error", error);
+        console.log("error", error.error);
       })
     }
     else {
