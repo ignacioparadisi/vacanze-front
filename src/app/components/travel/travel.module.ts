@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CitiesTravelComponent } from './cities-travel/cities-travel.component';
 import { AddCityComponent } from './cities-travel/add-city/add-city';
 import { DiaryTravelComponent } from './diary-travel/diary-travel.component';
+import { AddReservationTravelComponent } from './detail-travel/add-reservation/add-reservation';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DiaryTravelComponent } from './diary-travel/diary-travel.component';
     ModifyTravelComponent,
     CitiesTravelComponent,
     AddCityComponent,
-    DiaryTravelComponent
+    DiaryTravelComponent,
+    AddReservationTravelComponent
   ],
   imports: [
     CommonModule,

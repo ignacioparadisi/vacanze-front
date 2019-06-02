@@ -15,25 +15,31 @@ export class DetailTravelComponent implements OnInit {
   autoReservations: Array<object>
   hoteReservations: Array<object>
   fligReservations: Array<object>
+  activeId: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.getFligReservations();
+    this.activeId = 'flight';
   }
 
   onTabChange(event: NgbTabChangeEvent) {
     switch (event.nextId) {
       case 'flight':
+        this.activeId = event.nextId
         this.getFligReservations();
         break;
       case 'hotel':
+        this.activeId = event.nextId
         this.getHoteReservations();
         break;
       case 'vehicle':
+        this.activeId = event.nextId
         this.getAutoReservations();
         break;
       case 'restaurant':
+        this.activeId = event.nextId
         this.getRestReservations();
         break;
     }
@@ -203,11 +209,11 @@ export class DetailTravelComponent implements OnInit {
     ]
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['travel', this.travel.id, 'cities'])
   }
 
-  goDiary(){
+  goDiary() {
     this.router.navigate(['travel', this.travel.id, 'city', this.cityId, 'diary'])
   }
 }
