@@ -1,0 +1,27 @@
+<p>
+  Filtrar Hoteles por ubicación
+</p>
+
+<form [formGroup]="searchForm" (ngSubmit) = "onSubmit()" class="form-inline">
+    <div class="form-group mb-2">
+       <label>Selecione un país</label>
+       <select type="text" class="form-control" (change)="selectCountry($event)" formControlName="country">
+         <option value="-1" selected>
+             Todos los hoteles
+         </option>
+         <option *ngFor="let country of countries" value={{country.id}}>
+             {{country.country}}
+         </option>
+       </select>
+   </div>
+
+   <div class="form-group mx-sm-3 mb-2">
+       <label>Selecione la ciudad</label>
+       <select type="text" class="form-control" formControlName="city">
+         <option *ngFor="let city of cities" value={{city.id}}>
+             {{city.city}}
+         </option>
+     </select>
+     <button [disabled]="!searchForm.valid" class="btn btn-outline-info" type="submit" >Buscar</button>
+   </div>
+</form>
