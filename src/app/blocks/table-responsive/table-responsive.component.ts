@@ -61,7 +61,7 @@ export class TableResponsiveComponent implements OnChanges {
       focusCancel: true
     }
     Swal.fire(config).then(result => {
-      data['delete'] = deleted; 
+      data['delete'] = deleted;
       if(result && ('value' in result)){
         data['confirmed'] = true;
       }
@@ -109,23 +109,18 @@ export class TableResponsiveComponent implements OnChanges {
     /**********************************************************************
     * Metodo para ir a editar el hotel                                    *
     ***********************************************************************/
-    public goToEditHotel(){
-      this.emitRouting.emit('/editar-hotel');
+    public goToEditHotel(hotel: Object){
+      this.localStorage.setItem('hotel',  hotel).subscribe(data =>{
+        this.emitRouting.emit('/editar-hotel/' + hotel['id']);
+      });
     }
 
     /**********************************************************************
-    * Metodo para redireccionar a la vista para agregar un restaurante          *
+    * Metodo para redireccionar a la vista para agregar un restaurante    *
     ************************************************************************/
-   public goToAddRestaurant() {
-    this.emitRouting.emit('/agregar-restaurant');
-  }
-
-  /**********************************************************************
-    * Metodo para ir a editar el hotel                                    *
-    ***********************************************************************/
-   /*public goToEditRestaurant() {
-      this.emitRouting.emit('/editar-restaurant');
-  }*/
+    public goToAddRestaurant() {
+      this.emitRouting.emit('/agregar-restaurant');
+    }
 
     /**********************************************************************
     * Metodo que es llamado por el boton añadir                           *
@@ -141,15 +136,6 @@ export class TableResponsiveComponent implements OnChanges {
       }
     }
 
-    /**********************************************************************
-    * Metodo que es llamado por el boton editar                           *
-    ***********************************************************************/
-    public goToEdit(type: string){
-      if (type === 'hotel') {
-        this.goToEditHotel();
-      }
-    }
-
     public goToSeeRoutes(boat: Object){
       this.localStorage.setItem('boat', boat).subscribe(data => {
         this.emitRouting.emit(boat['id']+'/rutas');
@@ -159,4 +145,5 @@ export class TableResponsiveComponent implements OnChanges {
     public goToAddNewRoute(boat: Object){
       this.emitRouting.emit('/agregar-ruta/'+boat['id']);
     }
+
 }
