@@ -1,48 +1,88 @@
 <div class="container">
+
+  <div class="d-flex flex-row-reverse">
+    <button type="button" class="btn btn-secondary m-1" (click)="goBack()">Regresar</button>
+    <button type="button" class="btn btn-info m-1" (click)="goDiary()">Ver diario</button>
+  </div>
   <ngb-tabset justify="justified" #tabs [activeId]="selectedTab" (tabChange)="onTabChange($event)">
-    <ngb-tab title="Vuelos" id="fly">
+    <ngb-tab title="Vuelos" id="flight">
       <ng-template ngbTabContent>
-        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua,
-          retro synth
-          master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher
-          retro keffiyeh
-          dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat
-          salvia cillum
-          iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+        <div class="card mt-3" *ngFor="let fligReservation of fligReservations" style="max-width: 55rem;">
+          <div class="card-title mt-3 mb-n2">
+            <h5 style="text-align: center">
+              {{fligReservation.flight.loc_departure.country}} - {{fligReservation.flight.loc_departure.city}}
+              <a class="fa fa-fw fa-arrow-right"></a>
+              {{fligReservation.flight.loc_arrival.country}} - {{fligReservation.flight.loc_arrival.city}}
+            </h5>
+          </div>
+          <hr>
+          <div class="row">
+            <p class="col d-flex justify-content-center">
+              Salida: {{fligReservation.flight.departureDate}}
+              <br>
+              Aerolínea: {{fligReservation.flight.plane.airline}}
+            </p>
+            <p class="col d-flex justify-content-center">
+              Llegada: {{fligReservation.flight.arrivalDate}}
+              <br>
+              Monto: {{fligReservation.flight.price}}
+            </p>
+          </div>
+        </div>
       </ng-template>
     </ngb-tab>
     <ngb-tab title="Hoteles" id="hotel">
-      <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee
-        squid.
-        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
-          farm-to-table
-          craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
-          ullamco ad vinyl
-          cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica
-          VHS salvia
-          yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
-          sustainable jean
-          shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr
-          butcher vero
-          sint qui sapiente accusamus tattooed echo park.</p>
+      <ng-template ngbTabContent>
+        <div class="card mt-3" *ngFor="let hoteReservation of hoteReservations" style="max-width: 55rem;">
+          <div class="card-title mt-3 mb-n2">
+            <h5 style="text-align: center">{{hoteReservation.hotel.name}}</h5>
+          </div>
+          <hr>
+          <div class="row">
+            <p class="col d-flex justify-content-center">
+              Entrada: {{hoteReservation.checkInDate}}
+              <br>
+              Dirección: {{hoteReservation.hotel.address_specs}}
+              <br>
+              Teléfono: {{hoteReservation.hotel.tlf}}
+            </p>
+            <p class="col d-flex justify-content-center">
+              Salida: {{hoteReservation.checkOutDate}}
+              <br>
+              Capacidad: {{hoteReservation.num_ppl}}/{{hoteReservation.hotel.room_capacity}}
+              <br>
+              Monto: {{hoteReservation.hotel.price}}
+            </p>
+          </div>
+        </div>
       </ng-template>
     </ngb-tab>
     <ngb-tab title="Vehículos" id="vehicle">
       <ng-template ngbTabContent>
-        <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla
-          facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget
-          tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et
-          molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent
-          fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut
-          bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec
-          tortor vel tellus pulvinar feugiat.</p>
+        <div class="card mt-3" *ngFor="let autoReservation of autoReservations" style=" max-width: 55rem;">
+          <div class="card-title mt-3 mb-n2">
+            <h5 style="text-align: center">{{autoReservation.auto.make}} - {{autoReservation.auto.model}}</h5>
+          </div>
+          <hr>
+          <div class="row">
+            <p class="col d-flex justify-content-center">
+              Pick Up: {{autoReservation.pickupDate}}
+              <br>
+              Capacidad: {{autoReservation.auto.capacity}}
+            </p>
+            <p class="col d-flex justify-content-center">
+              Retorno: {{autoReservation.returnDate}}
+              <br>
+              Monto: {{autoReservation.auto.price}}
+            </p>
+          </div>
+        </div>
       </ng-template>
     </ngb-tab>
     <ngb-tab title="Restaurantes" id="restaurant">
       <ng-template ngbTabContent>
-        <div class="container mt-3" *ngFor="let restReservation of restReservations" style="border: 1px solid; max-width: 55rem;">
-          <div class="row d-flex justify-content-center mt-3">
+        <div class="card mt-3" *ngFor="let restReservation of restReservations" style="max-width: 55rem;">
+          <div class="card-title mt-3 mb-n2">
             <h5 style="text-align: center">{{restReservation.restaurant.businessname}}</h5>
           </div>
           <hr>
@@ -50,7 +90,7 @@
             <p class="col d-flex justify-content-center">
               Especialidad: {{restReservation.restaurant.specialty}}
               <br>
-              Ubicación: {{restReservation.restaurant.address_specs}}
+              Dirección: {{restReservation.restaurant.address_specs}}
               <br>
               Teléfono: {{restReservation.restaurant.tlf}}
             </p>
