@@ -37,7 +37,7 @@
         <div class="col">
           <div class="form-group input-group-prepend">
             <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
-            <select type="text" class="form-control" (change)="selectCountry($event)" formControlName="pais">
+            <select type="text" class="form-control" (change)="selectCountry($event)" formControlName="pais" [class.alert-danger]="formGroup.get('pais').value==-1 && subM">
               <option value="-1" disabled>País</option>
               <option *ngFor="let country of countries" value={{country.id}} >
                   {{country.country}}
@@ -50,7 +50,7 @@
         <div class="col">
           <div class="form-group input-group-prepend">
               <div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
-              <select type="text" class="form-control" formControlName="ciudad">
+              <select type="text" class="form-control" formControlName="ciudad" [class.alert-danger]="formGroup.get('ciudad').value==-1 && subM">
               <option value="-1" disabled>Ciudad</option>
               <option *ngFor="let city of cities" value={{city.id}}>
                   {{city.city}}
