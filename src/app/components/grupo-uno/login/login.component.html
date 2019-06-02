@@ -9,7 +9,7 @@
       <div class="brand visible-xs" style="text-align: center; color:white; font-weight: bold;">
         <h3 class="brand-text font-size-40" style="font-size: 50px;">Vacanze</h3>
       </div>
-      <h3 class="font-size-15" style="color: white">Login</h3>
+      <h3 class="font-size-15" style="color: white">Sign Up</h3>
       <form #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
         <div class="form-group">
           <label class="sr-only" for="inputEmail">Email</label>
@@ -28,11 +28,11 @@
 
 
         <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid" *ngIf="isPushed"
-          (deactivate)='onDeactivate($event)' style="font-size: 25px;font-weight: bold;">Sign Up</button>
+          (deactivate)='onDeactivate($event)' style="font-size: 25px;font-weight: bold;">Login</button>
 
 
       </form>
-      <p>Don't you have account? <a (click)="openAddUserModal()" *ngIf="isPushed" href="">Join Us!!</a></p>
+      <p>Don't you have an account? <a (click)="openAddUserModal()" *ngIf="isPushed" href="">Join Us!!</a></p>
       <footer class="page-copyright" *ngIf="isPushed">
         <p> Andres Bello Catholic University</p>
         <p>© 2019. All rights reserved.</p>

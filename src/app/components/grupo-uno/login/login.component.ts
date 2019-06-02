@@ -59,12 +59,14 @@ export class LoginComponent implements OnInit {
     this.isShowLogin = false;
     this.service.postUrl('Login/Login', form.value).then(
       (res: any) => {
+
         this.storage.setItem('id', res.id).subscribe(id => {
           console.log('Id del usuario por bdd', id)
         });
         this.storage.setItem('rol', res.roles).subscribe(roles => {
           console.log('Roles del usuario', roles)
         });
+
         this.storage.setItem('Email', res.email).subscribe(email => {
           console.log('Emai del usuario', email)
         });
