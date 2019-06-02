@@ -27,15 +27,15 @@ export class GrupoNueveComponent implements OnInit {
   public idPut : any;
   public titlePut : any;
   public descrPut : any;
-
+public role :any;
   constructor(private modalService: NgbModal,
      private service: ApiService)
   {}
 
   ngOnInit() {
 
-    //this.getClaim()
-
+    this.getClaim()
+    this.getRole();
     this.getAdminBaggageStatusExtraviado()
 
     this.formGroup = new FormGroup({
@@ -56,6 +56,13 @@ export class GrupoNueveComponent implements OnInit {
       });
   }
 
+  getRole(){
+    this.role=localStorage.getItem('rol');
+    if(this.role== 2){
+      this.pantallaAdmin(); 
+    }
+    else  this.pantallaCliente();
+  }
   getClaim(){
     this.service.getUrl(url.endpoint.default._get.getClaim,['0'])
     .then(data =>{this.claims=data; console.log(data)})
