@@ -25,7 +25,6 @@ export class GrupoOchoCrucerosComponent implements OnInit {
   constructor(private router: Router, private api: ApiService, private localStorage: LocalStorageService){
     // Headers de la tabla dinamica
     this.tableBoatsHeader = [
-      "#",
       "Nombre",
       "Cap. de pasajeros",
       "Cap. de carga",

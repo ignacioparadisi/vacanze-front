@@ -17,7 +17,6 @@
               </thead>
               <tbody *ngIf="type === 'cruceros'; else hotelesElseBlock">
                 <tr *ngFor="let boat of tableData">
-                  <td>{{ boat?.id }}</td>
                   <td>{{ boat?.name }}</td>
                   <td>{{ boat?.capacity }}</td>
                   <td>{{ boat?.loadingShipCap }} Kg.</td>
