@@ -29,10 +29,9 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
 
   constructor(private router: Router, private service: ApiService) {
     this.headerTitle = 'Lista de Restaurantes';
-    this.tableRestaurantsHeader = ['#', 'Nombre', 'Capacidad',
+    this.tableRestaurantsHeader = ['Nombre', 'Capacidad',
                                    'Calificación', 'Especialidad',
-                                   'Precio', 'Razon Social', 'Descripcion',
-                                   'Telefono', 'Direccion', 'Status'];
+                                   'Precio', 'Telefono', 'Direccion', 'Status'];
     this.loadRestaurants();
   }
 
