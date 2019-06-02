@@ -36,7 +36,7 @@ export class RegistrarCruceroComponent implements OnInit {
       if(data){
         this.cruiser = data;
         this.createNewFormGroup(data);
-        this.title = 'Editar crucero | '+data['name'];
+        this.title = 'Editar crucero | '+this.cruiser['name'];
         this.formReady = true;
         this.isButtonToAdd = false;
         this.buttonText = 'Editar';

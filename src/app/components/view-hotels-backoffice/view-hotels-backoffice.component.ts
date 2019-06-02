@@ -6,8 +6,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { environment as url } from '../../../environments/environment';
-//tabla responsive reutilizable
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
+import { HotelsService} from './services/hotels.service';
+
 
 
 @Component({
@@ -19,35 +20,49 @@ import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-r
 
 export class ViewHotelsBackofficeComponent implements OnInit {
 
+
   private tableHotelsHeader: Array<String>;
   private tableData: Array<Object>;
   private headerTitle: string;
-
-  //para saber en que ruta se encuentra
   public isEditingHotel: boolean;
   public isCreatingHotel: boolean;
+
+
+  constructor(
+    private router: Router,
+    private service: ApiService,
+    private _hotelservice: HotelsService
+  ) {
+    this.headerTitle = _hotelservice.getHeaderTitle();
+    this.tableHotelsHeader = _hotelservice.getHotelsHeaders();
+  }
+
 
 
   ngOnChanges(){
   }
 
-  ngOnInit() {
-  }
 
-  constructor(private router: Router, private service: ApiService) {
-    this.headerTitle = "Lista de hoteles";
-    this.tableHotelsHeader = ["#","Nombre","Habitaciones","Teléfono","Sitio Web","Estatus"];
+  ngOnInit() {
+    if(this.router.url === '/administrar-hoteles/agregar-hotel' || this.router.url.indexOf('editar-hotel') !== -1){
+      this.isEditingHotel = true;
+      this.isCreatingHotel = true;
+    }
+    else {
+      this.isEditingHotel = false;
+      this.isCreatingHotel= false;
+    }
     this.loadHotels();
   }
 
 
-  public getAlertAction(action: Object) {
-    if(action['delete']){
-      //console.log(action);
-      this.deleteHotel(action['id']);
-    }else{
-      console.log("se quiere actualizar el estatus del hotel ",action);
-      this.changeHotelStatus(action);
+  public getAlertAction(hotel: Object) {
+    if(hotel['confirmed']){
+      if(hotel['delete']){
+        this.deleteHotel(hotel['id']);
+      } else{
+        this.changeHotelStatus(hotel);
+      }
     }
   }
 
@@ -58,10 +73,10 @@ export class ViewHotelsBackofficeComponent implements OnInit {
       this.isCreatingHotel = false;
       this.router.navigate(['administrar-hoteles','agregar-hotel']);
     }
-    else if (route === '/editar-hotel'){
+    else if (route.indexOf('/editar-hotel') !== -1){
       this.isCreatingHotel = true;
       this.isEditingHotel = false;
-      this.router.navigate(['administrar-hoteles','editar-hotel']);
+      this.router.navigate(['administrar-hoteles','editar-hotel', route.split('/')[2]]);
     }
     else{
       this.isCreatingHotel = false;
@@ -72,6 +87,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
 
 
   public getDeactivatedComponent(component){
+    this.loadHotels();
     this.getCurrentRoute('/administrar-hoteles');
   }
 
@@ -84,6 +100,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
               //console.log("Cargan los hoteles", response),
               this.tableData = response
         }).catch( error => {
+              this.alertStatus(500, false)
               console.log("Error carga inicial de hoteles", error);
         });
   }
@@ -95,22 +112,26 @@ export class ViewHotelsBackofficeComponent implements OnInit {
         this.service
         .deleteUrl(url.endpoint.default._delete.deleteHotel, [id.toString()])
         .then(response =>{
-              //console.log("Respuesta al borrar hotel",response.status),
-              //no hay excepcion pero el status no es 200
-              this.alertStatus(response.status, true)
+              //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
+              this.alertStatus(200,true)
         }).catch( error => {
+              this.alertStatus(500, false),
               console.log("Error en el delete del hotel", error)
         });
   }
 
+
+
   public changeHotelStatus(hotel: any){
+        hotel['isActive']=!hotel['isActive'];
         this.service
         .putUrl(url.endpoint.default._put.putHotel, hotel, [hotel.id.toString()])
         .then(response => {
-              console.log("Exito al modificar ",hotel.id),
-              this.alertStatus(response.status, false)
+              //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
+              this.alertStatus(200, false)
         }).catch( error => {
-              console.log("Error actualizando el estatus del hotel")
+              this.alertStatus(500, false),
+              console.log("Error actualizando el estatus del hotel", error)
         });
   }
 
