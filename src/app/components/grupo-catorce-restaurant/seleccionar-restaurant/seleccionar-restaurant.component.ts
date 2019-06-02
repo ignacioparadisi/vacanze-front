@@ -17,34 +17,29 @@ export class SeleccionarRestaurantComponent implements OnInit {
   public restaurants = []
   public formData
   public isDataLoaded: boolean = false
+  public cityID: number
 
   constructor(private api: ApiService,
     private _location: Location,
     private localStorage: LocalStorageService) { 
-    this.headerTitle = "List of the restaurants for the choosen date and location!";
+    this.headerTitle = "Lista de restaurantes para la ciudad y fecha seleccionada!";
 
     // Headers de la tabla dinamica
     this.tableRestaurantReservationHeader = [
       "",
-      "Name",
-      "Address",
-      "Specialty",
-      "Price",
-      "Description",
-      "Contact"
+      "Nombre",
+      "Dirección",
+      "Especialidad",
+      "Precio",
+      "Descripción ",
+      "Contacto"
     ]
-
-    this.loadRestaurants()
+    
   }
 
   ngOnInit() {
     console.log("Auida")
-    this.localStorage.getItem('formReserva').subscribe(storedRes =>{
-      if(storedRes){
-        this.isDataLoaded = true
-        this.formData = storedRes
-      }
-    })
+    this.getLocalStorage()
   } 
 
   public loadRestaurants(){
@@ -56,9 +51,39 @@ export class SeleccionarRestaurantComponent implements OnInit {
       this.tableData = response,
       console.log(this.tableData)
     }).catch( error => {
-          console.log('Error carga inicial de restaurantes', error);
+          console.log('Error carga de restaurantes', error);
     });
   }
+
+  public getRestaurantById(){
+    this.api
+        .getUrl(url.endpoint.default._get.getRestaurantById, [this.cityID.toString()])
+        .then(response => {
+            this.tableData = response;
+    }, error => console.error(error));
+  }
+
+  public goBack(){
+    //TODO eliminar los datos del LocalStorage (lo del formReserva)
+    this.localStorage.removeItem('formReserva')
+    this.formData =''
+    this.isDataLoaded = false
+    this._location.back();
+  }
+
+  public getLocalStorage(){
+    this.localStorage.getItem('formReserva').subscribe(storedRes =>{
+      if(storedRes){
+        this.isDataLoaded = true
+        this.formData = storedRes
+        this.cityID = this.formData.ciudad
+
+        console.log('cityID',this.cityID)
+        this.getRestaurantById()
+      }
+    })
+  }
+  //FUNCIONES PARA LLENAR LA TABLA TABLE-RESPONSIVE-RESERVAS
 
   public getRestaurants() {
     return this.tableData;
@@ -70,13 +95,5 @@ export class SeleccionarRestaurantComponent implements OnInit {
 
   public getHeaderTitle(){
     return this.headerTitle;
-  }
-
-  public goBack(){
-    //TODO eliminar los datos del LocalStorage (lo del formReserva)
-    this.localStorage.removeItem('formReserva')
-    this.formData =''
-    this.isDataLoaded = false
-    this._location.back();
   }
 }

@@ -98,7 +98,7 @@ export class DetailViewComponent implements OnInit {
 
   private error(){
     let config: SweetAlertOptions = {
-      title: 'Sorry, not availability at this hour',
+      title: 'Lo sentimos, no hay capacidad para esa hora.',
       type: 'error',
       showConfirmButton: true
     }
@@ -109,7 +109,7 @@ export class DetailViewComponent implements OnInit {
 
   private restaurantCreatedSuccessfully(){
     let config: SweetAlertOptions = {
-      title: 'Reservation added.',
+      title: 'Reservación agregada.',
       type: 'success',
       showConfirmButton: false,
       timer: 1500

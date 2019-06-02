@@ -1,17 +1,17 @@
 <div class="card text-center">
   <div class="card-header">
-    <h4>Restaurant {{restaurant.name}}</h4>
+    <h4>Restaurante {{restaurant.name}}</h4>
   </div>
   <div class="card-body">
-    <h5 class="card-tittle">The {{restaurant.name}} is an {{restaurant.specialty}} food restaurant, 
+    <h5 class="card-tittle">El {{restaurant.name}} es un restaurante de {{restaurant.specialty}}, 
         {{restaurant.decription}} 
     </h5>
-    <h5 class="card-title">You can find us at {{restaurant.address}} or call {{restaurant.phone}}</h5>
-    <p class="card-text">Your reservation info  is: </p>
-    <p class="card-text">Reservation date: {{formInfo.timeStamp}} </p>
-    <p class="card-text">Number of diners: {{formInfo.cantPeople}} </p>
-    <p class="card-text">In the city: {{formInfo.ciudad}} </p>
-    <button (click)="goBack()" class="btn btn-danger mr-2">Go back.</button>
-    <button (click)="onSubmit()" class="btn btn-primary ml-2">Reserve</button>
+    <h5 class="card-title">Puedes encontrarlos en {{restaurant.address}} o llamándolos al {{restaurant.phone}}</h5>
+    <p class="card-text">La información de tu reserva es: </p>
+    <p class="card-text">Fecha de reservación: {{formInfo.timeStamp}} </p>
+    <p class="card-text">Cantidad de comensales: {{formInfo.cantPeople}} </p>
+    <p class="card-text">En la ciudad: {{formInfo.ciudad}} </p>
+    <button (click)="goBack()" class="btn btn-danger mr-2">Regresar.</button>
+    <button (click)="onSubmit()" class="btn btn-primary ml-2">Reservar.</button>
   </div>
 </div>
