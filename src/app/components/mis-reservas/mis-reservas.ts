@@ -16,6 +16,7 @@ import { Timestamp } from 'rxjs';
 })
 export class MisReservas implements OnInit {
     myForm: FormGroup;
+    public compararFechas : any;
     public carreservations ="";
     public roomreservations="";
     public closeResult: string;
@@ -27,14 +28,14 @@ export class MisReservas implements OnInit {
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
     constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
-        this.myForm = this.fb.group({
+      this.compararFechas = compararFechas;  
+      this.myForm = this.fb.group({
           fechaOne: ['', [Validators.required]],
             fechaTwo: ['', [Validators.required]]
         });
     }
 
     ngOnInit() {
-    
     this.getAutomobileReservations();
      this.getRoomReservations();
     }
@@ -84,7 +85,8 @@ export class MisReservas implements OnInit {
   getAutomobileReservations(){
     console.log("Estoy en getAutomobileReservations");
     var user_id = localStorage.getItem('id');
-    const requestURL = "reservationautomobiles/?user="+user_id;
+  //  const requestURL = "reservationautomobiles/?user="+user_id; 
+    const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
         response => {
           console.log(response);
@@ -135,6 +137,44 @@ public deleteRoomReservation(id: number) {
     }, error => {
       console.error(error);
       this.getRoomReservations();
+    }
+  );
+}
+
+public updateAutomobileReservation(car:object,id:number) {
+  console.log("carro: "+car);
+  console.log("id de la Reserva en Update: "+id);
+  const requestURL = 'reservationautomobiles';
+  const reservation = this.myForm.value;
+ // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+   //     console.log(fechas);
+        var fk_user = localStorage.getItem('id');
+        console.log("Usuario en ReservarAutomovil:"+fk_user);
+        reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+        console.log("check:"+reservation.checkIn);
+        reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+        console.log("check:"+reservation.checkOut);
+     //   reservation.fk_user_id = fk_user; // esto cuando se solucione el put
+        reservation.fk_user = 1;
+       reservation.automobile = car;
+       reservation.user="";
+       reservation.id=id;
+       const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+      delete reservation.city;
+      delete reservation.fechaOne;
+      delete reservation.fechaTwo;
+      delete reservation.country;
+        console.log(reservation);
+        if(fechas===1)
+  this.apiService.putUrl(requestURL,reservation).then(
+    response => {
+      console.log(response,reservation);
+      this.getAutomobileReservations();
+      console.log('Reservacion fue actualizada');
+    }, error => {
+      console.error(error);
+      this.getAutomobileReservations();
     }
   );
 }

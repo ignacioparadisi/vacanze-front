@@ -111,10 +111,12 @@ export class AutomovilGrupoTrece implements OnInit {
         const reservation = this.myForm.value;
         const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
         console.log(fechas);
+        var fk_user = localStorage.getItem('id');
+        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-        reservation.fk_user_id = localStorage.getItem('id');
-     // reservation.fk_user = 1;
+        reservation.fk_user_id = fk_user; // esto cuando se solucione el put
+        reservation.fk_user = 1;
        reservation.automobile = car;
        reservation.user="";
        reservation.id=0;
