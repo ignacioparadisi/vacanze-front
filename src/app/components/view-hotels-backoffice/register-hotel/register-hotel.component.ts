@@ -20,6 +20,8 @@ export class RegisterHotelComponent implements OnInit {
 
 public transformImageToBase64;
 public urlImage: string;
+public countries: any[];
+public cities: any[];
 
 
 public registrationForm : FormGroup = new FormGroup({
@@ -57,18 +59,44 @@ public registrationForm : FormGroup = new FormGroup({
     ]),
     image: new FormControl(null, [
       Validators.required
+    ]),
+    country: new FormControl(null, [
+      Validators.required
+    ]),
+    city: new FormControl(null, [
+      Validators.required
     ])
-    // TODO -> location
   });
-
-
 
 
   constructor(private _location: Location, private service: ApiService){
     this.transformImageToBase64 = transformImageToBase64;
     this.urlImage = null;
+    this.countries = [];
+    this.getCountry();
   }
 
+  public getCountry() {
+    this.service
+        .getUrl(url.endpoint.default._get.getCountry)
+        .then(response => {
+            console.log(response),
+            this.countries = response
+    }, error => console.error(error));
+  }
+
+  public getCity(id: number) {
+    this.service
+        .getUrl(url.endpoint.default._get.getCity, [id.toString()])
+        .then(response => {
+            this.cities = response;
+    }, error => console.error(error));
+  }
+
+
+  public selectCountry(event) {
+    this.getCity(event.target.value);
+  }
 
   ngOnInit() {
   }
@@ -133,17 +161,12 @@ public registrationForm : FormGroup = new FormGroup({
         picture: this.urlImage,
         stars: this.registrationForm.get('stars').value,
         location: {
-          "id" : 1
-        } // TODO -> id de location
+          "id" : this.registrationForm.get('city').value
+        }
       })
     .then(
       response => {
-        //IF LA RESPUESTA ES EXITOSA
-            this.hotelCreatedSuccessfully();
-        //SI NO MOSTRAR MENSAJE DE ERROR
-            //this.hotelNotCreatedSuccessfully();
-        //TODO -> VALIDAR LA RESPUESTA
-        console.log(response);
+        this.hotelCreatedSuccessfully();
       }).catch(
         error => {
           console.log("Hay un error");
