@@ -161,7 +161,7 @@
 
               <!--Tabla de reserva de restaurant-->
               <ng-template #restaurantesReservaElseBlock>
-                  <tbody *ngIf="type === 'rest-reserva'">
+                  <tbody *ngIf="type === 'rest-reserva'; else cruiserRoutesElseBlock">
                     <tr *ngFor="let reserva of tableData">
                       <td>{{ reserva?.imagen }}</td>
                       <td>{{ reserva?.nombre }}</td>
@@ -186,6 +186,18 @@
                     </tr>
                   </tbody>
                 </ng-template>
+                <!--Tabla de rutas de un crucero-->
+                <ng-template #cruiserRoutesElseBlock>
+                  <tbody *ngIf="type === 'rutas'">
+                    <tr *ngFor="let ruta of tableData">
+                      <td>{{ ruta?.departureDate.split(' ')[0] }}</td>
+                      <td>{{ ruta?.arrivalDate.split(' ')[0] }}</td>
+                      <td>{{ ruta?.price }} $</td>
+                      <td>{{ ruta?.locDeparture }}</td>
+                      <td>{{ ruta?.locArrival }}</td>
+                    </tr>
+                  </tbody>
+                </ng-template>
           </table>
       </div>
   </div>
@@ -195,5 +207,6 @@
         <i class="fa fa-plus"></i>
       </button>
     </div>
+    <button class="btn btn-danger btn-xl" (click)="goToCruiserTable()" *ngIf="type === 'rutas'" style="width: 15%">Volver a cruceros</button>
   </div>
 </div>

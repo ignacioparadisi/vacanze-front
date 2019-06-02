@@ -8,6 +8,7 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 import { Cruiser } from '../../../interfaces/cruiser';
 import Swal from 'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-crucero',
@@ -17,7 +18,6 @@ import { SweetAlertOptions } from 'sweetalert2';
 
 export class RegistrarCruceroComponent implements OnInit {
 
-  public title: string;
   public urlImage: string;
   public buttonText: string;
   public transformImageToBase64; // Variable para recibir la funcion de transformar la imagen
@@ -26,7 +26,7 @@ export class RegistrarCruceroComponent implements OnInit {
   public isButtonToAdd: boolean;
   public cruiser: Cruiser;
 
-  constructor(private location: Location, private api: ApiService, private localStorage: LocalStorageService){ 
+  constructor(private location: Location, private api: ApiService, private localStorage: LocalStorageService, private router: Router){ 
     this.transformImageToBase64 = transformImageToBase64;
     this.formReady = false;
     this.buttonText = "";
@@ -38,14 +38,12 @@ export class RegistrarCruceroComponent implements OnInit {
       if(data){
         this.cruiser = data;
         this.createNewFormGroup(data);
-        this.title = 'Editar crucero | '+this.cruiser['name'];
         this.formReady = true;
         this.isButtonToAdd = false;
         this.buttonText = 'Editar';
       }
       else {
         this.createNewFormGroup(undefined);
-        this.title = 'Añadir crucero';
         this.formReady = true;
         this.buttonText = 'Agregar';
         this.isButtonToAdd = true;
@@ -146,7 +144,7 @@ export class RegistrarCruceroComponent implements OnInit {
   }
 
   public goToCruisers(){
-    this.location.back();
+    this.router.navigate(['/cruceros']);
   }
 
   /***************************************

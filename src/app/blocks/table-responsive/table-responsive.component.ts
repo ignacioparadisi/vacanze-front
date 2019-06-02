@@ -143,7 +143,13 @@ export class TableResponsiveComponent implements OnChanges {
     }
 
     public goToAddNewRoute(boat: Object){
-      this.emitRouting.emit('/agregar-ruta/'+boat['id']);
+      this.localStorage.setItem('boat', boat).subscribe(data => {
+        this.emitRouting.emit('/agregar-ruta/'+boat['id']);
+      })
+    }
+
+    public goToCruiserTable(){
+      this.emitRouting.emit('/cruceros');
     }
 
 }

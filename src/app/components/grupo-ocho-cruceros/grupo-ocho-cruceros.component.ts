@@ -76,47 +76,66 @@ export class GrupoOchoCrucerosComponent implements OnInit {
   }
 
   public getCurrentRoute(route, param?: string){
-    if(route === '/agregar-crucero'){
+    if(route){
+      if(route === '/agregar-crucero'){
+        this.checks['routes'] = false;
+        this.checks['edit'] = false;
+        this.checks['add'] = true;
+        this.checks['addRoutes'] = false;
+  
+        this.router.navigate(['cruceros', 'agregar-crucero']);
+      }
+      else if(route.toString().indexOf('/editar-crucero') !== -1){
+        this.checks['routes'] = false;
+        this.checks['edit'] = true;
+        this.checks['add'] = false;
+        this.checks['addRoutes'] = false;
+  
+        this.router.navigate(['cruceros', route.split('/')[1], route.split('/')[2]]);
+      }
+      else if(route.toString().indexOf('/rutas') !== -1){
+        this.checks['routes'] = true;
+        this.checks['edit'] = false;
+        this.checks['add'] = false;
+        this.checks['addRoutes'] = false;
+        this.getLayovers(route.split('/')[0], route);
+      }
+      else if(route.toString().indexOf('/agregar-ruta') !== -1){
+        this.checks['routes'] = false;
+        this.checks['edit'] = false;
+        this.checks['add'] = false;
+        this.checks['addRoutes'] = true;
+        this.router.navigate(['cruceros', route.split('/')[1], route.split('/')[2]]);
+      }
+      else if('/cruceros'){
+        this.checks['routes'] = true;
+        this.checks['edit'] = false;
+        this.checks['add'] = false;
+        this.checks['addRoutes'] = false;
+      }
+      else {
+        this.checks['routes'] = true;
+        this.checks['edit'] = false;
+        this.checks['add'] = false;
+        this.checks['addRoutes'] = false;  
+      }
+    }
+    else { // Muestro la tabla de cruceros
       this.checks['routes'] = false;
       this.checks['edit'] = false;
-      this.checks['add'] = true;
-      this.checks['addRoutes'] = false;
-
-      this.router.navigate(['cruceros', 'agregar-crucero']);
-    }
-    else if(route.toString().indexOf('/editar-crucero') !== -1){
-      this.checks['routes'] = false;
-      this.checks['edit'] = true;
       this.checks['add'] = false;
-      this.checks['addRoutes'] = false;
-
-      this.router.navigate(['cruceros', route.split('/')[1], route.split('/')[2]]);
-    }
-    else if(route.toString().indexOf('/rutas') !== -1){
-      this.checks['routes'] = true;
-      this.checks['edit'] = false;
-      this.checks['add'] = false;
-      this.checks['addRoutes'] = false;
-      this.getLayovers(route.split('/')[0], route);
-    }
-    else if(route.toString().indexOf('/agregar-ruta') !== -1){
-      this.checks['routes'] = false;
-      this.checks['edit'] = false;
-      this.checks['add'] = false;
-      this.checks['addRoutes'] = true;
-      this.router.navigate(['cruceros', route.split('/')[1], route.split('/')[2]]);
-    }
-    else {
-      this.checks['routes'] = false;
-      this.checks['edit'] = false;
-      this.checks['add'] = false;
-      this.checks['addRoutes'] = false;
+      this.checks['addRoutes'] = false;    
     }
   }
 
   public getDeactivatedComponent(component){
     this.getCruisers();
-    this.getCurrentRoute('/cruceros');
+    if(component.router.url.indexOf('/rutas')){
+      this.getCurrentRoute(undefined);
+    }
+    else {
+      this.getCurrentRoute('/cruceros');
+    }
   }
 
   public getDeleteAlert(data){
@@ -205,7 +224,7 @@ export class GrupoOchoCrucerosComponent implements OnInit {
   public getLayovers(id: string, route: string){
     this.api.getUrl(url.endpoint.default._get.cruisers.get_layovers, [id])
       .then(response => {
-        this.localStorage.setItem('cruiserRoutes', response.layovers).subscribe(data => {
+        this.localStorage.setItem('cruiserRoutes', response).subscribe(data => {
           this.router.navigate(['cruceros', route.split('/')[0], route.split('/')[1]]);
         })
       })

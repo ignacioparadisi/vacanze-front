@@ -17,7 +17,8 @@
       "postHotel":"hotels",
       "postRestaurant": "restaurants",
       "cruisers": {
-        "post_cruiser": "cruiser"
+        "post_cruiser": "cruiser",
+        "post_route": "cruiser/{cruiserId}/layover"
       }
     },
     "_put": {
