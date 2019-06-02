@@ -114,7 +114,7 @@
                 </tbody>
               </ng-template>
               <ng-template #restaurantesElseBlock>
-                <tbody *ngIf="type === 'restaurantes'; else restaurantesReservaElseBlock">
+                <tbody *ngIf="type === 'restaurantes'; else cruiserRoutesElseBlock">
                   <tr *ngFor="let restaurante of tableData">
                     <td>{{ restaurante?.name }}</td>
                     <td>{{ restaurante?.capacity }}</td>
@@ -158,46 +158,18 @@
                   </tr>
                 </tbody>
               </ng-template>
-
-              <!--Tabla de reserva de restaurant-->
-              <ng-template #restaurantesReservaElseBlock>
-                  <tbody *ngIf="type === 'rest-reserva'; else cruiserRoutesElseBlock">
-                    <tr *ngFor="let reserva of tableData">
-                      <td>{{ reserva?.imagen }}</td>
-                      <td>{{ reserva?.nombre }}</td>
-                      <td>{{ reserva?.direccion }}</td>
-                      <td>{{ reserva?.capacidad }}</td>
-                      <td>{{ reserva?.especialidad }}</td>
-                      <td>{{ reserva?.precio }} $</td>
-                      <td>{{ reserva?.descripcion }}</td>
-                      <td>{{ reserva?.telefono }}</td>
-                      <td>
-                          <button
-                            class="btn btn-outline-dark"
-                            style="cursor: pointer;"
-                            (click)="openModalActions($event, reservar-restaurante, 'reservar', true)"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="Reservar {{type}}"
-                          >
-                            <i class="fa fa-cart-plus"></i>
-                          </button>&nbsp;&nbsp;
-                        </td>
-                    </tr>
-                  </tbody>
-                </ng-template>
-                <!--Tabla de rutas de un crucero-->
-                <ng-template #cruiserRoutesElseBlock>
-                  <tbody *ngIf="type === 'rutas'">
-                    <tr *ngFor="let ruta of tableData">
-                      <td>{{ ruta?.departureDate.split(' ')[0] }}</td>
-                      <td>{{ ruta?.arrivalDate.split(' ')[0] }}</td>
-                      <td>{{ ruta?.price }} $</td>
-                      <td>{{ ruta?.locDeparture }}</td>
-                      <td>{{ ruta?.locArrival }}</td>
-                    </tr>
-                  </tbody>
-                </ng-template>
+              <!--Tabla de rutas de un crucero-->
+              <ng-template #cruiserRoutesElseBlock>
+                <tbody *ngIf="type === 'rutas'">
+                  <tr *ngFor="let ruta of tableData">
+                    <td>{{ ruta?.departureDate.split(' ')[0] }}</td>
+                    <td>{{ ruta?.arrivalDate.split(' ')[0] }}</td>
+                    <td>{{ ruta?.price }} $</td>
+                    <td>{{ ruta?.locDeparture }}</td>
+                    <td>{{ ruta?.locArrival }}</td>
+                  </tr>
+                </tbody>
+              </ng-template>
           </table>
       </div>
   </div>
