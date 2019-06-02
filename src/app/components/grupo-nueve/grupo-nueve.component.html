@@ -1,6 +1,6 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Editar Claim</h4>
+        <h4 class="modal-title">Edit Claim</h4>
         
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
@@ -10,16 +10,16 @@
     <div class="modal-body">
           <div class="col text-center">
             <div class="form-group">
-              <input type="text" class="form-control input-lg" placeholder="Titulo" [(ngModel)]="titlePut">
+              <input type="text" class="form-control input-lg" placeholder="Title" [(ngModel)]="titlePut">
             </div>  
             <div class="form-group">
-              <textarea type="text" class="form-control input-lg" placeholder="Descripción..." [(ngModel)]="descrPut" rows="3">
+              <textarea type="text" class="form-control input-lg" placeholder="Descriptión..." [(ngModel)]="descrPut" rows="3">
               </textarea>
             </div>
             <div class="form-group">
             <input id="check_cambiar" 
                    type="checkbox" 
-                   value="checkedValue"> Cambiar (Cerrado/Abierto) status de este reclamo.
+                   value="checkedValue"> Change (Close/Open) status of this claim.
             </div>
             <div class="row">
               <div class="col-md-12">
@@ -39,7 +39,7 @@
   </div>
 
   <div id="li-cliente" class="contenedor-usuario card">
-    <li (click)="pantallaCliente()"> Cliente <br>
+    <li (click)="pantallaCliente()"> Client <br>
     <i class="fa fa-user-plus" aria-hidden="true"></i></li>
   </div> 
 </div>
@@ -47,18 +47,19 @@
 <!-- INTRODUCTION -->
 
 <div id = "paginaCliente" class="oculto">
+
 <div class="row">
 <div class="col-md-12">
   <div class="card mb-3">
-      <div class="card-header">
+      <div class="card-header color-card">
         <span class="fa fa-minus" aria-hidden="true"></span>
-         Instrucciones
+         Instructions
       </div>
       <div class="card-body table-responsive carta-intro">
         <p>
-          A continuación este modulo le ayudara a conseguir cualquier equipaje que se haya extraviado
-          y registrado en algún vuelo, simplemente debe buscarlo colocando el numero de serial o 
-          pasaporte en los bloques con el logo (buscar).
+          In this module will help you to get any baggage that has been lost and 
+          registered on a flight or cruise, you should simply look for it by placing 
+          the serial number or passport in the blocks with the logo <i class="fa fa-search"></i>
         </p>
       </div>
   </div>
@@ -69,12 +70,12 @@
 <div class="row" id="bloque-busqueda-2">
     <div class="col-md-12">
       <div class="card mb-3">
-          <div class="card-header">
+          <div class="card-header color-card">
               <i class="fa fa-search"></i>
-              Seleccionar Busqueda
+              Select the type of luggage search
           </div>
           <div class="card-body table-responsive carta-intro">
-            <p> Consultar lista de equipajes por:</p>
+            <p> Get list of luggage for:</p>
             <label>
                 <input id="check_documento" type="checkbox" 
                 value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Document 
@@ -93,32 +94,16 @@
       <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-body table-responsive carta-intro">
-              <form [formGroup]="formGroup" >
+              <form [formGroup]="formSearch" (ngSubmit)="listadoEquipaje()">
                 <div class="col-lg-12 text-center">
-                    <div class="form-group">
-                        <select class="form-control">
-                          <option value="-1" disabled> Nacionalidad</option>
-                          <option value="0">V</option>
-                          <option value="1">E</option>
-                        </select>
-                    </div>
                       <div class="form-group">
-                        <input type="text" class="form-control" 
-                        placeholder="Numero De Pasaporte">
+                        <input formControlName="id" type="text" class="form-control" 
+                        placeholder="Passport Number">
                       </div>
-                      <div class="form-group">
-                        <input type="text" class="form-control" 
-                        placeholder="Cedula">
-                      </div>
-                      <swal
-                        #addSwal2
-                        title="Buscado con los Campos Ingresados"
-                        type="success"
-                        showConfirmButton=false
-                        timer=2500>
-                       </swal>
-                       <button (click) = "listadoEquipaje()" class="btn btn-success float-right button-search">Buscar</button>
-                       <!-- [swal]="addSwal2" -->
+                       <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
+                          Search</button>
+                       <button class="btn btn-success" *ngIf="!formSearch.invalid" type="submit">
+                          Search</button>
                 </div>
               </form>
             </div>
@@ -130,14 +115,16 @@
       <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-body table-responsive carta-intro">
-              <form>
+              <form [formGroup]="formSearch" (ngSubmit)="listadoEquipaje()">
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
-                        <input type="text" class="form-control" 
-                        placeholder="Numero De Serial">
+                          <input formControlName="id" type="text" class="form-control" 
+                          placeholder="Serial Number">
                       </div>
-                       <button (click) = "listadoEquipaje()" class="btn btn-success float-right button-search">Buscar</button>
-                       <!-- [swal]="addSwal2" -->
+                      <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
+                          Search</button>
+                      <button class="btn btn-success" *ngIf="!formSearch.invalid" type="submit">
+                          Search</button>
                 </div>
               </form>
             </div>
@@ -149,7 +136,7 @@
     <div id = "equipajeLista" class="row oculto">
     <div class="col-lg-12">
         <div class="card mb-3">
-            <div class="card-header">
+            <div class="card-header color-card">
                 <i class="fa fa-list"></i>
                 List of user equipment
             </div>
@@ -159,45 +146,19 @@
                     <tr>
                         <th>#</th>
                         <th>Serial</th>
-                        <th>Descripción</th>
-                        <th>Estatus</th>
-                        <th>Fecha y Hora</th>
-                        <th>Acciones</th>
+                        <th>Descriptión</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>XSY-210</td>
-                        <td>Moscú</td>
-                        <td>Retirado</td>
-                        <td>04-05-2019 00:00</td>
-                        <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>XSY-215</td>
-                        <td>Roma</td>
-                        <td>Retirado</td>
-                        <td>05-05-2019 00:00</td>
-                        <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>XSY-219</td>
-                        <td>NY City</td>
-                        <td>Perdido</td>
-                        <td>10-05-2019 00:00</td>
-                        <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>XSY-222</td>
-                        <td>Caracas</td>
-                        <td>Retirado</td>
-                        <td>10-05-2019 00:00</td>
-                        <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>
+                    <tr *ngFor="let baggage of baggages; let indice=index">
+                        <th scope="row">{{indice+1}}</th>
+                        <td>{{baggage._id}}</td>
+                        <td>{{baggage._description}}</td>
+                        <td>{{baggage._status}}</td>
+                        <a href ="/grupo-nueve"><td>See</td></a>
+                    </tr>    
                     </tbody>
                 </table>
             </div>
@@ -208,15 +169,23 @@
 <div class="row">
   <div class="col-md-12">
       <div class="card mb-3">
-          <div class="card-header">
+          <div class="card-header color-card">
               <i class="fa fa-plus"></i>
              Create Claim
           </div>     
           <div class="card-body table-responsive">
             <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">       
               <div class="col text-center">
+                <div class="form-group">                 
+                  <input type="text" formControlName="serial" class="form-control input-lg" placeholder="Serial of luggage" 
+                  [ngClass]="{
+                    'is-invalid': false,
+                    'is-valid': !formGroup.get('serial').hasError('required')
+                  }"/> 
+                </div>
+
                 <div class="form-group">
-                  <input type="text" class="form-control input-lg" placeholder="Titulo" 
+                  <input type="text" class="form-control input-lg" placeholder="Title" 
                   formControlName="titulo" 
                   [ngClass]="{
                     'is-invalid': false,
@@ -224,7 +193,7 @@
                   }">
                 </div>  
                 <div class="form-group">
-                  <textarea type="text" class="form-control input-lg" placeholder="Descripción..." 
+                  <textarea type="text" class="form-control input-lg" placeholder="Descriptión..." 
                   formControlName="descripcion"
                   [ngClass]="{
                     'is-invalid': false,
@@ -247,9 +216,9 @@
 
   <div class="col-lg-12">
       <div class="card mb-3">
-          <div class="card-header">
+          <div class="card-header color-card">
               <i class="fa fa-list"></i>
-              Listado de Claims de Usuario
+              List of Claims of Users
           </div>
           <div class="card-body table-responsive">
               <table class="table">
@@ -257,10 +226,10 @@
                   <tr>
                       <th>#</th>
                       <th>Serial</th>
-                      <th>Titulo</th>
-                      <th>Descripción</th>
-                      <th>Estatus</th>
-                      <th>Acciones</th>
+                      <th>Title</th>
+                      <th>Descriptión</th>
+                      <th>Status</th>
+                      <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -276,7 +245,7 @@
                         claim.id, claim._title, claim._description)"><i class="fa fa-edit"></i></button>
                         <swal
                           #deleteSwal
-                          title="¿Desea Eliminar el Claim?"
+                          title="¿Do you already want delete this Claim?"
                           type="question"
                           [showCancelButton]="true"
                           [focusCancel]="true"
@@ -293,9 +262,9 @@
 
   <div class="col-md-12">
       <div class="card mb-3">
-          <div class="card-header">
+          <div class="card-header color-card">
               <i class="fa fa-envelope"></i>
-              Escríbenos
+              Write us!
           </div>
           
           <div class="card-body table-responsive">
@@ -303,23 +272,23 @@
               <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nombre">
+                        <input type="text" class="form-control" placeholder="Name">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Apellido">
+                        <input type="text" class="form-control" placeholder="Last Name">
                     </div>
                     <swal
                     #mensaje
-                    title="Mensaje enviado al administrador de Claims"
+                    title="Message sent at Administrator of Claim"
                     type="success"
                     showConfirmButton=false
                     timer=2500>
                    </swal>
-                   <button class="btn btn-success float-left" [swal]="mensaje">Enviar</button>
+                   <button class="btn btn-success float-left" [swal]="mensaje">Send</button>
                 </div>
 
                 <div class="form-group" class="mensaje">
-                    <textarea placeholder="Mensaje..." class="form-control" rows="5"></textarea>
+                    <textarea placeholder="Message..." class="form-control" rows="5"></textarea>
                 </div>
               </div>
             </form>
@@ -335,38 +304,32 @@
 <div class="row">
     <div class="col-md-12">
       <div class="card mb-3">
-          <div class="card-header">
+          <div class="card-header color-card">
               <i class="fa fa-search"></i>
-               Seleccionar Busqueda de Equipajes
+               Select the type of luggage search
           </div>
           <div class="card-body table-responsive carta-intro">
-            <p> Consultar lista de equipajes:</p>
+            <p> Get list of luggages:</p>
             <label>
               <input id = "check_extraviado" type="checkbox" 
-                value="checkedValue" (change)="checkeadoExtraviado($event)"> Extraviados 
+                value="checkedValue" (change)="checkeadoExtraviado($event)"> Lost 
             </label>
             <br>
             <label>
               <input id = "check_encontrado" value="checkedValue" 
-              type="checkbox" (change)="checkeadoEncontrado($event)"> Encontrados
+              type="checkbox" (change)="checkeadoEncontrado($event)"> Found
             </label>
             <br>
             <label>
               <input id = "check_entregado" value="checkedValue" 
-              type="checkbox" (change)="checkeadoEntregado($event)"> Entregados
+              type="checkbox" (change)="checkeadoEntregado($event)"> Delivered
             </label>
 
             <div class="row">
                 <div class="col-md-12">
-                  <swal
-                  #addSwal5
-                  title="Claim Creado Satisfactoriamente"
-                  type="success"
-                  showConfirmButton=false
-                  timer=2500>
-                </swal>
-                <button class="btn btn-success float-right button-search" (click)="BusqEquipajeAdmin()" >Buscar</button>
-                  <!--[swal]="addSwal5"-->
+                <button class="btn btn-success float-right button-search" (click)="BusqEquipajeAdmin()" >
+                  Search
+                </button>
                 </div>
             </div>
             
@@ -378,9 +341,9 @@
   <div id = "encontrados" class="row oculto">
       <div class="col-lg-12">
           <div class="card mb-3">
-              <div class="card-header">
+              <div class="card-header color-card">
                   <i class="fa fa-list"></i>
-                  Listado de Equipajes Encontrados
+                  List of luggages founds
               </div>
               <div class="card-body table-responsive">
                   <table class="table">
@@ -388,31 +351,19 @@
                       <tr>
                           <th>#</th>
                           <th>Serial</th>
-                          <th>Descripción</th>
-                          <th>Estatus</th>
-                          <th>Fecha y Hora</th>
-                          <th>Acciones</th>
+                          <th>Description</th>
+                          <th>Status</th>
+                          <th>Actions</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                          <th scope="row">1</th>
-                          <td>XSY-210</td>
-                          <td>Moscú</td>
-                          <td>Encontrado</td>
-                          <td>04-05-2019 00:00</td>
+                      <tr *ngFor="let BaggageAdmin of BaggageEncontrados; let indiceEncontrado=index">
+                          <th scope="row">{{indiceEncontrado+1}}</th>
+                          <td>{{BaggageAdmin._id}}</td>
+                          <td>{{BaggageAdmin._description}}</td>
+                          <td>{{BaggageAdmin._status}}</td>
                           <td>
                             <button class= "ver"><i class="fa fa-edit"></i></button>
-                          </td>
-                      </tr>
-                      <tr>
-                          <th scope="row">2</th>
-                          <td>XSY-215</td>
-                          <td>Roma</td>
-                          <td>Encontrado</td>
-                          <td>05-05-2019 00:00</td>
-                          <td>
-                              <button class="ver"><i class="fa fa-edit"></i></button>
                           </td>
                       </tr>
                       </tbody>
@@ -425,41 +376,29 @@
       <div id = "extraviados" class="row oculto">
           <div class="col-lg-12">
               <div class="card mb-3">
-                  <div class="card-header">
+                  <div class="card-header color-card">
                       <i class="fa fa-list"></i>
-                      Listado de Equipajes Extraviados
+                      List of luggage lost
                   </div>
                   <div class="card-body table-responsive">
                       <table class="table">
                           <thead>
-                          <tr>
+                           <tr>
                               <th>#</th>
                               <th>Serial</th>
-                              <th>Descripción</th>
-                              <th>Estatus</th>
-                              <th>Fecha y Hora</th>
-                              <th>Acciones</th>
+                              <th>Description</th>
+                              <th>Status</th>
+                              <th>Actions</th>
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
-                              <th scope="row">1</th>
-                              <td>XSY-210</td>
-                              <td>Moscú</td>
-                              <td>Extraviado</td>
-                              <td>04-05-2019 00:00</td>
+                          <tr *ngFor="let BaggageAdmin of BaggageExtraviados; let indiceExtraviado=index">
+                              <th scope="row">{{indiceExtraviado+1}}</th>
+                              <td>{{BaggageAdmin._id}}</td>
+                              <td>{{BaggageAdmin._description}}</td>
+                              <td>{{BaggageAdmin._status}}</td>
                               <td>
                                 <button class="ver"><i class="fa fa-edit"></i></button>
-                              </td>
-                          </tr>
-                          <tr>
-                              <th scope="row">2</th>
-                              <td>XSY-215</td>
-                              <td>Roma</td>
-                              <td>Extraviado</td>
-                              <td>05-05-2019 00:00</td>
-                              <td>
-                                  <button class="ver"><i class="fa fa-edit"></i></button>
                               </td>
                           </tr>
                           </tbody>
@@ -472,9 +411,9 @@
           <div id = "entregados"  class="row oculto">
               <div class="col-lg-12">
                   <div class="card mb-3">
-                      <div class="card-header">
+                      <div class="card-header color-card">
                           <i class="fa fa-list"></i>
-                          Listado de Equipajes Entregados
+                          List of luggage delivered
                       </div>
                       <div class="card-body table-responsive">
                           <table class="table">
@@ -482,31 +421,19 @@
                               <tr>
                                   <th>#</th>
                                   <th>Serial</th>
-                                  <th>Descripción</th>
-                                  <th>Estatus</th>
-                                  <th>Fecha y Hora</th>
-                                  <th>Acciones</th>
+                                  <th>Description</th>
+                                  <th>Status</th>
+                                  <th>Actions</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr>
-                                  <th scope="row">1</th>
-                                  <td>XSY-210</td>
-                                  <td>Moscú</td>
-                                  <td>Entregados</td>
-                                  <td>04-05-2019 00:00</td>
+                              <tr *ngFor="let BaggageAdmin of BaggageEntregados; let indiceEntregado=index">
+                                  <th scope="row">{{indiceEntregado+1}}</th>
+                                  <td>{{BaggageAdmin._id}}</td>
+                                  <td>{{BaggageAdmin._description}}</td>
+                                  <td>{{BaggageAdmin._status}}</td>
                                   <td>
                                     <button class="ver"><i class="fa fa-edit"></i></button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <th scope="row">2</th>
-                                  <td>XSY-215</td>
-                                  <td>Roma</td>
-                                  <td>Entregados</td>
-                                  <td>05-05-2019 00:00</td>
-                                  <td>
-                                      <button class="ver"><i class="fa fa-edit"></i></button>
                                   </td>
                               </tr>
                               </tbody>
@@ -519,47 +446,37 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-search"></i>
-                        Seleccionar Busqueda de Claims
+                        <div class="card-header color-card">
+                        <i class="fa fa-search"></i>
+                        Select the type of claims search
                         </div>
                         <div class="card-body table-responsive carta-intro">
-                          <p> Consultar lista de Claims por caso:</p>
+                          <p> Get list of Claims for case:</p>
                           <label>
                               <input id="check_abierto" type="checkbox" 
-                              (change)="checkeadoAbierto($event)" value="checkedValue"> Abierto 
+                              (change)="checkeadoAbierto($event)" value="checkedValue"> Open 
                           </label>
                           <br>
                           <label>
                             <input id="check_cerrado"
-                            (change)="checkeadoCerrado($event)" value="checkedValue" type="checkbox"> Cerrado
+                            (change)="checkeadoCerrado($event)" value="checkedValue" type="checkbox"> Close
                           </label>
               
                           <div class="row">
                               <div class="col-md-12">
-                                <swal
-                                #addSwal6
-                                title="Claim Creado Satisfactoriamente"
-                                type="success"
-                                showConfirmButton=false
-                                timer=2500>
-                              </swal>
-                      <button class="btn btn-success float-right button-search" (click)="BusqEquipajeClaim()">Buscar</button>
-                        <!-- [swal]="addSwal6"-->
-                    
-                    </div>
-                  </div>
-                          
-                </div>
+                              <button class="btn btn-success float-right button-search" (click)="BusqEquipajeClaim()">Search</button>
+                              </div>
+                          </div>
+                        </div>
             </div>
           </div>
         </div>
 
         <div id = "abiertos" class="oculto">
             <div class="card mb-3">
-                <div class="card-header">
+                <div class="card-header color-card">
                     <i class="fa fa-list"></i>
-                    Listado de Claims Abiertos
+                    List of Open Claims
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -567,28 +484,30 @@
                         <tr>
                             <th>#</th>
                             <th>Serial</th>
-                            <th>Titulo</th>
-                            <th>Descripción</th>
-                            <th>Estatus</th>
-                            <th>Acciones</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>XSY-219</td>
-                            <td>Aeropuerto</td>
-                            <td>002345678910</td>
-                            <td>Abierto</td>
+                        <tr *ngFor="let claimAdmin of claimsAbiertos; let indiceAbierto=index">
+                            
+                            <th scope="row">{{indiceAbierto+1}}</th>
+                            <td>{{claimAdmin.id}}</td>
+                            <td>{{claimAdmin._title }}</td>
+                            <td>{{claimAdmin._description}}</td>
+                            <td>{{claimAdmin._status}}</td>
                             <td>
-                              <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                              <button (click)="open(content, 
+                              claimAdmin.id, claimAdmin._title, claimAdmin._description)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal1
-                                title="¿Desea Eliminar el Claim?"
+                                title="¿Do you already want delete Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
-                                (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                (confirm)="deleteClaim(claimAdmin.id)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
                               <button [swal]="deleteSwal1" class="button-delete"><i class="fa fa-trash" ></i></button>
                             </td>
@@ -601,9 +520,9 @@
 
         <div id = "cerrados" class="oculto">
             <div class="card mb-3">
-                <div class="card-header">
+                <div class="card-header color-card">
                     <i class="fa fa-list"></i>
-                    Listado de Claims Cerrados
+                    List of Open Claims
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -611,28 +530,31 @@
                         <tr>
                             <th>#</th>
                             <th>Serial</th>
-                            <th>Titulo</th>
-                            <th>Descripción</th>
-                            <th>Estatus</th>
-                            <th>Acciones</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>XSY-219</td>
-                            <td>Aeropuerto</td>
-                            <td>002345678910</td>
-                            <td>Cerrado</td>
+                        <tr *ngFor="let claimAdmin of claimsCerrados; let indiceCerrado=index">
+                            
+                            <th scope="row">{{indiceCerrado+1}}</th>
+                            <td>{{claimAdmin.id}}</td>
+                            <td>{{claimAdmin._title }}</td>
+                            <td>{{claimAdmin._description}}</td>
+                            <td>{{claimAdmin._status}}</td>
                             <td>
-                              <button (click)="open(content)"><i class="fa fa-edit"></i></button>
+                              <button (click)="open(content, 
+                              claimAdmin.id, claimAdmin._title, claimAdmin._description)"><i class="fa fa-edit"></i>
+                              </button>
                               <swal
                                 #deleteSwal2
-                                title="¿Desea Eliminar el Claim?"
+                                title="¿Do you already want delete Claim?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
-                                (confirm)="deleteClaim()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                (confirm)="deleteClaim(claimAdmin.id)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
                               </swal>
                               <button class="button-delete" [swal]="deleteSwal2"><i class="fa fa-trash" ></i></button>
                             </td>
@@ -644,9 +566,9 @@
         </div>
 
             <div class="card mb-3">
-                <div class="card-header">
+                <div class="card-header color-card">
                     <i class="fa fa-envelope"></i>
-                    Escríbir a Usuario
+                    Write to user
                 </div>
                 
                 <div class="card-body table-responsive">
@@ -654,23 +576,23 @@
                     <div class="row">
                       <div class="col-md-4">
                           <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Pasaporte">
+                              <input type="text" class="form-control" placeholder="Passport">
                           </div>
                           <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Nombre">
+                              <input type="text" class="form-control" placeholder="Name">
                           </div>
                           <swal
                           #mensaje
-                          title="Mensaje enviado al usuario"
+                          title="Message sent at User"
                           type="success"
                           showConfirmButton=false
                           timer=2500>
                          </swal>
-                         <button class="btn btn-success float-left" [swal]="mensaje">Enviar</button>
+                         <button class="btn btn-success float-left" [swal]="mensaje">Send</button>
                       </div>
       
                       <div class="form-group" class = "mensaje">
-                          <textarea placeholder="Mensaje..." class="form-control" rows="5"></textarea>
+                          <textarea placeholder="Message..." class="form-control" rows="5"></textarea>
                       </div>
                     </div>
                   </form>

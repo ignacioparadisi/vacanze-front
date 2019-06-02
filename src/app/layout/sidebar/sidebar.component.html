@@ -1,12 +1,20 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
   <div class="list-group">
-    <a routerLink="/" class="list-group-item">
+    <!--<a routerLink="/" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Dashboard</span>
-    </a>
-    <a routerLink="/grupo-uno" class="list-group-item">
+    </a>-->
+    <!--<a routerLink="/grupo-uno" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Grupo Uno</span>
+    </a>-->
+    <a routerLink="/grupo-uno/landing" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Landing Page</span>
+    </a>
+    <a routerLink="/grupo-nueve" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Reclamo de Equipaje</span>
     </a>
     <a routerLink="/grupo-nueve" class="list-group-item">
       <i class="fa fa-fw fa-briefcase"></i>&nbsp;
@@ -87,7 +95,7 @@
     <a routerLink="/cruisers" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-ship"></i>&nbsp;
       <span>Cruceros</span>
-    </a>    
+    </a>
     <a routerLink="/travel" class="list-group-item">
       <i class="fa fa-fw fa-compass"></i>&nbsp;
       <span>Viajes</span>

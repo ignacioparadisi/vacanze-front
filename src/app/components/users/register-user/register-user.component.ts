@@ -16,6 +16,7 @@ import { SweetAlertOptions } from 'sweetalert2';
 export class RegisterUserComponent implements OnInit {
 
   @Input() user: User;
+  @Input() isClient: boolean;
 
   public state: string = 'none';
   public submitted: boolean = false;
@@ -28,7 +29,7 @@ export class RegisterUserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.createFormGroup()
+    this.createFormGroup();
     this.fetchRoles();
     if (this.user) {
       this.fillFormGroup();
@@ -49,7 +50,9 @@ export class RegisterUserComponent implements OnInit {
       }
     }).catch(error => {
       if (error.status === 0) {
-        console.log('No se pudo conectar al servidor');
+        this.showErrorAlert("No se pudo conecta al servidor para obtener los roles.")
+      } else {
+        this.showErrorAlert(error.error);
       }
     });
   }
@@ -62,6 +65,13 @@ export class RegisterUserComponent implements OnInit {
       lastname: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email])
     });
+
+    if (this.isClient) {
+      this.formGroup.addControl('password',
+        new FormControl(null, [Validators.required, Validators.minLength(8)]));
+      this.formGroup.addControl('confirmPassword',
+        new FormControl(null, [Validators.required, Validators.minLength(8)]))
+    }
   }
 
   private addRolesToFormGroup() {
@@ -89,21 +99,25 @@ export class RegisterUserComponent implements OnInit {
   public onSubmit() {
     this.submitted = true;
     this.state = 'loading';
-
+    console.log("OnSubmit");
     if (this.formGroup.invalid) {
       this.state = 'error';
       return;
     }
 
     const user: User = this.getUserFromForm();
-    this.createUser(user);
+    if (this.user) {
+      this.updateUser(user, this.user.id);
+    } else {
+      this.createUser(user);
+    }
+
 
   }
 
   public isRoleSelected(): boolean {
     this.roles.forEach(role => {
       const isSelected = this.formGroup.get('role' + role.id).value;
-      console.log(isSelected);
       if (isSelected === true) {
         return true;
       }
@@ -129,14 +143,20 @@ export class RegisterUserComponent implements OnInit {
     const name = this.formGroup.get('name').value;
     const lastname = this.formGroup.get('lastname').value;
     const email = this.formGroup.get('email').value;
-    const password = "";
+    var password = "";
+    const roles: Role[] = []
 
-    const roles: Role[] = [];
-    this.roles.forEach(role => {
-      if (this.formGroup.get('role' + role.id).value) {
-        roles.push(role);
-      }
-    })
+    if (this.isClient) {
+      password = this.formGroup.get('password').value;
+      roles.push(new Role(Roles.CLIENT, 'Cliente'));
+    } else {
+      this.roles.forEach(role => {
+        if (this.formGroup.get('role' + role.id).value) {
+          roles.push(role);
+        }
+      });
+    }
+
 
     const user = new User(id, documentId, name, lastname, email, password, roles);
     return user;
@@ -144,16 +164,37 @@ export class RegisterUserComponent implements OnInit {
 
   private createUser(user: User) {
     this.apiService.postUrl('users', user).then(user => {
-      this.activeModal.close();
-      this.userCreatedSuccessfully();
+      this.state = 'success';
+      this.activeModal.close(true);
+      this.showSuccessMessage('Usuario creado de manera exitosa');
     }).catch(error => {
-      this.showErrorAlert(error.error);
+      this.state = 'error';
+      if (error.status == 0) {
+        this.showErrorAlert("No se pudo conecta al servidor para crear al usuario.")
+      } else {
+        this.showErrorAlert(error.error);
+      }
     });
   }
 
-  private userCreatedSuccessfully() {
+  private updateUser(user: User, id: number) {
+    this.apiService.putUrl(`users/${id}`, user).then(user => {
+      this.state = 'success';
+      this.activeModal.close(true);
+      this.showSuccessMessage('Usuario actualizado de manera exitosa');
+    }).catch(error => {
+      this.state = 'error';
+      if (error.status == 0) {
+        this.showErrorAlert("No se pudo conecta al servidor para actualizar al usuario.")
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
+  private showSuccessMessage(title: string) {
     let config: SweetAlertOptions = {
-      title: 'Usuario creado de manera exitosa',
+      title: title,
       type: 'success',
       showConfirmButton: false,
       timer: 1800

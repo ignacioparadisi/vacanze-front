@@ -27,13 +27,23 @@ export class UsersListComponent implements OnInit {
     this.apiService.getUrl('users').then(users => {
       this.users = users;
     }).catch(error => {
-      console.log(error);
+      if (error.status == 0) {
+        this.showErrorAlert("No se pudo conecta al servidor para obtener los usuarios.")
+      } else {
+        this.showErrorAlert(error.error);
+      }
     })
   }
 
   openAddUserModal(user?: User) {
-    const modalRef = this.modalService.open(RegisterUserComponent);
+    const modalRef = this.modalService.open(RegisterUserComponent, { centered: true });
     modalRef.componentInstance.user = user;
+    modalRef.componentInstance.isClient = false;
+    modalRef.result.then(success => {
+      if (success) {
+        this.fetchEmployees();
+      }
+    })
   }
 
   /**************************************************************************
@@ -54,8 +64,41 @@ export class UsersListComponent implements OnInit {
       type: 'question',
       focusCancel: true
     }
-    Swal.fire(config).then(result => {
-      this.messageAlert(user);
-    })
+    Swal.fire(config).then(shouldDelete => {
+      if (shouldDelete.value === true) {
+        this.apiService.deleteUrl(`users/${user.id}`).then(id => {
+          if (id > 0) {
+            this.showSuccessAlert(`${user.name} ${user.lastname} ha sido eliminado de manera exitosa.`);
+            this.fetchEmployees();
+          }
+        }).catch(error => {
+          if (error.status == 0) {
+            this.showErrorAlert("No se pudo conecta al servidor para eliminar al usuario.")
+          } else {
+            this.showErrorAlert(error.error);
+          }
+        })
+      }
+    });
+  }
+
+  private showSuccessAlert(title: string) {
+    let config: SweetAlertOptions = {
+      title,
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
+  }
+
+  private showErrorAlert(error: string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: false,
+      timer: 1800
+    };
+    Swal.fire(config);
   }
 }
