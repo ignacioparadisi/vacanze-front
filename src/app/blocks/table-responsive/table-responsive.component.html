@@ -116,14 +116,11 @@
               <ng-template #restaurantesElseBlock>
                 <tbody *ngIf="type === 'restaurantes'; else restaurantesReservaElseBlock">
                   <tr *ngFor="let restaurante of tableData">
-                    <td>{{ restaurante?.id }}</td>
                     <td>{{ restaurante?.name }}</td>
                     <td>{{ restaurante?.capacity }}</td>
                     <td>{{ restaurante?.qualify }}</td>
                     <td>{{ restaurante?.specialty }}</td>
                     <td>{{ restaurante?.price }} $</td>
-                    <td>{{ restaurante?.businessName }}</td>
-                    <td>{{ restaurante?.description }}</td>
                     <td>{{ restaurante?.phone }}</td>
                     <td>{{ restaurante?.address }}</td>
                     <td class="d-flex ml-3">
