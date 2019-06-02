@@ -11,32 +11,39 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Placa">
+                      <label style="color: black" for=""><strong>Matricula</strong></label>
+                    <input type="text" class="form-control" placeholder="matricula" formControlName="matricula">
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Marca">
+                      <label style="color: black" for=""><strong>Marca</strong></label>
+                    <input type="text" class="form-control" placeholder="Marca" formControlName="marca">
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Modelo">
+                      <label style="color: black" for=""><strong>Modelo</strong></label>
+                    <input type="text" class="form-control" placeholder="Modelo" formControlName="modelo">
                   </div>
+                  <label style="color: black" for=""><strong>Ciudad</strong></label>
                   <select class="form-control" formControlName="ciudad">
-                    <option value="-1" disabled> Ciudad nueva</option>
-                    
+                    <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                   </select>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Capacidad">
+                        <label style="color: black" for=""><strong>Capacidad</strong></label>
+                      <input type="number" class="form-control" placeholder="Capacidad" 
+                      formControlName="capacidad" min = "0">
                     </div>
                     <div class="form-group">
-                      <select class="form-control" formControlName="estado">
+                        <label style="color: black" for=""><strong>Estatus del auto</strong></label>
+                      <select class="form-control" formControlName="estatus">
                         <option value="-1" disabled> Estado del automovil</option>
                         <option value="0">Activo</option>
                         <option value="1">Suspendido</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Precio">
+                        <label style="color: black" for=""><strong>Precio</strong></label>
+                      <input type="number" class="form-control" placeholder="Precio" formControlName="precio" min = "0">
                     </div>
                   </div>
               </div>
@@ -62,13 +69,13 @@
               Buscar habitación
             </div>
             <div class="card-body roomcito">
-              <form [formGroup]="myForm" (ngSubmit)="buscador()">
+              <form [formGroup]="form" (ngSubmit)="buscador()">
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
                       <label style="color: black" for=""><strong>Ciudad</strong></label>
-                      <select class="form-control" formControlName="country"
-                      (ngModelChange)="getCities()"
+                      <select class="form-control" formControlName="ciudad"
+                      
                       >
                         <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                       </select>
@@ -77,22 +84,24 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label style="color: black" for=""><strong>Placa</strong></label>
-                      <input type="text" class="form-control" placeholder="placa de autos" >
+                      <label style="color: black" for=""><strong>Matricula</strong></label>
+                      <input type="text" class="form-control" placeholder="matricula de autos"
+                      formControlName="matricula" >
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
                       <label style="color: black" for=""><strong>cantidad de pasajeros</strong></label>
-                      <input type="text" class="form-control" placeholder="# de pasajeros">
+                      <input type="number" class="form-control" placeholder="# de pasajeros" min="0" >
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
                       <label style="color: black" for=""><strong>Estado del auto</strong></label>
-                      <select class="form-control" formControlName="Estado" >
-                        <option value="1" >Disponible</option>
-                        <option value="2" >No Disponible</option>
+                      <select class="form-control" formControlName="estatus" >
+                        <option value ="null" >  </option>
+                        <option value="true" >Disponible</option>
+                        <option value="false" >No Disponible</option>
                       </select> 
                     </div>
                   </div>
