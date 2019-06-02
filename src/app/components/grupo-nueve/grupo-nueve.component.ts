@@ -7,6 +7,7 @@ import { Baggage } from "../../classes/baggage";
 import { environment as url} from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-grupo-nueve',
@@ -36,7 +37,7 @@ export class GrupoNueveComponent implements OnInit {
   public titlePut : any;
   public descrPut : any;
 public role :any;
-  constructor(private modalService: NgbModal,
+  constructor(private modalService: NgbModal, private storage: LocalStorageService,
      private service: ApiService)
   {}
 
@@ -69,11 +70,13 @@ public role :any;
   }
 
   getRole(){
-    this.role=localStorage.getItem('rol');
-    if(this.role== 2){
+    this.storage.getItem('rol').subscribe(data => {
+      console.log('AJAAAAAAAAAAAA',data[0].name);
+      if (data[0].name== "Administrador" )
       this.pantallaAdmin(); 
-    }
-    else  this.pantallaCliente();
+      else this.pantallaCliente();
+    });
+  
   }
   getClaim(){
     this.service.getUrl(url.endpoint.default._get.getClaim,['0'])
