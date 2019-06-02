@@ -50,14 +50,14 @@ export class BuscarRestaurantComponent implements OnInit {
       && this.formGroup.get('cantidadPersonas').value != -1 && this.formGroup.get('fechaReserva').valid){
       
       var datosReserva ={
-        userID:1, //this.userId, //TODO, esta cableado esperando por grupo de login
+        userID:this.userId,
         timeStamp: this.formGroup.get('fechaReserva').value+' '+this.formGroup.get('horaReserva').value,
         cantPeople: this.formGroup.get('cantidadPersonas').value,
         ciudad:this.formGroup.get('ciudad').value
       }
       console.log(this.userId)
       this.localStorage.setItem('formReserva', datosReserva).subscribe(datosReserva =>{
-        //console.log('estoy en la vista 1')
+        
         console.log('Datos de la reserva',datosReserva)
         this.router.navigate(['restaurant-reservation/list-restaurant']);
       })
