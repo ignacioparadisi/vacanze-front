@@ -3,14 +3,17 @@
       "getHotel":"hotels",
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
+      "getClaimAdminStatus":"Claim/admin/{status}",
+      "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
       "getCountry": "locations/countries",
       "getCity":"locations/countries/{id}/cities",
       "cruisers": {
-        "get_cruisers": "cruiser"
+        "get_cruisers": "cruiser",
+        "get_layovers": "cruiser/{cruiserId}/layover"
       }
     },
     "_post": {
-      "postClaim":"Claim",
+      "postClaim":"Claim/{id}",
       "postHotel":"hotels",
       "postRestaurant": "restaurants",
       "cruisers": {
