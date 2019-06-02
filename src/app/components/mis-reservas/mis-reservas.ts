@@ -31,9 +31,7 @@ export class MisReservas implements OnInit {
       this.compararFechas = compararFechas;  
       this.myForm = this.fb.group({
           fechaOne: ['', [Validators.required]],
-            fechaTwo: ['', [Validators.required]],
-            fechaOneHotel: ['', [Validators.required]],
-            fechaTwoHotel: ['', [Validators.required]]
+            fechaTwo: ['', [Validators.required]]
         });
     }
 
@@ -86,9 +84,10 @@ export class MisReservas implements OnInit {
     ***********************************************************************/
   getAutomobileReservations(){
     console.log("Estoy en getAutomobileReservations");
-    var user_id = localStorage.getItem('id');
+    var user_id = indexedDB;
+    console.log("getAutomobileReservations: user_id="+user_id);
   //  const requestURL = "reservationautomobiles/?user="+user_id; 
-    const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
+    const requestURL = "reservationautomobiles/?user="+user_id; //Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
         response => {
           console.log(response);
@@ -103,8 +102,9 @@ export class MisReservas implements OnInit {
 getRoomReservations(){
   console.log("Estoy en getRoomReservations");
   var user_id = localStorage.getItem('id');
+  console.log("getRoomReservations: user_id="+user_id);
  // const requestURL = "reservationrooms/?user="+user_id;
- const requestURL = "reservationrooms/?user="+1;
+ const requestURL = "reservationrooms/?user="+user_id;
   this.apiService.getUrl(requestURL).then(
       response => {
         console.log(response);
@@ -157,8 +157,8 @@ public updateAutomobileReservation(car:object,id:number) {
         console.log("check:"+reservation.checkIn);
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
         console.log("check:"+reservation.checkOut);
-     //   reservation.fk_user_id = fk_user; // esto cuando se solucione el put
-        reservation.fk_user = 1;
+        reservation.fk_user_id = fk_user;
+      //  reservation.fk_user = 1;
        reservation.automobile = car;
        reservation.user="";
        reservation.id=id;
@@ -191,20 +191,20 @@ public updateRoomReservation(hotel:object,id:number) {
    //     console.log(fechas);
         var fk_user = localStorage.getItem('id');
         console.log("Usuario en ReservarAutomovil:"+fk_user);
-        reservation.checkIn = moment(reservation.fechaOneHotel).format('MM-DD-YYYY HH:mm:ss');
+        reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         console.log("check:"+reservation.checkIn);
-        reservation.checkOut = moment(reservation.fechaTwoHotel).format('MM-DD-YYYY HH:mm:ss');
+        reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
         console.log("check:"+reservation.checkOut);
-     //   reservation.fk_user_id = fk_user; // esto cuando se solucione el put
-        reservation.fk_user = 1;
+     reservation.fk_user_id = fk_user;
+      //  reservation.fk_user = 1;
        reservation.hotel = hotel;
        reservation.user="";
        reservation.id=id;
-       const fechas = this.compararFechas(new Date(reservation.fechaOneHotel), new Date(reservation.fechaTwoHotel));
+       const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
         console.log(fechas);
       delete reservation.city;
-      delete reservation.fechaOneHotel;
-      delete reservation.fechaTwoHotel;
+      delete reservation.fechaOne;
+      delete reservation.fechaTwo;
       delete reservation.country;
         console.log(reservation);
         if(fechas===1)
@@ -292,6 +292,25 @@ private getDismissReason(reason: any): string {
   } else {
       return `with: ${reason}`;
   }
+}
+
+initializaDate(){
+  var today = new Date();
+  var dd = today.getDate()+1;
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+  var de = '' +dd
+  var me = '' +mm
+   if(dd<10){
+          de='0'+dd
+      } 
+      if(mm<10){
+         var me='0'+mm
+      } 
+  
+ var todaye = yyyy+'-'+me+'-'+de;
+  document.getElementById("datefieldAlq").setAttribute("min", todaye);
+  document.getElementById("datefieldDev").setAttribute("min", todaye);
 }
 
 

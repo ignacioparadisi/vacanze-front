@@ -116,7 +116,7 @@ export class AutomovilGrupoTrece implements OnInit {
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
         reservation.fk_user_id = fk_user; // esto cuando se solucione el put
-        reservation.fk_user = 1;
+      //  reservation.fk_user = 1;
        reservation.automobile = car;
        reservation.user="";
        reservation.id=0;
