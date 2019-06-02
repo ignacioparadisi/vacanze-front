@@ -8,11 +8,13 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingComponent } from './landing/landing.component';
+import {RegisterUserModule} from "../users/register-user/register-user.module";
 
 @NgModule({
   declarations: [GrupoUnoComponent, LoginComponent, LandingComponent],
   imports: [
     CommonModule,
+    RegisterUserModule,
     GrupoUnoRoutingModule,
     HttpClientModule,
     SweetAlert2Module.forRoot(),

@@ -7,16 +7,19 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="modal-body table-responsive">
     <!-- Role Field -->
-    <label>Roles</label><br />
-    <div class="btn-group btn-group-toggle">
-      <label *ngFor="let role of roles" class="btn-outline-info" ngbButtonLabel>
-        <input type="checkbox" [formControlName]="'role' + role.id" ngbButton (change)="checkboxValueChanged(role.id)">
-        {{ role.name }}
-      </label>
+    <div *ngIf="!isClient">
+      <label>Roles</label><br />
+      <div class="btn-group btn-group-toggle">
+        <label *ngFor="let role of roles" class="btn-outline-info" ngbButtonLabel>
+          <input type="checkbox" [formControlName]="'role' + role.id" ngbButton (change)="checkboxValueChanged(role.id)">
+          {{ role.name }}
+        </label>
+      </div>
+      <div *ngIf="submitted && !isRoleSelected()" class="role-required">
+        Se debe seleccionar un rol
+      </div>
     </div>
-    <div *ngIf="submitted && !isRoleSelected()" class="role-required">
-      Se debe seleccionar un rol
-    </div>
+
 
     <div class="row">
       <!-- Document ID Field -->

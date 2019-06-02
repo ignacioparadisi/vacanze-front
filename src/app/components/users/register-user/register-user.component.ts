@@ -65,6 +65,13 @@ export class RegisterUserComponent implements OnInit {
       lastname: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email])
     });
+
+    if (this.isClient) {
+      this.formGroup.addControl('password',
+        new FormControl(null, [Validators.required, Validators.minLength(8)]));
+      this.formGroup.addControl('confirmPassword',
+        new FormControl(null, [Validators.required, Validators.minLength(8)]))
+    }
   }
 
   private addRolesToFormGroup() {
@@ -92,7 +99,7 @@ export class RegisterUserComponent implements OnInit {
   public onSubmit() {
     this.submitted = true;
     this.state = 'loading';
-
+    console.log("OnSubmit");
     if (this.formGroup.invalid) {
       this.state = 'error';
       return;
@@ -136,14 +143,20 @@ export class RegisterUserComponent implements OnInit {
     const name = this.formGroup.get('name').value;
     const lastname = this.formGroup.get('lastname').value;
     const email = this.formGroup.get('email').value;
-    const password = "";
+    var password = "";
+    const roles: Role[] = []
 
-    const roles: Role[] = [];
-    this.roles.forEach(role => {
-      if (this.formGroup.get('role' + role.id).value) {
-        roles.push(role);
-      }
-    })
+    if (this.isClient) {
+      password = this.formGroup.get('password').value;
+      roles.push(new Role(Roles.CLIENT, 'Cliente'));
+    } else {
+      this.roles.forEach(role => {
+        if (this.formGroup.get('role' + role.id).value) {
+          roles.push(role);
+        }
+      });
+    }
+
 
     const user = new User(id, documentId, name, lastname, email, password, roles);
     return user;

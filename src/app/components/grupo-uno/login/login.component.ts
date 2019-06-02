@@ -4,6 +4,9 @@ import { ApiService } from '../../../services/api.service';
 import { Router, RouterOutlet } from '@angular/router';
 import { LayoutComponent } from '../../../layout/layout.component';
 import { GrupoUnoComponent } from '../grupo-uno.component';
+import {User} from "../../../classes/user";
+import {RegisterUserComponent} from "../../users/register-user/register-user.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 
 
@@ -32,7 +35,7 @@ export class LoginComponent implements OnInit {
     Email: '',
     Password: ''
   }
-  constructor(private service: ApiService, private father: LayoutComponent, private router: Router, private landing: GrupoUnoComponent) {
+  constructor(private service: ApiService, private father: LayoutComponent, private router: Router, private landing: GrupoUnoComponent, private modalService: NgbModal) {
 
 
   }
@@ -97,5 +100,10 @@ export class LoginComponent implements OnInit {
         this.isShowPmodal = false;
       }
     );
+  }
+
+  openAddUserModal(user?: User) {
+    const modalRef = this.modalService.open(RegisterUserComponent, { centered: true });
+    modalRef.componentInstance.isClient = true;
   }
 }
