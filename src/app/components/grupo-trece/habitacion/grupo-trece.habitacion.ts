@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { compararFechas } from '../../../utils/global_functions';
+import { LocalStorageService } from '../../../services/local-storage.service';
 import * as moment from 'moment';
 
 @Component({
@@ -19,10 +20,12 @@ export class HabitacionGrupoTrece implements OnInit {
     public cities = [];
     public hotels = [];
     public closeResult: string;
+    private userId:number;
+    private isDataLoaded: boolean = false
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
-    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
+    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService,private localStorage: LocalStorageService) {
         this.compararFechas = compararFechas;
         this.myForm = this.fb.group({
             country: ['', [Validators.required]],
@@ -33,8 +36,18 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     ngOnInit() {
+        this.getLocalStorage();
         this.initializaDate();
         this.getCountries();
+    }
+
+    public getLocalStorage(){
+        this.localStorage.getItem('id').subscribe(storedId =>{
+          if(storedId){
+            this.isDataLoaded = true
+            this.userId = storedId
+          }
+        })
     }
 
     getHabitacion(id: number) {
@@ -111,7 +124,7 @@ export class HabitacionGrupoTrece implements OnInit {
 
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
             reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-            var fk_user = localStorage.getItem('id');
+            var fk_user = this.userId;
             console.log("fk_user="+fk_user);
            reservation.fk_user = fk_user
            reservation.hotel = hotel;
