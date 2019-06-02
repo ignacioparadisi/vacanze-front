@@ -126,7 +126,8 @@ export class GrupoNueveComponent implements OnInit {
     .then(response => {console.log(response); 
                        this.claimCreatedSuccessfully(); 
                        this.getClaim()})
-    .catch(data =>{console.log(data)});
+    .catch(data =>{console.log(data.error); 
+                   this.claimCreatedFailed(data.error)});
   }
 
   private claimCreatedSuccessfully() {
@@ -135,6 +136,15 @@ export class GrupoNueveComponent implements OnInit {
       type: 'success',
       showConfirmButton: true,
       timer: 2500
+    }
+    Swal.fire(config);
+  }
+
+  private claimCreatedFailed(error : string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: true
     }
     Swal.fire(config);
   }
@@ -225,8 +235,7 @@ export class GrupoNueveComponent implements OnInit {
     let config: SweetAlertOptions = {
       title: error,
       type: 'error',
-      showConfirmButton: true,
-      timer: 2500
+      showConfirmButton: true
     }
     Swal.fire(config);
   }
