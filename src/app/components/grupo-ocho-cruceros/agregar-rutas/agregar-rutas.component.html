@@ -1,3 +1,83 @@
-<p>
-  agregar-rutas works!
-</p>
+<div class="card-header">
+  <i class="fa fa-road"></i>&nbsp;
+  <span>Agregar ruta a |<b> {{ boat?.name }}</b></span>
+</div>
+<div class="card-body">
+  <form [formGroup]="routingForm" (ngSubmit) = "onSubmit()">
+    <div class="row">
+ 
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+       <div class="form-group">
+         <label>Fecha de salida</label>
+         <input [ngClass]="{
+           'is-invalid': departureDate.invalid && departureDate.touched,
+           'is-valid': departureDate.valid
+         }"
+         [class.is-invalid]="departureDate.invalid && departureDate.touched" formControlName="departureDate" type="date" class="form-control" >
+         <div *ngIf="departureDate.invalid && departureDate.touched">
+           <small *ngIf="departureDate.errors?.required" class ="text-danger"> La fecha de salida es requerida. </small>
+         </div>
+       </div>
+     </div>
+ 
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+       <div class="form-group">
+         <label>Fecha de llegada</label>
+         <input [ngClass]="{
+           'is-invalid': arrivalDate.invalid && arrivalDate.touched,
+           'is-valid': arrivalDate.valid
+         }"
+         [class.is-invalid]="arrivalDate.invalid && arrivalDate.touched" formControlName="arrivalDate" type="date" class="form-control" >
+         <div *ngIf="arrivalDate.invalid && arrivalDate.touched">
+           <small *ngIf="arrivalDate.errors?.required" class ="text-danger"> La fecha de llegada es requerida. </small>
+         </div>
+       </div>
+     </div>
+ 
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+       <div class="form-group">
+        <label>Precio</label>
+        <input [ngClass]="{
+          'is-invalid': price.invalid && price.touched,
+          'is-valid': price.valid
+        }"
+        formControlName="price" type="number" class="form-control" min="1">
+        <div *ngIf="price.invalid && price.touched">
+          <small *ngIf="price.errors?.required" class ="text-danger">El precio es requerido. </small>
+        </div>
+      </div>
+     </div>
+ 
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+       <div class="form-group">
+         <label>Seleccione su ubicación de salida: </label>
+         <select type="text" class="form-control" formControlName="locDeparture">
+           <option *ngFor="let country of countries" value={{country.id}} >
+               {{country.country}}
+           </option>
+         </select>
+       </div>
+     </div>
+ 
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+       <div class="form-group">
+         <label>Seleccione su ubicación de llegada:</label>
+         <select type="text" class="form-control" formControlName="locArrival">
+           <option *ngFor="let country of countries" value={{country.id}}>
+               {{country.country}}
+           </option>
+       </select>
+       </div>
+     </div>
+ 
+      <!-- TODO - LOCATION -->
+ 
+    </div>
+ 
+    <div class="grupo-botones">
+      <button [disabled]="!routingForm.valid" class="btn btn-outline-info" type="submit" >Agregar ruta</button>&nbsp;
+      <button class="btn btn-outline-danger" (click)="goToCruisers()" type="button">Cancelar</button>
+    </div>
+ 
+  </form>
+</div>

@@ -101,12 +101,7 @@ public registrationForm: FormGroup = new FormGroup({
             this.countries = response;
     }, error => console.error(error));
   }
-
-  public selectCountry(event) {
-    console.log(event.target.value);
-    this.getCity(event.target.value);
-  }
-
+  
   get name(){
     return this.registrationForm.get('name');
   }
@@ -213,5 +208,10 @@ public registrationForm: FormGroup = new FormGroup({
        this.goToViewRestaurants();
      });
    }
+
+   public selectCountry(event) {
+    console.log(event.target.value);
+    this.getCity(event.target.value);
+  }
 
 }
