@@ -104,6 +104,7 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
               // no hay excepcion pero el status no es 200
               this.deleteRestaurantById(response[id.toString()]);
               this.alertStatus(200, true);
+              this.loadRestaurants();
         }).catch( error => {
               this.alertStatus(500, true);
               console.log('Error en el delete del restaurante', error);
