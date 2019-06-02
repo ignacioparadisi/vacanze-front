@@ -19,9 +19,16 @@
       "addPayment":"payment"
     },
     "_put": {
-      "putClaimStatus":"Claim/{id}"
+        "putClaimStatus":"Claim/{id}",
+        "putHotel":"hotels/{id}",
+        "putRestaurant":"restaurants"
     },
     "_delete": {
-      "deleteClaim":"Claim/{id}"
+      "deleteClaim":"Claim/{id}",
+      "deleteHotel":"hotels/{id}",
+      "deleteRestaurant":"restaurants/{id}",
+      "cruisers": {
+        "delete_cruiser": "cruiser/{id}"
+      }
     }
 }

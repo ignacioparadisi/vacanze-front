@@ -5,6 +5,18 @@
                 Agregar rutas y formalizar vuelos
             </div>
             <div class="card-body">
+                <ngb-alert type="success" *ngIf="messageSuccess">
+                    <strong>Exito! </strong> {{mensaje?.message}}
+                </ngb-alert>
+                <ngb-alert type="danger" *ngIf="errores">
+                    <p><strong>¡ERROR! </strong>No se pudo crear el registro debido a distintos problemas, recuerde lo siguiente: </p>
+                    <ul *ngIf="(fechas != 1 || ciudades != 1) && visible">
+                        <li>Todos los campos son obligatorios</li>
+                        <li>La fecha y hora de llegada al destino debe ser mayor que la fecha de salida del origen.</li>
+                        <li>La ciudad de destino no puede ser igual a la ciudad de salida.</li>
+                    </ul>
+                    <p *ngIf="messageDanger">{{mensaje?.message}}</p>
+                </ngb-alert>
                 
                 <form [formGroup]="form" (submit)="submit()">
                     <div>
@@ -22,15 +34,17 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Lugar de origen</label>
-                                            <select class="form-control" formControlName="locDeparture"
-                                              [ngClass]="{'is-invalid': invalid('locDeparture', form), 'is-valid': valid('locDeparture', form)}">
-                                                <option *ngFor="let country of countries let i = index;" [value]="country.id">{{country.country}}, {{country.city}}</option>
+                                            <label for="">País de origen</label>
+                                            <select class="form-control" (ngModelChange)="getCitiesDeparture()"
+                                              formControlName="countryDeparture"
+                                              [ngClass]="{'is-invalid': invalid('countryDeparture', form), 'is-valid':
+                                              valid('countryDeparture', form)}">
+                                                <option *ngFor="let country of countries let i = index;" [value]="country.id">{{country.country}}</option>
                                             </select>
-                                            <div *ngIf="invalid('locDeparture', form)" class="invalid-feedback">
+                                            <div *ngIf="invalid('countryDeparture', form)" class="invalid-feedback">
                                                 Por favor seleccione un país
                                             </div>
-                                            <div *ngIf="valid('locDeparture', form)"
+                                            <div *ngIf="valid('countryDeparture', form)"
                                               class="valid-feedback">
                                                 ¡Excelente!
                                             </div>
@@ -38,25 +52,52 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            
+                                          <label for="">Ciudad de origen </label>
+                                          <select class="form-control" 
+                                            formControlName="locDeparture"
+                                            [ngClass]="{'is-invalid': invalid('locDeparture', form), 'is-valid': valid('locDeparture', form)}">
+                                            <option *ngFor="let city of citiesDeparture let i = index;"
+                                              [value]="city.id">{{city.city}}</option>
+                                          </select>
+                                          <div *ngIf="invalid('locDeparture', form)" class="invalid-feedback">
+                                            Por favor seleccione una ciudad
+                                          </div>
+                                          <div *ngIf="valid('locDeparture', form)" class="valid-feedback">
+                                            ¡Excelente!
+                                          </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">País de legada</label>
-                                            <select class="form-control" formControlName="locArrival" [ngClass]="{'is-invalid': invalid('locArrival', form), 'is-valid': valid('locArrival', form)}">
-                                                <option *ngFor="let country of countries let i = index;" [value]="country.id">{{country.country}}, {{country.city}}</option>
+                                            <label for="">País de llegada</label>
+                                            <select class="form-control" formControlName="countryArrival"
+                                              (ngModelChange)="getCitiesArrival()"
+                                              [ngClass]="{'is-invalid': invalid('countryArrival', form), 'is-valid':
+                                              valid('countryArrival', form)}">
+                                                <option *ngFor="let country of countries let i = index;" [value]="country.id">{{country.country}}</option>
                                             </select>
-                                            <div *ngIf="invalid('locArrival', form)" class="invalid-feedback">
+                                            <div *ngIf="invalid('countryArrival', form)" class="invalid-feedback">
                                                 Por favor seleccione un país
                                             </div>
-                                            <div *ngIf="valid('locArrival', form)" class="valid-feedback">
+                                            <div *ngIf="valid('countryArrival', form)" class="valid-feedback">
                                                 ¡Excelente!
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
+                                          <label for="">Ciudad de llegada</label>
+                                          <select class="form-control" formControlName="locArrival"
+                                            [ngClass]="{'is-invalid': invalid('locArrival', form), 'is-valid': valid('locArrival', form)}">
+                                            <option *ngFor="let city of citiesArrival let i = index;"
+                                              [value]="city.id">{{city.city}}</option>
+                                          </select>
+                                          <div *ngIf="invalid('locArrival', form)" class="invalid-feedback">
+                                            Por favor seleccione una ciudad
+                                          </div>
+                                          <div *ngIf="valid('locArrival', form)" class="valid-feedback">
+                                            ¡Excelente!
+                                          </div>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +140,7 @@
                                                 [ngClass]="{'is-invalid': invalid('plane', form), 'is-valid': valid('plane', form)}">
                                                 <option *ngFor="let airplane of airplanes let i = index;"
                                                 [value]="airplane.id">
-                                                {{airplane.model}}</option>
+                                                Modelo: {{airplane?.model}} - Autonomía: {{airplane?.autonomy}}</option>
                                             </select>
                                             <div *ngIf="invalid('plane', form)" class="invalid-feedback">
                                                 Por favor seleccione un avión
