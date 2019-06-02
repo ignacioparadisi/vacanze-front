@@ -1,23 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTabChangeEvent, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../../services/api.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-detail-travel',
   templateUrl: './detail-travel.component.html',
-  styleUrls: ['./detail-travel.component.scss']
+  styleUrls: ['./detail-travel.component.scss'],
+  providers: [NgbModal, ApiService]
 })
 export class DetailTravelComponent implements OnInit {
 
   private travel = JSON.parse(localStorage.getItem("travel"));
-  private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");;
+  private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");
+  activeModal: NgbModalRef;
+  commentForm: FormGroup;
   restReservations: Array<object>
   autoReservations: Array<object>
   hoteReservations: Array<object>
   fligReservations: Array<object>
   activeId: string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private modalService: NgbModal, private apiService: ApiService) { }
 
   ngOnInit() {
     this.getFligReservations();
@@ -215,5 +220,40 @@ export class DetailTravelComponent implements OnInit {
 
   goDiary() {
     this.router.navigate(['travel', this.travel.id, 'city', this.cityId, 'diary'])
+  }
+
+  open(content, id: number) {
+    this.activeModal = this.modalService.open(content);
+    this.commentForm = new FormGroup({
+      travelId: new FormControl(this.travel.id),
+      reservationId: new FormControl(id),
+      comment: new FormControl('', Validators.required)
+    })
+  }
+
+  closeModal() {
+    this.activeModal.close();
+  }
+
+  addComment() {
+    console.log(this.commentForm.value)
+    /*this.apiService.postUrl('travels/{travelId}/locations', this.selectedCities, [String(this.travel.id)]).then(
+      (resp) => {
+        this.closeModal();
+        Swal.fire({
+          title: '!Éxito¡',
+          text: 'Las ciudades se añadieron satisfactoriamente.',
+          type: 'success'
+        });
+        this.spread.emit();
+      },
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );*/
   }
 }

@@ -1,5 +1,24 @@
-<div class="container">
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Añadir comentario</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="commentForm">
+      <div class="row">
+        <div class="form-group col">
+          <textarea class="form-control" placeholder="Comentario" formControlName="comment" cols="15" rows="10"
+            maxlength="200"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button"[disabled]="!commentForm.valid" class="btn btn-success" (click)="addComment()">Añadir</button>
+  </div>
+</ng-template>
 
+<div class="container">
   <div class="d-flex flex-row-reverse">
     <button type="button" class="btn btn-secondary m-1" (click)="goBack()">Regresar</button>
     <button type="button" class="btn btn-info m-1" (click)="goDiary()">Ver diario</button>
@@ -7,7 +26,8 @@
   <ngb-tabset justify="justified" #tabs [activeId]="selectedTab" (tabChange)="onTabChange($event)">
     <ngb-tab title="Vuelos" id="flight">
       <ng-template ngbTabContent>
-        <div class="card mt-3" *ngFor="let fligReservation of fligReservations" style="max-width: 55rem;">
+        <div class="card mt-3" *ngFor="let fligReservation of fligReservations" style="max-width: 55rem;"
+          (click)="open(content, fligReservation.id)">
           <div class="card-title mt-3 mb-n2">
             <h5 style="text-align: center">
               {{fligReservation.flight.loc_departure.country}} - {{fligReservation.flight.loc_departure.city}}
@@ -33,7 +53,8 @@
     </ngb-tab>
     <ngb-tab title="Hoteles" id="hotel">
       <ng-template ngbTabContent>
-        <div class="card mt-3" *ngFor="let hoteReservation of hoteReservations" style="max-width: 55rem;">
+        <div class="card mt-3" *ngFor="let hoteReservation of hoteReservations" style="max-width: 55rem;"
+          (click)="open(content, hoteReservation.id)">
           <div class="card-title mt-3 mb-n2">
             <h5 style="text-align: center">{{hoteReservation.hotel.name}}</h5>
           </div>
@@ -59,7 +80,8 @@
     </ngb-tab>
     <ngb-tab title="Vehículos" id="vehicle">
       <ng-template ngbTabContent>
-        <div class="card mt-3" *ngFor="let autoReservation of autoReservations" style=" max-width: 55rem;">
+        <div class="card mt-3" *ngFor="let autoReservation of autoReservations" style=" max-width: 55rem;"
+          (click)="open(content, autoReservation.id)">
           <div class="card-title mt-3 mb-n2">
             <h5 style="text-align: center">{{autoReservation.auto.make}} - {{autoReservation.auto.model}}</h5>
           </div>
@@ -81,7 +103,8 @@
     </ngb-tab>
     <ngb-tab title="Restaurantes" id="restaurant">
       <ng-template ngbTabContent>
-        <div class="card mt-3" *ngFor="let restReservation of restReservations" style="max-width: 55rem;">
+        <div class="card mt-3" *ngFor="let restReservation of restReservations" style="max-width: 55rem;"
+          (click)="open(content, restReservation.id)">
           <div class="card-title mt-3 mb-n2">
             <h5 style="text-align: center">{{restReservation.restaurant.businessname}}</h5>
           </div>
