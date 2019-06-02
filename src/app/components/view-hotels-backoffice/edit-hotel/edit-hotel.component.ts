@@ -24,6 +24,8 @@ export class EditHotelComponent implements OnInit {
   public registrationForm: FormGroup;
   public transformImageToBase64;
   public isDataLoaded: boolean;
+  public countries: any[];
+  public cities: any[];
 
 
   constructor(private _location: Location,
@@ -31,6 +33,8 @@ export class EditHotelComponent implements OnInit {
               private localStorage: LocalStorageService){
                 this.isDataLoaded = false;
                 this.transformImageToBase64 = transformImageToBase64;
+                this.urlImage = null;
+                this.getCountry();
               }
 
 
@@ -88,6 +92,10 @@ export class EditHotelComponent implements OnInit {
           ]),
           image: new FormControl(this.urlImage, [
             Validators.required
+          ]),
+          country: new FormControl(null, [
+          ]),
+          city: new FormControl(null, [
           ])
         });
       }
@@ -134,6 +142,27 @@ export class EditHotelComponent implements OnInit {
     }
 
 
+    public getCountry() {
+      this.service
+          .getUrl(url.endpoint.default._get.getCountry)
+          .then(response => {
+              console.log(response),
+              this.countries = response
+      }, error => console.error(error));
+    }
+
+    public getCity(id: number) {
+      this.service
+          .getUrl(url.endpoint.default._get.getCity, [id.toString()])
+          .then(response => {
+              this.cities = response;
+      }, error => console.error(error));
+    }
+
+    public selectCountry(event) {
+      this.getCity(event.target.value);
+    }
+
     public goToViewHotels(){
       this._location.back();
     }
@@ -158,17 +187,13 @@ export class EditHotelComponent implements OnInit {
           picture: this.urlImage,
           stars: this.registrationForm.get('stars').value,
           location: {
-            "id" : 1
-          } // TODO -> id de location
+            "id" : this.registrationForm.get('city').value
+          }
         }, [idHotel.toString()])
       .then(
         response => {
-          //IF LA RESPUESTA ES EXITOSA
-              this.hotelCreatedSuccessfully();
-          //SI NO MOSTRAR MENSAJE DE ERROR
-              //this.hotelNotCreatedSuccessfully();
-          //TODO -> VALIDAR LA RESPUESTA
-          console.log(response);
+          this.hotelCreatedSuccessfully(),
+          console.log(response)
         }).catch(
           error => {
             console.log("Hay un error");

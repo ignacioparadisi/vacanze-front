@@ -3,6 +3,8 @@
       "getHotel":"hotels",
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
+      "getCountry": "locations/countries",
+      "getCity":"locations/countries/{id}/cities",
       "cruisers": {
         "get_cruisers": "cruiser"
       }
