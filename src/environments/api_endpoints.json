@@ -20,7 +20,8 @@
       "postRestaurant": "restaurants",
       "cruisers": {
         "post_cruiser": "cruiser"
-      }
+      },
+      "postResRestaurant": "ResRestaurant"
     },
     "_put": {
         "putClaimStatus":"Claim/{id}",
