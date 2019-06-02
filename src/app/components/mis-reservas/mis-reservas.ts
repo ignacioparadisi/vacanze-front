@@ -104,7 +104,7 @@ export class MisReservas implements OnInit {
     var user_id = this.userId;
     console.log("getAutomobileReservations: user_id="+user_id);
   //  const requestURL = "reservationautomobiles/?user="+user_id; 
-    const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
+    const requestURL = "reservationautomobiles/?user="+this.userId; //Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
         response => {
           console.log(response);
