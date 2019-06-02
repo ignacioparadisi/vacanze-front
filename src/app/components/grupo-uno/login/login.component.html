@@ -32,7 +32,7 @@
 
 
       </form>
-      <p>Do you have not account? <a href="" *ngIf="isPushed">Join Us!!</a></p>
+      <p>Do you have not account? <a (click)="openAddUserModal()" *ngIf="isPushed">Join Us!!</a></p>
       <footer class="page-copyright" *ngIf="isPushed">
         <p> Universidad Catolica Andres bello</p>
         <p>© 2019. Todos los derechos reservados.</p>

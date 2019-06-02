@@ -1,11 +1,13 @@
 export class Baggage {
     id: number;
-    pasaporte: string;
+    status: string;
     description: string;
-  
-    constructor(id: number, pasaporte: string, description: string) {
+    pasaporte: string;
+
+    constructor(id: number, status: string, description: string, pasaporte: string,) {
       this.id = id;
-      this.pasaporte = pasaporte;
+      this.status = status;
       this.description = description;
+      this.pasaporte = pasaporte;
     }
-  }
+  } 

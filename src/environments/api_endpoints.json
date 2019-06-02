@@ -3,17 +3,25 @@
       "getHotel":"hotels",
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
+      "getClaimAdminStatus":"Claim/admin/{status}",
+      "getBaggageClientSerial":"Baggage/{id}",
+      "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
+      "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
+      "getCountry": "locations/countries",
+      "getCity":"locations/countries/{id}/cities",
       "cruisers": {
-        "get_cruisers": "cruiser"
+        "get_cruisers": "cruiser",
+        "get_layovers": "cruiser/{cruiserId}/layover"
       }
     },
     "_post": {
-      "postClaim":"Claim",
+      "postClaim":"Claim/{id}",
       "postHotel":"hotels",
       "postRestaurant": "restaurants",
       "cruisers": {
         "post_cruiser": "cruiser"
-      }
+      },
+      "postResRestaurant": "ResRestaurant"
     },
     "_put": {
         "putClaimStatus":"Claim/{id}",

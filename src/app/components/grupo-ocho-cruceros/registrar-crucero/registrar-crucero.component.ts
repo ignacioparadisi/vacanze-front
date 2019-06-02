@@ -36,7 +36,7 @@ export class RegistrarCruceroComponent implements OnInit {
       if(data){
         this.cruiser = data;
         this.createNewFormGroup(data);
-        this.title = 'Editar crucero | '+data['name'];
+        this.title = 'Editar crucero | '+this.cruiser['name'];
         this.formReady = true;
         this.isButtonToAdd = false;
         this.buttonText = 'Editar';
@@ -168,7 +168,7 @@ export class RegistrarCruceroComponent implements OnInit {
         this.urlImage = null; // Reseteo el valor de la imagen que transforme a base 64
       })  
       .catch(error => {
-        console.log("error", error);
+        console.log("error", error.error);
       })
     }
     else {

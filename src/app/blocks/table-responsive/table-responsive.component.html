@@ -2,8 +2,9 @@
   <div class="card mb-3">
       <div class="card-header">
         <i class="fa fa-fw fa-ship" *ngIf="type === 'cruceros'"></i>&nbsp;
-        <i class="fa fa-bed" *ngIf="type === 'hotel'"></i>&nbsp;
-        <i class="fa fa-fw fa-cutlery" *ngIf="type === 'restaurantes'"></i>&nbsp;
+        <i class="fa fa-bed" *ngIf="type === 'hotel'"></i>
+        <i class="fa fa-fw fa-cutlery" *ngIf="type === 'restaurantes'"></i>
+        <i class="fa fa-binoculars" *ngIf="type === 'rutas'"></i>&nbsp;
         <span>{{ headerTitle }}</span>
       </div>
       <div class="card-body table-responsive">
@@ -33,20 +34,12 @@
                     >
                   </td>
                   <td>
-                    <button
-                      class="btn btn-outline-success"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Agregar {{type}}"
-                      (click)="goToAddCruiser()"
-                    >
-                      <i class="fa fa-plus"></i>
-                    </button>&nbsp;
+                    
                     <button
                       class="btn btn-outline-info"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Editar {{type}}"
+                      title="Editar crucero"
                       (click)="goToEditCruiser(boat)"
                     >
                       <i class="fa fa-edit"></i>
@@ -56,18 +49,27 @@
                       (click)="openModalActions($event, boat, 'crucero', true)"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Eliminar {{type}}"
+                      title="Eliminar crucero"
                     >
                       <i class="fa fa-trash"></i>
-                    </button>&nbsp; 
+                    </button>&nbsp;
                     <button
-                      class="btn btn-outline-info"
-                      (click)="goToEdit(type)"
+                      class="btn btn-outline-success"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Ver rutas"
+                      title="Agregar ruta a {{ boat?.name }}"
+                      (click)="goToAddNewRoute(boat)"
                     >
-                      <i class="fa fa-road"></i>
+                      <i class="fa fa-plus"></i>
+                    </button>&nbsp;
+                    <button
+                      class="btn btn-outline-info"
+                      (click)="goToEditRoute(boat)"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Ver rutas de {{boat?.name}}"
+                    >
+                      <i class="fa fa-binoculars"></i>
                     </button>
                   </td>
                 </tr>
@@ -101,12 +103,12 @@
                     </button>&nbsp;&nbsp;
                     <button
                       class="btn btn-outline-info"
-                      (click)="goToEdit(type)"
+                      (click)="goToEditHotel(hotel)"
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Editar {{type}}">
                       <i class="fa fa-edit"></i>
-                    </button>                    
+                    </button>
                     </td>
                   </tr>
                 </tbody>
@@ -114,14 +116,11 @@
               <ng-template #restaurantesElseBlock>
                 <tbody *ngIf="type === 'restaurantes'; else restaurantesReservaElseBlock">
                   <tr *ngFor="let restaurante of tableData">
-                    <td>{{ restaurante?.id }}</td>
                     <td>{{ restaurante?.name }}</td>
                     <td>{{ restaurante?.capacity }}</td>
                     <td>{{ restaurante?.qualify }}</td>
                     <td>{{ restaurante?.specialty }}</td>
                     <td>{{ restaurante?.price }} $</td>
-                    <td>{{ restaurante?.businessName }}</td>
-                    <td>{{ restaurante?.description }}</td>
                     <td>{{ restaurante?.phone }}</td>
                     <td>{{ restaurante?.address }}</td>
                     <td class="d-flex ml-3">
@@ -159,38 +158,10 @@
                   </tr>
                 </tbody>
               </ng-template>
-
-              <!--Tabla de reserva de restaurant-->
-              <ng-template #restaurantesReservaElseBlock>
-                  <tbody *ngIf="type === 'rest-reserva'">
-                    <tr *ngFor="let reserva of tableData">
-                      <td>{{ reserva?.imagen }}</td>
-                      <td>{{ reserva?.nombre }}</td>
-                      <td>{{ reserva?.direccion }}</td>
-                      <td>{{ reserva?.capacidad }}</td>
-                      <td>{{ reserva?.especialidad }}</td>
-                      <td>{{ reserva?.precio }} $</td>
-                      <td>{{ reserva?.descripcion }}</td>
-                      <td>{{ reserva?.telefono }}</td>
-                      <td>
-                          <button 
-                            class="btn btn-outline-dark"
-                            style="cursor: pointer;" 
-                            (click)="openModalActions($event, reservar-restaurante, 'reservar', true)" 
-                            data-toggle="tooltip" 
-                            data-placement="top" 
-                            title="Reservar {{type}}"
-                          >
-                            <i class="fa fa-cart-plus"></i>
-                          </button>&nbsp;&nbsp;
-                        </td>
-                    </tr>
-                  </tbody>
-                </ng-template>
           </table>
       </div>
   </div>
-  <div class="d-flex justify-content-end w-100" *ngIf="type !== 'cruceros'">
+  <div class="d-flex justify-content-end w-100">
     <div class="kreep">
       <button (click)="gotoAdd(type)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
         <i class="fa fa-plus"></i>
