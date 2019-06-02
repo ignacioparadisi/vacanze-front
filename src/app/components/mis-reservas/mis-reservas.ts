@@ -6,6 +6,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../utils/global_functions';
 import * as moment from 'moment';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import { LocalStorageService } from '../../services/local-storage.service';
 import { Timestamp } from 'rxjs';
 
 @Component({
@@ -24,21 +25,37 @@ export class MisReservas implements OnInit {
     public totalcost : number = null;
     public roomreservation = [];
     public carreservation = [];
+    private userId:number;
+    private isDataLoaded: boolean = false
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
-    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
+    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService,private localStorage: LocalStorageService) {
       this.compararFechas = compararFechas;  
       this.myForm = this.fb.group({
           fechaOne: ['', [Validators.required]],
             fechaTwo: ['', [Validators.required]]
         });
+        
     }
 
     ngOnInit() {
-    this.getAutomobileReservations();
-     this.getRoomReservations();
+     this.getLocalStorage();
+    
+     
     }
+
+    public getLocalStorage(){
+      this.localStorage.getItem('id').subscribe(storedId =>{
+        if(storedId){
+          this.isDataLoaded = true
+          this.userId = storedId
+          console.log("User ID: "+this.userId);
+          this.getAutomobileReservations();
+     this.getRoomReservations();
+        }
+      })
+  }
 
      /**************************************************************************
   * Metodo para enviar la confirmación de la alerta                         *
@@ -84,10 +101,10 @@ export class MisReservas implements OnInit {
     ***********************************************************************/
   getAutomobileReservations(){
     console.log("Estoy en getAutomobileReservations");
-    var user_id = indexedDB;
+    var user_id = this.userId;
     console.log("getAutomobileReservations: user_id="+user_id);
   //  const requestURL = "reservationautomobiles/?user="+user_id; 
-    const requestURL = "reservationautomobiles/?user="+user_id; //Mientras se soluciona el peo
+    const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
         response => {
           console.log(response);
@@ -101,7 +118,7 @@ export class MisReservas implements OnInit {
 
 getRoomReservations(){
   console.log("Estoy en getRoomReservations");
-  var user_id = localStorage.getItem('id');
+  var user_id = this.userId;
   console.log("getRoomReservations: user_id="+user_id);
  // const requestURL = "reservationrooms/?user="+user_id;
  const requestURL = "reservationrooms/?user="+user_id;
@@ -151,7 +168,7 @@ public updateAutomobileReservation(car:object,id:number) {
   const reservation = this.myForm.value;
  // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
    //     console.log(fechas);
-        var fk_user = localStorage.getItem('id');
+        var fk_user = this.userId;
         console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         console.log("check:"+reservation.checkIn);
@@ -189,7 +206,7 @@ public updateRoomReservation(hotel:object,id:number) {
   const reservation = this.myForm.value;
  // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
    //     console.log(fechas);
-        var fk_user = localStorage.getItem('id');
+        var fk_user = this.userId;
         console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         console.log("check:"+reservation.checkIn);

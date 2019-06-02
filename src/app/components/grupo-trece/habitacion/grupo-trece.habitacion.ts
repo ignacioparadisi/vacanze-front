@@ -145,7 +145,7 @@ export class HabitacionGrupoTrece implements OnInit {
             );
         }
 
-
+/*
         if (fechas === 1) {
 
             
@@ -161,7 +161,7 @@ export class HabitacionGrupoTrece implements OnInit {
             }
         } else {
             console.log('La fecha de llegada no puede ser anterior a la de salida.');
-        }
+        }*/
     }
 
     buscador() {

@@ -123,25 +123,25 @@ export class AutomovilGrupoTrece implements OnInit {
     submit(car : Object) {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
-        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
         console.log(fechas);
-        var fk_user = this.userId;
-        console.log("Usuario en ReservarAutomovil:"+fk_user);
+
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+        var fk_user = this.userId;
+        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.fk_user_id = fk_user; // esto cuando se solucione el put
       //  reservation.fk_user = 1;
        reservation.automobile = car;
        reservation.user="";
        reservation.id=0;
-       
       delete reservation.city;
       delete reservation.fechaOne;
       delete reservation.fechaTwo;
       delete reservation.country;
         console.log(reservation);
 
-        
+        if (this.myForm.valid) {
       this.apiService.postUrl('reservationautomobiles', reservation).then(
         response => {
             console.log(response);
@@ -149,8 +149,8 @@ export class AutomovilGrupoTrece implements OnInit {
             console.log(error);
         }
         );
-
-
+    }
+/*
        if (fechas === 1) {
 
           
@@ -167,6 +167,7 @@ export class AutomovilGrupoTrece implements OnInit {
         } else {
             console.log('La fecha de llegada no puede ser anterior a la de salida.');
         }
+        */
     }
 
     buscador(){
