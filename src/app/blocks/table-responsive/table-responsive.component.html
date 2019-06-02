@@ -173,8 +173,8 @@
       </div>
   </div>
   <div class="d-flex justify-content-end w-100">
-    <div class="kreep">
-      <button (click)="gotoAdd(type)" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}" *ngIf="type !== 'rutas'">
+    <div class="kreep" style="bottom: 14px; right: 14px; position: fixed;" *ngIf="type !== 'rutas'">
+      <button (click)="gotoAdd(type)" type="button" class="btn btn-success"  data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
         <i class="fa fa-plus"></i>
       </button>
     </div>
