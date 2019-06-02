@@ -1,6 +1,6 @@
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { Role } from 'src/app/classes/role';
+import { Role } from '../../../classes/role';
 import { Location } from "@angular/common";
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
@@ -9,7 +9,8 @@ import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms'
 @Component({
   selector: 'app-edit-hotel',
   templateUrl: './edit-hotel.component.html',
-  styleUrls: ['./edit-hotel.component.scss']
+  styleUrls: ['./edit-hotel.component.scss'],
+  providers: [ApiService]
 })
 export class EditHotelComponent implements OnInit {
 

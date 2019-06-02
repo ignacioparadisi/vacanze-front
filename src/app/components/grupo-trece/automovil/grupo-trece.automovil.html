@@ -1,0 +1,141 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reserva de automóvil</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-md-3">
+            <p><strong>Marca: </strong></p>
+            <p>lorem ipsum</p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Modelo: </strong></p>
+            <p>lorem ipsum</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>Capacidad: </strong></p>
+          <p>lorem ipsum</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>Precio por día: </strong></p>
+          <p>lorem ipsum</p>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>Ciudad: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Fecha de alquiler: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Fecha de devolución: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Precio total: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+  </div>
+</ng-template>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-3">
+      <div class="card-header">
+        Buscar automóvil
+      </div>
+      <div class="card-body carrito">
+          <form [formGroup]="myForm" (ngSubmit)="buscador()">
+              <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <label style="color: white" for=""><strong>Pais</strong></label>
+                        <select class="form-control" formControlName="country"
+                        (ngModelChange)="getCities()"
+                        >
+                          <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                        <label style="color: white" for=""><strong>Ciudad</strong></label>
+                        <select class="form-control" formControlName="city"
+                        (ngModelChange)="getCarsByCity()"
+                        >
+                          <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                        <label style="color: white" for=""><strong>Fecha de Alquiler</strong></label>
+                        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label style="color: white" for=""><strong>Fecha de devolución</strong></label>
+                      <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-success" type="submit">Buscar</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        Listado de automoviles
+      </div>
+      <div class="card-body table-responsive">
+        <div class="row">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Marca</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Capacidad de Pasajeros</th>
+                <th scope="col">Precio por dia</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let car of cars">
+                <td>{{car._make}}</td>
+                <td>{{car._model}}</td>
+                <td>{{car._capacity}}</td>
+                <td>{{car._price}}$</td>
+                <td>
+                  <button 
+                  class="btn btn-outline-dark"
+                  style="cursor: pointer;" 
+                  (click)="openModalActions($event, reservar-automovil, 'reservar', true)" 
+                  data-toggle="tooltip" 
+                  data-placement="top" 
+                >
+                  <i class="fa fa-cart-plus"></i>
+                </button>&nbsp;&nbsp;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

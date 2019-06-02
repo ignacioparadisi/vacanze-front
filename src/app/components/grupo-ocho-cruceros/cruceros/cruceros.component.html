@@ -1,8 +1,9 @@
 <app-table-responsive
-  [headerTitle]="getHeaderTitle()"
-  [tableData]="getBoats()"
-  [tableHeaders]="getHeaderBoats()"
-  [type]="'cruceros'"
-  (emitRouting)="getCurrentRoute($event)"
+[headerTitle]="getHeaderTitle()"
+[tableData]="cruisers"
+[tableHeaders]="headers"
+[type]="'cruceros'"
+(emitRouting)="getCurrentRoute($event)"
+(actionAlertEventEmitter)="getDeleteAlert($event)"
 >
 </app-table-responsive>

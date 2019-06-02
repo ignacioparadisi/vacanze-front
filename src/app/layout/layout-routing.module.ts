@@ -25,18 +25,16 @@ const routes: Routes = [
         loadChildren: '../components/grupo-tres/grupo-tres.module#GrupoTresModule'
       },
       {
-        path: 'grupo-trece-habitacion',
-        loadChildren:
-          '../components/grupo-trece-habitacion/grupo-trece-habitacion.module#GrupoTreceHabitacionModule'
+        path: 'grupo-trece',
+        loadChildren: '../components/grupo-trece/grupo-trece.module#GrupoTreceModule'
       },
       {
-        path: 'grupo-trece-automovil',
-        loadChildren:
-          '../components/grupo-trece-automovil/grupo-trece-automovil.module#GrupoTreceAutomovilModule'
+        path: 'mis-reservas',
+        loadChildren: '../components/Mis Reservas/mis-reservas.module#MisReservasModule'
       },
       /* Ruta para Backoffice de Cruceros */
       {
-        path: 'cruceros',
+        path: 'cruisers',
         loadChildren:
           '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },
@@ -54,6 +52,10 @@ const routes: Routes = [
         loadChildren: '../components/view-hotels-backoffice/view-hotels-backoffice.module#ViewHotelsBackofficeModule'
       },
       {
+        path: 'administrar-restaurantes',
+        loadChildren: '../components/grupo-siete-restaurantes/grupo-siete-restaurantes.module#GrupoSieteRestaurantesModule'
+      },
+      {
         path: 'travel',
         loadChildren: '../components/travel/travel.module#TravelModule'
       },
@@ -63,9 +65,9 @@ const routes: Routes = [
           '../components/grupo-once-pago/grupo-once-pago.module#GrupoOncePagoModule'
       },
       {
-        path: 'restaurantes',
+        path: 'restaurant-reservation',
         loadChildren:
-          '../components/restaurantes/restaurantes.module#RestaurantesModule'
+        '../components/grupo-catorce-restaurant/grupo-catorce-restaurant.module#GrupoCatorceRestaurantModule'
       },
       {
         path: 'users',

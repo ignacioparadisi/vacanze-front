@@ -1,10 +1,10 @@
 import { Roles } from './../../../classes/roles';
-import { ApiService } from "src/app/services/api.service";
+import { ApiService } from "../../../services/api.service";
 import { Component, OnInit, Input } from "@angular/core";
-import { Role } from "src/app/classes/role";
+import { Role } from "../../../classes/role";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { User } from 'src/app/classes/user';
+import { User } from '../../../classes/user';
 import Swal from 'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';
 
@@ -41,7 +41,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   private fetchRoles() {
-    this.apiService.getUrl<Role[]>('roles').then(roles => {
+    this.apiService.getUrl('roles').then(roles => {
       this.roles = roles.filter(role => role.id !== 1);
       this.addRolesToFormGroup();
       if (this.user) {
@@ -143,7 +143,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   private createUser(user: User) {
-    this.apiService.postUrl<User>('users', user).then(user => {
+    this.apiService.postUrl('users', user).then(user => {
       this.activeModal.close();
       this.userCreatedSuccessfully();
     }).catch(error => {
