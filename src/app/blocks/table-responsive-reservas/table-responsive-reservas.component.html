@@ -1,0 +1,62 @@
+<div class="col-lg-12">
+  <div class="card mb-3">
+    <div class="card-header" [innerHtml]="headerTitle"></div>
+    <div class="card-body table-responsive">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th *ngFor="let header of tableHeaders">{{ header }}</th>
+            <th>Reservar</th>
+          </tr>
+        </thead>
+
+        <!--Tabla de reserva de restaurant-->
+        <tbody *ngIf="type === 'rest-reserva'">
+          <tr *ngFor="let reserva of tableData">
+            <td><img src="{{ reserva?.picture }}" ></td>
+            <td>{{ reserva?.name }}</td>
+            <td>{{ reserva?.location }}</td>
+            <td>{{ reserva?.capacity }}</td>
+            <td>{{ reserva?.specialty }}</td>
+            <td>{{ reserva?.price }} $</td>
+            <td>{{ reserva?.description }}</td>
+            <td>{{ reserva?.phone }}</td>
+            <td>
+              <button 
+                class="btn btn-outline-dark"
+                (click)="goToDetailView(reserva)"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Reservar restaurant {{reserva?.name}}">
+                <i class="fa fa-cart-plus"></i>
+              </button>&nbsp;&nbsp;
+            </td>
+          </tr>
+        </tbody>
+
+        <!--Tabla de reserva de automoviles-->
+        <tbody *ngIf="type === 'aut-reserva'">
+            <tr *ngFor="let reserva of tableData">
+              <td>{{ reserva?.imagen }}</td>
+              <td>{{ reserva?.marca }}</td>
+              <td>{{ reserva?.modelo }}</td>
+              <td>{{ reserva?.capacidad }}</td>
+              <td>{{ reserva?.precio }} $</td>
+              <td>
+                <button 
+                  class="btn btn-outline-dark"
+                  style="cursor: pointer;" 
+                  (click)="openModalActions($event, reservar-automovil, 'reservar', true)" 
+                  data-toggle="tooltip" 
+                  data-placement="top" 
+                  title="Reservar {{type}}"
+                >
+                  <i class="fa fa-cart-plus"></i>
+                </button>&nbsp;&nbsp;
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>

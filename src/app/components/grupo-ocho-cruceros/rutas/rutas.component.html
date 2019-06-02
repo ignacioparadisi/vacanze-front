@@ -1,0 +1,8 @@
+<app-table-responsive
+  [headerTitle]="headerTitle"
+  [tableData]="routesCruiser"
+  [tableHeaders]="tableHeaders"
+  [type]="'rutas'"
+  (emitRouting)="getCurrentRoute($event)"
+>
+</app-table-responsive>

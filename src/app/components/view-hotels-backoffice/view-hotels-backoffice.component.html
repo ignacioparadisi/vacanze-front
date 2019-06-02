@@ -1,11 +1,11 @@
 <app-table-responsive
-  *ngIf="!isEditingHotel"
-  [headerTitle]="getHeaderTitle()"
-  [tableData]="getHotels()"
-  [tableHeaders]="getHeaderHotels()"
-  [type]="'hotel'"
-  (actionAlertEventEmitter)="getAlertAction($event)"
-  (emitRouting)="getCurrentRoute($event)"
-  >
+*ngIf="!isEditingHotel && !isCreatingHotel"
+[headerTitle]="getHeaderTitle()"
+[tableData]="getHotels()"
+[tableHeaders]="getHeaderHotels()"
+[type]="'hotel'"
+(actionAlertEventEmitter)="getAlertAction($event)"
+(emitRouting)="getCurrentRoute($event)"
+>
 </app-table-responsive>
 <router-outlet (deactivate)="getDeactivatedComponent($event)"></router-outlet>

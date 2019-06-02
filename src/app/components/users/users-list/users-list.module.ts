@@ -7,22 +7,16 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersListRoutingModule } from './users-list-routing.module';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { RegisterUserComponent } from '../register-user/register-user.component';
+import {RegisterUserModule} from "../register-user/register-user.module";
 
 @NgModule({
-  declarations: [UsersListComponent, RegisterUserComponent],
+  declarations: [UsersListComponent],
   imports: [
     CommonModule,
-    UsersListRoutingModule,
-    HttpClientModule,
-    NgbModule,
-    FormsModule,
-    SweetAlert2Module.forRoot(),
-    ReactiveFormsModule,
-    NgbModalModule
-  ],
-  providers: [ApiService],
-  entryComponents: [RegisterUserComponent]
+    RegisterUserModule,
+    UsersListRoutingModule
+  ]
 })
 export class UsersListModule { }

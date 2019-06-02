@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <app-table-responsive-reservas
+    [headerTitle]="getHeaderTitle()"
+    [tableData]="getRestaurants()"
+    [tableHeaders]="getHeaderRestaurantReservation()"
+    [type]="'rest-reserva'"
+    >
+  </app-table-responsive-reservas>
+
+  <button id="boton" class="btn btn-danger text-center " (click)="goBack()" type="button">Go Back.</button>
+</div>

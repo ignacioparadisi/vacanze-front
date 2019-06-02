@@ -1,13 +1,14 @@
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { Role } from 'src/app/classes/role';
+import { Role } from '../../classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
-
-//tabla responsive reutilizable
+import { environment as url } from '../../../environments/environment';
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
+import { HotelsService} from './services/hotels.service';
+
 
 
 @Component({
@@ -15,87 +16,137 @@ import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-r
   templateUrl: './view-hotels-backoffice.component.html',
   styleUrls: ['./view-hotels-backoffice.component.scss']
 })
+
+
 export class ViewHotelsBackofficeComponent implements OnInit {
+
 
   private tableHotelsHeader: Array<String>;
   private tableData: Array<Object>;
   private headerTitle: string;
-
-  //la accion que le llega de table-responsive
-  public actionAlert: string;
-
-  //para saber si está editanto un hotel
   public isEditingHotel: boolean;
+  public isCreatingHotel: boolean;
+
+
+  constructor(
+    private router: Router,
+    private service: ApiService,
+    private _hotelservice: HotelsService
+  ) {
+    this.headerTitle = _hotelservice.getHeaderTitle();
+    this.tableHotelsHeader = _hotelservice.getHotelsHeaders();
+  }
+
+
+
+  ngOnChanges(){
+  }
+
 
   ngOnInit() {
+    if(this.router.url === '/administrar-hoteles/agregar-hotel' || this.router.url.indexOf('editar-hotel') !== -1){
+      this.isEditingHotel = true;
+      this.isCreatingHotel = true;
+    }
+    else {
+      this.isEditingHotel = false;
+      this.isCreatingHotel= false;
+    }
+    this.loadHotels();
   }
 
-  constructor(private router: Router) {
-    this.headerTitle = "Lista de hoteles";
-    this.tableHotelsHeader = this.getTableHeaders();
-    this.tableData = this.getExampleData();
-  }
 
-
-  public getAlertAction(action: string) {
-    this.actionAlert = action;
-    console.log(this.actionAlert);
+  public getAlertAction(hotel: Object) {
+    if(hotel['confirmed']){
+      if(hotel['delete']){
+        this.deleteHotel(hotel['id']);
+      } else{
+        this.changeHotelStatus(hotel);
+      }
+    }
   }
 
 
   public getCurrentRoute(route){
     if(route === '/agregar-hotel'){
       this.isEditingHotel = true;
+      this.isCreatingHotel = false;
       this.router.navigate(['administrar-hoteles','agregar-hotel']);
     }
-    else {
+    else if (route.indexOf('/editar-hotel') !== -1){
+      this.isCreatingHotel = true;
+      this.isEditingHotel = false;
+      this.router.navigate(['administrar-hoteles','editar-hotel', route.split('/')[2]]);
+    }
+    else{
+      this.isCreatingHotel = false;
       this.isEditingHotel = false;
     }
   }
 
+
+
   public getDeactivatedComponent(component){
+    this.loadHotels();
     this.getCurrentRoute('/administrar-hoteles');
   }
 
-  private getExampleData(){
-    return [
-      {
-        "id" : 1,
-        "name": "Gran Meliá Caracas",
-        "capacity": 5988,
-        "phone_number": "+58 (212) 762-8111",
-        "web_site": "www.melia.com",
-        "status": "Active"
-      },
-      {
-        "id" : 2,
-        "name": "Intercontinental Maracaibo",
-        "capacity": 5260,
-        "phone_number": "+58-0261-7907777",
-        "web_site": "www.ihg.com",
-        "status": "Active"
-      },
-      {
-        "id" : 3,
-        "name": "Eurobuilding",
-        "capacity": 1123,
-        "phone_number": "+58 (212) 902-1111",
-        "web_site": "www.hoteleuro.com",
-        "status": "Inactive"
-      },
-    ];
+
+
+  public loadHotels(){
+        this.service
+        .getUrl(url.endpoint.default._get.getHotel)
+        .then(response => {
+              //console.log("Cargan los hoteles", response),
+              this.tableData = response
+        }).catch( error => {
+              this.alertStatus(500, false)
+              console.log("Error carga inicial de hoteles", error);
+        });
   }
 
-  private getTableHeaders(){
-    return [
-      "#",
-      "Nombre",
-      "Habitaciones",
-      "Teléfono",
-      "Sitio Web",
-      "Status"
-    ];
+
+
+  public deleteHotel(id: number){
+        console.log("se esta borrando el hotel ",id);
+        this.service
+        .deleteUrl(url.endpoint.default._delete.deleteHotel, [id.toString()])
+        .then(response =>{
+              //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
+              this.alertStatus(200,true)
+        }).catch( error => {
+              this.alertStatus(500, false),
+              console.log("Error en el delete del hotel", error)
+        });
   }
+
+
+
+  public changeHotelStatus(hotel: any){
+        hotel['isActive']=!hotel['isActive'];
+        this.service
+        .putUrl(url.endpoint.default._put.putHotel, hotel, [hotel.id.toString()])
+        .then(response => {
+              //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
+              this.alertStatus(200, false)
+        }).catch( error => {
+              this.alertStatus(500, false),
+              console.log("Error actualizando el estatus del hotel", error)
+        });
+  }
+
+
+  private alertStatus(statusCode: number, deleted: boolean){
+        let config: SweetAlertOptions = {
+          title: (statusCode!=200 ? 'Se ha producido un error': (deleted ? 'Hotel eliminado': 'Se cambió el estatus del hotel')),
+          type:  (statusCode==200 ? 'success' : 'error'),
+          showConfirmButton: true
+        }
+        Swal.fire(config).then( result =>{
+          this.loadHotels();
+        });
+  }
+
 
   public getHotels(){
     return this.tableData;

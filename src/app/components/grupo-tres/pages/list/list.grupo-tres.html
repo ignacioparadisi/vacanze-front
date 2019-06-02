@@ -6,96 +6,181 @@
         </button>
     </div>
     <div class="modal-body">
-        <form>
-            <div class="bloque my-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Origen</strong></p>
-                        <hr>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Destino</strong></p>
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" placeholder="País" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" placeholder="Ciudad" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" placeholder="País" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" placeholder="Ciudad" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p><strong>Características</strong></p>
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <select class="form-control">
-                                <option disabled selected>Seleccione un avión</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" placeholder="Precio" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" placeholder="Fecha de salida" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" placeholder="Fecha de llegada" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="" class="mb-3 d-block">Duración (Horas)</label>
-                        <select name="" id="" class="form-control select-menor float-left mr-4">
-                            <option value="">01</option>
-                            <option value="">02</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="mb-3 d-block">Duración (Minutos)</label>
-                        <select name="" id="" class="form-control select-menor float-left">
-                            <option value="">01</option>
-                            <option value="">02</option>
-                        </select>
-                    </div>
-                </div>
+        <div class="card">
+            <div class="card-body">
+              <div class="row">
+                  <div class="col-md-6">
+                  <p><strong>Lugar de origen:</strong> {{flight?.loc_departure?.country}}, {{flight?.loc_departure?.city}}</p>
+                  </div>
+                  <div class="col-md-6">
+                  <p><strong>Lugar de destino:</strong> {{flight?.loc_arrival?.country}}, {{flight?.loc_arrival?.city}}</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                  <p><strong>Fecha de salida:</strong> {{flight?.departure}}</p>
+                  </div>
+                  <div class="col-md-6">
+                  <p><strong>Fecha de llegada:</strong> {{flight?.arrival}}</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                  <p><strong>Avión:</strong> {{flight?.plane?.model}}</p>
+                  </div>
+                  <div class="col-md-6">
+                  <p><strong>Precio:</strong> $ {{flight?.price}}</p>
+                  </div>
+              </div>
             </div>
+        </div>
+        <form [formGroup]="flightForm">
+          <div class="bloque my-3">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">País de origen</label>
+                  <select class="form-control" (ngModelChange)="getCitiesDeparture()" formControlName="countryDeparture"
+                    [ngClass]="{'is-invalid': invalid('countryDeparture', flightForm), 'is-valid':
+                              valid('countryDeparture', flightForm)}">
+                    <option *ngFor="let country of countries let i = index;" [value]="country.id">{{country.country}}
+                    </option>
+                  </select>
+                  <div *ngIf="invalid('countryDeparture', flightForm)" class="invalid-feedback">
+                    Por favor seleccione un país
+                  </div>
+                  <div *ngIf="valid('countryDeparture', flightForm)" class="valid-feedback">
+                    ¡Excelente!
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Ciudad de origen</label>
+                  <select class="form-control" formControlName="locDeparture"
+                    [ngClass]="{'is-invalid': invalid('locDeparture', flightForm), 'is-valid': valid('locDeparture',
+                    flightForm)}">
+                    <option *ngFor="let city of citiesDeparture let i = index;" [value]="city.id">{{city.city}}</option>
+                  </select>
+                  <div *ngIf="invalid('locDeparture', flightForm)" class="invalid-feedback">
+                    Por favor seleccione un país
+                  </div>
+                  <div *ngIf="valid('locDeparture', flightForm)" class="valid-feedback">
+                    ¡Excelente!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">País de llegada</label>
+                  <select class="form-control" formControlName="countryArrival" (ngModelChange)="getCitiesArrival()"
+                    [ngClass]="{'is-invalid': invalid('countryArrival', flightForm), 'is-valid': valid('countryArrival',
+                    flightForm)}">
+                    <option *ngFor="let country of countries let i = index;" [value]="country.id">{{country.country}}
+                    </option>
+                  </select>
+                  <div *ngIf="invalid('countryArrival', flightForm)" class="invalid-feedback">
+                    Por favor seleccione un país
+                  </div>
+                  <div *ngIf="valid('countryArrival', flightForm)" class="valid-feedback">
+                    ¡Excelente!
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Ciudad de llegada</label>
+                  <select class="form-control" formControlName="locArrival"
+                    [ngClass]="{'is-invalid': invalid('locArrival', flightForm), 'is-valid': valid('locArrival', flightForm)}">
+                    <option *ngFor="let city of citiesArrival let i = index;" [value]="city.id">{{city.city}}</option>
+                  </select>
+                  <div *ngIf="invalid('locArrival', flightForm)" class="invalid-feedback">
+                    Por favor seleccione un país
+                  </div>
+                  <div *ngIf="valid('locArrival', flightForm)" class="valid-feedback">
+                    ¡Excelente!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Avión</label>
+                  <select class="form-control" formControlName="plane" [ngClass]="{'is-invalid': invalid('plane', flightForm), 'is-valid': valid('plane',
+                                flightForm)}">
+                    <option *ngFor="let airplane of airplanes let i = index;" [value]="airplane.id">
+                      Modelo: {{airplane?.model}} - Autonomía: {{airplane?.autonomy}}</option>
+                  </select>
+                  <div *ngIf="invalid('plane', flightForm)" class="invalid-feedback">
+                    Por favor seleccione un avión
+                  </div>
+                  <div *ngIf="valid('plane', flightForm)" class="valid-feedback">
+                    ¡Excelente!
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Precio</label>
+                  <input type="text" class="form-control" placeholder="Precio" formControlName="price" [ngClass]="{'is-invalid': invalid('price', flightForm), 'is-valid': valid('price',
+                                flightForm)}">
+                  <div *ngIf="invalid('price', flightForm)" class="invalid-feedback">
+                    Por favor, seleccione un precio. Ejemplo: 1580
+                  </div>
+                  <div *ngIf="valid('price', flightForm)" class="valid-feedback">
+                    ¡Excelente!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="" class="">Fecha de salida</label>
+                <div class="form-group">
+                  <input type="datetime-local" class="form-control" formControlName="departure" [ngClass]="{'is-invalid': invalid('departure', flightForm), 'is-valid': valid('departure',
+                                flightForm)}">
+                  <div *ngIf="invalid('departure', flightForm)" class="invalid-feedback">
+                    Por favor seleccione una fecha de salida. Ejemplo: 25/05/2019 02:30 p.m.
+                  </div>
+                  <div *ngIf="valid('departure', flightForm)" class="valid-feedback">
+                    ¡Excelente!
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="" class="">Fecha de llegada</label>
+                <div class="form-group">
+                  <input type="datetime-local" class="form-control" formControlName="arrival" [ngClass]="{'is-invalid': invalid('arrival', flightForm), 'is-valid': valid('arrival',
+                                flightForm)}">
+                  <div *ngIf="invalid('arrival', flightForm)" class="invalid-feedback">
+                    Por favor seleccione una fecha de salida. Ejemplo: 28/05/2019 02:30 p.m.
+                  </div>
+                  <div *ngIf="valid('arrival', flightForm)" class="valid-feedback">
+                    ¡Excelente!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
-    </div><!-- -->
+        <ngb-alert type="success" *ngIf="messageSuccess">
+            <strong>Exito! </strong> {{mensaje?.message}}
+        </ngb-alert>
+        <ngb-alert type="danger" *ngIf="errores">
+            <p><strong>¡ERROR! </strong>No se pudo editar el registro debido a distintos problemas, recuerde lo siguiente: </p>
+            <ul *ngIf="(fechas != 1 || ciudades != 1) && visible">
+                <li>Todos los campos son obligatorios</li>
+                <li>La fecha y hora de llegada al destino debe ser mayor que la fecha de salida del origen.</li>
+                <li>La ciudad de destino no puede ser igual a la ciudad de salida.</li>
+            </ul>
+            <p *ngIf="messageDanger">{{mensaje?.message}}</p>
+        </ngb-alert>
+    </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Editar</button>
+        <button type="submit" class="btn btn-outline-success" (click)="onFormSubmit()">Editar</button>
     </div>
 </ng-template>
 
@@ -107,35 +192,45 @@
             </div>
             <div class="card-body table-responsive">
                 <div class="row">
+                  <ul>
+                    <li>Las fechas estan expresadas en el formato: <strong>MM/DD/YYYY</strong></li>
+                    <li>Los precios estan expresado en dolares americanos <strong>( USD )</strong></li>
+                  </ul>
+                    
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Número de vuelo</th>
-                                <th scope="col">Rutas</th>
+                                <th scope="col">N° de vuelo</th>
+                                <th scope="col">Origen</th>
+                                <th scope="col">Destino</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>A356D3</td>
+                            <tr *ngFor="let item of flights; let i = index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{item.id}}</td>
                                 <td>
-                                    <strong>Origen:</strong> Venezuela, Caracas - 13/06/2019 07:30 p.m - <strong>Destino:</strong> Colombia, Medellin - 14/06/2019 07:30 p.m <br>
-                                    <strong>Origen:</strong> Colombia, Medellin - 15/06/2019 07:30 a.m - <strong>Destino:</strong> Estados Unidos, New York - 15/06/2019 01:30 p.m <br>
-                                    <strong>Origen:</strong> Estados Unidos, New York - 15/06/2019 04:35 p.m - <strong>Destino:</strong> Estados Unidos, Miami - 15/06/2019 06:45 p.m
+                                    <strong>Lugar:</strong> {{item.loc_departure.city}}, {{item.loc_departure.country}} <br>
+                                    <strong>Fecha de salida:</strong> {{item.departure}}
                                 </td>
-                                <td>$758</td>
                                 <td>
-                                    <button class="btn btn-outline-info float-left mr-3" (click)="openLg(content)"><i class="fa fa-edit"></i></button>
+                                  <strong>Lugar</strong> {{item.loc_arrival.city}}, {{item.loc_arrival.country}} <br>
+                                  <strong>Fecha de llegada:</strong> {{item.arrival}}
+                              </td>
+                                <td>${{item.price}}</td>
+                                <td>
+                                    <button class="btn btn-outline-info float-left mr-3" (click)="open(content, item.id)"><i class="fa fa-edit"></i></button>
                                     <swal
                                         #deleteSwal
                                         title="¿Desea eliminar el vuelo?"
                                         type="question"
                                         [showCancelButton]="true"
                                         [focusCancel]="true"
-                                        (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                                        (confirm)="deleteFile(item.id)" [options]="{ confirmButtonText: 'Si, estoy
+                                        seguro', cancelButtonText: 'Cancelar' }">
                                     </swal>
                                     <button [swal]="deleteSwal" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                                 </td>
