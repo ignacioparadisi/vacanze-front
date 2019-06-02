@@ -22,6 +22,8 @@ export class GrupoNueveComponent implements OnInit {
   public claimsAbiertos : Claim[] = [];
   public claimsCerrados : Claim[] = [];
   public BaggageExtraviados : Baggage[] = [];
+  public BaggageEntregados : Baggage[] = [];
+  public BaggageEncontrados : Baggage[] = [];
 
   //Elementos del put
   public idPut : any;
@@ -89,7 +91,20 @@ public role :any;
       console.log(data)})
     .catch(data =>{console.log(data)});
   }
-  
+
+  getAdminBaggageStatusEntregado(){
+    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['ENTREGADO'])
+    .then(data => {this.BaggageEntregados = data;                                                                                             
+      console.log(data)})
+    .catch(data =>{console.log(data)});
+  }
+
+  getAdminBaggageStatusEncontrado(){
+    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['ENCONTRADO'])
+    .then(data => {this.BaggageEncontrados = data;                                                                                             
+      console.log(data)})
+    .catch(data =>{console.log(data)});
+  }
   
   postClaim(){  
     this.service
@@ -380,16 +395,19 @@ public role :any;
     var terceraopcion= document.getElementById("encontrados");
 
     if (isCheckedExtrav) {
+      this.getAdminBaggageStatusExtraviado();
       primeraopcion.style.display = "block";
       segundaopcion.style.display = "none";
       terceraopcion.style.display = "none";
     }else
     if(isCheckedEntrega){
+      this.getAdminBaggageStatusEntregado();
       segundaopcion.style.display = "block";
       primeraopcion.style.display = "none";
       terceraopcion.style.display = "none";
     }else
     if(isCheckedEncont){
+      this.getAdminBaggageStatusEncontrado();
       terceraopcion.style.display = "block";
       primeraopcion.style.display = "none";
       segundaopcion.style.display = "none";

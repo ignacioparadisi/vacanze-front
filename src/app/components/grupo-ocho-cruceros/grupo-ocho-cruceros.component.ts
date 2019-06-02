@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Cruiser } from '../../interfaces/cruiser';
 import { ApiService } from '../../services/api.service';
 import { environment as url } from '../../../environments/environment';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-grupo-ocho-cruceros',
@@ -19,7 +20,7 @@ export class GrupoOchoCrucerosComponent implements OnInit {
   private tableBoatsHeader: Array<string>;
   private tableRoutesHeader: Array<string>;
 
-  constructor(private router: Router, private api: ApiService){
+  constructor(private router: Router, private api: ApiService, private localStorage: LocalStorageService){
     // Headers de la tabla dinamica
     this.tableBoatsHeader = [
       "#",
@@ -33,52 +34,87 @@ export class GrupoOchoCrucerosComponent implements OnInit {
     this.checks = {
       routes: false,
       edit: false,
-      add: false
+      add: false,
+      addRoutes: false
     }
-    /* this.tableRoutesHeader = [
-      "#",
-      "Nombre",
-      "Cap. de pasajeros",
-      "Cap. de carga",
-      "Modelo",
-      "Linea",
-      "Status"
-    ]; */
   }
 
   ngOnInit(){
-    if(this.router.url === '/cruisers/agregar-crucero'){
+    if(this.router.url === '/cruisers/add-cruiser'){
       this.checks['routes'] = false;
       this.checks['edit'] = false;
       this.checks['add'] = true;
+      this.checks['addRoutes'] = false;
     }
-    else if(this.router.url.indexOf('editar-crucero') !== -1){
+    else if(this.router.url.indexOf('edit-cruiser') !== -1){
       this.checks['routes'] = false;
       this.checks['edit'] = true;
       this.checks['add'] = false;
+      this.checks['addRoutes'] = false;
+    }
+    else if(this.router.url.indexOf('add-routes') !== -1){
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = false;
+      this.checks['addRoutes'] = true;  
+    }
+    else if(this.router.url.indexOf('layovers') !== -1){
+      this.checks['routes'] = true;
+      this.checks['edit'] = false;
+      this.checks['add'] = false;
+      this.checks['addRoutes'] = false;
+    }
+    else if(this.router.url.indexOf('add-cruiser-routes') !== -1){
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = false;
+      this.checks['addRoutes'] = true;  
+    }
+    else {
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = false;
+      this.checks['addRoutes'] = false;
     }
     this.getCruisers();
   }
 
   public getCurrentRoute(route, param?: string){
-    if(route === '/agregar-crucero'){
+    if(route === '/add-cruiser'){
       this.checks['routes'] = false;
       this.checks['edit'] = false;
       this.checks['add'] = true;
+      this.checks['addRoutes'] = false;
 
-      this.router.navigate(['cruisers', 'agregar-crucero']);
+      this.router.navigate(['cruisers', 'add-cruiser']);
     }
-    else if(route.toString().indexOf('/editar-crucero') !== -1){
+    else if(route.toString().indexOf('/edit-cruiser') !== -1){
       this.checks['routes'] = false;
       this.checks['edit'] = true;
       this.checks['add'] = false;
+      this.checks['addRoutes'] = false;
 
+      this.router.navigate(['cruisers', route.split('/')[1], route.split('/')[2]]);
+    }
+    else if(route.toString().indexOf('/layovers') !== -1){
+      this.checks['routes'] = true;
+      this.checks['edit'] = false;
+      this.checks['add'] = false;
+      this.checks['addRoutes'] = false;
+      this.getLayovers(route.split('/')[0], route);
+    }
+    else if(route.toString().indexOf('/add-cruiser-routes') !== -1){
+      this.checks['routes'] = false;
+      this.checks['edit'] = false;
+      this.checks['add'] = false;
+      this.checks['addRoutes'] = true;
       this.router.navigate(['cruisers', route.split('/')[1], route.split('/')[2]]);
     }
     else {
       this.checks['routes'] = false;
       this.checks['edit'] = false;
       this.checks['add'] = false;
+      this.checks['addRoutes'] = false;
     }
   }
 
@@ -141,5 +177,23 @@ export class GrupoOchoCrucerosComponent implements OnInit {
     let cruisers = this.getVariableCruisers();
     cruisers = cruisers.filter(cruiser => cruiser['id'] !== id); // Filtro todos los que no tienen el id
     this.setCruisers(cruisers);
+  }
+
+  /******************************************
+  * Metodo para recibir las rutas del barco *
+  *******************************************/
+  public getLayovers(id: string, route: string){
+    this.api.getUrl(url.endpoint.default._get.cruisers.get_layovers, [id])
+      .then(response => {
+        console.log("RESPUESTAA", response);
+        this.localStorage.setItem('cruiserRoutes', response.layovers).subscribe(data => {
+          this.router.navigate(['cruisers', route.split('/')[0], route.split('/')[1]]);
+        })
+      })
+      .catch(er => {
+        if(er['error'] === "No se encontraron rutas para este crucero"){
+          console.log("errr", er);
+        }
+      })
   }
 }
