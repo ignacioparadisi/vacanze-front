@@ -5,9 +5,9 @@ import { Router, RouterOutlet } from '@angular/router';
 import { LayoutComponent } from '../../../layout/layout.component';
 import { GrupoUnoComponent } from '../grupo-uno.component';
 import { LocalStorageService } from '../../../services/local-storage.service';
-import {User} from "../../../classes/user";
-import {RegisterUserComponent} from "../../users/register-user/register-user.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { User } from "../../../classes/user";
+import { RegisterUserComponent } from "../../users/register-user/register-user.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 
 
@@ -39,12 +39,12 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private service: ApiService,
-              private storage: LocalStorageService,
-              private localStorage: LocalStorageService,
-              private father: LayoutComponent,
-              private router: Router,
-              private landing: GrupoUnoComponent,
-              private modalService: NgbModal) {
+    private storage: LocalStorageService,
+    private localStorage: LocalStorageService,
+    private father: LayoutComponent,
+    private router: Router,
+    private landing: GrupoUnoComponent,
+    private modalService: NgbModal) {
 
   }
 
@@ -110,10 +110,10 @@ export class LoginComponent implements OnInit {
       },
       error => {
         if (error.status == 400 || error.status != 200) {
-          alert("Ha ocurrido un error")
+          alert("Ups....There is a trouble")
           this.isShowPmodal = false;
         } else if (error.status == 200)
-          alert("Envio de nueva contraseña a su correo")
+          alert("New password have sent to your email")
         this.isShowPmodal = false;
       }
     );
