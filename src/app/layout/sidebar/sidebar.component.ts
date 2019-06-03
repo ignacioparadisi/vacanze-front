@@ -1,6 +1,8 @@
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import {LocalStorageService} from "../../services/local-storage.service";
+import {Roles} from "../../classes/roles";
 
 @Component({
   selector: "app-sidebar",
@@ -29,9 +31,10 @@ export class SidebarComponent implements OnInit {
   isMisReservas = true;
   isCruceros = true;
   isViajes = true;
+  isAdmin = false;
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
-  constructor(public router: Router, private modalService: NgbModal) {
+  constructor(public router: Router, private localService: LocalStorageService) {
     this.router.events.subscribe(val => {
       if (window.innerWidth <= 992 && this.isToggled()) {
         this.toggleSidebar();
@@ -45,6 +48,7 @@ export class SidebarComponent implements OnInit {
     this.collapsed = false;
     this.showMenu = "";
     this.pushRightClass = "push-right";
+    this.checkIsAdmin();
   }
 
   eventCalled() {
@@ -81,5 +85,11 @@ export class SidebarComponent implements OnInit {
 
   onLoggedout() {
     localStorage.removeItem("isLoggedin");
+  }
+
+  checkIsAdmin() {
+    this.localService.getItem("rol").subscribe(rol => {
+      this.isAdmin = rol[0].id === Roles.ADMIN;
+    })
   }
 }
