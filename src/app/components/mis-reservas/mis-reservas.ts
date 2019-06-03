@@ -337,8 +337,7 @@ initializaDate(){
 
           this.alertStatus(200,true)
         }).catch( error => {
-          this.alertStatus(500, false),
-          console.log("Error en el delete de la reserva de restaurante", error)
+          this.alertStatus(500, false);
         });
   }
 
