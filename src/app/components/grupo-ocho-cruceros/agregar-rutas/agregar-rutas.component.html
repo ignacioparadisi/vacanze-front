@@ -1,0 +1,105 @@
+<div class="card-header">
+  <i class="fa fa-road"></i>&nbsp;
+  <span>Agregar ruta a |<b> {{ boat?.name }}</b></span>
+</div>
+<div class="card-body">
+  <form [formGroup]="routingForm" (ngSubmit) = "onSubmit()">
+    <div class="row">
+ 
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+       <div class="form-group">
+         <label>Fecha de salida</label>
+         <input [ngClass]="{
+           'is-invalid': departureDate.invalid && departureDate.touched,
+           'is-valid': departureDate.valid
+         }"
+         [class.is-invalid]="departureDate.invalid && departureDate.touched" formControlName="departureDate" type="date" class="form-control" >
+         <div *ngIf="departureDate.invalid && departureDate.touched">
+           <small *ngIf="departureDate.errors?.required" class ="text-danger"> La fecha de salida es requerida. </small>
+         </div>
+       </div>
+     </div>
+ 
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+       <div class="form-group">
+         <label>Fecha de llegada</label>
+         <input [ngClass]="{
+           'is-invalid': arrivalDate.invalid && arrivalDate.touched,
+           'is-valid': arrivalDate.valid
+         }"
+         [class.is-invalid]="arrivalDate.invalid && arrivalDate.touched" formControlName="arrivalDate" type="date" class="form-control" >
+         <div *ngIf="arrivalDate.invalid && arrivalDate.touched">
+           <small *ngIf="arrivalDate.errors?.required" class ="text-danger"> La fecha de llegada es requerida. </small>
+         </div>
+       </div>
+     </div>
+ 
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Seleccione el país de salida: </label>
+        <select type="text" class="form-control" (change)="selectCountryDeparture($event)">
+           <option *ngFor="let country of countriesDeparture" value={{country.id}} >
+               {{country.country}}
+           </option>
+        </select>
+       </div>
+     </div>
+ 
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+       <div class="form-group">
+         <label>Seleccione la ciudad de salida:</label>
+         <select type="text" class="form-control" formControlName="locDeparture" (change)="selectCityDeparture($event)">
+           <option *ngFor="let city of citiesDeparture" value={{city.id}}>
+               {{city.city}}
+           </option>
+       </select>
+       </div>
+     </div>
+
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Seleccione el país de llegada: </label>
+          <select type="text" class="form-control" (change)="selectCountryArrival($event)">
+            <option *ngFor="let country of countriesDeparture" value={{country.id}} >
+                {{country.country}}
+            </option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Seleccione la ciudad de llegada:</label>
+          <select type="text" class="form-control" formControlName="locArrival" (change)="selectCityArrival($event)">
+            <option *ngFor="let city of citiesArrival" value={{city.id}}>
+                {{city.city}}
+            </option>
+        </select>
+        </div>
+      </div>
+
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Precio</label>
+          <input [ngClass]="{
+            'is-invalid': price.invalid && price.touched,
+            'is-valid': price.valid
+          }"
+          formControlName="price" type="number" class="form-control" min="1">
+          <div *ngIf="price.invalid && price.touched">
+            <small *ngIf="price.errors?.required" class ="text-danger">El precio es requerido. </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO - LOCATION -->
+ 
+    </div>
+ 
+    <div class="grupo-botones">
+      <button [disabled]="!routingForm.valid" class="btn btn-outline-info" type="submit" >Agregar ruta</button>&nbsp;
+      <button class="btn btn-outline-danger" (click)="goToCruisers()" type="button">Cancelar</button>
+    </div>
+ 
+  </form>
+</div>

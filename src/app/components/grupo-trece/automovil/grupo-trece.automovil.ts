@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../../utils/global_functions';
+import { LocalStorageService } from '../../../services/local-storage.service';
 import * as moment from 'moment';
 
 @Component({
@@ -14,15 +15,18 @@ import * as moment from 'moment';
 })
 export class AutomovilGrupoTrece implements OnInit {
     myForm: FormGroup;
-    public compararFechas;
+    public compararFechas : any;
     public cars = [];
     public countries = [];
     public cities = [];
     public closeResult: string;
+    private userId:number;
+    private isDataLoaded: boolean = false
+   // public aut_id;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
-    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
+    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService,private localStorage: LocalStorageService) {
         this.compararFechas = compararFechas;
         this.myForm = this.fb.group({
             country: ['', [Validators.required]],
@@ -33,9 +37,20 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     ngOnInit() {
-        this.getCountries();
+        this.getLocalStorage();
         this.initializaDate();
+        this.getCountries();
     }
+
+    public getLocalStorage(){
+        this.localStorage.getItem('id').subscribe(storedId =>{
+          if(storedId){
+            this.isDataLoaded = true
+            this.userId = storedId
+          }
+        })
+    } 
+
 
     getCar(id: number) {
         console.log("Me traigo los datos con el id:" + id + " tal");
@@ -79,6 +94,12 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     getCarsByCity(){
+        this.markAllAsTouched();
+        const reservation = this.myForm.value;
+        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+
+        if (this.myForm.valid && fechas === 1){
         const requestURL = "Auto/consultplaceStatus/"+this.myForm.value.city+"/true/";
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -89,31 +110,49 @@ export class AutomovilGrupoTrece implements OnInit {
                 console.log(this.cars);
             }
         );
+        }
     }
 
     public markAllAsTouched() {
-      //  this.myForm.get('country').markAsTouched();
+        this.myForm.get('country').markAsTouched();
         this.myForm.get('city').markAsTouched();
         this.myForm.get('fechaOne').markAsTouched();
         this.myForm.get('fechaTwo').markAsTouched();
-        this.myForm.get('aut_id').markAsTouched();
     }
 
-    submit() {
+    submit(car : Object) {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
         let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
 
-        if (fechas === 1) {
+        reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+        reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+        var fk_user = this.userId;
+        console.log("Usuario en ReservarAutomovil:"+fk_user);
+        reservation.fk_user = fk_user; // esto cuando se solucione el put
+       reservation.automobile = car;
+       reservation.user="";
+       reservation.id=0;
+      delete reservation.city;
+      delete reservation.fechaOne;
+      delete reservation.fechaTwo;
+      delete reservation.country;
+        console.log(reservation);
 
-            reservation.CheckIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
-            reservation.CheckOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-          //  reservation.fk_user_id = localStorage.getItem.
-           reservation.ra_aut_fk = parseInt(reservation.aut_id,10);
-          delete reservation.city;
+      this.apiService.postUrl('reservationautomobiles', reservation).then(
+        response => {
+            console.log(response);
+        }, error => {
+            console.log(error);
+        }
+        );
+/*
+       if (fechas === 1) {
+
+          
 
             if (this.myForm.valid) {
-                this.apiService.postUrl('reservationrooms', reservation).then(
+                this.apiService.postUrl('reservationautomobiles', reservation).then(
                     response => {
                         console.log(response);
                     }, error => {
@@ -124,6 +163,7 @@ export class AutomovilGrupoTrece implements OnInit {
         } else {
             console.log('La fecha de llegada no puede ser anterior a la de salida.');
         }
+        */
     }
 
     buscador(){
@@ -136,7 +176,7 @@ export class AutomovilGrupoTrece implements OnInit {
 
     initializaDate(){
         var today = new Date();
-        var dd = today.getDate();
+        var dd = today.getDate()+1;
         var mm = today.getMonth()+1; //January is 0!
         var yyyy = today.getFullYear();
         var de = '' +dd
@@ -152,6 +192,7 @@ export class AutomovilGrupoTrece implements OnInit {
         document.getElementById("datefieldAlq").setAttribute("min", todaye);
         document.getElementById("datefieldDev").setAttribute("min", todaye);
       }
+
 
     open(content, id: number) {
         this.getCar(id);
@@ -177,6 +218,7 @@ export class AutomovilGrupoTrece implements OnInit {
       }
 
     public openModalActions(event, data: Object, type: string, deleted? : boolean){
+     //   this.submit();
         event.preventDefault();
         let config: SweetAlertOptions = {
           title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
@@ -190,5 +232,14 @@ export class AutomovilGrupoTrece implements OnInit {
           this.messageAlert(data);
         })
       }
+
+      public invalid(controlName: string, form: FormGroup) {
+          
+        return form.get(controlName).touched && !form.get(controlName).valid;
+    }
+
+    public valid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && form.get(controlName).valid;
+    }
 
 }

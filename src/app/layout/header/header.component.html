@@ -1,17 +1,20 @@
 <nav class="navbar navbar-expand-lg fixed-top">
-    <a class="navbar-brand" href="#">Vacanze</a>
-    <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
-        <!-- <span class="navbar-toggler-icon"></span> -->
-        <i class="fa fa-bars text-muted" aria-hidden="true"></i>
-    </button>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    Cerrar sesión
-                    <b class="caret"></b>
-                </a>
-            </li>
-        </ul>
-    </div>
-  </nav>  
+  <a class="navbar-brand" routerLink="/grupo-uno/landing">Vacanze</a>
+  <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
+    <!-- <span class="navbar-toggler-icon"></span> -->
+    <i class="fa fa-bars text-muted" aria-hidden="true"></i>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <!--<a href="javascript:void(0)" onClick="alert('hello button work')" class="nav-link" ngbDropdownToggle>
+          Cerrar sesión
+          <b class="caret"></b>
+        </a>-->
+        <button type="submit" class="btn btn-primary" (deactivate)='onDeactivate($event)'
+          (click)="onClickMe()">Cerrar</button>
+        <button class="btn btn-outline-primary" style="margin-left: 20px" (click)="openProfileModal()">Perfil</button>
+      </li>
+    </ul>
+  </div>
+</nav>

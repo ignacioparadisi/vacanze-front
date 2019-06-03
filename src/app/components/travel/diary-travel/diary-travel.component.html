@@ -1,0 +1,71 @@
+<div class="container">
+
+  <div class="d-flex flex-row-reverse">
+    <button type="button" class="btn btn-secondary m-1" (click)="goBack()">Regresar</button>
+  </div>
+
+  <div class="card mt-3" *ngFor="let comment of diaryComments" style="max-width: 55rem;">
+    <ng-container #flightComment *ngIf="comment.tra_res.res_fli">
+      <div class="card-title mt-3 mb-n2">
+        <h5 style="text-align: center">
+          {{comment.tra_res.res_fli.flight.loc_departure.country}} -
+          {{comment.tra_res.res_fli.flight.loc_departure.city}}
+          <a class="fa fa-fw fa-arrow-right"></a>
+          {{comment.tra_res.res_fli.flight.loc_arrival.country}} - {{comment.tra_res.res_fli.flight.loc_arrival.city}}
+        </h5>
+      </div>
+      <hr>
+      <div class="row">
+        <p class="col d-flex justify-content-center">
+          {{comment.descr}}
+        </p>
+      </div>
+      <div class="card-footer text-muted" style="text-align: center">
+        {{comment.timestamp}}
+      </div>
+    </ng-container>
+    <ng-container #hotelComment *ngIf="comment.tra_res.res_roo">
+      <div class="card-title mt-3 mb-n2">
+        <h5 style="text-align: center">{{comment.tra_res.res_roo.hotel.name}}</h5>
+      </div>
+      <hr>
+      <div class="row">
+        <p class="col d-flex justify-content-center">
+          {{comment.descr}}
+        </p>
+      </div>
+      <div class="card-footer text-muted" style="text-align: center">
+          {{comment.timestamp}}
+        </div>
+    </ng-container>
+    <ng-container #vehicleComment *ngIf="comment.tra_res.res_aut">
+      <div class="card-title mt-3 mb-n2">
+        <h5 style="text-align: center">{{comment.tra_res.res_aut.auto.make}} - {{comment.tra_res.res_aut.auto.model}}
+        </h5>
+      </div>
+      <hr>
+      <div class="row">
+        <p class="col d-flex justify-content-center">
+          {{comment.descr}}
+        </p>
+      </div>
+      <div class="card-footer text-muted" style="text-align: center">
+          {{comment.timestamp}}
+        </div>
+    </ng-container>
+    <ng-container #restaurantComment *ngIf="comment.tra_res.res_rest">
+      <div class="card-title mt-3 mb-n2">
+        <h5 style="text-align: center">{{comment.tra_res.res_rest.restaurant.businessname}}</h5>
+      </div>
+      <hr>
+      <div class="row">
+        <p class="col d-flex justify-content-center">
+          {{comment.descr}}
+        </p>
+      </div>
+      <div class="card-footer text-muted" style="text-align: center">
+          {{comment.timestamp}}
+        </div>
+    </ng-container>
+  </div>
+</div>

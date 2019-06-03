@@ -1,7 +1,11 @@
-<app-table-responsive-reservas
-  [headerTitle]="getHeaderTitle()"
-  [tableData]="getRestaurantReservation()"
-  [tableHeaders]="getHeaderRestaurantReservation()"
-  [type]="'rest-reserva'"
-  >
-</app-table-responsive-reservas>
+<div class="container-fluid text-center">
+  <app-table-responsive-reservas
+    [headerTitle]="getHeaderTitle()"
+    [tableData]="getRestaurants()"
+    [tableHeaders]="getHeaderRestaurantReservation()"
+    [type]="'rest-reserva'"
+    >
+  </app-table-responsive-reservas>
+
+  <button style="text-align: center;" class="btn btn-danger" (click)="goBack()" type="button">Regresar.</button>
+</div>

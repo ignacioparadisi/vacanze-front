@@ -23,22 +23,30 @@ export class EditRestaurantComponent implements OnInit {
     public registrationForm: FormGroup;
     public transformImageToBase64;
     public isDataLoaded: boolean;
+    public countries: any[];
+    public cities: any[];
+    public location: any[];
+    public pp: string;
 
     constructor(private _location: Location, private localStorage: LocalStorageService, private service: ApiService){
       this.isDataLoaded = false;
       this.transformImageToBase64 = transformImageToBase64;
       this.urlImage = null;
+      this.getCountry();
     }
 
     ngOnInit() {
       console.log('AQUI ESTOY');
       this.localStorage.getItem('restaurant').subscribe(data => {
         if (data) {
+          this.createNewFormGroup(data);
           this.isDataLoaded = true;
           console.log('Aqui tambien');
           this.restaurant = data;
-          console.log(data);
-          this.createNewFormGroup(data);
+          this.getLocation(data.location, location => {
+            console.log(data);
+            console.log(location);
+          });
         }
       });
     }
@@ -89,17 +97,51 @@ export class EditRestaurantComponent implements OnInit {
             Validators.min(1),
             Validators.max(5)
           ]),
-          image: new FormControl(this.urlImage, [
-            Validators.required,
-            Validators.min(0)
-          ]),
+          image: new FormControl(this.urlImage, []),
           type: new FormControl(data['specialty'],[
             Validators.required,
             Validators.minLength(5),
             Validators.maxLength(50)
+          ]),
+          country: new FormControl(null, [
+            Validators.required
+          ]),
+          city: new FormControl(null, [
+            Validators.required
           ])
         });
       }
+    }
+
+    public getLocation(id: number, accept){
+      this.service
+          .getUrl(url.endpoint.default._get.getCity, [id.toString()])
+          .then(response => {
+              this.location = response;
+              this.location = this.location.find(loc => loc['id'] === id);
+              accept(this.location);
+      }, error => console.error(error));
+    }
+
+    public getCity(id: number) {
+      this.service
+          .getUrl(url.endpoint.default._get.getCity, [id.toString()])
+          .then(response => {
+              this.cities = response;
+      }, error => console.error(error));
+    }
+
+    public getCountry() {
+      this.service
+          .getUrl(url.endpoint.default._get.getCountry)
+          .then(response => {
+              this.countries = response;
+      }, error => console.error(error));
+    }
+
+    public selectCountry(event) {
+      console.log("holaaaaa", event.target.value);
+      this.getCity(event.target.value);
     }
 
     get name(){
@@ -134,7 +176,7 @@ export class EditRestaurantComponent implements OnInit {
       return this.registrationForm.get('stars');
     }
 
-    public getImage(event){ 
+    public getImage(event){
       this.transformImageToBase64(event, image => {
         this.urlImage = image;
       });
@@ -174,8 +216,10 @@ export class EditRestaurantComponent implements OnInit {
 
     public onSubmit(){
       let idRes;
+      let status;
       this.localStorage.getItem('restaurant').subscribe( data => {
         idRes = data['id'];
+        status = data['isActive'];
         this.registrationForm.value.picture = this.urlImage;
         this.service
         .putUrl(url.endpoint.default._put.putRestaurant,
@@ -183,7 +227,7 @@ export class EditRestaurantComponent implements OnInit {
             id: idRes,
             name: this.registrationForm.get('name').value,
             capacity: this.registrationForm.get('capacity').value,
-            isActive : true,
+            isActive : status,
             qualify: this.registrationForm.get('stars').value,
             specialty: this.registrationForm.get('type').value,
             price: this.registrationForm.get('price').value,
@@ -191,7 +235,7 @@ export class EditRestaurantComponent implements OnInit {
             picture: this.urlImage,
             description: this.registrationForm.get('description').value,
             phone: this.registrationForm.get('phone').value,
-            location: 1,
+            location: this.registrationForm.get('city').value,
             address: this.registrationForm.get('address').value
           })
         .then(

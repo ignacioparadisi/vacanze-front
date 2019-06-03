@@ -8,13 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableResponsiveModule } from '../../blocks/table-responsive/table-responsive.module';
 import { RutasComponent } from './rutas/rutas.component';
 import { RegistrarCruceroComponent } from './registrar-crucero/registrar-crucero.component';
+import { AgregarRutasComponent } from './agregar-rutas/agregar-rutas.component';
 
 @NgModule({
   declarations: [
     GrupoOchoCrucerosComponent,
     CrucerosComponent,
     RutasComponent,
-    RegistrarCruceroComponent
+    RegistrarCruceroComponent,
+    AgregarRutasComponent
   ],
   imports: [
     CommonModule,

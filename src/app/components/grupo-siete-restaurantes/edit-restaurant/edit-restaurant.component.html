@@ -151,6 +151,31 @@
         </div>
       </div>
 
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Anteriormente se selecciono: <b>{{location?.country}}</b></label><br>
+          <label>Selecione un país</label>
+          <select type="text" class="form-control" (change)="selectCountry($event)" formControlName="country" >
+            <option *ngFor="let country of countries" value={{country.id}} >
+                {{country?.country}}
+            </option>
+            
+          </select>
+        </div>
+      </div>
+  
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Anteriormente se selecciono: <b>{{location?.city}}</b></label><br>
+          <label>Selecione la ciudad</label>
+          <select type="text" class="form-control" formControlName="city">
+            <option *ngFor="let city of cities" value={{city.id}}>
+                {{city?.city}}
+            </option>
+        </select>
+        </div>
+      </div>
+
       <!-- TODO - LOCATION -->
 
     </div>
@@ -164,4 +189,3 @@
 </div>
 
  <!-- TODO: INPUT DE PAIS Y CIUDAD -->
-
