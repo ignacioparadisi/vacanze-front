@@ -62,7 +62,7 @@ export class RegisterHotelComponent implements OnInit {
       Validators.min(1),
       Validators.max(5)
     ]),
-    image: new FormControl(null, [Validators.required]),
+    image: new FormControl(null, []),
     country: new FormControl(null, [Validators.required]),
     city: new FormControl(null, [Validators.required])
   });
@@ -188,4 +188,16 @@ export class RegisterHotelComponent implements OnInit {
       this.goToViewHotels();
     });
   }
+
+  viewPicture(){
+    Swal.fire({
+      title: 'Foto del hotel',
+      imageUrl: this.urlImage,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+      animation: false
+    })
+  }
+
 }

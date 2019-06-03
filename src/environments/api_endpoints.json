@@ -1,26 +1,27 @@
 {
-  "_get": {
-    "getHotel":"hotels",
-    "getHotelByLocation":"hotels/?location={id}",
-    "getRestaurant":"restaurants",
-    "getRestaurantByLocation": "restaurants/location/{id}",
-    "getResRestaurantById": "ResRestaurant/{id}",
-    "getReservationNotPay":"ResRestaurant/Payment/{userId}",
-    "getClaim":"Claim/{id}",
-    "getClaimAdminStatus":"Claim/admin/{status}",
-    "getBaggageClientSerial":"Baggage/serial/{id}",
-    "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
-    "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
-    "getCountry": "locations/countries",
-    "getCity":"locations/countries/{id}/cities",
-    "getLocations": "locations",
-    "cruisers": {
-      "get_cruisers": "cruiser",
-      "get_layovers": "cruiser/{cruiserId}/layover"
+    "_get": {
+      "getHotel":"hotels",
+      "getHotelByLocation":"hotels/?location={id}",
+      "getHotelImage":"hotels/{id}/image",
+      "getRestaurant":"restaurants",
+      "getRestaurantById": "restaurants/location/{id}",
+      "getResRestaurantById": "ResRestaurant/{id}",
+      "getReservationNotPay":"ResRestaurant/Payment/{userId}",
+      "getClaim":"Claim/{id}",
+      "getClaimAdminStatus":"Claim/admin/{status}",
+      "getBaggageClientSerial":"Baggage/serial/{id}",
+      "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
+      "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
+      "getCountry": "locations/countries",
+      "getCity":"locations/countries/{id}/cities",
+      "getLocations": "locations",
+      "cruisers": {
+        "get_cruisers": "cruiser",
+        "get_layovers": "cruiser/{cruiserId}/layover"
+      },
+      "Orders":"payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
+      "getPaymentMethod":"payment"
     },
-    "Orders":"payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
-    "getPaymentMethod":"payment"
-  },
   "_post": {
     "postClaim":"Claim/{id}",
     "postHotel":"hotels",
