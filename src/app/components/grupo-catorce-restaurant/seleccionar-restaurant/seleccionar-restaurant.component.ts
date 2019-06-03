@@ -45,7 +45,7 @@ export class SeleccionarRestaurantComponent implements OnInit {
 
   public getRestaurantById(){
     this.api
-        .getUrl(url.endpoint.default._get.getRestaurantById, [this.cityID.toString()])
+        .getUrl(url.endpoint.default._get.getRestaurantByLocation, [this.cityID.toString()])
         .then(response => {
             this.tableData = response;
     }, error => console.error(error));
