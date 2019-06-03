@@ -126,40 +126,8 @@ export class DetailTravelComponent implements OnInit {
   }
 
   getHoteReservations(type: string) {
-    /*this.hoteReservations = [
-      {
-        id: 13,
-        checkInDate: '2019-08-01',
-        checkOutDate: '2019-07-31',
-        num_ppl: 4,
-        hotel: {
-          id: 45,
-          name: 'Ambassador Suites Hotel Caracas',
-          capacity: 250,
-          tlf: '+582122764200',
-          price: 1450,
-          address_specs: 'Avenida Francisco de Miranda',
-          room_capacity: 4
-        }
-      },
-      {
-        id: 13,
-        checkInDate: '2019-07-22',
-        checkOutDate: '2019-08-14',
-        num_ppl: 4,
-        hotel: {
-          id: 57,
-          name: 'Renaissance Caracas',
-          capacity: 300,
-          tlf: '+582123188130',
-          price: 925,
-          address_specs: 'Ave Eugenio Mendoza, Con Calle Urdaneta',
-          room_capacity: 5
-        }
-      }
-    ]*/
     this.apiService.getUrl('travels/{travelId}/?locationId={locationId}&type={type}', [this.travel.id, this.cityId, type]).then(
-      (resp) => {this.hoteReservations = resp; console.log(resp)},
+      (resp) => this.hoteReservations = resp,
       (fail) => {
         Swal.fire({
           title: 'Error: ' + fail.status,
@@ -248,23 +216,5 @@ export class DetailTravelComponent implements OnInit {
 
   addComment() {
     console.log(this.commentForm.value)
-    /*this.apiService.postUrl('travels/{travelId}/locations', this.selectedCities, [String(this.travel.id)]).then(
-      (resp) => {
-        this.closeModal();
-        Swal.fire({
-          title: '!Éxito¡',
-          text: 'Las ciudades se añadieron satisfactoriamente.',
-          type: 'success'
-        });
-        this.spread.emit();
-      },
-      (fail) => {
-        Swal.fire({
-          title: 'Error: ' + fail.status,
-          text: fail.name + '. ' + fail.statusText,
-          type: 'error',
-        })
-      }
-    );*/
   }
 }
