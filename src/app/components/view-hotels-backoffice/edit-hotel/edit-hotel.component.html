@@ -243,7 +243,7 @@
           <label class="custom-file-label" for="validatedCustomFile"
             >Cambiar foto del hotel...</label
           >
-          <small *ngIf="urlImage != null" class="text-success">
+          <small *ngIf="urlImageBase64.length>0" class="text-success">
            <a class="btn" (click)="viewPicture()">Ver foto seleccionada</a></small
           >
         </div>

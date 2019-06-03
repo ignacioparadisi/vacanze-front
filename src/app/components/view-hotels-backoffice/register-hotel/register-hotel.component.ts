@@ -62,7 +62,7 @@ export class RegisterHotelComponent implements OnInit {
       Validators.min(1),
       Validators.max(5)
     ]),
-    image: new FormControl(null, [Validators.required]),
+    image: new FormControl(null, []),
     country: new FormControl(null, [Validators.required]),
     city: new FormControl(null, [Validators.required])
   });
