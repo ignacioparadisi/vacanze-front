@@ -76,6 +76,13 @@ export class RegisterUserComponent implements OnInit {
     }
   }
 
+  changeConfirmPasswordValidation() {
+    const password = this.formGroup.get('password').value;
+    this.formGroup.get('confirmPassword').clearValidators();
+    this.formGroup.get('confirmPassword').setValidators([Validators.required, Validators.minLength(8),
+      Validators.pattern(password)])
+  }
+
   private addRolesToFormGroup() {
     if (this.roles.length > 0) {
       this.roles.forEach(role => {
