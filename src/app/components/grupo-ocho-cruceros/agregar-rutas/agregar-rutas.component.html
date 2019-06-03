@@ -34,42 +34,64 @@
        </div>
      </div>
  
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-       <div class="form-group">
-        <label>Precio</label>
-        <input [ngClass]="{
-          'is-invalid': price.invalid && price.touched,
-          'is-valid': price.valid
-        }"
-        formControlName="price" type="number" class="form-control" min="1">
-        <div *ngIf="price.invalid && price.touched">
-          <small *ngIf="price.errors?.required" class ="text-danger">El precio es requerido. </small>
-        </div>
-      </div>
-     </div>
- 
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-       <div class="form-group">
-         <label>Seleccione su ubicación de salida: </label>
-         <select type="text" class="form-control" formControlName="locDeparture">
-           <option *ngFor="let country of countries" value={{country.id}} >
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Seleccione el país de salida: </label>
+        <select type="text" class="form-control" (change)="selectCountryDeparture($event)">
+           <option *ngFor="let country of countriesDeparture" value={{country.id}} >
                {{country.country}}
            </option>
-         </select>
+        </select>
        </div>
      </div>
  
      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
        <div class="form-group">
-         <label>Seleccione su ubicación de llegada:</label>
-         <select type="text" class="form-control" formControlName="locArrival">
-           <option *ngFor="let country of countries" value={{country.id}}>
-               {{country.country}}
+         <label>Seleccione la ciudad de salida:</label>
+         <select type="text" class="form-control" formControlName="locDeparture" (change)="selectCityDeparture($event)">
+           <option *ngFor="let city of citiesDeparture" value={{city.id}}>
+               {{city.city}}
            </option>
        </select>
        </div>
      </div>
- 
+
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Seleccione el país de llegada: </label>
+          <select type="text" class="form-control" (change)="selectCountryArrival($event)">
+            <option *ngFor="let country of countriesDeparture" value={{country.id}} >
+                {{country.country}}
+            </option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Seleccione la ciudad de llegada:</label>
+          <select type="text" class="form-control" formControlName="locArrival" (change)="selectCityArrival($event)">
+            <option *ngFor="let city of citiesArrival" value={{city.id}}>
+                {{city.city}}
+            </option>
+        </select>
+        </div>
+      </div>
+
+     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="form-group">
+          <label>Precio</label>
+          <input [ngClass]="{
+            'is-invalid': price.invalid && price.touched,
+            'is-valid': price.valid
+          }"
+          formControlName="price" type="number" class="form-control" min="1">
+          <div *ngIf="price.invalid && price.touched">
+            <small *ngIf="price.errors?.required" class ="text-danger">El precio es requerido. </small>
+          </div>
+        </div>
+      </div>
+
       <!-- TODO - LOCATION -->
  
     </div>
