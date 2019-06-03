@@ -36,17 +36,12 @@ export class EditRestaurantComponent implements OnInit {
     }
 
     ngOnInit() {
-      console.log('AQUI ESTOY');
       this.localStorage.getItem('restaurant').subscribe(data => {
         if (data) {
           this.createNewFormGroup(data);
           this.isDataLoaded = true;
-          console.log('Aqui tambien');
           this.restaurant = data;
-          this.getLocation(data.location, location => {
-            console.log(data);
-            console.log(location);
-          });
+          this.getLocation(data.location, location => {});
         }
       });
     }
@@ -140,7 +135,6 @@ export class EditRestaurantComponent implements OnInit {
     }
 
     public selectCountry(event) {
-      console.log("holaaaaa", event.target.value);
       this.getCity(event.target.value);
     }
 
@@ -198,7 +192,6 @@ export class EditRestaurantComponent implements OnInit {
         timer: 1500
       }
       Swal.fire(config).then( result =>{
-        //console.log(result);
         this.goToViewRestaurants();
       });
     }
@@ -210,7 +203,6 @@ export class EditRestaurantComponent implements OnInit {
         showConfirmButton: true
       }
       Swal.fire(config).then( result =>{
-        // console.log(result);
       });
     }
 
@@ -245,10 +237,8 @@ export class EditRestaurantComponent implements OnInit {
             // SI NO MOSTRAR MENSAJE DE ERROR
             // this.hotelNotCreatedSuccessfully();
             // TODO -> VALIDAR LA RESPUESTA
-              console.log(response);
           }).catch(
             error => {
-              console.log("Hay un error");
               this.errorOcurred();
             }
           );

@@ -21,7 +21,8 @@ export class AutomovilGrupoTrece implements OnInit {
     public cities = [];
     public closeResult: string;
     private userId:number;
-    private isDataLoaded: boolean = false
+    private isDataLoaded: boolean = false;
+    public show: boolean = false;
    // public aut_id;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
@@ -53,7 +54,6 @@ export class AutomovilGrupoTrece implements OnInit {
 
 
     getCar(id: number) {
-        console.log("Me traigo los datos con el id:" + id + " tal");
         /*const requestURL = `card/${id}`;
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -65,8 +65,11 @@ export class AutomovilGrupoTrece implements OnInit {
         );*/
     }
 
+    showTable(){
+        this.show = true;
+    }
+
     getCars(){
-        console.log("Estoy en getCars");
     }
 
     getCountries(){
@@ -76,7 +79,6 @@ export class AutomovilGrupoTrece implements OnInit {
                 this.countries = response;
             },
             error => {
-                console.log(error);
             }
         );
     }
@@ -88,7 +90,6 @@ export class AutomovilGrupoTrece implements OnInit {
                 this.cities = response;
             },
             error => {
-                console.log(error);
             }
         );
     }
@@ -97,7 +98,6 @@ export class AutomovilGrupoTrece implements OnInit {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
         const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(fechas);
 
         if (this.myForm.valid && fechas === 1){
         const requestURL = "Auto/consultplaceStatus/"+this.myForm.value.city+"/true/";
@@ -106,8 +106,6 @@ export class AutomovilGrupoTrece implements OnInit {
                 this.cars = response;
             },
             error => {
-                console.log(error);
-                console.log(this.cars);
             }
         );
         }
@@ -128,7 +126,6 @@ export class AutomovilGrupoTrece implements OnInit {
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
         var fk_user = this.userId;
-        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.fk_user = fk_user; // esto cuando se solucione el put
        reservation.automobile = car;
        reservation.user="";
@@ -137,13 +134,10 @@ export class AutomovilGrupoTrece implements OnInit {
       delete reservation.fechaOne;
       delete reservation.fechaTwo;
       delete reservation.country;
-        console.log(reservation);
 
       this.apiService.postUrl('reservationautomobiles', reservation).then(
         response => {
-            console.log(response);
         }, error => {
-            console.log(error);
         }
         );
 /*
@@ -169,7 +163,6 @@ export class AutomovilGrupoTrece implements OnInit {
     buscador(){
         let payload = this.myForm.value;
         if (this.myForm.valid){
-            console.log("Buscando");
             this.getCars();
         }
     }

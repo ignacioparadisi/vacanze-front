@@ -108,7 +108,6 @@ export class RegisterUserComponent implements OnInit {
   public onSubmit() {
     this.submitted = true;
     this.state = 'loading';
-    console.log("OnSubmit");
     if (this.formGroup.invalid) {
       this.state = 'error';
       return;
