@@ -52,31 +52,56 @@ export class TableResponsiveComponent implements OnChanges {
   **************************************************************************/
   public openModalActions(event, data: Object, type: string, deleted? : boolean){
     event.preventDefault();
-    let config: SweetAlertOptions = {
-      title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      type: 'question',
-      focusCancel: true
+
+    if(type === 'ruta'){
+      let config: SweetAlertOptions = {
+        title: '¿ Desea eliminar la ruta del crucero ?',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        type: 'question',
+        focusCancel: true
+      }
+      Swal.fire(config).then(result => {
+        if(result && ('value' in result)){
+          data['type'] = 'ruta';
+          data['confirmed'] = true;
+        }
+        else {
+          data['type'] = 'ruta';
+          data['confirmed'] = false;
+        }
+        this.messageAlert(data);
+      })
     }
-    Swal.fire(config).then(result => {
-      data['delete'] = deleted;
-      if(result && ('value' in result)){
-        data['confirmed'] = true;
+    else {
+      let config: SweetAlertOptions = {
+        title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        type: 'question',
+        focusCancel: true
       }
-      else {
-        data['confirmed'] = false;
-      }
-      this.messageAlert(data);
-    })
+      Swal.fire(config).then(result => {
+        data['delete'] = deleted;
+        if(result && ('value' in result)){
+          data['confirmed'] = true;
+        }
+        else {
+          data['confirmed'] = false;
+        }
+        this.messageAlert(data);
+      })
+    }
+    
   }
 
     /************************************************************
     * Metodo para redireccionar a la vista de añadir un crucero *
     *************************************************************/
     public goToAddCruiser(){
-      this.emitRouting.emit('/add-cruiser');
+      this.emitRouting.emit('/agregar-crucero');
     }
 
      /************************************************************
@@ -84,7 +109,7 @@ export class TableResponsiveComponent implements OnChanges {
     *************************************************************/
     public goToEditCruiser(boat: Object){
       this.localStorage.setItem('boat', boat).subscribe(data => {
-        this.emitRouting.emit('/edit-cruiser/'+boat['id']);
+        this.emitRouting.emit('/editar-crucero/'+boat['id']);
       });
     }
 
@@ -136,14 +161,20 @@ export class TableResponsiveComponent implements OnChanges {
       }
     }
 
-    public goToEditRoute(boat: Object){
+    public goToSeeRoutes(boat: Object){
       this.localStorage.setItem('boat', boat).subscribe(data => {
-        this.emitRouting.emit(boat['id']+'/layovers');
+        this.emitRouting.emit(boat['id']+'/rutas');
       })
     }
 
     public goToAddNewRoute(boat: Object){
-      this.emitRouting.emit('/add-cruiser-routes/'+boat['id']);
+      this.localStorage.setItem('boat', boat).subscribe(data => {
+        this.emitRouting.emit('/agregar-ruta/'+boat['id']);
+      })
+    }
+
+    public goToCruiserTable(){
+      this.emitRouting.emit('/cruceros');
     }
 
 }

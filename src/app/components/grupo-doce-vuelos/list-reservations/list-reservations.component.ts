@@ -18,39 +18,29 @@ export class ListReservationsComponent implements OnInit {
   @Input() num: number;
   @Input() longi: [];
   @Input() longiGo: [];
+  @Input() longiGoIn: [];
   @Input() dateS: Date;
   @Input() dateE: Date;
   @Input() priceL: number;
   @Input() normal: boolean=false;
   public listRes: string;
- // public listResFlight: Array<object>;
   public numeVal:number;
   public userId:number;
   public numPas:number;
   public id_fli:number;
   public valida:boolean=false;
-
- public isDataLoaded:boolean=false;
+  public isDataLoaded:boolean=false;
   closeResult: string;
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
+  
   constructor(private modalService: NgbModal, private api: ApiService,private storage: LocalStorageService) { }
-     
+  //Metodo que abre el modal
   public openModal(id:number){
-    console.log("entro en modal");
-    //event.preventDefault();
+    var today = new Date();
+    var dateCompPass=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'
+    +"0"+today.getDate()+" "+today.getHours()+":"+("0"+today.getMinutes()).slice(-2)+":"+("0"+today.getSeconds()).slice(-2);
     this.id_fli=id;
-    console.log("fliID:",this.id_fli);
-    console.log(this.normal);
-    console.log(this.valida);
-    console.log("numero de pasajeros:"+this.num);
-    if (this.normal==true) {
-      this.numPas=1;
-      var data={'_numPas':this.numPas,'_id_user':this.userId,'_id_fli': this.id_fli}
-    }else{
-      var data={'_numPas':this.num,'_id_user':this.userId,'_id_fli': this.id_fli}
-    }
-
     console.log("longi al principio:",this.longi)
     Swal.fire({
         title: 'Estas seguro?',
@@ -62,95 +52,56 @@ export class ListReservationsComponent implements OnInit {
         confirmButtonText: 'Si, reservar!'
       }).then((result) => {
         if (result.value) {
-          
-        console.log("entro en result")
+          if (this.normal==true) {
+            this.numPas=1;
+            var data={'_numPas':this.numPas,'_timestamp':dateCompPass,'_id_user':this.userId,'_id_fli': this.id_fli}
+          }else{
+            var data={'_numPas':this.num,'_timestamp':dateCompPass,'_id_user':this.userId,'_id_fli': this.id_fli}
+          }
           this.postResFlights(data);
          
             Swal.fire(
               'Reservado exitosamente!!',
             )
-          
-          console.log(this.longi)
-          console.log(this.priceL)
-          console.log(this.dateE)
-          console.log(this.userId)
-
+            
         }
       })
     }
   public messageAlert(event: Object){
     this.actionAlertEventEmitter.emit(event);
   }
-
-   /* private getDismissReason(reason: any): string {
-      if (reason === ModalDismissReasons.ESC) {
-          return 'by pressing ESC';
-      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-          return 'by clicking on a backdrop';
-      } else {
-          return  `with: ${reason}`;
-      }
-  }*/
-  
-  /* getListFlights() {
-    console.log('llame al metodo');
-    // API URL
-    //const requestURL = 'flight-reservation';
-    this.api.getUrl(url.endpoint.default._get.getResFlight).then(
-        response => {
-            this.listResFlight = response;
-            console.log(response);
-            console.log("listResFlight:",this.listResFlight.length);
-  
-        },
-        error => {
-            console.log(error);
-        }
-    );
-  }*/
- 
- 
- public getLocalStorage(){
- this.storage.getItem('id').subscribe(storeId =>
+  //metodo que obtiene el id del usuario
+  public getLocalStorage(){
+  this.storage.getItem('id').subscribe(storeId =>
   {
     if (storeId) {
       console.log("storeId:",storeId)
       this.isDataLoaded=true;
       this.userId= storeId
       console.log("userId:",this.userId)
-
     }else{
       console.log("storeId vacio");
     }
   })
  
  }
- getVal(){
-   console.log("valida en getVAL!"+this.valida)
- }
   ngOnInit() {
-   // this.getListFlights();
    this.getLocalStorage();
   }
-  
+  //Metodo que hace la reserva con peticion POST
    postResFlights(data){
-    console.log('llame al metodo POST');
-    console.log("data en metodo post:",data);
     // API URL
-    //const requestURL = 'flight-reservation';
     this.api.postUrl(url.endpoint.default._post.postResFlight,data).then(
         response => {
           this.valida=true;
           this.listRes = response;
           console.log("response:"+response);
-         
-        },
+          },
         error => {
           console.log(error);
          }
     );
- this.getVal();
-}
+ }
 
 }
 

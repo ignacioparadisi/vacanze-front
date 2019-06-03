@@ -9,36 +9,35 @@
       <div class="brand visible-xs" style="text-align: center; color:white; font-weight: bold;">
         <h3 class="brand-text font-size-40" style="font-size: 50px;">Vacanze</h3>
       </div>
-      <h3 class="font-size-15" style="color: white">Login</h3>
+      <h3 class="font-size-15" style="color: white">Iniciar Sesión</h3>
       <form #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
         <div class="form-group">
-          <label class="sr-only" for="inputEmail">Email</label>
-          <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" #Email='ngModel'
+          <label class="sr-only" for="inputEmail">Correo Electrónico</label>
+          <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Correo Electrónico" #Email='ngModel'
             [(ngModel)]="formModel.Email" required>
         </div>
         <div class="form-group">
-          <label class="sr-only" for="inputPassword">Password</label>
-          <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password"
+          <label class="sr-only" for="inputPassword">Contraseña</label>
+          <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Contraseña"
             #Password='ngModel' [(ngModel)]="formModel.Password" required>
         </div>
         <div class="form-group clearfix">
-          <a class="pull-right" href="" data-toggle="modal" data-target="#exampleModal" *ngIf="isPushed">Forgot your
-            password?</a>
+          <a class="pull-right" href="" data-toggle="modal" data-target="#exampleModal" *ngIf="isPushed">¿Olvidaste tu Contraseña?</a>
         </div>
 
 
         <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid" *ngIf="isPushed"
-          (deactivate)='onDeactivate($event)' style="font-size: 25px;font-weight: bold;">Sign Up</button>
+          (deactivate)='onDeactivate($event)' style="font-size: 25px;font-weight: bold;">Iniciar Sesión</button>
 
 
       </form>
-      <p>Do you have not account? <a (click)="openAddUserModal()" *ngIf="isPushed">Join Us!!</a></p>
+      <p>¿No tienes una cuenta? <a (click)="openAddUserModal()" *ngIf="isPushed" href="javascript:void(0)">¡Únete!</a></p>
       <footer class="page-copyright" *ngIf="isPushed">
-        <p> Universidad Catolica Andres bello</p>
+        <p> Universidad Católica Andrés Bello</p>
         <p>© 2019. Todos los derechos reservados.</p>
       </footer>
     </div>
-    <p *ngIf="isShow" style="color:white;font-weight: bold; text-align: center; font-size: 24px;">PLEASE WAIT...</p>
+    <p *ngIf="isShow" style="color:white;font-weight: bold; text-align: center; font-size: 24px;">POR FAVOR, ESPERE...</p>
 
     <!-- <Seccion del modal de recuperacion de contraseña> -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -46,7 +45,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel" style="color: black">¿Forgot your password?</h5>
+            <h5 class="modal-title" id="exampleModalLabel" style="color: black">¿Olvidaste tu Contraseña?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -55,7 +54,7 @@
             <div class="alert alert-danger" role="alert">
               <!--<p style="color: black;">The email does not exist on our DataBase <b>Vacanze</b></p>-->
             </div>
-            <p style="color: black">Please enter your account email
+            <p style="color: black">Por favor, introduzca su cuenta de correo.
             </p>
             <form #recoveryForm='ngForm' autocomplete="off" (submit)="RecoverySubmit(recoveryForm)">
               <div class="form-group">
@@ -65,14 +64,14 @@
                 <!--<button type="submit" class="btn btn-success btn-block" [disabled]="recoveryForm.invalid"
                     (deactivate)='onDeactivate($event)' style="font-size: 25px;font-weight: bold;">Recuperar</button>-->
                 <button [disabled]="!recoveryForm.form.valid" style="background-color:black"
-                  *ngIf="!isShowPmodal">Recovery Password</button>
+                  *ngIf="!isShowPmodal">Recuperar Contraseña</button>
                 <p *ngIf="isShowPmodal" style="color:black;font-weight: bold; text-align: center; font-size: 24px;">
-                  PLEASE WAIT...</p>
+                  POR FAVOR, ESPERE...</p>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             <!--<button type="button" class="btn btn-primary">Recuperar</button>-->
 
           </div>

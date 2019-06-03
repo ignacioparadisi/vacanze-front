@@ -45,7 +45,7 @@ const routes: Routes = [
       },
       /* Ruta para Backoffice de Cruceros */
       {
-        path: 'cruisers',
+        path: 'cruceros',
         loadChildren:
           '../components/grupo-ocho-cruceros/grupo-ocho-cruceros.module#GrupoOchoCrucerosModule'
       },
@@ -79,12 +79,15 @@ const routes: Routes = [
         path: 'users',
         loadChildren: '../components/users/users-list/users-list.module#UsersListModule'
       },
+
       {
         path: 'grupo-cinco',
         loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
       },
-
-
+      {
+        path: 'grupo-cuatro',
+        loadChildren: '../components/grupo-cuatro/grupo-cuatro.module#GrupoCuatroModule'
+      }
     ]
   }
 ];

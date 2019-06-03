@@ -1,3 +1,65 @@
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modificar Reserva de habitación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>Marca: </strong></p>
+        <p>{{carreservation?.automobile?._make}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Modelo: </strong></p>
+        <p>{{carreservation?.automobile?._model}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Capacidad: </strong></p>
+        <p>{{carreservation?.automobile?._capacity}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Precio por dia: </strong></p>
+        <p>{{carreservation?.automobile?._price}}$</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>CheckIn: </strong></p>
+        <p>{{carreservation?.checkIn}}</p>
+        
+        
+        
+      </div>
+      <div class="col-md-3">
+        <p><strong>CheckOut:</strong></p>
+        <p>{{carreservation?.checkOut}}</p>
+        
+      </div>
+      
+      <div class="col-md-3">
+        <p><strong>Precio total: </strong></p>
+        <span [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?._price)">lorem ipsum</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
+        </div>
+    </div>
+  </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="updateAutomobileReservation(carreservation?.automobile,carreservation.id);modal.close('Save click')">Actualizar</button>
+  </div>
+</ng-template>
+
 <!--
   Listado de Reserva de Automoviles
 -->
@@ -49,7 +111,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar {{type}}"
-                  
+                  (click)="openCar(content2,carreservation.id);initializaDate();"
                 >
                   <i class="fa fa-edit"></i>
                 </button>&nbsp;&nbsp;
@@ -74,11 +136,81 @@
 </div>
 
 
+<!--
+  Modal de Reserva de Habitaciones
+-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reserva de habitación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>Hotel: </strong></p>
+        <p>{{roomreservation?.hotel?.name}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Estrellas: </strong></p>
+        <p>{{roomreservation?.hotel?.stars}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Capacidad Habitacion: </strong></p>
+        <p>{{roomreservation?.hotel?.roomCapacity}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Precio por noche: </strong></p>
+        <p>{{roomreservation?.hotel?.pricePerRoom}}$</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>Ciudad: </strong></p>
+        <p>{{roomreservation?.hotel?.location?.city}}</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>CheckIn: </strong></p>
+        <p>{{roomreservation?.checkIn}}</p>
+        
+        
+        
+      </div>
+      <div class="col-md-3">
+        <p><strong>CheckOut:</strong></p>
+        <p>{{roomreservation?.checkOut}}</p>
+        
+      </div>
+      
+      <div class="col-md-3">
+        <p><strong>Precio total: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+          
+          </div>
+      <div class="col-md-3">
+        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
+        </div>
+    </div>
+  </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="updateRoomReservation(roomreservation?.hotel,roomreservation.id);modal.close('Save click')">Actualizar</button>
+  </div>
+</ng-template>
 
 <!--
   Listado de Reserva de Habitaciones
 -->
-
 <div class="row">
   <div class="col-md-12">
 <div class="card mb-3">
@@ -129,7 +261,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar {{type}}"
-                  (click)="EditRestaurantModal()"
+                  (click)="openRoom(content,roomreservation.id);initializaDate();"
                 >
                   <i class="fa fa-edit"></i>
                 </button>&nbsp;&nbsp;
@@ -155,7 +287,7 @@
 </div>
 
 <!--
-  Listado de Reserva de vuelos
+ ////////////////////////////// Listado de Reserva de vuelos
 -->
 
 <div class="row">
@@ -170,10 +302,10 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col"># Asiento</th>
-            <th scope="col">Fecha de reservación</th>
+            <th scope="col">Fecha de partida</th>
             <th scope="col"># Pasajeros</th>
-            <th scope="col">País Origen</th>
-            <th scope="col">País Destino</th>
+            <th scope="col">País-Ciudad Origen</th>
+            <th scope="col">País-Ciudad Destino</th>
             <th scope="col">Precio</th>
             <th scope="col">Acción</th>
             
@@ -185,12 +317,12 @@
             <td align="center">{{fliRes._timestamp}}
             </td>
             <td align="center">{{fliRes._numPas}}</td>
-            <td>{{fliRes._id}}</td>
-            <td>4</td>
-            <td>5</td>
+            <td>{{fliRes._namecountryI}}, {{fliRes._namecityI}}</td>
+            <td>{{fliRes._namecountryV}}, {{fliRes._namecityV}}</td>
+            <td>{{fliRes._price}}</td>
            
-            <td> {{fliRes._id}}
-              <swal
+            <td> 
+              <!--<swal
                 #deleteSwal
                 title="¿Desea eliminar la reservacion?"
                 type="question"
@@ -198,22 +330,11 @@
                 [focusCancel]="true"
                 (confirm)="deleteFlightReservation(fliRes._id)" [options]="{ confirmButtonText: 'Si, estoy
                  seguro', cancelButtonText: 'Cancelar' }">
-                 </swal>
-                <button [swal]="deleteSwal" class="btn btn-outline-danger">
+                 </swal>-->
+                <button (click)="openModalFlight(fliRes._id)" class="btn btn-outline-danger">
                   <i class="fa fa-trash"></i>
                 </button>&nbsp;&nbsp;
-                
-                <button
-                  class="btn btn-outline-info"
-                  style="cursor: pointer; width: 39px;"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Pagar {{type}}"
-                  (click)="EditRestaurantModal()"
-                >
-                  <i class="fa fa-credit-card"></i>
-                </button>
-              
+             
               </td>
           </tr>
         </tbody>
@@ -222,4 +343,19 @@
   </div>
 </div>
 </div>
+<!-- 
+  Lista de Reserva de restaurantes
+ -->
+
+ <app-table-responsive-reservas
+  [headerTitle]="getHeaderTitle()"
+  [tableData]="getRestaurants()"
+  [tableHeaders]="getHeaderRestaurantReservation()"
+  [type]="'ver-reservas'"
+  (actionAlertEventEmitter)="getAlertAction($event)"
+ >
+</app-table-responsive-reservas>
+
+<div class="text-center">
+  <button class="btn btn-danger" (click)="goBack()" type="button">Regresar.</button>
 </div>

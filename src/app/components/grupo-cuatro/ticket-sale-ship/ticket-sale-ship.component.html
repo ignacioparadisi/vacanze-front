@@ -1,0 +1,24 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Venta de Boletos de Cruceros</h4>
+      
+      <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  
+    </div>
+  <div class="modal-body">
+      <form action="">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Titulo">
+            </div>
+            <div class="form-group">
+              <textarea placeholder="Descripción..." class="form-control" rows="3"></textarea>
+            </div>
+      </form>
+  </div>
+  
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Venta de Boletos de Cruceros</button>
+  </div>
+</ng-template>

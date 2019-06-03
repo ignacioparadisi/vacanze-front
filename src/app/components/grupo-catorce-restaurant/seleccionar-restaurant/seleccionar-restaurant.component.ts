@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../../services/api.service';
+import { environment as url } from '../../../../environments/environment';
+import { Location } from "@angular/common";
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-seleccionar-restaurant',
@@ -10,61 +14,66 @@ export class SeleccionarRestaurantComponent implements OnInit {
   private tableRestaurantReservationHeader: Array<String>;
   private tableData: Array<Object>;
   private headerTitle: string;
+  public restaurants = []
+  public formData
+  public isDataLoaded: boolean = false
+  public cityID: number
 
-  constructor() { 
-    this.headerTitle = "List of the restaurants for the choosen date!";
+  constructor(private api: ApiService,
+    private _location: Location,
+    private localStorage: LocalStorageService) { 
+    this.headerTitle = "Lista de restaurantes para la ciudad y fecha seleccionada!";
 
     // Headers de la tabla dinamica
     this.tableRestaurantReservationHeader = [
-      "Imagen",
+      "",
       "Nombre",
-      "Direccion",
-      "Capacidad",
+      "Dirección",
       "Especialidad",
       "Precio",
-      "Descripcion",
-      "Telefono"
-    ];
-
-    this.tableData = [
-      {
-        "imagen" : 1,
-        "nombre": "Queen Elizabeth",
-        "direccion": 'Maracay',
-        "capacidad": 100,
-        "especialidad": "Comida italiana",
-        "precio": 300.4,
-        "descripcion": "Restaurante familiar de comida italiana",
-        "telefono": "0243-2351429"
-      },
-      {
-        "imagen" : 2,
-        "nombre": "Queen Mary",
-        "direccion": 'Caracas',
-        "capacidad": 200,
-        "especialidad": "Comida alemana",
-        "precio": 203,
-        "descripcion": "Restaurante familiar de comida alemana",
-        "telefono": "0212-2362719"
-      },
-      {
-        "imagen" : 3,
-        "nombre": "Mohamed",
-        "direccion": 'Valencia',
-        "capacidad": 50,
-        "especialidad": "Comida arabe",
-        "precio": 354,
-        "descripcion": "Restaurante familiar de comida arabe",
-        "telefono": "0241-2351429"
-      },
+      "Descripción ",
+      "Contacto",
+      "Reservar"
     ]
+    
   }
 
   ngOnInit() {
     console.log("Auida")
+    this.getLocalStorage()
   } 
 
-  public getRestaurantReservation(){
+  public getRestaurantById(){
+    this.api
+        .getUrl(url.endpoint.default._get.getRestaurantById, [this.cityID.toString()])
+        .then(response => {
+            this.tableData = response;
+    }, error => console.error(error));
+  }
+
+  public goBack(){
+    //TODO eliminar los datos del LocalStorage (lo del formReserva)
+    this.localStorage.removeItem('formReserva')
+    this.formData =''
+    this.isDataLoaded = false
+    this._location.back();
+  }
+
+  public getLocalStorage(){
+    this.localStorage.getItem('formReserva').subscribe(storedRes =>{
+      if(storedRes){
+        this.isDataLoaded = true
+        this.formData = storedRes
+        this.cityID = this.formData.ciudad
+
+        console.log('cityID',this.cityID)
+        this.getRestaurantById()
+      }
+    })
+  }
+  //FUNCIONES PARA LLENAR LA TABLA TABLE-RESPONSIVE-RESERVAS
+
+  public getRestaurants() {
     return this.tableData;
   }
 
