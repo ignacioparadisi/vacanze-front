@@ -102,7 +102,7 @@
                 (confirm)="deleteAutomobileReservation(carreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
                  seguro', cancelButtonText: 'Cancelar' }">
                  </swal>
-                <button [swal]="deleteSwal" class="btn btn-outline-danger">
+                <button [swal]="deleteSwal" class="btn btn-outline-danger" title="Eliminar {{type}}">
                   <i class="fa fa-trash"></i>
                 </button>&nbsp;&nbsp;
                 <button
@@ -120,7 +120,7 @@
                   style="cursor: pointer; width: 39px;"
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Editar {{type}}"
+                  title="Pagar {{type}}"
                   
                 >
                   <i class="fa fa-credit-card"></i>
@@ -252,7 +252,7 @@
                 (confirm)="deleteRoomReservation(roomreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
                  seguro', cancelButtonText: 'Cancelar' }">
                  </swal>
-                <button [swal]="deleteSwal" class="btn btn-outline-danger">
+                <button [swal]="deleteSwal" class="btn btn-outline-danger" title="Eliminar {{type}}">
                   <i class="fa fa-trash"></i>
                 </button>&nbsp;&nbsp;
                 <button
@@ -270,7 +270,7 @@
                   style="cursor: pointer; width: 39px;"
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Editar {{type}}"
+                  title="Pagar {{type}}"
                   (click)="EditRestaurantModal()"
                 >
                   <i class="fa fa-credit-card"></i>
