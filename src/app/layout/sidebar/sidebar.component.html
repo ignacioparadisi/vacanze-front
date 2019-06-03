@@ -44,7 +44,7 @@
         </ul>
       </li>
     </div>
-    <a routerLink="/users" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a *ngIf="isAdmin" routerLink="/users" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-user"></i>&nbsp;
       <span>Usuarios</span>
     </a>
