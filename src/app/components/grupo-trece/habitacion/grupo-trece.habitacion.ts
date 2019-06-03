@@ -52,16 +52,6 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     getHabitacion(id: number) {
-      //  console.log("Me traigo los datos con el id:" + id + " tal");
-        /*const requestURL = `Habitaciond/${id}`;
-        this.apiService.getUrl(requestURL).then(
-            response => {
-                this.Habitacion = response;
-            },
-            error => {
-                console.log(error);
-            }
-        );*/
     }
 
     showTable(){
@@ -69,7 +59,6 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     getHabitacions() {
-       // console.log("Estoy en getHabitacions");
     }
 
     getCountries(){
@@ -79,7 +68,6 @@ export class HabitacionGrupoTrece implements OnInit {
                 this.countries = response;
             },
             error => {
-                console.log(error);
             }
         );
     }
@@ -91,7 +79,6 @@ export class HabitacionGrupoTrece implements OnInit {
                 this.cities = response;
             },
             error => {
-                console.log(error);
             }
         );
     }
@@ -107,7 +94,6 @@ export class HabitacionGrupoTrece implements OnInit {
                 this.hotels = response;
             },
             error => {
-                console.log(error);
             }
         );
         }
@@ -139,9 +125,7 @@ export class HabitacionGrupoTrece implements OnInit {
         if (this.myForm.valid) {
             this.apiService.postUrl('reservationrooms', reservation).then(
                 response => {
-                    console.log(response);
                 }, error => {
-                    console.log(error);
                 }
             );
         }
@@ -168,8 +152,7 @@ export class HabitacionGrupoTrece implements OnInit {
     buscador() {
         let payload = this.myForm.value;
         if (this.myForm.valid) {
-            console.log("Buscando");
-           // this.getHabitacions();
+            this.getHabitacions();
         }
     }
 

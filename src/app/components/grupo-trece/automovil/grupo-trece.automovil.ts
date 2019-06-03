@@ -54,7 +54,6 @@ export class AutomovilGrupoTrece implements OnInit {
 
 
     getCar(id: number) {
-      //  console.log("Me traigo los datos con el id:" + id + " tal");
         /*const requestURL = `card/${id}`;
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -71,7 +70,6 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     getCars(){
-      //  console.log("Estoy en getCars");
     }
 
     getCountries(){
@@ -81,7 +79,6 @@ export class AutomovilGrupoTrece implements OnInit {
                 this.countries = response;
             },
             error => {
-                console.log(error);
             }
         );
     }
@@ -93,7 +90,6 @@ export class AutomovilGrupoTrece implements OnInit {
                 this.cities = response;
             },
             error => {
-                console.log(error);
             }
         );
     }
@@ -110,8 +106,6 @@ export class AutomovilGrupoTrece implements OnInit {
                 this.cars = response;
             },
             error => {
-                console.log(error);
-                console.log(this.cars);
             }
         );
         }
@@ -143,9 +137,7 @@ export class AutomovilGrupoTrece implements OnInit {
 
       this.apiService.postUrl('reservationautomobiles', reservation).then(
         response => {
-            console.log(response);
         }, error => {
-            console.log(error);
         }
         );
 /*
@@ -171,7 +163,6 @@ export class AutomovilGrupoTrece implements OnInit {
     buscador(){
         let payload = this.myForm.value;
         if (this.myForm.valid){
-            //console.log("Buscando");
             this.getCars();
         }
     }
