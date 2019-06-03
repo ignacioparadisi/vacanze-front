@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { NgForm, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterOutlet } from '@angular/router';
@@ -47,8 +47,12 @@ export class LoginComponent implements OnInit {
     private landing: GrupoUnoComponent,
     private modalService: NgbModal,
     private sideBar: SidebarComponent,
-    private local: LocalStorageService) {
+    private local: LocalStorageService,
+    private cdRef: ChangeDetectorRef) {
 
+  }
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
   }
 
   ngOnInit() {
@@ -79,22 +83,27 @@ export class LoginComponent implements OnInit {
         this.storage.setItem('Email', res.email).subscribe(email => {
           console.log('Emai del usuario', email)
         });
-        if (res.roles[0].id == 1) {
-          this.StatusLogin = false;
-          this.father.StatusHeader = true;
-          this.isPushed = true;
-          this.isShow = false;
-          this.isShowLogin = true;
-          this.router.navigateByUrl('/landing');
-        } else if (res.roles[0].id != 1) {
+        if (res.roles.length != 0) {
+          if (res.roles[0].id == 1) {
 
-          this.father.StatusHeader = true;
-          this.father.StatusSideBar = true;
-          this.StatusLogin = false;
-          this.isPushed = true;
-          this.isShow = false;
-          this.isShowLogin = true;
-          this.router.navigateByUrl('/landing');
+
+            this.StatusLogin = false;
+            this.father.StatusHeader = true;
+            this.isPushed = true;
+            this.isShow = false;
+            this.isShowLogin = true;
+            this.router.navigateByUrl('/landing');
+          }
+          else if (res.roles[0].id != 1) {
+
+            this.father.StatusHeader = true;
+            this.father.StatusSideBar = true;
+            this.StatusLogin = false;
+            this.isPushed = true;
+            this.isShow = false;
+            this.isShowLogin = true;
+            this.router.navigateByUrl('/landing');
+          }
         }
       }, error => {
         if (error.status == 0) {
