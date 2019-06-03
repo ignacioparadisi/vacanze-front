@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { NgbModal, NgbDate, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../../../services/api.service';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'add-city',
@@ -15,14 +15,14 @@ export class AddCityComponent {
 
   @Output() spread = new EventEmitter();
   activeModal: NgbModalRef;
-  private travel = JSON.parse(localStorage.getItem("travel"));
+  private travelId: string = this.activatedRoute.snapshot.paramMap.get("travelId");
   countries: Array<object>
   cities: Array<any>
   travelCities: Array<any>
   selectedCities: Array<any> = [];
   hasSelectedCities: boolean = false
 
-  constructor(private modalService: NgbModal, private apiService: ApiService) {
+  constructor(private modalService: NgbModal, private apiService: ApiService, private activatedRoute: ActivatedRoute) {
   }
 
   open(content) {
@@ -63,7 +63,7 @@ export class AddCityComponent {
   }
 
   getTravelCities() {
-    this.apiService.getUrl('travels/{travelId}/locations', [String(this.travel.id)]).then(
+    this.apiService.getUrl('travels/{travelId}/locations', [String(this.travelId)]).then(
       (resp) => this.travelCities = resp,
       (fail) => {
         Swal.fire({
@@ -79,7 +79,14 @@ export class AddCityComponent {
     const newCity = this.cities.find(x => x.id == id);
     const city = newCity.city
     const country = newCity.country
-    if (!(this.travelCities.find(x => x.id == id))) {
+    if (this.selectedCities.find(x => x.id == id)) {
+      Swal.fire({
+        title: '¡Error!',
+        html: 'La ciudad <strong>' + city + '</strong> del país <strong>' + country + '</strong> ya la seleccionaste.',
+        type: 'error',
+      })
+    
+    } else if (!(this.travelCities.find(x => x.id == id))) {
       this.selectedCities.push(
         {
           id,
@@ -91,7 +98,7 @@ export class AddCityComponent {
     } else {
       Swal.fire({
         title: '¡Error!',
-        html: 'La ciudad <strong>' + city + '</strong> del país <strong>' + country + '</strong> ya existe en el viaje',
+        html: 'La ciudad <strong>' + city + '</strong> del país <strong>' + country + '</strong> ya existe en el viaje.',
         type: 'error',
       })
     }
@@ -103,7 +110,7 @@ export class AddCityComponent {
   }
 
   addCities() {
-    this.apiService.postUrl('travels/{travelId}/locations', this.selectedCities, [String(this.travel.id)]).then(
+    this.apiService.postUrl('travels/{travelId}/locations', this.selectedCities, [this.travelId]).then(
       (resp) => {
         this.closeModal();
         Swal.fire({
@@ -114,6 +121,8 @@ export class AddCityComponent {
         this.spread.emit();
       },
       (fail) => {
+        console.log(this.selectedCities)
+        console.log(fail)
         Swal.fire({
           title: 'Error: ' + fail.status,
           text: fail.name + '. ' + fail.statusText,

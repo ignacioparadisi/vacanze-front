@@ -1,6 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { NgbModal, NgbDate, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../../../services/api.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
@@ -17,8 +16,8 @@ export class AddReservationTravelComponent {
   @Output() spread = new EventEmitter();
   @Input('activeId') typeReservation: string;
   activeModal: NgbModalRef;
-  private travel = JSON.parse(localStorage.getItem("travel"));
-  private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");;
+  private travelId: string = this.activatedRoute.snapshot.paramMap.get("travelId");
+  private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");
   availableReservations: Array<object>
 
   constructor(private modalService: NgbModal, private apiService: ApiService, private activatedRoute: ActivatedRoute) {
@@ -72,5 +71,7 @@ export class AddReservationTravelComponent {
 
   addReservation(id: number) {
     console.log(id);
+    console.log(this.travelId);
+    console.log(this.cityId);
   }
 }

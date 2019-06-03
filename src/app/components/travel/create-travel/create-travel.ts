@@ -3,6 +3,7 @@ import { NgbModal, NgbDate, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import Swal from 'sweetalert2';
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'create-travel',
@@ -14,7 +15,7 @@ import Swal from 'sweetalert2';
 export class CreateTravelComponent {
 
   @Output() spread = new EventEmitter();
-  private userId = JSON.parse(localStorage.getItem("id"));
+  private userId: string;
   activeModal: NgbModalRef;
   public formGroup: FormGroup;
   travelForm: FormGroup;
@@ -23,18 +24,24 @@ export class CreateTravelComponent {
   toDate: NgbDate;
 
 
-  constructor(private modalService: NgbModal, private apiService: ApiService) {
+  constructor(private modalService: NgbModal, private apiService: ApiService, private localStorage: LocalStorageService) {
+    this.localStorage.getItem("id").subscribe(data => {
+      if (data) {
+        this.userId = data
+        this.travelForm = new FormGroup({
+          name: new FormControl('', Validators.required),
+          description: new FormControl(''),
+          userId: new FormControl(this.userId, Validators.required),
+          init: new FormControl('', Validators.required),
+          end: new FormControl('', Validators.required)
+        });
+      }
+    }) 
   }
 
-  open(content) {
+  open(content) {    
     this.activeModal = this.modalService.open(content);
-    this.travelForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      userId: new FormControl(this.userId, Validators.required),
-      init: new FormControl('', Validators.required),
-      end: new FormControl('', Validators.required)
-    });
+       
   }
 
   closeModal() {
