@@ -8,6 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MisReservasRoutingModule } from './mis-reservas.routing.module';
 import { MisReservas } from './mis-reservas';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableResponsiveReservasModule  } from "../../blocks/table-responsive-reservas/table-responsive-reservas.module";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         NgSelectModule,
         ReactiveFormsModule,
         SweetAlert2Module.forRoot(),
-        MisReservasRoutingModule
+        MisReservasRoutingModule,
+        TableResponsiveReservasModule
     ],
     providers: []
 })
