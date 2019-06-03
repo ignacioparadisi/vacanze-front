@@ -6,32 +6,53 @@ import { FlightReservationsComponent } from '../flight-reservations/flight-reser
 import { environment as url } from '../../../../environments/environment';
 import { ApiService } from '../../../services/api.service';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-list-reservations',
   templateUrl: './list-reservations.component.html',
   styleUrls: ['./list-reservations.component.scss']
 })
+
 export class ListReservationsComponent implements OnInit {
   @Input() num: number;
   @Input() longi: [];
+  @Input() longiGo: [];
   @Input() dateS: Date;
   @Input() dateE: Date;
-  @Input() price: number;
-  public listRes: [];
+  @Input() priceL: number;
+  @Input() normal: boolean=false;
+  public listRes: string;
  // public listResFlight: Array<object>;
-  public nume:number;
+  public numeVal:number;
+  public userId:number;
+  public numPas:number;
+  public id_fli:number;
+  public valida:boolean=false;
+
+ public isDataLoaded:boolean=false;
   closeResult: string;
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
-  constructor(private modalService: NgbModal, private api: ApiService) { }
-  
-  public openModal(event, data: Object, type: string, approved? : boolean){
+  constructor(private modalService: NgbModal, private api: ApiService,private storage: LocalStorageService) { }
+     
+  public openModal(id:number){
     //event.preventDefault();
-    
+    this.id_fli=id;
+    console.log("fliID:",this.id_fli);
+    console.log(this.normal);
+    console.log("numero de pasajeros:"+this.num);
+    if (this.normal==true) {
+      this.numPas=1;
+      var data={'_numPas':this.numPas,'_id_user':this.userId,'_id_fli': this.id_fli}
+    }else{
+      var data={'_numPas':this.num,'_id_user':this.userId,'_id_fli': this.id_fli}
+    }
+
+    console.log("longi al principio:",this.longi)
     Swal.fire({
         title: 'Estas seguro?',
-        text: "No podras revertirlo!",
+        text: "",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -39,29 +60,18 @@ export class ListReservationsComponent implements OnInit {
         confirmButtonText: 'Si, reservar!'
       }).then((result) => {
         if (result.value) {
-          this.longi=null;
-          if (this.longi!=null) {
-            
+          
+        
+          this.postResFlights(data);
          
-          Swal.fire(
-            
-            'Reservado exitosamente!!',
-            
-            
-          )
-        }else{
-          Swal.fire(
-            
-            'No se pudo reservar',
-            
-            
-          )
-        }
-          console.log("reservado")
-    
+            Swal.fire(
+              'Reservado exitosamente!!',
+            )
+          
           console.log(this.longi)
-          console.log(this.price)
+          console.log(this.priceL)
           console.log(this.dateE)
+          console.log(this.userId)
 
         }
       })
@@ -96,27 +106,49 @@ export class ListReservationsComponent implements OnInit {
         }
     );
   }*/
+ 
+ 
+ public getLocalStorage(){
+ this.storage.getItem('id').subscribe(storeId =>
+  {
+    if (storeId) {
+      console.log("storeId:",storeId)
+      this.isDataLoaded=true;
+      this.userId= storeId
+      console.log("userId:",this.userId)
 
+    }else{
+      console.log("storeId vacio");
+    }
+  })
+ 
+ }
+ getVal(){
+   console.log("valida en getVAL!"+this.valida)
+ }
   ngOnInit() {
    // this.getListFlights();
-    console.log("num tiene:",this.nume);
-    console.log("dateE tiene:",this.dateE);
-
+   this.getLocalStorage();
   }
-  /*public postListFlights() {
-    console.log('llame al metodo');
+  
+   postResFlights(data){
+    console.log('llame al metodo POST');
+    console.log("data en metodo post:",data);
     // API URL
     //const requestURL = 'flight-reservation';
-    this.api.postUrl(url.endpoint.default._post.postResFlight,this.json).then(
+    this.api.postUrl(url.endpoint.default._post.postResFlight,data).then(
         response => {
-            this.listRes = response;
-            console.log(response);
+          this.valida=true;
+          this.listRes = response;
+          console.log("response:"+response);
+         
         },
         error => {
-            console.log(error);
-        }
-    );*/
+          console.log(error);
+         }
+    );
+ 
 }
 
-
+}
 

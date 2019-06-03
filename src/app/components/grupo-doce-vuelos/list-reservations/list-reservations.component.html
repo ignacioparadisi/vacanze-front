@@ -59,17 +59,43 @@
                 </tr>
               </thead>
               <tbody >
-                <tr  *ngFor="let item of longi">
+                <tr  *ngFor="let item of longi" >
                 
-                  <td>{{item.arrival}}</td>
                   <td>{{item.departure}}</td>
-                  <td>2</td>
+                  <td>{{item.arrival}}</td>
+                  <td>{{item.id}}</td>
                   <td>{{item.price}}</td>
                   <td> <div >
                     <button 
                     class="btn btn-outline-dark"
                     style="cursor: pointer;" 
-                    (click)="openModal()" 
+                    (click)="openModal(item.id)" 
+                    data-toggle="tooltip" 
+                    data-placement="top" 
+                    title="Reservar {{type}}"
+                  >
+                    <i class="fa fa-cart-plus"></i>
+                  </button>&nbsp;&nbsp;
+                    <swal
+                        #addSwal
+                        title="Reserva exitosa"
+                        type="success"
+                        showConfirmButton=false
+                        >
+                      </swal>
+                  </div></td> 
+                </tr>      
+                <tr  *ngFor="let item of longiGo" >
+                
+                  <td>{{item._dateI}}</td>
+                  <td>{{item._dateV}}</td>
+                  <td>{{item._seatavailable}}</td>
+                  <td>{{item._priceupdate}}</td>
+                  <td> <div >
+                    <button 
+                    class="btn btn-outline-dark"
+                    style="cursor: pointer;" 
+                    (click)="openModal(item.id)" 
                     data-toggle="tooltip" 
                     data-placement="top" 
                     title="Reservar {{type}}"

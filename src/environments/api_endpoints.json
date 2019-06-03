@@ -4,6 +4,7 @@
       "getRestaurant":"restaurants",
       "getResFlight":"list-reservation-flight/1",
       "getListFlight":"flights/locations",
+      "getListFlightGo":"reservation-flight",
       "getIdCity":"id-return-city",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
