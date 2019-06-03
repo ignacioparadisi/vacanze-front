@@ -104,6 +104,7 @@ export class Registrar_AutoComponent implements OnInit {
             this.autos = response;
         }, error => {
             console.log(error);
+            this.consultarauto();
         });
       
       console.log('Registro eliminado');
