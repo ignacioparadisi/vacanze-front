@@ -140,7 +140,7 @@ export class EditHotelComponent implements OnInit {
 
   public getImage(event) {
     this.transformImageToBase64(event, image => {
-      this.urlImage = image;
+      this.urlImageBase64 = image;
     });
   }
 
