@@ -85,7 +85,7 @@ export class EditHotelComponent implements OnInit {
           Validators.min(1)
         ]),
         phone: new FormControl(storedHotel['phone'], [
-          Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+          Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]*$')
         ]),
         website: new FormControl(storedHotel['website'], [
           Validators.pattern(
@@ -125,6 +125,7 @@ export class EditHotelComponent implements OnInit {
   }
 
   get phone() {
+    console.log(this.registrationForm.get('phone'));
     return this.registrationForm.get('phone');
   }
 
