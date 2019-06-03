@@ -74,11 +74,12 @@
       	<label>Telefono</label>
       	 <input [ngClass]="{
            'is-invalid': phone.invalid && phone.touched,
-           'is-valid': phone.valid && phone.touched
+           'is-valid': phone.valid
          }"
          formControlName="phone" type="text" class="form-control">
          <div *ngIf="phone.invalid && phone.touched">
           <small *ngIf="phone.errors?.pattern" class ="text-danger">No parece ser un teléfono válido</small>
+          <small *ngIf="phone.errors?.required" class ="text-danger">El teléfono es obligatorio</small>
          </div>
         </div>
      </div>
@@ -88,11 +89,12 @@
       	<label>Sitio Web</label>
       	<input [ngClass]="{
           'is-invalid': website.invalid && website.touched,
-          'is-valid': website.valid && website.touched
+          'is-valid': website.valid
         }"
         formControlName="website" type="text" class="form-control">
         <div *ngIf="website.invalid && website.touched">
          <small *ngIf="website.errors?.pattern" class ="text-danger">No parece ser una web válida</small>
+         <small *ngIf="website.errors?.required" class ="text-danger">El sitio web es obligatorio</small>
         </div>
       </div>
      </div>
