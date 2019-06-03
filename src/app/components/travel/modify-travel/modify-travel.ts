@@ -68,10 +68,9 @@ export class ModifyTravelComponent {
 
   onDateSelection(date: NgbDate) {
     const today = new Date;
-    const todayDay = today.getDate().valueOf();
-    const todayMonth = today.getMonth().valueOf() + 1;
-    const todayYear = today.getFullYear().valueOf();
-    if (date.year >= todayYear && date.month >= todayMonth && date.day >= todayDay) {
+    today.setHours(0,0,0,0)
+    const selectedDate = new Date(date.year, date.month-1, date.day)
+    if (selectedDate >= today) {
       if (!this.fromDate && !this.toDate) {
         this.fromDate = date;
         this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
@@ -87,7 +86,7 @@ export class ModifyTravelComponent {
     } else {
       Swal.fire({
         title: '¡Error!',
-        text: 'Debes seleccionar una fecha desde ' + todayDay + '-' + todayMonth + '-' + todayYear + ' en adelante',
+        text: 'Debes seleccionar una fecha desde ' + today.getDate().valueOf() + '-' + (today.getMonth().valueOf() + 1) + '-' + today.getFullYear().valueOf() + ' en adelante',
         type: 'error',
       })
     }
