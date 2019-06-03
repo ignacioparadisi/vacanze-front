@@ -94,8 +94,12 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/landing');
         }
       }, error => {
-        if (error.status == 400 || error.status != 200)
-          alert("Ha ocurrido un error")
+        if (error.status == 0) {
+          alert("problemas por parte del cliente o servidor")
+        } else if (error.status == 400 || error.status != 200) {
+          alert("contraseña y/o correo incorrecto")
+        }
+
         this.isPushed = true;
         this.isShow = false;
         this.isShowLogin = true;
@@ -120,17 +124,18 @@ export class LoginComponent implements OnInit {
         }
       },
       error => {
-        if (error.status == 400 || error.status != 200) {
-          alert("Ups....There is a trouble")
-          this.isShowPmodal = false;
+        if (error.status == 0) {
+          alert("problemas por parte del cliente o servidor")
+        } else if (error.status == 400 || error.status != 200) {
+          alert("Este correo no se encuentra en nuestra Base De Datos")
         } else if (error.status == 200)
-          alert("New password have sent to your email")
+          alert("Se le ha enviado su nueva contraseña al correo")
         this.isShowPmodal = false;
       }
     );
   }
 
-  openAddUserModal(user?: User) {
+  openAddUserModal() {
     const modalRef = this.modalService.open(RegisterUserComponent, { centered: true });
     modalRef.componentInstance.isClient = true;
   }

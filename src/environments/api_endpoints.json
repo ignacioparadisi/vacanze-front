@@ -1,14 +1,16 @@
 {
     "_get": {
       "getHotel":"hotels",
+      "getHotelByLocation":"hotels/?location={id}",
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
-      "getBaggageClientSerial":"Baggage/{id}",
+      "getBaggageClientSerial":"Baggage/serial/{id}",
       "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
       "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
       "getCountry": "locations/countries",
       "getCity":"locations/countries/{id}/cities",
+      "getLocations": "locations",
       "cruisers": {
         "get_cruisers": "cruiser",
         "get_layovers": "cruiser/{cruiserId}/layover"
@@ -19,7 +21,8 @@
       "postHotel":"hotels",
       "postRestaurant": "restaurants",
       "cruisers": {
-        "post_cruiser": "cruiser"
+        "post_cruiser": "cruiser",
+        "post_route": "cruiser/{cruiserId}/layover"
       },
       "postResRestaurant": "ResRestaurant"
     },
@@ -33,7 +36,8 @@
       "deleteHotel":"hotels/{id}",
       "deleteRestaurant":"restaurants/{id}",
       "cruisers": {
-        "delete_cruiser": "cruiser/{id}"
+        "delete_cruiser": "cruiser/{id}",
+        "delete_routes": "cruiser/layover/{id}"
       }
     }
 }

@@ -7,6 +7,7 @@ import { Baggage } from "../../classes/baggage";
 import { environment as url} from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-grupo-nueve',
@@ -35,14 +36,15 @@ export class GrupoNueveComponent implements OnInit {
   public idPut : any;
   public titlePut : any;
   public descrPut : any;
-
-  constructor(private modalService: NgbModal,
+public role :any;
+  constructor(private modalService: NgbModal, private storage: LocalStorageService,
      private service: ApiService)
   {}
 
   ngOnInit() {
 
     this.getClaim()
+    this.getRole()
 
     this.formGroup = new FormGroup({
       serial: new FormControl(null, [Validators.required]),
@@ -66,6 +68,18 @@ export class GrupoNueveComponent implements OnInit {
       });
   }
 
+  getRole(){
+    this.storage.getItem('rol').subscribe(data => {
+      console.log('id: ',data[0].id);
+      if (data[0].id == '2' || data[0].id == '4'){
+      this.pantallaAdmin(); 
+      console.log('Este usuario es administrador o de reclamo');}
+      else if (data[0].id == '1'){
+      this.pantallaCliente();
+      console.log('Este usuario es cliente');}
+    });
+  
+  }
   getClaim(){
     this.service.getUrl(url.endpoint.default._get.getClaim,['0'])
     .then(data =>{this.claims=data; console.log(data)})
@@ -241,25 +255,15 @@ export class GrupoNueveComponent implements OnInit {
   }
   
   pantallaAdmin(){
-    var pagina, liCliente, liAdmin;
+    var pagina;
     pagina = document.getElementById('paginaAdmin');
-    liCliente = document.getElementById('li-cliente');
-    liAdmin = document.getElementById('li-admin');
-
     pagina.style.display = "block";
-    liCliente.style.display = "none";
-    liAdmin.style.display = "none";
   }
 
   pantallaCliente(){
-    var pagina, liCliente, liAdmin;
+    var pagina;
     pagina = document.getElementById('paginaCliente');
-    liCliente = document.getElementById('li-cliente');
-    liAdmin = document.getElementById('li-admin');
-
     pagina.style.display = "block";
-    liCliente.style.display = "none";
-    liAdmin.style.display = "none";
   }
 
   private getDismissReason(reason: any): string {
