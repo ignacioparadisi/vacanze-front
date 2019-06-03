@@ -120,10 +120,7 @@ export class MisReservas implements OnInit {
     * Metodo que es llamado para mostrar las reservas de ese usuario                          *
     ***********************************************************************/
   getAutomobileReservations(){
-    console.log("Estoy en getAutomobileReservations");
     var user_id = this.userId;
-    console.log("getAutomobileReservations: user_id="+user_id);
-  //  const requestURL = "reservationautomobiles/?user="+user_id; 
     const requestURL = "reservationautomobiles/?user="+this.userId; //Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
         response => {
@@ -137,9 +134,7 @@ export class MisReservas implements OnInit {
 }
 
 getRoomReservations(){
-  console.log("Estoy en getRoomReservations");
   var user_id = this.userId;
-  console.log("getRoomReservations: user_id="+user_id);
  // const requestURL = "reservationrooms/?user="+user_id;
  const requestURL = "reservationrooms/?user="+user_id;
   this.apiService.getUrl(requestURL).then(
@@ -182,29 +177,22 @@ public deleteRoomReservation(id: number) {
 }
 
 public updateAutomobileReservation(car:object,id:number) {
-  console.log("carro: "+car);
-  console.log("id de la Reserva en Update: "+id);
   const requestURL = 'reservationautomobiles';
   const reservation = this.myForm.value;
  // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
    //     console.log(fechas);
         var fk_user = this.userId;
-        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
-        console.log("check:"+reservation.checkIn);
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-        console.log("check:"+reservation.checkOut);
         reservation.fk_user = fk_user;
        reservation.automobile = car;
      //  reservation.user="";
        reservation.id=id;
        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(fechas);
       delete reservation.city;
       delete reservation.fechaOne;
       delete reservation.fechaTwo;
       delete reservation.country;
-        console.log(reservation);
         if(fechas===1)
   this.apiService.putUrl(requestURL,reservation).then(
     response => {
@@ -219,29 +207,22 @@ public updateAutomobileReservation(car:object,id:number) {
 }
 
 public updateRoomReservation(hotel:object,id:number) {
-  console.log("carro: "+hotel);
-  console.log("id de la Reserva en Update: "+id);
   const requestURL = 'reservationrooms';
   const reservation = this.myForm.value;
  // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
    //     console.log(fechas);
         var fk_user = this.userId;
-        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
-        console.log("check:"+reservation.checkIn);
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-        console.log("check:"+reservation.checkOut);
      reservation.fk_user = fk_user;
        reservation.hotel = hotel;
        reservation.user="";
        reservation.id=id;
        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(fechas);
       delete reservation.city;
       delete reservation.fechaOne;
       delete reservation.fechaTwo;
       delete reservation.country;
-        console.log(reservation);
         if(fechas===1)
   this.apiService.putUrl(requestURL,reservation).then(
     response => {
@@ -256,7 +237,6 @@ public updateRoomReservation(hotel:object,id:number) {
 }
 
 getRoomReservation(id: number) {
-  console.log('ID: ' + id);
   const requestURL = `reservationrooms/${id}`;
   this.apiService.getUrl(requestURL).then(
     response => {
@@ -270,7 +250,6 @@ getRoomReservation(id: number) {
 }
 
 getCarReservation(id: number) {
-  console.log('ID: ' + id);
   const requestURL = `reservationautomobiles/${id}`;
   this.apiService.getUrl(requestURL).then(
     response => {
@@ -284,18 +263,12 @@ getCarReservation(id: number) {
 }
 
 getDaysFrom2Dates(date1:any, date2:any,price:number){
-  //var prueba1 =new Date("01/05/2019");
- // var prueba2 =new Date("01/02/2019");
+
  var parseDate1 = new Date(date1);
  var parseDate2 = new Date(date2);
- console.log(parseDate1);
- console.log(date2);
   this.totalcost = (parseDate2.getDate() - parseDate1.getDate());
-  console.log("dayDif"+this.totalcost);
   this.totalcost = Math.round(this.totalcost);
-  console.log("dayDifference "+ this.totalcost);
   this.totalcost = price * this.totalcost;
-  console.log(this.totalcost);
  // return this.totalcost;
 }
 

@@ -52,7 +52,7 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     getHabitacion(id: number) {
-        console.log("Me traigo los datos con el id:" + id + " tal");
+      //  console.log("Me traigo los datos con el id:" + id + " tal");
         /*const requestURL = `Habitaciond/${id}`;
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -69,7 +69,7 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     getHabitacions() {
-        console.log("Estoy en getHabitacions");
+       // console.log("Estoy en getHabitacions");
     }
 
     getCountries(){
@@ -100,7 +100,6 @@ export class HabitacionGrupoTrece implements OnInit {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
         const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(fechas);
         if (this.myForm.valid && fechas === 1){
         const requestURL = "hotels/?location="+this.myForm.value.city;
         this.apiService.getUrl(requestURL).then(
@@ -125,12 +124,10 @@ export class HabitacionGrupoTrece implements OnInit {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
         let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(hotel);
 
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
             reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
             var fk_user = this.userId;
-            console.log("fk_user="+fk_user);
            reservation.fk_user = fk_user
            reservation.hotel = hotel;
            reservation.user="";
@@ -139,7 +136,6 @@ export class HabitacionGrupoTrece implements OnInit {
           delete reservation.fechaOne;
           delete reservation.fechaTwo;
           delete reservation.country;
-        console.log(reservation);
         if (this.myForm.valid) {
             this.apiService.postUrl('reservationrooms', reservation).then(
                 response => {
@@ -173,7 +169,7 @@ export class HabitacionGrupoTrece implements OnInit {
         let payload = this.myForm.value;
         if (this.myForm.valid) {
             console.log("Buscando");
-            this.getHabitacions();
+           // this.getHabitacions();
         }
     }
 

@@ -54,7 +54,7 @@ export class AutomovilGrupoTrece implements OnInit {
 
 
     getCar(id: number) {
-        console.log("Me traigo los datos con el id:" + id + " tal");
+      //  console.log("Me traigo los datos con el id:" + id + " tal");
         /*const requestURL = `card/${id}`;
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -71,7 +71,7 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     getCars(){
-        console.log("Estoy en getCars");
+      //  console.log("Estoy en getCars");
     }
 
     getCountries(){
@@ -102,7 +102,6 @@ export class AutomovilGrupoTrece implements OnInit {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
         const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(fechas);
 
         if (this.myForm.valid && fechas === 1){
         const requestURL = "Auto/consultplaceStatus/"+this.myForm.value.city+"/true/";
@@ -133,7 +132,6 @@ export class AutomovilGrupoTrece implements OnInit {
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
         var fk_user = this.userId;
-        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.fk_user = fk_user; // esto cuando se solucione el put
        reservation.automobile = car;
        reservation.user="";
@@ -142,7 +140,6 @@ export class AutomovilGrupoTrece implements OnInit {
       delete reservation.fechaOne;
       delete reservation.fechaTwo;
       delete reservation.country;
-        console.log(reservation);
 
       this.apiService.postUrl('reservationautomobiles', reservation).then(
         response => {
@@ -174,7 +171,7 @@ export class AutomovilGrupoTrece implements OnInit {
     buscador(){
         let payload = this.myForm.value;
         if (this.myForm.valid){
-            console.log("Buscando");
+            //console.log("Buscando");
             this.getCars();
         }
     }
