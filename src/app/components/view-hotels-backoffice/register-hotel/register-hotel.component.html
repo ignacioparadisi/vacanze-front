@@ -124,6 +124,7 @@
         [class.is-invalid]="addressSpecification.invalid && addressSpecification.touched" formControlName="addressSpecification" type="text" class="form-control" >
         <div *ngIf="addressSpecification.invalid && addressSpecification.touched">
           <small *ngIf="addressSpecification.errors?.maxlength" class ="text-danger">Esta especificacion no puede tener mas de 50 caracteres </small>
+          <small *ngIf="addressSpecification.errors?.required" class ="text-danger">Se requiere colocar una especificación de ubicación</small>
         </div>
       </div>
     </div>

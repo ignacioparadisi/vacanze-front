@@ -39,6 +39,7 @@ public registrationForm : FormGroup = new FormGroup({
       Validators.min(1)
     ]),
     addressSpecification: new FormControl(null,[
+      Validators.required,
       Validators.maxLength(50)
     ]),
     pricePerRoom: new FormControl(null,[
@@ -47,7 +48,7 @@ public registrationForm : FormGroup = new FormGroup({
       Validators.min(1)
     ]),
     phone : new FormControl(null,[
-      Validators.pattern("^((\\+)|(00)|(\\*)|())[0-9]{3,14}((\\#)|())$")
+      Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")
     ]),
     website : new FormControl(null,[
       Validators.pattern("(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})")
