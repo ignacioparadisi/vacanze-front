@@ -3,56 +3,63 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import Swal from 'sweetalert2';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { Travel } from '../../classes/travel';
 
 @Component({
-    selector: 'app-travel',
-    templateUrl: './travel.component.html',
-    styleUrls: ['./travel.component.scss'],
-    providers: [ApiService]
+  selector: 'app-travel',
+  templateUrl: './travel.component.html',
+  styleUrls: ['./travel.component.scss'],
+  providers: [ApiService]
 })
 export class TravelComponent implements OnInit {
 
-    private userId: string;
-    private travels: Array<object>;
+  private userId: string;
+  private travels: Array<Travel>;
 
-    constructor(private router: Router, private apiService: ApiService, private localStorage: LocalStorageService) {
-    }
+  constructor(private router: Router, private apiService: ApiService, private localStorage: LocalStorageService) {
+  }
 
-    ngOnInit() {
-        this.getTravels();        
-    }
+  ngOnInit() {
+    this.getTravels();
+  }
 
-    private getTravels() {
-        this.localStorage.getItem("id").subscribe(data =>{
-            if(data){
-                this.userId = data
-                this.apiService.getUrl('users/{user}/travels', [this.userId]).then(
-                    (resp) => this.travels = resp,
-                    (fail) => {
-                        if (fail.error) {
-                            Swal.fire({
-                                title: fail.error,
-                                type: 'info',
-                            })
-                        } else {
-                            Swal.fire({
-                                title: 'Error: ' + fail.status,
-                                text: fail.name + '. ' + fail.statusText,
-                                type: 'error',
-                            })
-                        }
-                    }
-                );
+  private getTravels() {
+    this.localStorage.getItem("id").subscribe(data => {
+      if (data) {
+        this.userId = data
+        this.apiService.getUrl('users/{user}/travels', [this.userId]).then(
+          (resp) => {
+            this.travels = resp
+            this.travels.forEach((row) => {
+              row.init = row.init.substring(0,10)
+              row.end = row.end.substring(0,10)
+            })
+          },
+          (fail) => {
+            if (fail.error) {
+              Swal.fire({
+                title: fail.error,
+                type: 'info',
+              })
+            } else {
+              Swal.fire({
+                title: 'Error: ' + fail.status,
+                text: fail.name + '. ' + fail.statusText,
+                type: 'error',
+              })
             }
-        })        
-    }
+          }
+        );
+      }
+    })
+  }
 
-    private travelCities(travel) {
-        localStorage.setItem("travel", JSON.stringify(travel));
-        this.router.navigate(['travel', travel.id, 'cities'])
-    }
+  private travelCities(travel) {
+    localStorage.setItem("travel", JSON.stringify(travel));
+    this.router.navigate(['travel', travel.id, 'cities'])
+  }
 
-    private travelDelete(id: number) {
-        console.log(id);
-    }
+  private travelDelete(id: number) {
+    console.log(id);
+  }
 }

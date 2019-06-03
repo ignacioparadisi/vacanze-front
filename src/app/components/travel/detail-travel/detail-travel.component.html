@@ -61,18 +61,18 @@
           <hr>
           <div class="row">
             <p class="col d-flex justify-content-center ml-3">
-              Entrada: {{hoteReservation.checkInDate}}
+              Entrada: {{hoteReservation.checkIn}}
               <br>
-              Dirección: {{hoteReservation.hotel.address_specs}}
+              Dirección: {{hoteReservation.hotel.addressSpecification}}
               <br>
-              Teléfono: {{hoteReservation.hotel.tlf}}
+              Teléfono: {{hoteReservation.hotel.phone}}
             </p>
             <p class="col d-flex justify-content-center ml-3">
-              Salida: {{hoteReservation.checkOutDate}}
+              Salida: {{hoteReservation.checkOut}}
               <br>
-              Capacidad: {{hoteReservation.num_ppl}}/{{hoteReservation.hotel.room_capacity}}
+              Capacidad: {{hoteReservation.hotel.roomCapacity}} Personas
               <br>
-              Monto: {{hoteReservation.hotel.price}}
+              Monto: {{hoteReservation.hotel.pricePerRoom}} bs.S
             </p>
           </div>
         </div>
