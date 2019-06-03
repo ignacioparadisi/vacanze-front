@@ -77,9 +77,13 @@ public role :any;
       else if (data[0].id == '1'){
       this.pantallaCliente();
       console.log('Este usuario es cliente');}
+      else{
+      this.pantallaAcceso();
+      console.log('El usuario no es cliente, ni admin, ni reclamo');
+      }
     });
-  
   }
+
   getClaim(){
     this.service.getUrl(url.endpoint.default._get.getClaim,['0'])
     .then(data =>{this.claims=data; console.log(data)})
@@ -181,6 +185,10 @@ public role :any;
     Swal.fire(config);
   }
 
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   putClaim(id : any){
     if(this.titlePut != null && this.descrPut != null && this.getCk_cambiar()){
       this.putAll(id);
@@ -192,7 +200,7 @@ public role :any;
     if(this.getCk_cambiar()){
       this.putClaimStatus(id);
     }
-  }
+  } 
 
   getCk_cambiar(){
     var ck_cambiar =<HTMLInputElement> document.getElementById("check_cambiar");
@@ -252,6 +260,11 @@ public role :any;
       showConfirmButton: true
     }
     Swal.fire(config);
+  }
+
+  pantallaAcceso(){
+    var pagina = document.getElementById('paginaAcceso');
+    pagina.style.display = "block";
   }
   
   pantallaAdmin(){
