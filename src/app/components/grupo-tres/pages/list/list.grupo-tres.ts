@@ -178,7 +178,7 @@ export class ListGrupoTres implements OnInit {
             
             console.log(response);
           }, (error) => {
-            this.mensaje = error;
+            this.mensaje = error.error.message;
             this.errores = true;
             this.messageDanger = true;
             setTimeout(()=>{
