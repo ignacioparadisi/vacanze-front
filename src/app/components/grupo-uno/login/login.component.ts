@@ -128,7 +128,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  openAddUserModal(user?: User) {
+  openAddUserModal() {
     const modalRef = this.modalService.open(RegisterUserComponent, { centered: true });
     modalRef.componentInstance.isClient = true;
   }

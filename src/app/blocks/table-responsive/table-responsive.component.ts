@@ -54,7 +54,6 @@ export class TableResponsiveComponent implements OnChanges {
     event.preventDefault();
 
     if(type === 'ruta'){
-      console.log("Entrooo aqui", data);
       let config: SweetAlertOptions = {
         title: '¿ Desea eliminar la ruta del crucero ?',
         confirmButtonText: 'Confirmar',

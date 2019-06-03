@@ -12,13 +12,9 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>Landing Page</span>
     </a>
-    <a routerLink="/grupo-nueve" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-      <span>Reclamo de Equipaje</span>
-    </a>
     <a routerLink="/grupo-nueve" class="list-group-item">
       <i class="fa fa-fw fa-briefcase"></i>&nbsp;
-      <span>Equipment Claim</span>
+      <span>Reclamo de Equipajes</span>
     </a>
     <div class="nested-menu">
         <a class="list-group-item" (click)="addExpandClass('paginas')">
@@ -60,7 +56,7 @@
         </ul>
       </li>
     </div>
-    <a routerLink="/users" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a *ngIf="isAdmin" routerLink="/users" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-user"></i>&nbsp;
       <span>Usuarios</span>
     </a>

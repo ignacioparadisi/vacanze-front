@@ -1,0 +1,100 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Añadir reserva</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="card mt-3" *ngFor="let availableReservation of availableReservations" style="max-width: 55rem;"
+        (click)="addReservation(availableReservation.id)">
+        <!--<ng-container #flightComment *ngIf="typeReservation === 'flight'">
+          <div class="card-title mt-3 mb-n2">
+            <h5 style="text-align: center">
+              {{comment.tra_res.res_fli.flight.loc_departure.country}} -
+              {{comment.tra_res.res_fli.flight.loc_departure.city}}
+              <a class="fa fa-fw fa-arrow-right"></a>
+              {{comment.tra_res.res_fli.flight.loc_arrival.country}} -
+              {{comment.tra_res.res_fli.flight.loc_arrival.city}}
+            </h5>
+          </div>
+          <hr>
+          <div class="row">
+            <p class="col d-flex justify-content-center">
+              {{comment.descr}}
+            </p>
+          </div>
+          <div class="card-footer text-muted" style="text-align: center">
+            {{comment.timestamp}}
+          </div>
+        </ng-container>-->
+        <ng-container #hotelComment *ngIf="typeReservation === 'hotel'">
+          <div class="card-title mt-3 mb-n2">
+            <h5 style="text-align: center">{{availableReservation.name}}</h5>
+          </div>
+          <hr>
+          <div class="row">
+            <p class="col d-flex justify-content-center ml-3">
+              Dirección: {{availableReservation.addressSpecification}}
+              <br>
+              Teléfono: {{availableReservation.phone}}
+            </p>
+            <p class="col d-flex justify-content-center ml-3">
+              Capacidad: {{availableReservation.roomCapacity}} (Personas)
+              <br>
+              Monto: {{availableReservation.pricePerRoom}} bs.S
+            </p>
+          </div>
+        </ng-container>
+        <!--<ng-container #vehicleComment *ngIf="typeReservation === 'vehicle'">
+          <div class="card-title mt-3 mb-n2">
+            <h5 style="text-align: center">{{comment.tra_res.res_aut.auto.make}} -
+              {{comment.tra_res.res_aut.auto.model}}
+            </h5>
+          </div>
+          <hr>
+          <div class="row">
+            <p class="col d-flex justify-content-center">
+              {{comment.descr}}
+            </p>
+          </div>
+          <div class="card-footer text-muted" style="text-align: center">
+            {{comment.timestamp}}
+          </div>
+        </ng-container>-->
+        <ng-container #restaurantComment *ngIf="typeReservation === 'restaurant'">
+          <div class="card-title mt-3 mb-n2">
+            <h5 style="text-align: center">{{availableReservation.name}}</h5>
+          </div>
+          <hr>
+          <div class="row">
+            <p class="col d-flex justify-content-center ml-3">
+              Especialidad: {{availableReservation.specialty}}
+              <br>
+              Dirección: {{availableReservation.address}}
+              <br>
+              Teléfono: {{availableReservation.phone}}
+            </p>
+            <p class="col d-flex justify-content-center ml-3">
+              Descripción: {{availableReservation.description}}
+              <br>
+              Capacidad: {{availableReservation.capacity}}
+              <br>
+              Monto: {{availableReservation.price}}
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div class="d-flex justify-content-end align-items-end w-100" style="height: 295px;">
+  <div class="kreep">
+    <button (click)="open(content)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip"
+      data-placement="top" title="Agregar {{type}}">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+</div>
