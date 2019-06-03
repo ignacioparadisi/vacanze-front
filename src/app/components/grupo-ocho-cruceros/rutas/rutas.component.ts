@@ -16,7 +16,7 @@ export class RutasComponent implements OnInit {
   public headerTitle: string;
   public tableHeaders: Array<string>;
   public routesCruiser: Array<Object>;
-  public countries: Array<Object>;
+  public locations: Array<Object>;
 
   constructor(private localStorage: LocalStorageService, private router: Router, private api: ApiService) { 
     this.headerTitle = "";
@@ -34,11 +34,9 @@ export class RutasComponent implements OnInit {
     this.localStorage.getItem('boat').subscribe(cruiser => {
       this.localStorage.getItem('cruiserRoutes').subscribe(data => {
         if(data && data.length !== 0){
-          this.getCountry(response => {
-            this.headerTitle = "Rutas | " +cruiser['name'].bold();
-            this.routesCruiser = data;
-            this.findLocationsById(this.routesCruiser)
-          });
+          this.headerTitle = "Rutas | " +cruiser['name'].bold();
+          this.routesCruiser = data;
+          this.getLocations(this.routesCruiser);
         }
         else {
           this.routesCruiser = [];
@@ -57,14 +55,24 @@ export class RutasComponent implements OnInit {
     this.router.navigate(['/cruceros']);
   }
 
-  /*********************************
-  * Metodo para obtener los paises *
-  **********************************/
-  public getCountry(resolve: any) {
-    this.api.getUrl(url.endpoint.default._get.getCountry)
+  /***********************************
+  * Metodo para obtener las ciudades *
+  ************************************/
+  public getLocations(routes) {
+    let aux = [];
+    this.api.getUrl(url.endpoint.default._get.getLocations)
       .then(response => {
-        this.countries = response;
-        resolve(true);
+        this.locations = response;
+        routes.forEach(route => {
+          let departure = this.locations.find(location => location['id'] === route['locDeparture']);
+          route['depCity'] = departure['city'];
+          route['depCountry'] = departure['country'];
+          let arrival = this.locations.find(location => location['id'] === route['locArrival']);
+          route['arrivalCity'] = arrival['city'];
+          route['arrivalCountry'] = arrival['country'];
+          aux.push(route);
+        })
+        this.routesCruiser = aux;
       })
       .catch(error => {
 
@@ -74,10 +82,6 @@ export class RutasComponent implements OnInit {
   public findLocationsById(routes: Array<Object>){
     let aux = [];
     routes.forEach(route => {
-      let departure = this.countries.find(country => route['locDeparture'] === country['id']);
-      let arrival = this.countries.find(country => route['locArrival'] === country['id']);
-      route['locDeparture'] = departure['country'];
-      route['locArrival'] = arrival['country'];
       aux.push(route);
     })
     this.routesCruiser = aux;
