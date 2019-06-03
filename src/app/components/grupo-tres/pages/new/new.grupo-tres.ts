@@ -146,7 +146,7 @@ export class NewGrupoTres implements OnInit {
                        }, 3000);
                         console.log(response);
                     }, error => {
-                        this.mensaje = error;
+                        this.mensaje = error.error.message;
                         this.errores = true;
                         this.messageDanger = true;
                         setTimeout(()=>{
