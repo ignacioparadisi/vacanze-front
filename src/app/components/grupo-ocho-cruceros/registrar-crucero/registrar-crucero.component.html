@@ -106,7 +106,7 @@
         <button 
           class="btn btn-outline-info" 
           type="submit" 
-          [disabled]="!registrationForm.value.name || !registrationForm.value.line || 
+          [disabled]="!this.registrationForm.valid || !registrationForm.value.name || !registrationForm.value.line || 
           !registrationForm.value.model || !registrationForm.value.capacity || !registrationForm.value.loadingShipCap || !this.urlImage"
           (click)="onSubmit()"
         >
