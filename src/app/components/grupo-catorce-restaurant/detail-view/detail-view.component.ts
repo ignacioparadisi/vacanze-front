@@ -37,8 +37,6 @@ export class DetailViewComponent implements OnInit {
         this.isDataLoaded = true
         this.restaurant = storedRes.reservation
         this.formInfo = storedRes.userDatos
-        console.log('Datos del restaurant: ', this.restaurant)
-        console.log('Datos del usuario que agarro el restaurant:', this.formInfo)
       }
     })
   }
@@ -80,7 +78,6 @@ export class DetailViewComponent implements OnInit {
 
   public onSubmit(){
     //postResRestaurant
-    console.log('en submit')
     this.api.postUrl(url.endpoint.default._post.postResRestaurant,{
       fecha_res: this.formInfo.timeStamp,
       cant_people: this.formInfo.cantPeople,
@@ -88,10 +85,8 @@ export class DetailViewComponent implements OnInit {
       user_id :this.formInfo.userID,
       rest_id: this.restaurant.id
     }).then(response =>{
-      console.log('Registro ID: ', response)
       this.restaurantCreatedSuccessfully()
     }).catch(error => {
-      console.log('error por algun motivo', error)
       this.error()
     })
   }
@@ -115,7 +110,6 @@ export class DetailViewComponent implements OnInit {
       timer: 1500
     }
     Swal.fire(config).then( result =>{
-      console.log(result);
       this.destroyLocalStorage()
       this.router.navigate(['grupo-uno/landing']);
     });

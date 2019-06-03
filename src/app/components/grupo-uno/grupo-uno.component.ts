@@ -47,7 +47,7 @@ export class GrupoUnoComponent implements OnInit {
 
     }
     deleteFile() {
-        console.log("Registro eliminado")
+
     }
 
 }

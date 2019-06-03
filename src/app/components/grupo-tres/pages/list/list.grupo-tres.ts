@@ -59,9 +59,7 @@ export class ListGrupoTres implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
         this.countries = response;
-        console.log(response);
       }, error => {
-        console.log(error);
       }
     );
   }
@@ -71,9 +69,7 @@ export class ListGrupoTres implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
         this.citiesDeparture = response;
-        console.log(response);
       }, error => {
-        console.log(error);
       }
     );
   }
@@ -83,9 +79,7 @@ export class ListGrupoTres implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
         this.citiesArrival = response;
-        console.log(response);
       }, error => {
-        console.log(error);
       }
     );
   }
@@ -95,10 +89,8 @@ export class ListGrupoTres implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
         this.airplanes = response;
-        console.log(response);
       },
       error => {
-        console.log(error);
       }
     );
   }
@@ -108,16 +100,13 @@ export class ListGrupoTres implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
         this.flights = response;
-        console.log(response);
       },
       error => {
-        console.log(error);
       }
     );
   }
 
   getFlight(id: number) {
-    console.log('ID: ' + id);
     const requestURL = `flights/${id}`;
     this.apiService.getUrl(requestURL).then(
       response => {
@@ -127,7 +116,6 @@ export class ListGrupoTres implements OnInit {
         this.getCountries();
       },
       error => {
-        console.log(error);
       }
     );
   }
@@ -176,7 +164,6 @@ export class ListGrupoTres implements OnInit {
                 this.getFlights();
             }, 3000);
             
-            console.log(response);
           }, (error) => {
             this.mensaje = error.error.message;
             this.errores = true;
@@ -185,7 +172,6 @@ export class ListGrupoTres implements OnInit {
                 this.errores = false;
                 this.messageDanger = false;
             }, 5000);
-            console.log(error);
           }
         );
       }
@@ -222,9 +208,7 @@ export class ListGrupoTres implements OnInit {
     const requestURL = `flights/${id}`;
     this.apiService.deleteUrl(requestURL).then(
       response => {
-        console.log(response);
         this.getFlights();
-        console.log('Vuelo con el id=' + id + 'fue eliminado con éxito');
       }, error => {
         console.error(error);
       }

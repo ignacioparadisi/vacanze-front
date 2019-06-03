@@ -39,7 +39,6 @@ export class SeleccionarRestaurantComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Auida")
     this.getLocalStorage()
   } 
 
@@ -66,7 +65,6 @@ export class SeleccionarRestaurantComponent implements OnInit {
         this.formData = storedRes
         this.cityID = this.formData.ciudad
 
-        console.log('cityID',this.cityID)
         this.getRestaurantById()
       }
     })
