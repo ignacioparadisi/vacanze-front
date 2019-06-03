@@ -118,7 +118,7 @@ public role :any;
   }
 
   getAdminBaggageStatusEntregado(){
-    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['ENTREGADO'])
+    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['RECLAMADO'])
     .then(data => {this.BaggageEntregados = data;                                                                                             
       console.log(data)})
     .catch(data =>{console.log(data)});
