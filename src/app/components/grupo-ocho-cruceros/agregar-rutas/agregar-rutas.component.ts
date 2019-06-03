@@ -18,6 +18,10 @@ export class AgregarRutasComponent implements OnInit {
 
   public boat: Cruiser;
   public countries: Array<Object>;
+  public citiesArrival: Array<Object>;
+  public citiesDeparture: Array<Object>;
+  public countriesDeparture: Array<Object>;
+  public countriesArrival: Array<Object>;
 
   // Formulario para agregar una ruta a un crucero en especifico
   public routingForm: FormGroup = new FormGroup({
@@ -46,7 +50,8 @@ export class AgregarRutasComponent implements OnInit {
     // Obtengo del local el crucero seleccionado
     this.localStorage.getItem('boat').subscribe(data => {
       this.boat = data;
-      this.getCountry();
+      this.getCountryDeparture();
+      this.getCountryArrival();
     })
   }
 
@@ -73,6 +78,9 @@ export class AgregarRutasComponent implements OnInit {
 
     this.api.postUrl(url.endpoint.default._post.cruisers.post_route, form, [this.boat['id'].toString()])
       .then(response => {
+        this.countriesArrival = [];
+        this.countriesDeparture = [];
+        this.routingForm.reset();
         this.successfullyResponse();
       })
       .catch(error => {
@@ -80,17 +88,74 @@ export class AgregarRutasComponent implements OnInit {
       })
   }
 
-  /*********************************
-  * Metodo para obtener los paises *
-  **********************************/
-  public getCountry() {
+  /***********************************************************
+  * Metodo para obtener los paises de la ubicacion de salida *
+  ************************************************************/
+  public getCountryDeparture() {
     this.api.getUrl(url.endpoint.default._get.getCountry)
       .then(response => {
-        this.countries = response;
+        this.countriesDeparture = response;
       })
       .catch(error => {
 
       })
+  }
+
+  /************************************************************
+  * Metodo para obtener los paises de la ubicacion de llegada *
+  *************************************************************/
+  public getCountryArrival() {
+    this.api.getUrl(url.endpoint.default._get.getCountry)
+      .then(response => {
+        this.countriesArrival = response;
+      })
+      .catch(error => {
+
+      })
+  }
+
+  /******************************************************
+  * Metodo para obtener las ciudades de fecha de salida *
+  *******************************************************/
+  public getCityDeparture(id: number) {
+    this.api.getUrl(url.endpoint.default._get.getCity, [id.toString()])
+      .then(response => {
+        this.citiesDeparture = [];
+        this.citiesDeparture = response;
+      })
+      .catch(error => {
+
+      })
+  }
+
+  /*******************************************************
+  * Metodo para obtener las ciudades de fecha de llegada *
+  ********************************************************/
+  public getCityArrival(id: number) {
+    this.api.getUrl(url.endpoint.default._get.getCity, [id.toString()])
+      .then(response => {
+        this.citiesArrival = [];
+        this.citiesArrival = response;
+      })
+      .catch(error => {
+
+      })
+  }
+
+  public selectCountryDeparture(event) {
+    this.getCityDeparture(event.target.value);
+  }
+
+  public selectCountryArrival(event) {
+    this.getCityArrival(event.target.value);
+  }
+
+  public selectCityDeparture(event) {
+    this.routingForm.value.locDeparture = event.target.value;
+  }
+
+  public selectCityArrival(event) {
+    this.routingForm.value.locArrival = event.target.value;  
   }
 
   get departureDate(){
