@@ -42,19 +42,6 @@ export class SeleccionarRestaurantComponent implements OnInit {
     this.getLocalStorage()
   } 
 
-  public loadRestaurants(){
-    
-    //enpoint es uno de los aributos de esa clase enviroment
-    //default es el url base de la clase enviroment
-    this.api.getUrl(url.endpoint.default._get.getRestaurant)
-    .then(response => {
-      this.tableData = response,
-      console.log(this.tableData)
-    }).catch( error => {
-          console.log('Error carga de restaurantes', error);
-    });
-  }
-
   public getRestaurantById(){
     this.api
         .getUrl(url.endpoint.default._get.getRestaurantById, [this.cityID.toString()])

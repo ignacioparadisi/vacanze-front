@@ -11,7 +11,7 @@
         </thead>
 
         <!--Tabla de reserva de restaurant-->
-        <tbody *ngIf="type === 'rest-reserva'">
+        <tbody *ngIf="type === 'rest-reserva'; else viewReservaElseBlock">
           <tr *ngFor="let reserva of tableData">
             <td><img style="width: 150px; height: 150px;"src="{{ reserva?.picture }}" ></td>
             <td>{{ reserva?.name }}</td>
@@ -33,6 +33,36 @@
           </tr>
         </tbody>
 
+        <!-- Tabla para "mis reservas" de restaurante -->
+
+        <ng-template #viewReservaElseBlock>
+            <tbody *ngIf="type === 'ver-reservas'">
+                <tr *ngFor="let resRest of tableData">
+                  <td>{{ resRest?.id }}</td>
+                  <td>{{ resRest?.fecha_res }}</td>
+                  <td>{{ resRest?.cant_people }}</td>
+                  <td>{{ resRest?.date }}</td>
+                  <td>{{ resRest?.user_id }}</td>
+                  <td>{{ resRest?.rest_id }}</td>
+                  <td>
+                  <button
+                    class="btn btn-outline-danger"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Eliminar {{type}}"
+                  ><i class="fa fa-trash"></i>
+                  </button>&nbsp;&nbsp;
+                  <button
+                    class="btn btn-outline-info"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Editar {{type}}">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  </td>
+                </tr>
+              </tbody>
+        </ng-template>
         <!--Tabla de reserva de automoviles-->
         <tbody *ngIf="type === 'aut-reserva'">
             <tr *ngFor="let reserva of tableData">

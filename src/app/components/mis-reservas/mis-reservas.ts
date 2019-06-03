@@ -7,6 +7,8 @@ import { compararFechas } from '../../utils/global_functions';
 import * as moment from 'moment';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Timestamp } from 'rxjs';
+import { environment as url } from '../../../environments/environment';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
     selector: 'mis-reservas',
@@ -25,19 +27,40 @@ export class MisReservas implements OnInit {
     public roomreservation = [];
     public carreservation = [];
 
+    //Variables de restaurantes
+    private headerTitle: string;
+    private tableRestaurantReservationHeader: Array<String>;
+    private tableData: Array<Object>;
+    public userId: number
+    public isDataLoaded: boolean
+
+
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
-    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
+    constructor(public fb: FormBuilder, 
+      private modalService: NgbModal, 
+      private localStorage: LocalStorageService,
+      private apiService: ApiService) {
       this.compararFechas = compararFechas;  
       this.myForm = this.fb.group({
           fechaOne: ['', [Validators.required]],
             fechaTwo: ['', [Validators.required]]
         });
+        this.headerTitle = "Reservas de restaurant.";
+        this.tableRestaurantReservationHeader = [
+          "id",
+          "fecha_for_res",
+          "number_people",
+          "fecha_que_reservo",
+          "userID",
+          "restaurantID "
+        ]
     }
 
     ngOnInit() {
-    this.getAutomobileReservations();
-     this.getRoomReservations();
+      this.getAutomobileReservations();
+      this.getRoomReservations();
+      this.getLocalStorage()
     }
 
      /**************************************************************************
@@ -253,5 +276,42 @@ private getDismissReason(reason: any): string {
   }
 }
 
+  //Funciones para restaurantes
+
+  // METODO PARA ACCEDER AL LOCAL STORAGE
+  public getLocalStorage(){
+    this.localStorage.getItem('id').subscribe(storedId =>{
+      if(storedId){
+        this.isDataLoaded = true
+        this.userId = storedId
+
+        console.log('User ID: ',this.userId)
+        this.getRestaurantReservation()
+      }
+    })
+  }
+
+  public getRestaurantReservation(){
+    console.log("Estoy en getRestaurantReservation");
+    this.apiService
+        .getUrl(url.endpoint.default._get.getResRestaurantById, [this.userId.toString()])
+        .then(response => {
+            this.tableData = response;
+    }, error => console.error(error));
+  }
+
+  //FUNCIONES PARA LLENAR LA TABLA TABLE-RESPONSIVE-RESERVAS
+
+  public getRestaurants() {
+    return this.tableData;
+  }
+
+  public getHeaderRestaurantReservation(){
+    return this.tableRestaurantReservationHeader;
+  }
+
+  public getHeaderTitle(){
+    return this.headerTitle;
+  }
 
 }

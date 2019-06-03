@@ -285,3 +285,15 @@
 </div>
 </div>
 </div>
+
+<!-- 
+  Lista de Reserva de restaurantes
+ -->
+
+ <app-table-responsive-reservas
+  [headerTitle]="getHeaderTitle()"
+  [tableData]="getRestaurants()"
+  [tableHeaders]="getHeaderRestaurantReservation()"
+  [type]="'ver-reservas'"
+ >
+</app-table-responsive-reservas>

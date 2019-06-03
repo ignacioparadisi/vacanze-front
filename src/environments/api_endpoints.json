@@ -3,6 +3,7 @@
       "getHotel":"hotels",
       "getRestaurant":"restaurants",
       "getRestaurantById": "restaurants/location/{id}",
+      "getResRestaurantById": "ResRestaurant/{id}",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
       "getBaggageClientSerial":"Baggage/{id}",
