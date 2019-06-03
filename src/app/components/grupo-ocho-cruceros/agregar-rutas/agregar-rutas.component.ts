@@ -22,11 +22,14 @@ export class AgregarRutasComponent implements OnInit {
   public citiesDeparture: Array<Object>;
   public countriesDeparture: Array<Object>;
   public countriesArrival: Array<Object>;
+  public validDepartureDate: boolean;
+  public validArrivalDate: boolean;
 
   // Formulario para agregar una ruta a un crucero en especifico
   public routingForm: FormGroup = new FormGroup({
+    
     departureDate : new FormControl(null,[
-      Validators.required
+      Validators.required,
     ]),
     arrivalDate : new FormControl(null,[
       Validators.required
@@ -44,7 +47,10 @@ export class AgregarRutasComponent implements OnInit {
     ])
   });
 
-  constructor(private localStorage: LocalStorageService, private location: Location, private api: ApiService, private router: Router) { }
+  constructor(private localStorage: LocalStorageService, private location: Location, private api: ApiService, private router: Router) { 
+    this.validDepartureDate = true;
+    this.validArrivalDate = true;
+  }
 
   ngOnInit() {
     // Obtengo del local el crucero seleccionado
@@ -189,4 +195,42 @@ export class AgregarRutasComponent implements OnInit {
     }
     Swal.fire(config).then( result =>{});
   }
+
+  public validateDate(event, type: string){
+    let current = new Date().getTime();
+    let last_day = event.target.value.toString().split('-')[2];
+    last_day = (parseInt(last_day, 10) + 1),toString();
+    let date = event.target.value.toString().split('-')[0]+'-'+event.target.value.toString().split('-')[1]+'-'+last_day;
+    let dateAsParameter = new Date(date).getTime();
+
+    if(dateAsParameter < current ){
+      if(type === 'departure'){
+        this.validDepartureDate = false;
+      }
+      else { 
+        this.validArrivalDate = false;  
+      }
+    }
+    else {  
+      if(type === 'departure'){
+        this.validDepartureDate = true;
+      }
+      else {
+        let dep = this.routingForm.value.departureDate;
+        let ld = this.routingForm.value.departureDate.toString().split('-')[2];
+        ld = (parseInt(ld, 10) + 1),toString();
+        let dateDep = event.target.value.toString().split('-')[0]+'-'+event.target.value.toString().split('-')[1]+'-'+ld;
+        let dateDepParameter = new Date(dateDep).getTime();
+
+        if(dateAsParameter <= dateDepParameter){
+          this.validArrivalDate = false;
+        }
+        else {
+          this.validArrivalDate = true;
+        }  
+      }  
+    }
+  }
+
+  
 }

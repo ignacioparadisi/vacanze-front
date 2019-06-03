@@ -35,6 +35,22 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
     this.loadRestaurants();
   }
 
+  getLocationIdEmiter(id: string){
+    this.loadRestaurantsByLocation(parseInt(id));
+  }
+
+  public loadRestaurantsByLocation(id: number){
+    this.service
+    .getUrl(url.endpoint.default._get.getRestaurantByLocation, [id.toString()])
+    .then(response => {
+          // console.log("Cargan los restaurantes", response),
+          this.tableData = response
+    }).catch( error => {
+          this.alertStatus(500, false)
+          console.log("Error carga inicial de restaurantes", error);
+    });
+}
+
   ngOnInit() {
     if(this.router.url === '/administrar-restaurantes/agregar-restaurant' ||
         this.router.url.indexOf('editar-restaurant') !== -1){

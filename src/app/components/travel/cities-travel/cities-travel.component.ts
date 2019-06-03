@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import Swal from 'sweetalert2';
+import { Travel } from '../../../classes/travel';
 
 @Component({
   selector: 'app-cities-travel',
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
 export class CitiesTravelComponent implements OnInit {
 
   private cities: any;
-  private travel = JSON.parse(localStorage.getItem("travel"));
+  private travel: Travel = JSON.parse(localStorage.getItem("travel"));
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService) { }
 
@@ -24,11 +25,18 @@ export class CitiesTravelComponent implements OnInit {
     this.apiService.getUrl('travels/{travelId}/locations', [String(this.travel.id)]).then(
       (resp) => this.cities = resp,
       (fail) => {
-        Swal.fire({
-          title: 'Error: ' + fail.status,
-          text: fail.name + '. ' + fail.statusText,
-          type: 'error',
-        })
+        if (fail.error) {
+          Swal.fire({
+            title: fail.error,
+            type: 'info',
+          })
+        } else {
+          Swal.fire({
+            title: 'Error: ' + fail.status,
+            text: fail.name + '. ' + fail.statusText,
+            type: 'error',
+          })
+        }
       }
     );
   }
