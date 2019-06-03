@@ -191,7 +191,7 @@
 
         </div>
         <div class="col-sm-4 col-md-4 col-md-offset-1">
-                <a class="btn btn-info" (click)="openMyPayment()">
+                <a class="btn btn-block" (click)="openMyPayment()">
                         <i class="fa fa-fw fa-money"></i>
                         Mis pagos</a>
         </div>
@@ -217,11 +217,11 @@
                         <td class="col-sm-8 col-md-6">
                             <div class="media">
                                 <a class="thumbnail pull-left" href="#"> <img class="media-object"
-                                        src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
+                                        src="assets/images/product-icon.png"
                                         style="width: 72px; height: 72px;"> </a>
                                 <div class="media-body">
-                                    <h6 class="media-heading"><a href="#">{{ord.descrip}}</a></h6>
-                                    <h6 class="media-heading"> by <a href="#">{{ord.brand}}</a></h6>
+                                    <h6 class="media-heading">{{ord.descrip}}</h6>
+                                    <h6 style="color:blue" class="media"> by {{ord.brand}}</h6>
                                     <span>Dias reservados: </span><span
                                         class="text-success"><strong>{{ord.qty}}</strong></span>
                                 </div>
@@ -283,7 +283,8 @@
             </table>
         </div>
     </div>
-    <div id="mypayment">   
+    <div id="mypayment">  
+         
             <h2 class="text-center">Mis últimos pagos</h2>
             <table class="table table-hover">
                     <thead>
@@ -301,7 +302,7 @@
                              <td class="text-center">{{formatDate(myp?.dateR)}}</td>
                              <td class="text-center">{{ myp?.pm }}</td>
                              <td class="text-center">{{ myp?.descrip }}</td>
-                            <td class="text-center">{{ myp?.amount }}</td>
+                            <td class="text-center"> $ {{ myp?.amount }}</td>
                         </tr>
                     </tbody>
             </table>
