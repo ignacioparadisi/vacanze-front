@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Travel } from '../../../classes/travel';
 
 @Component({
   selector: 'app-detail-travel',
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class DetailTravelComponent implements OnInit {
 
-  private travel = JSON.parse(localStorage.getItem("travel"));
+  private travel: Travel = JSON.parse(localStorage.getItem("travel"));
   private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");
   activeModal: NgbModalRef;
   commentForm: FormGroup;
@@ -126,14 +127,21 @@ export class DetailTravelComponent implements OnInit {
   }
 
   getHoteReservations(type: string) {
-    this.apiService.getUrl('travels/{travelId}/?locationId={locationId}&type={type}', [this.travel.id, this.cityId, type]).then(
+    this.apiService.getUrl('travels/{travelId}/?locationId={locationId}&type={type}', [String(this.travel.id), this.cityId, type]).then(
       (resp) => this.hoteReservations = resp,
       (fail) => {
-        Swal.fire({
-          title: 'Error: ' + fail.status,
-          text: fail.name + '. ' + fail.statusText,
-          type: 'error',
-        })
+        if (fail.error) {
+          Swal.fire({
+            title: fail.error,
+            type: 'info',
+          })
+        } else {
+          Swal.fire({
+            title: 'Error: ' + fail.status,
+            text: fail.name + '. ' + fail.statusText,
+            type: 'error',
+          })
+        }
       }
     )
   }

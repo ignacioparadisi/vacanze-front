@@ -15,17 +15,18 @@
     <!-- <Card de ciudades -->
     <div class="col-auto mb-3" *ngFor="let city of cities; let id = index">
       <div class="card text-center" style="width: 18rem;">
-        <div class="card-body">
-          <div class="row align-items-center">
-            <div class="col-10">
-              <h5 (click)="travelDetails(city.id)">{{city.city}}</h5>
+        <div class="card-body" (click)="travelDetails(city.id)">
+          <h5>{{city.city}}</h5>
+          <!--<div class="row align-items-center">
+            <div class="col-10" (click)="travelDetails(city.id)">
+              <h5>{{city.city}}</h5>
             </div>
             <div class="col-1">
               <button class="btn btn-sm btn-outline-danger" title="Eliminar ciudad" (click)="deleteCity(city.id)">
                 <i class="fa fa-xs fa-trash"></i>
               </button>
             </div>
-          </div>
+          </div>-->
         </div>
         <div class="card-footer text-muted" style="text-align: center" (click)="travelDetails(city.id)">
           {{city.country}}
