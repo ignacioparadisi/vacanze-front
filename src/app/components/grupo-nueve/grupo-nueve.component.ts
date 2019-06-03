@@ -44,8 +44,7 @@ public role :any;
   ngOnInit() {
 
     this.getClaim()
-    this.getRole();
-    this.getAdminBaggageStatusExtraviado()
+    this.getRole()
 
     this.formGroup = new FormGroup({
       serial: new FormControl(null, [Validators.required]),
@@ -71,10 +70,13 @@ public role :any;
 
   getRole(){
     this.storage.getItem('rol').subscribe(data => {
-      console.log('AJAAAAAAAAAAAA',data[0].name);
-      if (data[0].name== "Administrador" )
+      console.log('id: ',data[0].id);
+      if (data[0].id == '2' || data[0].id == '4'){
       this.pantallaAdmin(); 
-      else this.pantallaCliente();
+      console.log('Este usuario es administrador o de reclamo');}
+      else if (data[0].id == '1'){
+      this.pantallaCliente();
+      console.log('Este usuario es cliente');}
     });
   
   }
@@ -253,25 +255,15 @@ public role :any;
   }
   
   pantallaAdmin(){
-    var pagina, liCliente, liAdmin;
+    var pagina;
     pagina = document.getElementById('paginaAdmin');
-    liCliente = document.getElementById('li-cliente');
-    liAdmin = document.getElementById('li-admin');
-
     pagina.style.display = "block";
-    liCliente.style.display = "none";
-    liAdmin.style.display = "none";
   }
 
   pantallaCliente(){
-    var pagina, liCliente, liAdmin;
+    var pagina;
     pagina = document.getElementById('paginaCliente');
-    liCliente = document.getElementById('li-cliente');
-    liAdmin = document.getElementById('li-admin');
-
     pagina.style.display = "block";
-    liCliente.style.display = "none";
-    liAdmin.style.display = "none";
   }
 
   private getDismissReason(reason: any): string {

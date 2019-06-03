@@ -1,6 +1,6 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Edit Claim</h4>
+        <h4 class="modal-title">Editar reclamo</h4>
         
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
@@ -10,20 +10,20 @@
     <div class="modal-body">
           <div class="col text-center">
             <div class="form-group">
-              <input type="text" class="form-control input-lg" placeholder="Title" [(ngModel)]="titlePut">
+              <input type="text" class="form-control input-lg" placeholder="Titulo" [(ngModel)]="titlePut">
             </div>  
             <div class="form-group">
-              <textarea type="text" class="form-control input-lg" placeholder="Descriptión..." [(ngModel)]="descrPut" rows="3">
+              <textarea type="text" class="form-control input-lg" placeholder="Descripción..." [(ngModel)]="descrPut" rows="3">
               </textarea>
             </div>
             <div class="form-group">
             <input id="check_cambiar" 
                    type="checkbox" 
-                   value="checkedValue"> Change (Close/Open) status of this claim.
+                   value="checkedValue"> Cambiar (Cerrado/Abierto) estado de este reclamo.
             </div>
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-success" (click)="putClaim(idPut)" type="submit">Update Claim</button>
+                <button class="btn btn-success" (click)="putClaim(idPut)" type="submit">Cambiar Reclamo</button>
               </div>
             </div>
           </div>
@@ -40,13 +40,14 @@
   <div class="card mb-3">
       <div class="card-header color-card">
         <span class="fa fa-minus" aria-hidden="true"></span>
-         Instructions
+         Instruccion
       </div>
       <div class="card-body table-responsive carta-intro">
         <p>
-          In this module will help you to get any baggage that has been lost and 
-          registered on a flight or cruise, you should simply look for it by placing 
-          the serial number or passport in the blocks with the logo <i class="fa fa-search"></i>
+          En este modulo vamos a ayudarte a obtener algun equipaje que se te haya 
+          extraviado y registrado en los viajes o cruceros, tu puedes simplemente
+          buscar el equipaje por numero de serial o pasaporte en el bloque con el
+          logo <i class="fa fa-search"></i>
         </p>
       </div>
   </div>
@@ -59,18 +60,18 @@
       <div class="card mb-3">
           <div class="card-header color-card">
               <i class="fa fa-search"></i>
-              Select the type of luggage search
+              Seleccionar el tipo de busqueda de equipaje
           </div>
           <div class="card-body table-responsive carta-intro">
-            <p> Get list of luggage for:</p>
+            <p> Obtener equipajes por:</p>
             <label>
                 <input id="check_documento" type="checkbox" 
-                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Document 
+                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Documento 
             </label>
             <br>
             <label>
               <input id="check_serial" value="checkedValue" type="checkbox"
-              (change)="checkeadoSerial($event)"> Equipment Serial
+              (change)="checkeadoSerial($event)"> Serial de Equipaje
             </label>       
           </div>
       </div>
@@ -85,12 +86,12 @@
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
                         <input formControlName="id" type="text" class="form-control" 
-                        placeholder="Passport Number">
+                        placeholder="Numero de Pasaporte">
                       </div>
                        <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
-                          Search</button>
+                          Buscar</button>
                        <button class="btn btn-success" *ngIf="!formSearch.invalid" type="submit">
-                          Search</button>
+                          Buscar</button>
                 </div>
               </form>
             </div>
@@ -106,12 +107,12 @@
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
                           <input formControlName="id" type="text" class="form-control" 
-                          placeholder="Serial Number">
+                          placeholder="Numero de Serial">
                       </div>
                       <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
-                          Search</button>
+                          Buscar</button>
                       <button class="btn btn-success" *ngIf="!formSearch.invalid" type="submit">
-                          Search</button>
+                          Buscar</button>
                 </div>
               </form>
             </div>
@@ -125,7 +126,7 @@
         <div class="card mb-3">
             <div class="card-header color-card">
                 <i class="fa fa-list"></i>
-                List of user equipment
+                Detalles de equipaje de usuario
             </div>
             <div class="card-body table-responsive">
                 <table class="table">
@@ -133,9 +134,9 @@
                     <tr>
                         <th>#</th>
                         <th>Serial</th>
-                        <th>Descriptión</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>Descripción</th>
+                        <th>Estatus</th>
+                        <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -144,7 +145,7 @@
                         <td>{{baggage._id}}</td>
                         <td>{{baggage._description}}</td>
                         <td>{{baggage._status}}</td>
-                        <a href ="/grupo-nueve"><td>See</td></a>
+                        <a href ="/grupo-nueve"><td>Ver</td></a>
                     </tr>    
                     </tbody>
                 </table>
@@ -158,13 +159,13 @@
       <div class="card mb-3">
           <div class="card-header color-card">
               <i class="fa fa-plus"></i>
-             Create Claim
+             Crear Reclamo
           </div>     
           <div class="card-body table-responsive">
             <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">       
               <div class="col text-center">
                 <div class="form-group">                 
-                  <input type="text" formControlName="serial" class="form-control input-lg" placeholder="Serial of luggage" 
+                  <input type="text" formControlName="serial" class="form-control input-lg" placeholder="Serial de Equipaje" 
                   [ngClass]="{
                     'is-invalid': false,
                     'is-valid': !formGroup.get('serial').hasError('required')
@@ -172,7 +173,7 @@
                 </div>
 
                 <div class="form-group">
-                  <input type="text" class="form-control input-lg" placeholder="Title" 
+                  <input type="text" class="form-control input-lg" placeholder="Titulo" 
                   formControlName="titulo" 
                   [ngClass]="{
                     'is-invalid': false,
@@ -180,7 +181,7 @@
                   }">
                 </div>  
                 <div class="form-group">
-                  <textarea type="text" class="form-control input-lg" placeholder="Descriptión..." 
+                  <textarea type="text" class="form-control input-lg" placeholder="Descripción..." 
                   formControlName="descripcion"
                   [ngClass]="{
                     'is-invalid': false,
@@ -190,9 +191,9 @@
                 <div class="row">
                   <div class="col-md-12">
                     <button class="btn btn-success" *ngIf="formGroup.invalid" type="submit" disabled>
-                                  Create Claim</button>
+                                  Crear Reclamo</button>
                     <button class="btn btn-success" *ngIf="!formGroup.invalid" type="submit">
-                                  Create Claim</button>
+                                  Crear Reclamo</button>
                   </div>
                 </div>
               </div>
@@ -205,7 +206,7 @@
       <div class="card mb-3">
           <div class="card-header color-card">
               <i class="fa fa-list"></i>
-              List of Claims of Users
+              Lista de reclamo de usuarios
           </div>
           <div class="card-body table-responsive">
               <table class="table">
@@ -213,10 +214,10 @@
                   <tr>
                       <th>#</th>
                       <th>Serial</th>
-                      <th>Title</th>
-                      <th>Descriptión</th>
-                      <th>Status</th>
-                      <th>Actions</th>
+                      <th>Titulo</th>
+                      <th>Descripción</th>
+                      <th>Estatus</th>
+                      <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -232,7 +233,7 @@
                         claim.id, claim._title, claim._description)"><i class="fa fa-edit"></i></button>
                         <swal
                           #deleteSwal
-                          title="¿Do you already want delete this Claim?"
+                          title="¿Quieres eliminar este reclamo?"
                           type="question"
                           [showCancelButton]="true"
                           [focusCancel]="true"
@@ -251,7 +252,7 @@
       <div class="card mb-3">
           <div class="card-header color-card">
               <i class="fa fa-envelope"></i>
-              Write us!
+              Escribenos!
           </div>
           
           <div class="card-body table-responsive">
@@ -259,23 +260,23 @@
               <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Name">
+                        <input type="text" class="form-control" placeholder="Nombre">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Last Name">
+                        <input type="text" class="form-control" placeholder="Apellido">
                     </div>
                     <swal
                     #mensaje
-                    title="Message sent at Administrator of Claim"
+                    title="Mensaje enviado al administrador"
                     type="success"
                     showConfirmButton=false
                     timer=2500>
                    </swal>
-                   <button class="btn btn-success float-left" [swal]="mensaje">Send</button>
+                   <button class="btn btn-success float-left" [swal]="mensaje">Enviar</button>
                 </div>
 
                 <div class="form-group" class="mensaje">
-                    <textarea placeholder="Message..." class="form-control" rows="5"></textarea>
+                    <textarea placeholder="Mensaje..." class="form-control" rows="5"></textarea>
                 </div>
               </div>
             </form>
@@ -293,29 +294,29 @@
       <div class="card mb-3">
           <div class="card-header color-card">
               <i class="fa fa-search"></i>
-               Select the type of luggage search
+               Seleccionar el tipo de busqueda de equipaje
           </div>
           <div class="card-body table-responsive carta-intro">
-            <p> Get list of luggages:</p>
+            <p> Obtener lista de equipajes por:</p>
             <label>
               <input id = "check_extraviado" type="checkbox" 
-                value="checkedValue" (change)="checkeadoExtraviado($event)"> Lost 
+                value="checkedValue" (change)="checkeadoExtraviado($event)"> Extraviado 
             </label>
             <br>
             <label>
               <input id = "check_encontrado" value="checkedValue" 
-              type="checkbox" (change)="checkeadoEncontrado($event)"> Found
+              type="checkbox" (change)="checkeadoEncontrado($event)"> Encontrado
             </label>
             <br>
             <label>
               <input id = "check_entregado" value="checkedValue" 
-              type="checkbox" (change)="checkeadoEntregado($event)"> Delivered
+              type="checkbox" (change)="checkeadoEntregado($event)"> Entregado
             </label>
 
             <div class="row">
                 <div class="col-md-12">
                 <button class="btn btn-success float-right button-search" (click)="BusqEquipajeAdmin()" >
-                  Search
+                  Buscar
                 </button>
                 </div>
             </div>
@@ -330,7 +331,7 @@
           <div class="card mb-3">
               <div class="card-header color-card">
                   <i class="fa fa-list"></i>
-                  List of luggages founds
+                  Lista de equipajes encontrados
               </div>
               <div class="card-body table-responsive">
                   <table class="table">
@@ -338,9 +339,9 @@
                       <tr>
                           <th>#</th>
                           <th>Serial</th>
-                          <th>Description</th>
-                          <th>Status</th>
-                          <th>Actions</th>
+                          <th>Descripcion</th>
+                          <th>Estatus</th>
+                          <th>Acciones</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -365,7 +366,7 @@
               <div class="card mb-3">
                   <div class="card-header color-card">
                       <i class="fa fa-list"></i>
-                      List of luggage lost
+                      Lista de equipajes extraviados
                   </div>
                   <div class="card-body table-responsive">
                       <table class="table">
@@ -373,9 +374,9 @@
                            <tr>
                               <th>#</th>
                               <th>Serial</th>
-                              <th>Description</th>
-                              <th>Status</th>
-                              <th>Actions</th>
+                              <th>Descripcion</th>
+                              <th>Estatus</th>
+                              <th>Acciones</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -400,7 +401,7 @@
                   <div class="card mb-3">
                       <div class="card-header color-card">
                           <i class="fa fa-list"></i>
-                          List of luggage delivered
+                          Lista de equipajes entregados
                       </div>
                       <div class="card-body table-responsive">
                           <table class="table">
@@ -408,9 +409,9 @@
                               <tr>
                                   <th>#</th>
                                   <th>Serial</th>
-                                  <th>Description</th>
-                                  <th>Status</th>
-                                  <th>Actions</th>
+                                  <th>Descripcion</th>
+                                  <th>Estatus</th>
+                                  <th>Acciones</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -435,18 +436,18 @@
             <div class="card mb-3">
                         <div class="card-header color-card">
                         <i class="fa fa-search"></i>
-                        Select the type of claims search
+                        Seleccionar el tipo de busqueda de reclamo
                         </div>
                         <div class="card-body table-responsive carta-intro">
-                          <p> Get list of Claims for case:</p>
+                          <p> Obtener lista de reclamos por caso:</p>
                           <label>
                               <input id="check_abierto" type="checkbox" 
-                              (change)="checkeadoAbierto($event)" value="checkedValue"> Open 
+                              (change)="checkeadoAbierto($event)" value="checkedValue"> Abierto 
                           </label>
                           <br>
                           <label>
                             <input id="check_cerrado"
-                            (change)="checkeadoCerrado($event)" value="checkedValue" type="checkbox"> Close
+                            (change)="checkeadoCerrado($event)" value="checkedValue" type="checkbox"> Cerrado
                           </label>
               
                           <div class="row">
@@ -463,7 +464,7 @@
             <div class="card mb-3">
                 <div class="card-header color-card">
                     <i class="fa fa-list"></i>
-                    List of Open Claims
+                    Lista de reclamos en caso abierto
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -471,10 +472,10 @@
                         <tr>
                             <th>#</th>
                             <th>Serial</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>Titulo</th>
+                            <th>Descripcion</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -490,7 +491,7 @@
                               claimAdmin.id, claimAdmin._title, claimAdmin._description)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal1
-                                title="¿Do you already want delete Claim?"
+                                title="¿Quieres eliminar este reclamo?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
@@ -509,7 +510,7 @@
             <div class="card mb-3">
                 <div class="card-header color-card">
                     <i class="fa fa-list"></i>
-                    List of Open Claims
+                    Lista de reclamos en caso cerrado
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -517,10 +518,10 @@
                         <tr>
                             <th>#</th>
                             <th>Serial</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>Titulo</th>
+                            <th>Descripcion</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -537,7 +538,7 @@
                               </button>
                               <swal
                                 #deleteSwal2
-                                title="¿Do you already want delete Claim?"
+                                title="¿Quieres eliminar este reclamo?"
                                 type="question"
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
@@ -555,7 +556,7 @@
             <div class="card mb-3">
                 <div class="card-header color-card">
                     <i class="fa fa-envelope"></i>
-                    Write to user
+                    Escribir al usuario
                 </div>
                 
                 <div class="card-body table-responsive">
@@ -563,23 +564,23 @@
                     <div class="row">
                       <div class="col-md-4">
                           <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Passport">
+                              <input type="text" class="form-control" placeholder="Pasaporte">
                           </div>
                           <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Name">
+                              <input type="text" class="form-control" placeholder="Nombre">
                           </div>
                           <swal
                           #mensaje
-                          title="Message sent at User"
+                          title="Mensaje enviado al usuario"
                           type="success"
                           showConfirmButton=false
                           timer=2500>
                          </swal>
-                         <button class="btn btn-success float-left" [swal]="mensaje">Send</button>
+                         <button class="btn btn-success float-left" [swal]="mensaje">Enviar</button>
                       </div>
       
                       <div class="form-group" class = "mensaje">
-                          <textarea placeholder="Message..." class="form-control" rows="5"></textarea>
+                          <textarea placeholder="Mensaje..." class="form-control" rows="5"></textarea>
                       </div>
                     </div>
                   </form>
