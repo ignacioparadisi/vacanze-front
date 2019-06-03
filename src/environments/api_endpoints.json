@@ -3,6 +3,9 @@
       "getHotel":"hotels",
       "getHotelByLocation":"hotels/?location={id}",
       "getRestaurant":"restaurants",
+      "getRestaurantById": "restaurants/location/{id}",
+      "getResRestaurantById": "ResRestaurant/{id}",
+      "getReservationNotPay":"ResRestaurant/Payment/{userId}",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
       "getBaggageClientSerial":"Baggage/serial/{id}",
@@ -35,6 +38,7 @@
         "putRestaurant":"restaurants"
     },
     "_delete": {
+      "deleteResRestaurant": "ResRestaurant/{id}",
       "deleteClaim":"Claim/{id}",
       "deleteHotel":"hotels/{id}",
       "deleteRestaurant":"restaurants/{id}",
