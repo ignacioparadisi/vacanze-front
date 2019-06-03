@@ -3,6 +3,7 @@ import { NgbTabChangeEvent, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-boots
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detail-travel',
@@ -37,7 +38,7 @@ export class DetailTravelComponent implements OnInit {
         break;
       case 'hotel':
         this.activeId = event.nextId
-        this.getHoteReservations();
+        this.getHoteReservations(this.activeId);
         break;
       case 'vehicle':
         this.activeId = event.nextId
@@ -124,8 +125,8 @@ export class DetailTravelComponent implements OnInit {
     ]
   }
 
-  getHoteReservations() {
-    this.hoteReservations = [
+  getHoteReservations(type: string) {
+    /*this.hoteReservations = [
       {
         id: 13,
         checkInDate: '2019-08-01',
@@ -156,7 +157,17 @@ export class DetailTravelComponent implements OnInit {
           room_capacity: 5
         }
       }
-    ]
+    ]*/
+    this.apiService.getUrl('travels/{travelId}/?locationId={locationId}&type={type}', [this.travel.id, this.cityId, type]).then(
+      (resp) => {this.hoteReservations = resp; console.log(resp)},
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    )
   }
 
   getFligReservations() {
