@@ -118,6 +118,7 @@
           formControlName="phone"
           type="text"
           class="form-control"
+          placeholder="No definido"
         />
         <div *ngIf="phone.invalid && phone.touched">
           <small *ngIf="phone.errors?.pattern" class="text-danger"
@@ -138,6 +139,7 @@
           formControlName="website"
           type="text"
           class="form-control"
+          placeholder="No definido"
         />
         <div *ngIf="website.invalid && website.touched">
           <small *ngIf="website.errors?.pattern" class="text-danger"

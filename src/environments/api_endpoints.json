@@ -3,9 +3,12 @@
       "getHotel":"hotels",
       "getHotelByLocation":"hotels/?location={id}",
       "getRestaurant":"restaurants",
+      "getRestaurantById": "restaurants/location/{id}",
+      "getResRestaurantById": "ResRestaurant/{id}",
+      "getReservationNotPay":"ResRestaurant/Payment/{userId}",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
-      "getBaggageClientSerial":"Baggage/{id}",
+      "getBaggageClientSerial":"Baggage/serial/{id}",
       "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
       "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
       "getCountry": "locations/countries",
@@ -14,7 +17,9 @@
       "cruisers": {
         "get_cruisers": "cruiser",
         "get_layovers": "cruiser/{cruiserId}/layover"
-      }
+      },
+      "Orders":"payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
+      "getPaymentMethod":"payment"
     },
     "_post": {
       "postClaim":"Claim/{id}",
@@ -24,7 +29,8 @@
         "post_cruiser": "cruiser",
         "post_route": "cruiser/{cruiserId}/layover"
       },
-      "postResRestaurant": "ResRestaurant"
+      "postResRestaurant": "ResRestaurant",
+      "addPayment":"payment"
     },
     "_put": {
         "putClaimStatus":"Claim/{id}",
@@ -32,6 +38,7 @@
         "putRestaurant":"restaurants"
     },
     "_delete": {
+      "deleteResRestaurant": "ResRestaurant/{id}",
       "deleteClaim":"Claim/{id}",
       "deleteHotel":"hotels/{id}",
       "deleteRestaurant":"restaurants/{id}",
