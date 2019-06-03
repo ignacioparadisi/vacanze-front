@@ -31,7 +31,7 @@ export class MisReservas implements OnInit {
     ngOnInit() {
      // this.getAutomobileReservations();
      this.getRoomReservations();
-    // this.getFlightReservations(this._id);
+     this.getFlightReservations(this._id);
     }
 
      /**************************************************************************
@@ -136,6 +136,8 @@ public deleteRoomReservation(id: number) {
 //metodo para recibir reservas de vuelo
 getFlightReservations(id:number){
   console.log("Estoy en getFlightReservations");
+  console.log("ID"+id);
+
   const requestURL = `list-reservation-flight/${id}`;  
   this.apiService.getUrl(requestURL).then(
       response => {

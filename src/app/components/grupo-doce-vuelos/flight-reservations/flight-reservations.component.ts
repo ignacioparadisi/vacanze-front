@@ -242,11 +242,11 @@ getListFlight(i: number,j: number) {
             this.listFlightResGo = response;
             console.log("response de ida;:"+response);
             console.log("response de ida;:"+response.length);
-           this.listFlightResGo.forEach(element => {
+          /* this.listFlightResGo.forEach(element => {
              console.log( element["_priceupdate"]);
              console.log( element["_name_city_i"]);
 
-            });
+            });*/
 
     },
         error => {
@@ -262,6 +262,7 @@ getListFlight(i: number,j: number) {
      && (this.disabledPpl==true) && (this.disabled==true)
      && (this.disabledOut==true)) {
       this.normalIn=true;
+      this.listFlightResGo=null;
       this.getIdCity();
       console.log("entro en el normal")
       // this.router.navigate(['flight-reservations/list-reservations']);

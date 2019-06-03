@@ -37,10 +37,12 @@ export class ListReservationsComponent implements OnInit {
   constructor(private modalService: NgbModal, private api: ApiService,private storage: LocalStorageService) { }
      
   public openModal(id:number){
+    console.log("entro en modal");
     //event.preventDefault();
     this.id_fli=id;
     console.log("fliID:",this.id_fli);
     console.log(this.normal);
+    console.log(this.valida);
     console.log("numero de pasajeros:"+this.num);
     if (this.normal==true) {
       this.numPas=1;
@@ -61,7 +63,7 @@ export class ListReservationsComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
           
-        
+        console.log("entro en result")
           this.postResFlights(data);
          
             Swal.fire(
@@ -147,7 +149,7 @@ export class ListReservationsComponent implements OnInit {
           console.log(error);
          }
     );
- 
+ this.getVal();
 }
 
 }
