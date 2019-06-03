@@ -30,7 +30,9 @@ export class RegisterUserComponent implements OnInit {
 
   ngOnInit() {
     this.createFormGroup();
-    this.fetchRoles();
+    if (!this.isClient) {
+      this.fetchRoles();
+    }
     if (this.user) {
       this.fillFormGroup();
     }
@@ -66,12 +68,19 @@ export class RegisterUserComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email])
     });
 
-    if (this.isClient) {
+    if (this.isClientAndRegister()) {
       this.formGroup.addControl('password',
         new FormControl(null, [Validators.required, Validators.minLength(8)]));
       this.formGroup.addControl('confirmPassword',
         new FormControl(null, [Validators.required, Validators.minLength(8)]))
     }
+  }
+
+  changeConfirmPasswordValidation() {
+    const password = this.formGroup.get('password').value;
+    this.formGroup.get('confirmPassword').clearValidators();
+    this.formGroup.get('confirmPassword').setValidators([Validators.required, Validators.minLength(8),
+      Validators.pattern(password)])
   }
 
   private addRolesToFormGroup() {
@@ -144,10 +153,12 @@ export class RegisterUserComponent implements OnInit {
     const lastname = this.formGroup.get('lastname').value;
     const email = this.formGroup.get('email').value;
     var password = "";
-    const roles: Role[] = []
+    const roles: Role[] = [];
 
-    if (this.isClient) {
+    if (this.isClientAndRegister()) {
       password = this.formGroup.get('password').value;
+      roles.push(new Role(Roles.CLIENT, 'Cliente'));
+    } else if (this.isClient) {
       roles.push(new Role(Roles.CLIENT, 'Cliente'));
     } else {
       this.roles.forEach(role => {
@@ -210,5 +221,9 @@ export class RegisterUserComponent implements OnInit {
       timer: 1800
     }
     Swal.fire(config);
+  }
+
+  isClientAndRegister() {
+    return this.isClient && (this.user == null)
   }
 }

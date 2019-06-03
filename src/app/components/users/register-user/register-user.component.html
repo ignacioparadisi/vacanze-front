@@ -1,5 +1,6 @@
 <div class="modal-header">
-  <h4>Registro</h4>
+  <h4 *ngIf="!user">Registro</h4>
+  <h4 *ngIf="user">Perfil</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -93,36 +94,41 @@
       </div>
     </div>
 
-    <div *ngIf="isClient" class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" [ngClass]="{
+    <div  *ngIf="isClientAndRegister()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input (change)="changeConfirmPasswordValidation()" type="password" class="form-control" placeholder="Contraseña" formControlName="password" [ngClass]="{
               'is-invalid': submitted && form['password'].errors,
               'is-valid': !form['password'].errors
             }" />
-          <div *ngIf="submitted && form['password'].errors" class="invalid-feedback">
-            <div *ngIf="form['password'].errors.required">
-              La contraseña es requerida
-            </div>
-            <div *ngIf="form['password'].errors.minlength">
-              La contraseña debe tener como mínimo 8 caracteres
+            <div *ngIf="submitted && form['password'].errors" class="invalid-feedback">
+              <div *ngIf="form['password'].errors.required">
+                La contraseña es requerida
+              </div>
+              <div *ngIf="form['password'].errors.minlength">
+                La contraseña debe tener como mínimo 8 caracteres
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div *ngIf="isClient" class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="Confirmar Contraseña"
-            formControlName="confirmPassword" [ngClass]="{
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Confirmar Contraseña"
+                   formControlName="confirmPassword" [ngClass]="{
               'is-invalid': submitted && form['confirmPassword'].errors,
               'is-valid': !form['confirmPassword'].errors
             }" />
-          <div *ngIf="submitted && form['confirmPassword'].errors" class="invalid-feedback">
-            <div *ngIf="form['confirmPassword'].errors.required">
-              La confirmación de la contraseña es requerida
+            <div *ngIf="submitted && form['confirmPassword'].errors" class="invalid-feedback">
+              <div *ngIf="form['confirmPassword'].errors.required">
+                La confirmación de la contraseña es requerida
+              </div>
+              <div *ngIf="form['confirmPassword'].errors.pattern">
+                Las contraseñas deben coincidir
+              </div>
             </div>
           </div>
         </div>
@@ -143,8 +149,8 @@
       <span *ngIf="state == 'loading'" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       <span *ngIf="state == 'loading'"> Enviando...</span>
       <span *ngIf="state !== 'loading'">
-        <span *ngIf="isEdit">Guardar</span>
-        <span *ngIf="!isEdit">Agregar</span>
+        <span *ngIf="user">Guardar</span>
+        <span *ngIf="!user">Registrar</span>
       </span>
     </button>
   </div>

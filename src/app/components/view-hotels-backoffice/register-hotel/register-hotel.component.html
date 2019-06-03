@@ -2,138 +2,226 @@
   Registrar Hotel
 </p>
 
-<form [formGroup]="registrationForm" (ngSubmit) = "onSubmit()">
-   <div class="row">
-
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
       <div class="form-group">
-      	<label>Nombre</label>
-      	<input [ngClass]="{
-          'is-invalid': name.invalid && name.touched,
-          'is-valid': name.valid
-        }"
-        [class.is-invalid]="name.invalid && name.touched" formControlName="name" type="text" class="form-control" >
+        <label>Nombre</label>
+        <input
+          [ngClass]="{
+            'is-invalid': name.invalid && name.touched,
+            'is-valid': name.valid
+          }"
+          [class.is-invalid]="name.invalid && name.touched"
+          formControlName="name"
+          type="text"
+          class="form-control"
+        />
         <div *ngIf="name.invalid && name.touched">
-          <small *ngIf="name.errors?.required" class ="text-danger"> El nombre es requerido </small>
-          <small *ngIf="name.errors?.minlength" class ="text-danger"> El nombre debe tener al menos 5 caracteres </small>
-          <small *ngIf="name.errors?.maxlength" class ="text-danger"> El nombre no puede tener mas de 100 caracteres </small>
+          <small *ngIf="name.errors?.required" class="text-danger">
+            El nombre es requerido
+          </small>
+          <small *ngIf="name.errors?.minlength" class="text-danger">
+            El nombre debe tener al menos 5 caracteres
+          </small>
+          <small *ngIf="name.errors?.maxlength" class="text-danger">
+            El nombre no puede tener mas de 100 caracteres
+          </small>
         </div>
       </div>
     </div>
 
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-       <div class="form-group">
-      	<label>Capacidad</label>
-      	<input [ngClass]="{
-          'is-invalid': roomCapacity.invalid && roomCapacity.touched,
-          'is-valid': roomCapacity.valid
-        }"
-        formControlName="roomCapacity" type="number" class="form-control" min="0">
-        <div *ngIf="roomCapacity.invalid && roomCapacity.touched">
-          <small *ngIf="roomCapacity.errors?.required" class ="text-danger">Se requiere especificar la capacidad de las habitaciones</small>
-          <small *ngIf="roomCapacity.errors?.min" class ="text-danger">La capacidad debe ser mayor a {{capacity.value}} </small>
-        </div>
-      </div>
-     </div>
-
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-       <div class="form-group">
-      	<label>Cantidad de habitaciones</label>
-      	<input [ngClass]="{
-          'is-invalid': amountOfRooms.invalid && amountOfRooms.touched,
-          'is-valid': amountOfRooms.valid
-        }"
-        formControlName="amountOfRooms" type="number" class="form-control" min="0">
-        <div *ngIf="amountOfRooms.invalid && amountOfRooms.touched">
-          <small *ngIf="amountOfRooms.errors?.required" class ="text-danger">Se requiere especificar la cantidad de las habitaciones</small>
-          <small *ngIf="amountOfRooms.errors?.min" class ="text-danger">El numero de habitaciones debe ser mayor a {{roomCapacity.value}}</small>
-        </div>
-      </div>
-     </div>
-
-
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-       <div class="form-group">
-      	<label>Precio por habitación</label>
-      	<input [ngClass]="{
-          'is-invalid': pricePerRoom.invalid && pricePerRoom.touched,
-          'is-valid': pricePerRoom.valid
-        }"
-        formControlName="pricePerRoom" type="number" class="form-control" min="1">
-        <div *ngIf="pricePerRoom.invalid && pricePerRoom.touched">
-          <small *ngIf="pricePerRoom.errors?.pattern" class ="text-danger">No parece ser un precio válido</small>
-          <small *ngIf="pricePerRoom.errors?.required" class ="text-danger">Se requiere especificar un precio por habitación</small>
-          <small *ngIf="pricePerRoom.errors?.min" class ="text-danger">El precio debe ser mayor a {{pricePerRoom.value}}</small>
-        </div>
-      </div>
-     </div>
-
-
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-       <div class="form-group">
-      	<label>Telefono</label>
-      	 <input [ngClass]="{
-           'is-invalid': phone.invalid && phone.touched,
-           'is-valid': phone.valid && phone.touched
-         }"
-         formControlName="phone" type="text" class="form-control">
-         <div *ngIf="phone.invalid && phone.touched">
-          <small *ngIf="phone.errors?.pattern" class ="text-danger">No parece ser un teléfono válido</small>
-         </div>
-        </div>
-     </div>
-
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-       <div class="form-group">
-      	<label>Sitio Web</label>
-      	<input [ngClass]="{
-          'is-invalid': website.invalid && website.touched,
-          'is-valid': website.valid && website.touched
-        }"
-        formControlName="website" type="text" class="form-control">
-        <div *ngIf="website.invalid && website.touched">
-         <small *ngIf="website.errors?.pattern" class ="text-danger">No parece ser una web válida</small>
-        </div>
-      </div>
-     </div>
-
-
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-       <div class="form-group">
-      	<label>Cantidad de estrellas</label>
-        <input [ngClass]="{
-          'is-invalid': stars.invalid && stars.touched,
-          'is-valid': stars.valid
-        }"
-        formControlName="stars" type="number" class="form-control" min="0" max="5">
-        <div *ngIf="stars.invalid && stars.touched">
-         <small *ngIf="stars.errors?.required" class ="text-danger">Se requiere seleccionar el ranking</small>
-         <small *ngIf="stars.errors?.min" class ="text-danger">Mayor a 0</small>
-         <small *ngIf="stars.errors?.max" class ="text-danger">Menor a 5</small>
-        </div>
-      </div>
-     </div>
-
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
       <div class="form-group">
-      	<label>Espeficificacion de lugar</label>
-      	<input [ngClass]="{
-          'is-invalid': addressSpecification.invalid && addressSpecification.touched,
-          'is-valid': addressSpecification.valid && addressSpecification.touched
-        }"
-        [class.is-invalid]="addressSpecification.invalid && addressSpecification.touched" formControlName="addressSpecification" type="text" class="form-control" >
-        <div *ngIf="addressSpecification.invalid && addressSpecification.touched">
-          <small *ngIf="addressSpecification.errors?.maxlength" class ="text-danger">Esta especificacion no puede tener mas de 50 caracteres </small>
+        <label>Personas por habitación</label>
+        <input
+          [ngClass]="{
+            'is-invalid': roomCapacity.invalid && roomCapacity.touched,
+            'is-valid': roomCapacity.valid
+          }"
+          formControlName="roomCapacity"
+          type="number"
+          class="form-control"
+          min="0"
+        />
+        <div *ngIf="roomCapacity.invalid && roomCapacity.touched">
+          <small *ngIf="roomCapacity.errors?.required" class="text-danger"
+            >Se requiere especificar la capacidad de las habitaciones</small
+          >
+          <small *ngIf="roomCapacity.errors?.min" class="text-danger"
+            >La capacidad debe ser mayor a {{ capacity.value }}
+          </small>
         </div>
       </div>
     </div>
 
-     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Cantidad de habitaciones</label>
+        <input
+          [ngClass]="{
+            'is-invalid': amountOfRooms.invalid && amountOfRooms.touched,
+            'is-valid': amountOfRooms.valid
+          }"
+          formControlName="amountOfRooms"
+          type="number"
+          class="form-control"
+          min="0"
+        />
+        <div *ngIf="amountOfRooms.invalid && amountOfRooms.touched">
+          <small *ngIf="amountOfRooms.errors?.required" class="text-danger"
+            >Se requiere especificar la cantidad de las habitaciones</small
+          >
+          <small *ngIf="amountOfRooms.errors?.min" class="text-danger"
+            >El numero de habitaciones debe ser mayor a
+            {{ roomCapacity.value }}</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Precio por habitación</label>
+        <input
+          [ngClass]="{
+            'is-invalid': pricePerRoom.invalid && pricePerRoom.touched,
+            'is-valid': pricePerRoom.valid
+          }"
+          formControlName="pricePerRoom"
+          type="number"
+          class="form-control"
+          min="1"
+        />
+        <div *ngIf="pricePerRoom.invalid && pricePerRoom.touched">
+          <small *ngIf="pricePerRoom.errors?.pattern" class="text-danger"
+            >No parece ser un precio válido</small
+          >
+          <small *ngIf="pricePerRoom.errors?.required" class="text-danger"
+            >Se requiere especificar un precio por habitación</small
+          >
+          <small *ngIf="pricePerRoom.errors?.min" class="text-danger"
+            >El precio debe ser mayor a {{ pricePerRoom.value }}</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Telefono</label>
+        <input
+          [ngClass]="{
+            'is-invalid': phone.invalid && phone.touched,
+            'is-valid': phone.valid && phone.touched
+          }"
+          formControlName="phone"
+          type="text"
+          class="form-control"
+        />
+        <div *ngIf="phone.invalid && phone.touched">
+          <small *ngIf="phone.errors?.pattern" class="text-danger"
+            >No parece ser un teléfono válido</small
+          >
+          <small *ngIf="phone.errors?.required" class="text-danger"
+            >El teléfono es obligatorio</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Sitio Web</label>
+        <input
+          [ngClass]="{
+            'is-invalid': website.invalid && website.touched,
+            'is-valid': website.valid && website.touched
+          }"
+          formControlName="website"
+          type="text"
+          class="form-control"
+        />
+        <div *ngIf="website.invalid && website.touched">
+          <small *ngIf="website.errors?.pattern" class="text-danger"
+            >No parece ser una web válida</small
+          >
+          <small *ngIf="website.errors?.required" class="text-danger"
+            >El sitio web es obligatorio</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Cantidad de estrellas</label>
+        <input
+          [ngClass]="{
+            'is-invalid': stars.invalid && stars.touched,
+            'is-valid': stars.valid
+          }"
+          formControlName="stars"
+          type="number"
+          class="form-control"
+          min="0"
+          max="5"
+        />
+        <div *ngIf="stars.invalid && stars.touched">
+          <small *ngIf="stars.errors?.required" class="text-danger"
+            >Se requiere seleccionar el ranking</small
+          >
+          <small *ngIf="stars.errors?.min" class="text-danger">Mayor a 0</small>
+          <small *ngIf="stars.errors?.max" class="text-danger">Menor a 5</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+      <div class="form-group">
+        <label>Espeficificacion de lugar</label>
+        <input
+          [ngClass]="{
+            'is-invalid':
+              addressSpecification.invalid && addressSpecification.touched,
+            'is-valid':
+              addressSpecification.valid && addressSpecification.touched
+          }"
+          [class.is-invalid]="
+            addressSpecification.invalid && addressSpecification.touched
+          "
+          formControlName="addressSpecification"
+          type="text"
+          class="form-control"
+        />
+        <div
+          *ngIf="addressSpecification.invalid && addressSpecification.touched"
+        >
+          <small
+            *ngIf="addressSpecification.errors?.maxlength"
+            class="text-danger"
+            >Esta especificacion no puede tener mas de 50 caracteres
+          </small>
+          <small
+            *ngIf="addressSpecification.errors?.required"
+            class="text-danger"
+            >Se requiere colocar una especificación de ubicación</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
       <div class="form-group">
         <label>Selecione un país</label>
-        <select type="text" class="form-control" (change)="selectCountry($event)" formControlName="country">
-          <option *ngFor="let country of countries" value={{country.id}} >
-              {{country.country}}
+        <select
+          type="text"
+          class="form-control"
+          (change)="selectCountry($event)"
+          formControlName="country"
+        >
+          <option *ngFor="let country of countries" value="{{ country.id }}">
+            {{ country.country }}
           </option>
         </select>
       </div>
@@ -143,31 +231,51 @@
       <div class="form-group">
         <label>Selecione la ciudad</label>
         <select type="text" class="form-control" formControlName="city">
-          <option *ngFor="let city of cities" value={{city.id}}>
-              {{city.city}}
+          <option *ngFor="let city of cities" value="{{ city.id }}">
+            {{ city.city }}
           </option>
-      </select>
+        </select>
       </div>
     </div>
-
 
     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
       <div class="form-group">
-        <div class = "custom-file">
-          <input formControlName="image" type="file"  id="validatedCustomFile" class="custom-file-input"  (change)="getImage($event)">
-          <label class="custom-file-label" for="validatedCustomFile">Elegir foto del hotel...</label>
-          <small *ngIf="urlImage!=null" class ="text-success"> Archivo seleccionado</small>
+        <div class="custom-file">
+          <input
+            formControlName="image"
+            type="file"
+            id="validatedCustomFile"
+            class="custom-file-input"
+            (change)="getImage($event)"
+          />
+          <label class="custom-file-label" for="validatedCustomFile"
+            >Elegir foto del hotel...</label
+          >
+          <small *ngIf="urlImage != null" class="text-success">
+            Archivo seleccionado</small
+          >
         </div>
       </div>
     </div>
+  </div>
 
-   </div>
+  <div class="grupo-botones">
+    <button
+      [disabled]="!registrationForm.valid"
+      class="btn btn-outline-info"
+      type="submit"
+    >
+      Guardar
+    </button>
+    <button
+      class="btn btn-outline-danger"
+      (click)="goToViewHotels()"
+      title="Cancelar registro de hotel"
+      type="button"
+    >
+      Cancelar
+    </button>
+  </div>
+</form>
 
-   <div class="grupo-botones">
-     <button [disabled]="!registrationForm.valid" class="btn btn-outline-info" type="submit" >Guardar</button>
-     <button class="btn btn-outline-danger" (click)="goToViewHotels()" title="Cancelar registro de hotel" type="button">Cancelar</button>
-   </div>
-
- </form>
-
- <!-- TODO: INPUT DE PAIS Y CIUDAD -->
+<!-- TODO: INPUT DE PAIS Y CIUDAD -->

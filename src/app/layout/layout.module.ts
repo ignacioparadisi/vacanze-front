@@ -8,6 +8,7 @@ import { LayoutComponent } from "./layout.component";
 import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
+import {RegisterUserModule} from "../components/users/register-user/register-user.module";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
   ],
   imports: [
     HttpClientModule,
+    RegisterUserModule,
     CommonModule,
     FormsModule,
     LayoutRoutingModule,
