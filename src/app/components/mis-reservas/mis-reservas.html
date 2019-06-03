@@ -295,5 +295,10 @@
   [tableData]="getRestaurants()"
   [tableHeaders]="getHeaderRestaurantReservation()"
   [type]="'ver-reservas'"
+  (actionAlertEventEmitter)="getAlertAction($event)"
  >
 </app-table-responsive-reservas>
+
+<div class="text-center">
+  <button class="btn btn-danger" (click)="goBack()" type="button">Regresar.</button>
+</div>

@@ -32,7 +32,8 @@ export class SeleccionarRestaurantComponent implements OnInit {
       "Especialidad",
       "Precio",
       "Descripción ",
-      "Contacto"
+      "Contacto",
+      "Reservar"
     ]
     
   }

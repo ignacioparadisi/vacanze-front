@@ -82,12 +82,12 @@ export class BuscarRestaurantComponent implements OnInit {
  
   private peopleDinner(): reservationRestaurant[]{
     this.cantidadPersonas = [
-      new reservationRestaurant(1, '1 people'),
-      new reservationRestaurant(2, '2 people'),
-      new reservationRestaurant(3, '3 people'),
-      new reservationRestaurant(4, '4 people'),
-      new reservationRestaurant(5, '5 people'),
-      new reservationRestaurant(6, '6 people')
+      new reservationRestaurant(1, '1 persona'),
+      new reservationRestaurant(2, '2 personas'),
+      new reservationRestaurant(3, '3 personas'),
+      new reservationRestaurant(4, '4 personas'),
+      new reservationRestaurant(5, '5 personas'),
+      new reservationRestaurant(6, '6 personas')
     ]
     return this.cantidadPersonas
   }

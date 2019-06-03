@@ -117,7 +117,7 @@ export class DetailViewComponent implements OnInit {
     Swal.fire(config).then( result =>{
       console.log(result);
       this.destroyLocalStorage()
-      this.router.navigate(['mis-reservas']);
+      this.router.navigate(['grupo-uno/landing']);
     });
   }
 }
