@@ -7,7 +7,9 @@ import { Order } from '../../interfaces/Order';
 import { environment as url } from '../../../environments/environment';
 import { PayMethods } from '../../interfaces/paymethods';
 import { Bill } from '../../interfaces/bill';
-
+import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-grupo-once-pago',
@@ -25,7 +27,7 @@ export class GrupoOncePagoComponent implements OnInit {
   @ViewChild('content2') content2: ElementRef
 
   constructor(private modalService: NgbModal, public fb: FormBuilder,
-    private router: Router, private serv: ApiService) { }
+    private router: Router, private serv: ApiService, private localStorage: LocalStorageService ) { }
 
   open(content) {
 
@@ -80,15 +82,25 @@ export class GrupoOncePagoComponent implements OnInit {
   public payMethods: Array<PayMethods>;
   public bill: Bill;
   public idMethod: string;
+  private userId: string;
   ngOnInit() {
+
+    this.localStorage.getItem("id").subscribe(data => {
+      if (data) {
+        this.userId = data
+        this.getAutomobileReservations()
+        this.getHabservations()
+      }
+    })
+    console.log(this.userId);
 
     this.payMethods = this.getPaymentMethod();
     this.orderList = this.getOrderList();
-    this.reservaAuto = this.getReserv_Auto();
-    this.reservaHab = this.getReserv_Hab();
+    //this.reservaAuto = this.getReserv_Auto();
+    //this.reservaHab = this.getReserv_Hab();
     this.reservaRes = this.getReserv_Res();
     this.reservaCru = this.getReserv_Cru();
-
+    
 
 
 
@@ -98,9 +110,10 @@ export class GrupoOncePagoComponent implements OnInit {
     this.GetSubTotal();
     this.GetComision();
     this.GetTotal();
-   
-
+  
   }
+
+  
 
   selectOptionResAuto(id:string){
     this.idSelectAuto =id;
@@ -306,14 +319,16 @@ export class GrupoOncePagoComponent implements OnInit {
     this.serv.postUrl(url.endpoint.default._post.addPayment, bill)
       .then(response => {
         console.log("response", response);
-      })
-      .catch(error => {
-        console.log("error", error);
-      })
-      if (this.modalService.hasOpenModals())
-      {
+        this.transactionApproved(response);
+       if (this.modalService.hasOpenModals())
+       {
        this.modalService.dismissAll();
-      }
+       }
+      })
+      .catch((err:HttpErrorResponse)  => {
+       this.transactionDeclinedC(err.error)
+      // console.log(err.error);
+      })
   }
 
 public notInfoResponse()
@@ -323,7 +338,64 @@ public notInfoResponse()
 }
 
 
+private transactionApproved(message: string){
+  let config: SweetAlertOptions = {
+    title: message,
+    type: 'success',
+    showConfirmButton: true,
+    timer: 5000
+  }
+  Swal.fire(config).then( result =>{
+    console.log(result);
+  });
+}
 
+private transactionDeclinedC(error: string ){
+  let config: SweetAlertOptions = {
+    title: error,
+    type: 'error',
+    showConfirmButton: false,
+    timer: 8000
+  }
+  Swal.fire(config).then( result =>{
+    console.log(result);
+  });
+}
+
+  /**********************************************************************
+    * Metodo que es llamado para mostrar las reservas de ese usuario                          *
+    ***********************************************************************/
+   getAutomobileReservations(){
+    console.log("Estoy en getAutomobileReservations");
+    var user_id = localStorage.getItem('id');
+  const requestURL = "payment/ResHabAuto/"+this.userId+"/0"; 
+    //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
+    this.serv.getUrl(requestURL).then(
+        response => {
+          console.log(response);
+          this.reservaAuto = response;
+        },
+        error => {
+            console.log(error);
+        }
+    );
+}
+
+getHabservations(){
+  console.log("Estoy en getAutomobileReservations");
+ 
+const requestURL = "payment/ResHabAuto/"+this.userId+"/1"; 
+  //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
+  this.serv.getUrl(requestURL).then(
+      response => {
+        console.log(response);
+        this,this.reservaHab = response;
+      },
+      error => {
+          console.log(error);
+      }
+  );
+}
 
 
 }
