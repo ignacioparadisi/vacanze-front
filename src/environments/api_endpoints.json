@@ -2,8 +2,9 @@
   "_get": {
     "getHotel": "hotels",
     "getHotelByLocation": "hotels/?location={id}",
+    "getHotelImage": "hotels/{id}/image",
     "getRestaurant": "restaurants",
-    "getRestaurantByLocation": "restaurants/location/{id}",
+    "getRestaurantById": "restaurants/location/{id}",
     "getResRestaurantById": "ResRestaurant/{id}",
     "getReservationNotPay": "ResRestaurant/Payment/{userId}",
     "getClaim": "Claim/{id}",

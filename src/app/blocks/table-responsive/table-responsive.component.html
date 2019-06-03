@@ -80,8 +80,8 @@
                     <td>{{ hotel?.name }}</td>
                     <td>{{ hotel?.amountOfRooms }}</td>
                     <td>{{ hotel?.roomCapacity }}</td>
-                    <td>{{ hotel?.phone }}</td>
-                    <td>{{ hotel?.website }}</td>
+                    <td>{{ hotel?.location.country }}</td>
+                    <td>{{ hotel?.location.city }}</td>
                     <td>{{ hotel?.stars }}</td>
                     <td class="d-flex ml-3">
                       <span class="badge badge-success" *ngIf="hotel?.isActive">Activo</span>
