@@ -1,13 +1,9 @@
 {
   "_get": {
-<<<<<<< HEAD
-    "getBaggage": "baggage/{id}",
-    "addbaggage": "baggage/agregar/{estatus}/{descripcion}",
-    "getflights": "Flights",
     "getHotel": "hotels",
     "getHotelByLocation": "hotels/?location={id}",
     "getRestaurant": "restaurants",
-    "getRestaurantById": "restaurants/location/{id}",
+    "getRestaurantByLocation": "restaurants/location/{id}",
     "getResRestaurantById": "ResRestaurant/{id}",
     "getReservationNotPay": "ResRestaurant/Payment/{userId}",
     "getClaim": "Claim/{id}",
@@ -15,50 +11,27 @@
     "getBaggageClientSerial": "Baggage/serial/{id}",
     "getBaggageClientDocument": "Baggage/documentPasaport/{id}",
     "getBaggageAdminStatus": "Baggage/admin/getStatus/{status}",
+    "getBaggage": "baggage/{id}",
+    "addbaggage": "baggage/agregar/{estatus}/{descripcion}",
     "getCountry": "locations/countries",
     "getCity": "locations/countries/{id}/cities",
-=======
-    "getHotel":"hotels",
-    "getHotelByLocation":"hotels/?location={id}",
-    "getRestaurant":"restaurants",
-    "getRestaurantByLocation": "restaurants/location/{id}",
-    "getResRestaurantById": "ResRestaurant/{id}",
-    "getReservationNotPay":"ResRestaurant/Payment/{userId}",
-    "getClaim":"Claim/{id}",
-    "getClaimAdminStatus":"Claim/admin/{status}",
-    "getBaggageClientSerial":"Baggage/serial/{id}",
-    "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
-    "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
-    "getCountry": "locations/countries",
-    "getCity":"locations/countries/{id}/cities",
->>>>>>> ecd20d19292ff64479ed714a25ede8cf74301a92
     "getLocations": "locations",
     "cruisers": {
       "get_cruisers": "cruiser",
       "get_layovers": "cruiser/{cruiserId}/layover"
     },
-<<<<<<< HEAD
     "Orders": "payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
     "getPaymentMethod": "payment"
   },
   "_post": {
     "postClaim": "Claim/{id}",
     "postHotel": "hotels",
-=======
-    "Orders":"payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
-    "getPaymentMethod":"payment"
-  },
-  "_post": {
-    "postClaim":"Claim/{id}",
-    "postHotel":"hotels",
->>>>>>> ecd20d19292ff64479ed714a25ede8cf74301a92
     "postRestaurant": "restaurants",
     "cruisers": {
       "post_cruiser": "cruiser",
       "post_route": "cruiser/{cruiserId}/layover"
     },
     "postResRestaurant": "ResRestaurant",
-<<<<<<< HEAD
     "addPayment": "payment"
   },
   "_put": {
@@ -71,27 +44,9 @@
     "deleteClaim": "Claim/{id}",
     "deleteHotel": "hotels/{id}",
     "deleteRestaurant": "restaurants/{id}",
-=======
-    "addPayment":"payment"
-  },
-  "_put": {
-      "putClaimStatus":"Claim/{id}",
-      "putHotel":"hotels/{id}",
-      "putRestaurant":"restaurants"
-  },
-  "_delete": {
-    "deleteResRestaurant": "ResRestaurant/{id}",
-    "deleteClaim":"Claim/{id}",
-    "deleteHotel":"hotels/{id}",
-    "deleteRestaurant":"restaurants/{id}",
->>>>>>> ecd20d19292ff64479ed714a25ede8cf74301a92
     "cruisers": {
       "delete_cruiser": "cruiser/{id}",
       "delete_routes": "cruiser/layover/{id}"
     }
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> ecd20d19292ff64479ed714a25ede8cf74301a92
