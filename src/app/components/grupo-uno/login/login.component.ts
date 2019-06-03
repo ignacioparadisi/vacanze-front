@@ -46,12 +46,18 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private landing: GrupoUnoComponent,
     private modalService: NgbModal,
-    private sideBar: SidebarComponent) {
+    private sideBar: SidebarComponent,
+    private local: LocalStorageService) {
 
   }
 
   ngOnInit() {
 
+
+    localStorage.setItem('flag', '1');
+    this.local.removeItem('id');
+    this.local.removeItem('Email');
+    this.local.removeItem('rol');
   }
   onSubmit(form: NgForm) {
     this.isPushed = false;
@@ -78,11 +84,7 @@ export class LoginComponent implements OnInit {
           this.isShowLogin = true;
           this.router.navigateByUrl('/landing');
         } else if (res.roles[0].id != 1) {
-          /* for (var i = 0; i < res.roles.length; i++) {
-             if (res.roles[i].name == 3) {
-               this.sideBar.isLanding = false;
-             }
-           }*/
+
           this.father.StatusHeader = true;
           this.father.StatusSideBar = true;
           this.StatusLogin = false;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutComponent } from '../layout.component';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
     selector: 'app-header',
@@ -10,7 +11,7 @@ import { LayoutComponent } from '../layout.component';
 export class HeaderComponent implements OnInit {
     public pushRightClass: string;
 
-    constructor(public router: Router, private layout: LayoutComponent) {
+    constructor(public router: Router, private layout: LayoutComponent, private local: LocalStorageService) {
 
         this.router.events.subscribe(val => {
             if (
@@ -48,9 +49,9 @@ export class HeaderComponent implements OnInit {
     onClickMe() {
 
         this.layout.StatusMain = true;
-        localStorage.removeItem('Email');
-        localStorage.removeItem('rol');
-        localStorage.removeItem('token');
+        this.local.removeItem('id');
+        this.local.removeItem('Email');
+        this.local.removeItem('rol');
         this.router.navigate(['/grupo-uno']);
     }
 
