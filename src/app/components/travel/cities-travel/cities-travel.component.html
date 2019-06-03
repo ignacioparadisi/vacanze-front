@@ -18,8 +18,7 @@
         <div class="card-body">
           <div class="row align-items-center">
             <div class="col-10">
-              <h5 (click)="travelDetails(city.id)">{{city.country}}
-                <hr> {{city.city}}</h5>
+              <h5 (click)="travelDetails(city.id)">{{city.city}}</h5>
             </div>
             <div class="col-1">
               <button class="btn btn-sm btn-outline-danger" title="Eliminar ciudad" (click)="deleteCity(city.id)">
@@ -27,6 +26,9 @@
               </button>
             </div>
           </div>
+        </div>
+        <div class="card-footer text-muted" style="text-align: center" (click)="travelDetails(city.id)">
+          {{city.country}}
         </div>
       </div>
     </div>

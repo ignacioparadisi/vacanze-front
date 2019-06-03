@@ -54,7 +54,7 @@ export class CreateTravelComponent {
         this.closeModal();
         Swal.fire({
           title: '!Éxito¡',
-          text: 'El viaje se creo satisfactoriamente.',
+          text: 'El viaje se creó satisfactoriamente.',
           type: 'success'
         });
         this.spread.emit();

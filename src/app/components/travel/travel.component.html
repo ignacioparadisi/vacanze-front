@@ -9,7 +9,7 @@
                 <h5 (click)="travelCities(travel)">{{travel.name}}</h5>
               </div>
               <div class="col-1 mr-1">
-                <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description"></modify-travel>
+                <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description" (spread)="getTravels()"></modify-travel>
               </div>
               <div class="col-1">
                 <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje" (click)="travelDelete(travel.id)">
