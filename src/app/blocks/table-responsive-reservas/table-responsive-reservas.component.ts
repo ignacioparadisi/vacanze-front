@@ -94,7 +94,6 @@ export class TableResponsiveReservasComponent implements OnChanges {
     })
     
     if(this.isDataLoaded === true){
-      console.log('Imprimiendo reserva', reserva)
       var datos ={
         reservation: reserva,
         userDatos: this.formData

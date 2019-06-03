@@ -52,7 +52,6 @@ export class FilterHotelComponent implements OnInit {
     this.service
         .getUrl(url.endpoint.default._get.getCountry)
         .then(response => {
-            console.log(response),
             this.countries = response
     }, error => console.error(error));
   }

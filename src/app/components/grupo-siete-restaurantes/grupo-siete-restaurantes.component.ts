@@ -43,11 +43,9 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
     this.service
     .getUrl(url.endpoint.default._get.getRestaurantByLocation, [id.toString()])
     .then(response => {
-          // console.log("Cargan los restaurantes", response),
           this.tableData = response
     }).catch( error => {
           this.alertStatus(500, false)
-          console.log("Error carga inicial de restaurantes", error);
     });
 }
 
@@ -65,15 +63,12 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
   }
 
   public getAlertAction(action: string) {
-    console.log(action['delete']);
     if (action['delete']) {
       if (action['confirmed']) {
-        // console.log(action);
         this.deleteRestaurant(action['id']);
       }
     } else {
       if (action['confirmed']) {
-          console.log('se quiere actualizar el estatus del restaurantes ', action);
           this.changeRestaurantStatus(action);
       }
     }
@@ -104,26 +99,20 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
         this.service
         .getUrl(url.endpoint.default._get.getRestaurant)
         .then(response => {
-              // console.log("Cargan los restaurantes", response),
               this.tableData = response;
         }).catch( error => {
-              console.log('Error carga inicial de restaurantes', error);
         });
   }
 
   public deleteRestaurant(id: number) {
-        console.log('se esta borrando el restaurante ', id);
         this.service
         .deleteUrl(url.endpoint.default._delete.deleteRestaurant, [id.toString()])
         .then(response => {
-              // console.log("Respuesta al borrar restaurant",response.status),
-              // no hay excepcion pero el status no es 200
               this.deleteRestaurantById(response[id.toString()]);
               this.alertStatus(200, true);
               this.loadRestaurants();
         }).catch( error => {
               this.alertStatus(500, true);
-              console.log('Error en el delete del restaurante', error);
         });
   }
 
@@ -149,12 +138,10 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
           .then(
             response => {
               this.restaurantEditedSuccessfully();
-              console.log('Exito al modificar ', restaurant.id),
               // this.alertStatus(200, true);
               this.loadRestaurants();
             }).catch(
               error => {
-                console.log('Error actualizando el estatus del restaurante');
               }
             );
         } else {
@@ -178,12 +165,10 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
           .then(
             response => {
               this.restaurantEditedSuccessfully();
-              console.log('Exito al modificar ', restaurant.id),
               // this.alertStatus(200, true);
               this.loadRestaurants();
             }).catch(
               error => {
-                console.log('Error actualizando el estatus del restaurante');
               }
             );
         }

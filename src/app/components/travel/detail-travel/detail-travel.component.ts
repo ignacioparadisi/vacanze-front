@@ -223,6 +223,5 @@ export class DetailTravelComponent implements OnInit {
   }
 
   addComment() {
-    console.log(this.commentForm.value)
   }
 }

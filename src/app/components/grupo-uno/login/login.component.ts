@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
 
     //localStorage.setItem('flag', '1');
     this.storage.setItem('flag', '1').subscribe(flag => {
-      console.log('el flag es', flag)
     });
     this.local.removeItem('id');
     this.local.removeItem('Email');
@@ -70,14 +69,11 @@ export class LoginComponent implements OnInit {
       (res: any) => {
 
         this.storage.setItem('id', res.id).subscribe(id => {
-          console.log('Id del usuario por bdd', id)
         });
         this.storage.setItem('rol', res.roles).subscribe(roles => {
-          console.log('Roles del usuario', roles)
         });
 
         this.storage.setItem('Email', res.email).subscribe(email => {
-          console.log('Emai del usuario', email)
         });
         if (res.roles[0].id == 1) {
           this.StatusLogin = false;
@@ -115,7 +111,6 @@ export class LoginComponent implements OnInit {
     this.service.postUrl('Email/Email', recoveryForm.value).then(
       (res: any) => {
         this.storage.setItem('Email', res.email).subscribe(email => {
-          console.log('Email del usuario', email)
         });
         if (res.email) {
           this.StatusLogin = false;
