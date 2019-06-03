@@ -27,34 +27,62 @@ export class GrupoOncePagoComponent implements OnInit {
   @ViewChild('content2') content2: ElementRef
 
   constructor(private modalService: NgbModal, public fb: FormBuilder,
-    private router: Router, private serv: ApiService, private localStorage: LocalStorageService ) { }
+    private router: Router, private serv: ApiService, private localStorage: LocalStorageService) { }
 
   open(content) {
 
+    this.getAutomobileReservations()
+    this.getHabservations()
+    this.getRestervations();
+
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    this.idSelectAuto ='0';
-    this.idSelectHab  ='0';
-    this.idSelectRes  ='0';
-    this.idSelectCru  ='0';
+    this.idSelectAuto = '0';
+    this.idSelectHab = '0';
+    this.idSelectRes = '0';
+    this.idSelectCru = '0';
+    this.reference = '0|0|0|0';
   }
 
   openPayment(content) {
+    if (this.orderList.length > 0) {
 
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-    document.getElementById("refere").hidden = true;
-    document.getElementById("tarj").hidden = true;
-    document.getElementById("dettarj").hidden = true;
-    document.getElementById("detbank").hidden = true;
-    document.getElementById("bank").hidden = true;
-    document.getElementById("btnpay").hidden = true;
+      this.modalService.open(content).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+      document.getElementById("refere").hidden = true;
+      document.getElementById("tarj").hidden = true;
+      document.getElementById("dettarj").hidden = true;
+      document.getElementById("detbank").hidden = true;
+      document.getElementById("bank").hidden = true;
+      document.getElementById("btnpay").hidden = true;
+    } else {
+      this.transactionDeclinedC("Debe seleccionar una reserva");
+    }
+  }
+
+  openMyPayment() {
+
+
+    this.localStorage.getItem("id").subscribe(data => {
+      if (data) {
+        this.userId = data
+        this.getMyPayments();
+      }
+    })
+    if (document.getElementById("mypayment").hidden) {
+      document.getElementById("mypayment").hidden = false;
+    } else {
+      document.getElementById("mypayment").hidden = true;
+    }
+
+
+
   }
 
   private getDismissReason(reason: any): string {
@@ -72,7 +100,7 @@ export class GrupoOncePagoComponent implements OnInit {
   public reservaHab = [];
   public reservaRes = [];
   public reservaCru = [];
-
+  public myPayments = [];
   public idSelectAuto: string;
   public idSelectHab: string;
   public idSelectRes: string;
@@ -82,50 +110,50 @@ export class GrupoOncePagoComponent implements OnInit {
   public payMethods: Array<PayMethods>;
   public bill: Bill;
   public idMethod: string;
+  private reference: string;
   private userId: string;
   ngOnInit() {
+    document.getElementById("mypayment").hidden = true;
 
     this.localStorage.getItem("id").subscribe(data => {
       if (data) {
         this.userId = data
-        this.getAutomobileReservations()
-        this.getHabservations()
+        this.open(this.content2);
       }
     })
-    console.log(this.userId);
+    //console.log(this.userId);
 
     this.payMethods = this.getPaymentMethod();
     this.orderList = this.getOrderList();
     //this.reservaAuto = this.getReserv_Auto();
     //this.reservaHab = this.getReserv_Hab();
-    this.reservaRes = this.getReserv_Res();
+    //this.reservaRes = this.getReserv_Res();
     this.reservaCru = this.getReserv_Cru();
-    
+
 
 
 
     //this.getOrders();
     this.getPayMethods();
-    this.open(this.content2);
     this.GetSubTotal();
     this.GetComision();
     this.GetTotal();
-  
+
   }
 
-  
 
-  selectOptionResAuto(id:string){
-    this.idSelectAuto =id;
+
+  selectOptionResAuto(id: string) {
+    this.idSelectAuto = id;
   }
-  selectOptionResHab(id:string){
-    this.idSelectHab =id;
+  selectOptionResHab(id: string) {
+    this.idSelectHab = id;
   }
-  selectOptionResRes(id:string){
-    this.idSelectRes =id;
+  selectOptionResRes(id: string) {
+    this.idSelectRes = id;
   }
-  selectOptionResCru(id:string){
-    this.idSelectCru =id;
+  selectOptionResCru(id: string) {
+    this.idSelectCru = id;
   }
 
 
@@ -265,22 +293,21 @@ export class GrupoOncePagoComponent implements OnInit {
 
   public getOrders() {
 
-    this.serv.getUrl(url.endpoint.default._get.Orders, [this.idSelectAuto,this.idSelectHab,this.idSelectRes,this.idSelectCru])
+    this.serv.getUrl(url.endpoint.default._get.Orders, [this.idSelectAuto, this.idSelectHab, this.idSelectRes, this.idSelectCru])
       .then(response => {
         document.getElementById("orderframe").hidden = false;
         this.setOrderList(response);
         console.log(response);
-        
+
       })
       .catch(error => {
         this.notInfoResponse()
 
       })
-      if (this.modalService.hasOpenModals())
-      {
-       this.modalService.dismissAll();
-      }
-    
+    if (this.modalService.hasOpenModals()) {
+      this.modalService.dismissAll();
+    }
+
   }
 
   public setOrderList(orderList: Array<Order>) {
@@ -311,91 +338,139 @@ export class GrupoOncePagoComponent implements OnInit {
   }
 
   public postPayment() {
-    this.bill = { id: 100, paymentMethod: this.idMethod, reference: "white", total: this.GetTotal() };
+    this.reference = this.idSelectAuto + "|" +
+      this.idSelectHab + "|" +
+      this.idSelectRes + "|" +
+      this.idSelectCru;
+
+    this.bill = { id: 100, paymentMethod: this.idMethod, reference: this.reference, total: this.GetTotal() };
     this.addPayment(this.bill);
   }
   public addPayment(bill: Bill) {
     console.log(bill)
     this.serv.postUrl(url.endpoint.default._post.addPayment, bill)
       .then(response => {
-        console.log("response", response);
+        //console.log("response", response);
         this.transactionApproved(response);
-       if (this.modalService.hasOpenModals())
-       {
-       this.modalService.dismissAll();
-       }
+        if (this.modalService.hasOpenModals()) {
+          this.modalService.dismissAll();
+        }
+        this.reservaAuto = [];
+        this.reservaHab = [];
+        this.orderList = [];
+        this.getAutomobileReservations();
+        this.getHabservations();
       })
-      .catch((err:HttpErrorResponse)  => {
-       this.transactionDeclinedC(err.error)
-      // console.log(err.error);
+      .catch((err: HttpErrorResponse) => {
+        this.transactionDeclinedC(err.error)
+        // console.log(err.error);
       })
   }
 
-public notInfoResponse()
-{
-  this.setOrderList([]);
-  document.getElementById("orderframe").hidden = true;
-}
-
-
-private transactionApproved(message: string){
-  let config: SweetAlertOptions = {
-    title: message,
-    type: 'success',
-    showConfirmButton: true,
-    timer: 5000
+  public notInfoResponse() {
+    this.setOrderList([]);
+    document.getElementById("orderframe").hidden = true;
   }
-  Swal.fire(config).then( result =>{
-    console.log(result);
-  });
-}
 
-private transactionDeclinedC(error: string ){
-  let config: SweetAlertOptions = {
-    title: error,
-    type: 'error',
-    showConfirmButton: false,
-    timer: 8000
+
+  private transactionApproved(message: string) {
+    let config: SweetAlertOptions = {
+      title: message,
+      type: 'success',
+      showConfirmButton: true,
+      timer: 5000
+    }
+    Swal.fire(config).then(result => {
+      console.log(result);
+    });
   }
-  Swal.fire(config).then( result =>{
-    console.log(result);
-  });
-}
+
+  private transactionDeclinedC(error: string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: false,
+      timer: 3000
+    }
+    Swal.fire(config).then(result => {
+      console.log(result);
+    });
+  }
 
   /**********************************************************************
     * Metodo que es llamado para mostrar las reservas de ese usuario                          *
     ***********************************************************************/
-   getAutomobileReservations(){
+  getAutomobileReservations() {
     console.log("Estoy en getAutomobileReservations");
-    var user_id = localStorage.getItem('id');
-  const requestURL = "payment/ResHabAuto/"+this.userId+"/0"; 
+    const requestURL = "payment/ResHabAuto/" + this.userId + "/0";
     //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
     this.serv.getUrl(requestURL).then(
-        response => {
-          console.log(response);
-          this.reservaAuto = response;
-        },
-        error => {
-            console.log(error);
-        }
-    );
-}
-
-getHabservations(){
-  console.log("Estoy en getAutomobileReservations");
- 
-const requestURL = "payment/ResHabAuto/"+this.userId+"/1"; 
-  //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
-  this.serv.getUrl(requestURL).then(
       response => {
         console.log(response);
-        this,this.reservaHab = response;
+        this.reservaAuto = response;
       },
       error => {
-          console.log(error);
+        console.log(error);
       }
-  );
-}
+    );
+  }
 
+  getHabservations() {
+    console.log("Estoy en getAutomobileReservations");
+
+    const requestURL = "payment/ResHabAuto/" + this.userId + "/1";
+    //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
+    this.serv.getUrl(requestURL).then(
+      response => {
+        console.log(response);
+        this, this.reservaHab = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getRestervations() {
+    //console.log("Estoy en getAutomobileReservations");
+
+    const requestURL = "payment/ResHabAuto/" + this.userId + "/2";
+    //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
+    this.serv.getUrl(requestURL).then(
+      response => {
+        console.log(response);
+        this, this.reservaRes = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getMyPayments() {
+    console.log("Estoy en getAutomobileReservations");
+
+    const requestURL = "payment/mypayment/" + this.userId;
+    //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
+    this.serv.getUrl(requestURL).then(
+      response => {
+        console.log(response);
+        this, this.myPayments = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  public formatDate(sdate: Date) {
+    var date = new Date(sdate)
+    let formatted_date = date.getFullYear() + "-" +
+      (date.getMonth() + 1) + "-" +
+      date.getDate() + " " +
+      date.getHours() + ":" +
+      date.getMinutes() +
+      ":" + date.getSeconds()
+    return formatted_date;
+  }
 
 }
