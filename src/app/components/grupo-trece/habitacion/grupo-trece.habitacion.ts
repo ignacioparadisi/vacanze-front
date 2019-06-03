@@ -21,7 +21,8 @@ export class HabitacionGrupoTrece implements OnInit {
     public hotels = [];
     public closeResult: string;
     private userId:number;
-    private isDataLoaded: boolean = false
+    private isDataLoaded: boolean = false;
+    public show: boolean = false;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
@@ -61,6 +62,10 @@ export class HabitacionGrupoTrece implements OnInit {
                 console.log(error);
             }
         );*/
+    }
+
+    showTable(){
+        this.show = true;
     }
 
     getHabitacions() {

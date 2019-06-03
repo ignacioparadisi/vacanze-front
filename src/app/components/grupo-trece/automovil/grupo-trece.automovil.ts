@@ -21,7 +21,8 @@ export class AutomovilGrupoTrece implements OnInit {
     public cities = [];
     public closeResult: string;
     private userId:number;
-    private isDataLoaded: boolean = false
+    private isDataLoaded: boolean = false;
+    public show: boolean = false;
    // public aut_id;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
@@ -63,6 +64,10 @@ export class AutomovilGrupoTrece implements OnInit {
                 console.log(error);
             }
         );*/
+    }
+
+    showTable(){
+        this.show = true;
     }
 
     getCars(){
