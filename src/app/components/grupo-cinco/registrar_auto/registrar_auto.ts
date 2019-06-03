@@ -72,8 +72,6 @@ export class Registrar_AutoComponent implements OnInit {
       this.apiService.getUrl(requestURL).then(
           response => {
               this.countries = response;
-              
-              console.log(response);
           },
           error => {
               console.log(error);
@@ -154,13 +152,11 @@ export class Registrar_AutoComponent implements OnInit {
   }
  public consultarauto(){
   this.obtenervariables();
-  console.log(this.form.value);
   var matricula = this.form.value.matricula;
   var ciudad = this.form.value.ciudad;
   var capacidad = this.form.value.capacidad;
   var estatus =this.form.value.estatus;
-   this.nombreciudad = this.countries [ciudad - 1 ];
-   console.log(this.nombreciudad);
+  this.nombreciudad = this.countries [ciudad - 1 ];
   
   if (matricula == null || matricula== ""){
      matricula= "null";
@@ -195,13 +191,7 @@ export class Registrar_AutoComponent implements OnInit {
  modificar(){
   this.auto=this.modificarauto;
   
-  console.log("hola");
-  console.log(this.auto);
-  console.log(this.auto["_id"]);
-  console.log(this.auto["_isActive"])
-  console.log(this.auto["_capacity"])
   var x =this.auto["_capacity"];
-  console.log(x);
   this.obtenervariablesmodificar();
   var v_ciudad= this.formGroup.value.ciudad;
   var v_estatus= this.formGroup.value.estatus;
@@ -214,55 +204,47 @@ export class Registrar_AutoComponent implements OnInit {
   if (v_ciudad== "" || v_ciudad== null || v_ciudad==" ")
   {
     v_ciudad=this.auto["_place"];
-    console.log(v_ciudad);
   }
   if (v_estatus== "" || v_estatus== null || v_estatus==" ")
   {
     v_estatus=this.auto["_isActive"];
-    console.log(v_estatus);
   }
   if (v_modelo== "" || v_modelo== null || v_modelo==" ")
   {
     v_modelo=this.auto["_model"];
-    console.log(v_modelo);
   }
   if (v_marca== "" || v_marca== null ||v_marca==" ")
   {
     v_marca=this.auto["_make"];
-    console.log(v_marca);
   }
   if (v_matricula== "" || v_matricula== null ||v_matricula==" ")
   {
     v_matricula=this.auto["_licence"];
-    console.log(v_matricula);
   }
   if (v_capacidad== "" || v_capacidad== null ||v_capacidad==" ")
   {
     v_capacidad=this.auto["_capacity"];
-    console.log(v_capacidad);
   }
   if (v_precio== "" || v_precio== null || v_precio==" ")
   {
     v_precio=this.auto["_price"];
-    console.log(v_precio);
   }
   var  v_id=this.auto["_id"];
-   v_foto="hola";
+   v_foto="carro.jpg";
 
-   const requestURL = 'Auto/modificar'+ '/'+ v_id + '/'+ v_marca+ '/' + v_modelo+ '/'+ v_capacidad + '/'+ v_estatus + '/'+  v_matricula + '/'+  v_precio + '/'+ v_foto + '/'+ v_ciudad; 
-   console.log(requestURL);
-   this.apiService.getUrl(requestURL).then(
-     response => {
-         this.respuesta = response;
-         console.log(response);
-         this.consultarauto();
-         this.autos = response;
-     }, error => {
-         console.log(error);
-     });
-   
-
-
- 
- }
+   if (v_precio < 0 || v_capacidad <0 ){
+    console.log("no se aceptan numeros negativos ");
+} else {
+  const requestURL = 'Auto/modificar'+ '/'+ v_id + '/'+ v_marca+ '/' + v_modelo+ '/'+ v_capacidad + '/'+ v_estatus + '/'+  v_matricula + '/'+  v_precio + '/'+ v_ciudad; 
+  this.apiService.getUrl(requestURL).then(
+    response => {
+        this.respuesta = response;
+        console.log(response);
+        this.consultarauto();
+        this.autos = response;
+    }, error => {
+        console.log(error);
+    });
+    }
   }
+}

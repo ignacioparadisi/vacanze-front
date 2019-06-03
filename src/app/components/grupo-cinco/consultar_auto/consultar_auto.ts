@@ -74,8 +74,6 @@ private getDismissReason(reason: any): string {
            this.apiService.getUrl(requestURL).then(
                response => {
                    this.countries = response;
-                   
-                   console.log(response);
                },
                error => {
                    console.log(error);
@@ -94,14 +92,20 @@ agregarcarro(){
   this.markAllAsTouched();
   console.log(this.form.value);
   console.log(this.form.value.ciudad);
-  const requestURL = 'Auto/agregar/' + this.form.value.marca + '/'+ this.form.value.modelo+'/'+this.form.value.capacidad + '/'+ this.form.value.estatus   + '/'+ this.form.value.matricula + '/' + this.form.value.precio + '/'+ this.form.value.foto + '/'+ this.form.value.ciudad  ;
-  this.apiService.getUrl(requestURL).then(
-    response => {
-        this.respuesta = response;
-        console.log(response);
-    }, error => {
-        console.log(error);
-    });
+  if (this.form.value.capacidad<0 || this.form.value.precio<0  ){
+    console.log("no se puede agregar  numeros negativos no se aceptan ");
+  } else {
+    const requestURL = 'Auto/agregar/' + this.form.value.marca + '/'+ this.form.value.modelo+'/'+this.form.value.capacidad + '/'+ this.form.value.estatus   + '/'+ this.form.value.matricula + '/' + this.form.value.precio + '/'+ this.form.value.ciudad  ;
+    this.apiService.getUrl(requestURL).then(
+      response => {
+          this.respuesta = response;
+          console.log(response);
+      }, error => {
+          console.log(error);
+      });
+
+  }
+
 }
 
 
