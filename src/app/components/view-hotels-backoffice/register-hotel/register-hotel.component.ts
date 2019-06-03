@@ -77,7 +77,6 @@ export class RegisterHotelComponent implements OnInit {
   public getCountry() {
     this.service.getUrl(url.endpoint.default._get.getCountry).then(
       response => {
-        console.log(response), (this.countries = response);
       },
       error => console.error(error)
     );
@@ -164,7 +163,6 @@ export class RegisterHotelComponent implements OnInit {
         this.hotelCreatedSuccessfully();
       })
       .catch(error => {
-        console.log('Hay un error');
         this.errorOcurred();
       });
   }
@@ -176,7 +174,6 @@ export class RegisterHotelComponent implements OnInit {
       showConfirmButton: true
     };
     Swal.fire(config).then(result => {
-      //console.log(result);
     });
   }
 
@@ -188,7 +185,6 @@ export class RegisterHotelComponent implements OnInit {
       timer: 1500
     };
     Swal.fire(config).then(result => {
-      //console.log(result);
       this.goToViewHotels();
     });
   }

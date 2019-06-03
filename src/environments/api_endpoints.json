@@ -22,30 +22,30 @@
       "Orders":"payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
       "getPaymentMethod":"payment"
     },
-    "_post": {
-      "postClaim":"Claim/{id}",
-      "postHotel":"hotels",
-      "postRestaurant": "restaurants",
-      "cruisers": {
-        "post_cruiser": "cruiser",
-        "post_route": "cruiser/{cruiserId}/layover"
-      },
-      "postResRestaurant": "ResRestaurant",
-      "addPayment":"payment"
+  "_post": {
+    "postClaim":"Claim/{id}",
+    "postHotel":"hotels",
+    "postRestaurant": "restaurants",
+    "cruisers": {
+      "post_cruiser": "cruiser",
+      "post_route": "cruiser/{cruiserId}/layover"
     },
-    "_put": {
-        "putClaimStatus":"Claim/{id}",
-        "putHotel":"hotels/{id}",
-        "putRestaurant":"restaurants"
-    },
-    "_delete": {
-      "deleteResRestaurant": "ResRestaurant/{id}",
-      "deleteClaim":"Claim/{id}",
-      "deleteHotel":"hotels/{id}",
-      "deleteRestaurant":"restaurants/{id}",
-      "cruisers": {
-        "delete_cruiser": "cruiser/{id}",
-        "delete_routes": "cruiser/layover/{id}"
-      }
+    "postResRestaurant": "ResRestaurant",
+    "addPayment":"payment"
+  },
+  "_put": {
+      "putClaimStatus":"Claim/{id}",
+      "putHotel":"hotels/{id}",
+      "putRestaurant":"restaurants"
+  },
+  "_delete": {
+    "deleteResRestaurant": "ResRestaurant/{id}",
+    "deleteClaim":"Claim/{id}",
+    "deleteHotel":"hotels/{id}",
+    "deleteRestaurant":"restaurants/{id}",
+    "cruisers": {
+      "delete_cruiser": "cruiser/{id}",
+      "delete_routes": "cruiser/layover/{id}"
     }
+  }
 }

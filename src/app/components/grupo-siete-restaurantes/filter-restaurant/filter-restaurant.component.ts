@@ -8,12 +8,12 @@ import { Router } from '@angular/router';
 import { environment as url } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-filter-hotel',
-  templateUrl: './filter-hotel.component.html',
-  styleUrls: ['./filter-hotel.component.scss'],
+  selector: 'app-filter-restaurant',
+  templateUrl: './filter-restaurant.component.html',
+  styleUrls: ['./filter-restaurant.component.scss'],
   providers: [ApiService]
 })
-export class FilterHotelComponent implements OnInit {
+export class FilterRestaurantComponent implements OnInit {
 
   public searchForm: FormGroup;
   public countries: any[];
