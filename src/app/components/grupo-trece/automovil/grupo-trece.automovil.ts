@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../../utils/global_functions';
+import { LocalStorageService } from '../../../services/local-storage.service';
 import * as moment from 'moment';
 
 @Component({
@@ -19,11 +20,13 @@ export class AutomovilGrupoTrece implements OnInit {
     public countries = [];
     public cities = [];
     public closeResult: string;
+    private userId:number;
+    private isDataLoaded: boolean = false
    // public aut_id;
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
-    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
+    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService,private localStorage: LocalStorageService) {
         this.compararFechas = compararFechas;
         this.myForm = this.fb.group({
             country: ['', [Validators.required]],
@@ -34,9 +37,20 @@ export class AutomovilGrupoTrece implements OnInit {
     }
 
     ngOnInit() {
+        this.getLocalStorage();
         this.initializaDate();
         this.getCountries();
     }
+
+    public getLocalStorage(){
+        this.localStorage.getItem('id').subscribe(storedId =>{
+          if(storedId){
+            this.isDataLoaded = true
+            this.userId = storedId
+          }
+        })
+    } 
+
 
     getCar(id: number) {
         console.log("Me traigo los datos con el id:" + id + " tal");
@@ -109,25 +123,22 @@ export class AutomovilGrupoTrece implements OnInit {
     submit(car : Object) {
         this.markAllAsTouched();
         const reservation = this.myForm.value;
-        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(fechas);
-        var fk_user = localStorage.getItem('id');
-        console.log("Usuario en ReservarAutomovil:"+fk_user);
+        let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-        reservation.fk_user_id = fk_user; // esto cuando se solucione el put
-        reservation.fk_user = 1;
+        var fk_user = this.userId;
+        console.log("Usuario en ReservarAutomovil:"+fk_user);
+        reservation.fk_user = fk_user; // esto cuando se solucione el put
        reservation.automobile = car;
        reservation.user="";
        reservation.id=0;
-       
       delete reservation.city;
       delete reservation.fechaOne;
       delete reservation.fechaTwo;
       delete reservation.country;
         console.log(reservation);
 
-        
       this.apiService.postUrl('reservationautomobiles', reservation).then(
         response => {
             console.log(response);
@@ -135,8 +146,7 @@ export class AutomovilGrupoTrece implements OnInit {
             console.log(error);
         }
         );
-
-
+/*
        if (fechas === 1) {
 
           
@@ -153,6 +163,7 @@ export class AutomovilGrupoTrece implements OnInit {
         } else {
             console.log('La fecha de llegada no puede ser anterior a la de salida.');
         }
+        */
     }
 
     buscador(){
@@ -223,6 +234,7 @@ export class AutomovilGrupoTrece implements OnInit {
       }
 
       public invalid(controlName: string, form: FormGroup) {
+          
         return form.get(controlName).touched && !form.get(controlName).valid;
     }
 

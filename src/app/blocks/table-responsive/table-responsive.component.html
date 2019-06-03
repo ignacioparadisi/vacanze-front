@@ -5,7 +5,7 @@
         <i class="fa fa-bed" *ngIf="type === 'hotel'"></i>
         <i class="fa fa-fw fa-cutlery" *ngIf="type === 'restaurantes'"></i>
         <i class="fa fa-road" *ngIf="type === 'rutas'"></i>&nbsp;
-        <span>{{ headerTitle }}</span>
+        <span [innerHtml]="headerTitle"></span>
       </div>
       <div class="card-body table-responsive">
           <table class="table">
@@ -33,7 +33,7 @@
                     >
                   </td>
                   <td>
-                    
+
                     <button
                       class="btn btn-outline-info"
                       data-toggle="tooltip"
@@ -164,8 +164,19 @@
                     <td>{{ ruta?.departureDate.split(' ')[0] }}</td>
                     <td>{{ ruta?.arrivalDate.split(' ')[0] }}</td>
                     <td>{{ ruta?.price }} $</td>
-                    <td>{{ ruta?.locDeparture }}</td>
-                    <td>{{ ruta?.locArrival }}</td>
+                    <td>{{ ruta?.depCountry }} | {{ ruta?.depCity }} </td>
+                    <td>{{ ruta?.arrivalCountry }} | {{ ruta?.arrivalCity }}</td>
+                    <td>
+                      <button
+                        class="btn btn-outline-danger"
+                        (click)="openModalActions($event, ruta, 'ruta', true)"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Eliminar ruta"
+                      >
+                        <i class="fa fa-trash"></i>
+                      </button>&nbsp;
+                    </td>
                   </tr>
                 </tbody>
               </ng-template>
@@ -174,7 +185,7 @@
   </div>
   <div class="d-flex justify-content-end w-100">
     <div class="kreep" style="bottom: 14px; right: 14px; position: fixed;" *ngIf="type !== 'rutas'">
-      <button (click)="gotoAdd(type)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
+      <button (click)="gotoAdd(type)" type="button" class="btn btn-success"  data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">
         <i class="fa fa-plus"></i>
       </button>
     </div>
