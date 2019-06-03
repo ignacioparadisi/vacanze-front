@@ -54,7 +54,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
 
-    localStorage.setItem('flag', '1');
+    //localStorage.setItem('flag', '1');
+    this.storage.setItem('flag', '1').subscribe(flag => {
+      console.log('el flag es', flag)
+    });
     this.local.removeItem('id');
     this.local.removeItem('Email');
     this.local.removeItem('rol');

@@ -15,7 +15,7 @@ export class LayoutComponent implements OnInit {
   StatusLogin = true;
   StatusMain = true;
   collapedSideBar: boolean;
-
+  flagL = 0;
   constructor(private router: Router, private local: LocalStorageService) { }
 
   ngOnInit() {
@@ -24,12 +24,24 @@ export class LayoutComponent implements OnInit {
       if (id) {
         this.StatusMain = true;
         this.StatusHeader = true;
+        /*this.local.getItem('flag').subscribe(flag => {
+          if (flag == '1') {
+            this.flagL = flag;
+            alert('entra en flag y es' + flag)
+          }
+        })*/
         this.local.getItem('rol').subscribe(roles => {
           for (var i = 0; i <= roles.length; i++) {
-            if (roles[i].id != 1 && localStorage.getItem('flag') != '1') {
+            if (roles[i].id != 1) {
               this.StatusSideBar = true;
             }
-            localStorage.removeItem('flag');
+            this.local.getItem('flag').subscribe(flag => {
+              if (flag == '1') {
+                this.StatusSideBar = false;
+              }
+            })
+
+            this.local.removeItem('flag');
           }
         })
       } else {

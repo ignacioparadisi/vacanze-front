@@ -35,6 +35,7 @@ export class GrupoUnoComponent implements OnInit {
         this.local.removeItem('id');
         this.local.removeItem('Email');
         this.local.removeItem('rol');
+
         if (this.father.StatusHeader && this.father.StatusSideBar) {
             this.father.StatusHeader = false;
             this.father.StatusSideBar = false;

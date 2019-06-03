@@ -12,7 +12,7 @@ export class LandingComponent implements OnInit {
   constructor(private local: LocalStorageService, private father: LayoutComponent) { }
 
   ngOnInit() {
-    localStorage.removeItem('flag');
+    this.local.removeItem('flag');
     this.local.getItem('id').subscribe(id => {
       if (id) {
         this.father.StatusHeader = true;
