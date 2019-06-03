@@ -42,7 +42,6 @@ export class CitiesTravelComponent implements OnInit {
   }
 
   deleteCity(cityId: number) {
-    console.log(cityId)
   }
 
   travelDetails(cityId: number) {

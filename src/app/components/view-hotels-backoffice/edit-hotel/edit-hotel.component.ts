@@ -125,7 +125,6 @@ export class EditHotelComponent implements OnInit {
   }
 
   get phone() {
-    console.log(this.registrationForm.get('phone'));
     return this.registrationForm.get('phone');
   }
 
@@ -146,7 +145,6 @@ export class EditHotelComponent implements OnInit {
   public getCountry() {
     this.service.getUrl(url.endpoint.default._get.getCountry).then(
       response => {
-        console.log(response), (this.countries = response);
         this.countries.forEach(location => {
           if (location.country == this.hotel.location['country']) {
             this.registrationForm.get('country').setValue(location.id);
@@ -210,10 +208,9 @@ export class EditHotelComponent implements OnInit {
           [idHotel.toString()]
         )
         .then(response => {
-          this.hotelCreatedSuccessfully(), console.log(response);
+          this.hotelCreatedSuccessfully();
         })
         .catch(error => {
-          console.log('Hay un error');
           this.errorOcurred();
         });
     });
@@ -226,7 +223,6 @@ export class EditHotelComponent implements OnInit {
       showConfirmButton: true
     };
     Swal.fire(config).then(result => {
-      //console.log(result);
     });
   }
 
@@ -238,7 +234,6 @@ export class EditHotelComponent implements OnInit {
       timer: 1500
     };
     Swal.fire(config).then(result => {
-      //console.log(result);
       this.goToViewHotels();
     });
   }

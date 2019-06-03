@@ -121,8 +121,6 @@ export class AddCityComponent {
         this.spread.emit();
       },
       (fail) => {
-        console.log(this.selectedCities)
-        console.log(fail)
         Swal.fire({
           title: 'Error: ' + fail.status,
           text: fail.name + '. ' + fail.statusText,

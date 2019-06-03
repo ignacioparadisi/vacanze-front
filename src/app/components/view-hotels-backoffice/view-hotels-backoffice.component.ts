@@ -99,11 +99,9 @@ export class ViewHotelsBackofficeComponent implements OnInit {
         this.service
         .getUrl(url.endpoint.default._get.getHotel)
         .then(response => {
-              console.log("Cargan los hoteles", response),
               this.tableData = response
         }).catch( error => {
               this.alertStatus(500, false)
-              console.log("Error carga inicial de hoteles", error);
         });
   }
 
@@ -112,26 +110,22 @@ export class ViewHotelsBackofficeComponent implements OnInit {
         this.service
         .getUrl(url.endpoint.default._get.getHotelByLocation, [id.toString()])
         .then(response => {
-              //console.log("Cargan los hoteles", response),
               this.tableData = response
         }).catch( error => {
               this.alertStatus(500, false)
-              console.log("Error carga inicial de hoteles", error);
         });
   }
 
 
 
   public deleteHotel(id: number){
-        console.log("se esta borrando el hotel ",id);
         this.service
         .deleteUrl(url.endpoint.default._delete.deleteHotel, [id.toString()])
         .then(response =>{
               //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
               this.alertStatus(200,true)
         }).catch( error => {
-              this.alertStatus(500, false),
-              console.log("Error en el delete del hotel", error)
+              this.alertStatus(500, false);
         });
   }
 
@@ -145,8 +139,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
               //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
               this.alertStatus(200, false)
         }).catch( error => {
-              this.alertStatus(500, false),
-              console.log("Error actualizando el estatus del hotel", error)
+              this.alertStatus(500, false);
         });
   }
 

@@ -44,7 +44,6 @@ export class GrupoCincoComponent implements OnInit {
   }
 
   deleteFile(){
-      console.log("Registro eliminado")
   }
 
 }

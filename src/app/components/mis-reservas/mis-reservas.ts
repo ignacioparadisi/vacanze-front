@@ -70,7 +70,6 @@ export class MisReservas implements OnInit {
         if(storedId){
           this.isDataLoaded = true
           this.userId = storedId
-          console.log("User ID: "+this.userId);
           this.getAutomobileReservations();
      this.getRoomReservations();
         }
@@ -120,35 +119,27 @@ export class MisReservas implements OnInit {
     * Metodo que es llamado para mostrar las reservas de ese usuario                          *
     ***********************************************************************/
   getAutomobileReservations(){
-    console.log("Estoy en getAutomobileReservations");
     var user_id = this.userId;
-    console.log("getAutomobileReservations: user_id="+user_id);
   //  const requestURL = "reservationautomobiles/?user="+user_id; 
     const requestURL = "reservationautomobiles/?user="+this.userId; //Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
         response => {
-          console.log(response);
             this.carreservations = response;
         },
         error => {
-            console.log(error);
         }
     );
 }
 
 getRoomReservations(){
-  console.log("Estoy en getRoomReservations");
   var user_id = this.userId;
-  console.log("getRoomReservations: user_id="+user_id);
  // const requestURL = "reservationrooms/?user="+user_id;
  const requestURL = "reservationrooms/?user="+user_id;
   this.apiService.getUrl(requestURL).then(
       response => {
-        console.log(response);
           this.roomreservations = response;
       },
       error => {
-          console.log(error);
       }
   );
 }
@@ -157,11 +148,8 @@ public deleteAutomobileReservation(id: number) {
   const requestURL = `reservationautomobiles/${id}`;
   this.apiService.deleteUrl(requestURL).then(
     response => {
-      console.log(response);
       this.getAutomobileReservations();
-      console.log('Reservacion con el id=' + id + 'fue eliminada');
     }, error => {
-      console.error(error);
       this.getAutomobileReservations();
     }
   );
@@ -171,9 +159,7 @@ public deleteRoomReservation(id: number) {
   const requestURL = `reservationrooms/${id}`;
   this.apiService.deleteUrl(requestURL).then(
     response => {
-      console.log(response);
       this.getRoomReservations()
-      console.log('Reservacion con el id=' + id + 'fue eliminada');
     }, error => {
       console.error(error);
       this.getRoomReservations();
@@ -182,35 +168,24 @@ public deleteRoomReservation(id: number) {
 }
 
 public updateAutomobileReservation(car:object,id:number) {
-  console.log("carro: "+car);
-  console.log("id de la Reserva en Update: "+id);
   const requestURL = 'reservationautomobiles';
   const reservation = this.myForm.value;
- // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-   //     console.log(fechas);
         var fk_user = this.userId;
-        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
-        console.log("check:"+reservation.checkIn);
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-        console.log("check:"+reservation.checkOut);
         reservation.fk_user = fk_user;
        reservation.automobile = car;
      //  reservation.user="";
        reservation.id=id;
        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(fechas);
       delete reservation.city;
       delete reservation.fechaOne;
       delete reservation.fechaTwo;
       delete reservation.country;
-        console.log(reservation);
         if(fechas===1)
   this.apiService.putUrl(requestURL,reservation).then(
     response => {
-      console.log(response,reservation);
       this.getAutomobileReservations();
-      console.log('Reservacion fue actualizada');
     }, error => {
       console.error(error);
       this.getAutomobileReservations();
@@ -219,35 +194,24 @@ public updateAutomobileReservation(car:object,id:number) {
 }
 
 public updateRoomReservation(hotel:object,id:number) {
-  console.log("carro: "+hotel);
-  console.log("id de la Reserva en Update: "+id);
   const requestURL = 'reservationrooms';
   const reservation = this.myForm.value;
- // const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-   //     console.log(fechas);
         var fk_user = this.userId;
-        console.log("Usuario en ReservarAutomovil:"+fk_user);
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
-        console.log("check:"+reservation.checkIn);
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-        console.log("check:"+reservation.checkOut);
      reservation.fk_user = fk_user;
        reservation.hotel = hotel;
        reservation.user="";
        reservation.id=id;
        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-        console.log(fechas);
       delete reservation.city;
       delete reservation.fechaOne;
       delete reservation.fechaTwo;
       delete reservation.country;
-        console.log(reservation);
         if(fechas===1)
   this.apiService.putUrl(requestURL,reservation).then(
     response => {
-      console.log(response,reservation);
       this.getRoomReservations();
-      console.log('Reservacion fue actualizada');
     }, error => {
       console.error(error);
       this.getRoomReservations();
@@ -256,7 +220,6 @@ public updateRoomReservation(hotel:object,id:number) {
 }
 
 getRoomReservation(id: number) {
-  console.log('ID: ' + id);
   const requestURL = `reservationrooms/${id}`;
   this.apiService.getUrl(requestURL).then(
     response => {
@@ -264,13 +227,11 @@ getRoomReservation(id: number) {
       this.roomreservation = response;
     },
     error => {
-      console.log(error);
     }
   );
 }
 
 getCarReservation(id: number) {
-  console.log('ID: ' + id);
   const requestURL = `reservationautomobiles/${id}`;
   this.apiService.getUrl(requestURL).then(
     response => {
@@ -278,25 +239,17 @@ getCarReservation(id: number) {
       this.carreservation = response;
     },
     error => {
-      console.log(error);
     }
   );
 }
 
 getDaysFrom2Dates(date1:any, date2:any,price:number){
-  //var prueba1 =new Date("01/05/2019");
- // var prueba2 =new Date("01/02/2019");
+
  var parseDate1 = new Date(date1);
  var parseDate2 = new Date(date2);
- console.log(parseDate1);
- console.log(date2);
   this.totalcost = (parseDate2.getDate() - parseDate1.getDate());
-  console.log("dayDif"+this.totalcost);
   this.totalcost = Math.round(this.totalcost);
-  console.log("dayDifference "+ this.totalcost);
   this.totalcost = price * this.totalcost;
-  console.log(this.totalcost);
- // return this.totalcost;
 }
 
 openRoom(content, id: number) {
@@ -356,15 +309,12 @@ initializaDate(){
       if(storedId){
         this.isDataLoaded = true
         this.userId = storedId
-
-        console.log('User ID: ',this.userId)
         this.getRestaurantReservation()
       }
     })
   }
 
   public getRestaurantReservation(){
-    console.log("Estoy en getRestaurantReservation");
     this.apiService
         .getUrl(url.endpoint.default._get.getResRestaurantById, [this.userId.toString()])
         .then(response => {
@@ -381,15 +331,13 @@ initializaDate(){
   }
 
   public deleteReservation(id: number){
-    console.log("se esta borrando la reserva: ",id);
     this.apiService
         .deleteUrl(url.endpoint.default._delete.deleteResRestaurant, [id.toString()])
         .then(response =>{
 
           this.alertStatus(200,true)
         }).catch( error => {
-          this.alertStatus(500, false),
-          console.log("Error en el delete de la reserva de restaurante", error)
+          this.alertStatus(500, false);
         });
   }
 

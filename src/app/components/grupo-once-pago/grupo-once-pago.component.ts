@@ -121,7 +121,6 @@ export class GrupoOncePagoComponent implements OnInit {
         this.open(this.content2);
       }
     })
-    //console.log(this.userId);
 
     this.payMethods = this.getPaymentMethod();
     this.orderList = this.getOrderList();
@@ -160,7 +159,6 @@ export class GrupoOncePagoComponent implements OnInit {
   selectOption(id: number) {
 
     this.idMethod = name;
-    console.log(name)
     //TDC
     if (id == 1) {
       this.idMethod = "CREDITO";
@@ -297,7 +295,6 @@ export class GrupoOncePagoComponent implements OnInit {
       .then(response => {
         document.getElementById("orderframe").hidden = false;
         this.setOrderList(response);
-        console.log(response);
 
       })
       .catch(error => {
@@ -347,10 +344,8 @@ export class GrupoOncePagoComponent implements OnInit {
     this.addPayment(this.bill);
   }
   public addPayment(bill: Bill) {
-    console.log(bill)
     this.serv.postUrl(url.endpoint.default._post.addPayment, bill)
       .then(response => {
-        //console.log("response", response);
         this.transactionApproved(response);
         if (this.modalService.hasOpenModals()) {
           this.modalService.dismissAll();
@@ -363,7 +358,6 @@ export class GrupoOncePagoComponent implements OnInit {
       })
       .catch((err: HttpErrorResponse) => {
         this.transactionDeclinedC(err.error)
-        // console.log(err.error);
       })
   }
 
@@ -381,7 +375,6 @@ export class GrupoOncePagoComponent implements OnInit {
       timer: 5000
     }
     Swal.fire(config).then(result => {
-      console.log(result);
     });
   }
 
@@ -393,7 +386,6 @@ export class GrupoOncePagoComponent implements OnInit {
       timer: 3000
     }
     Swal.fire(config).then(result => {
-      console.log(result);
     });
   }
 
@@ -401,64 +393,51 @@ export class GrupoOncePagoComponent implements OnInit {
     * Metodo que es llamado para mostrar las reservas de ese usuario                          *
     ***********************************************************************/
   getAutomobileReservations() {
-    console.log("Estoy en getAutomobileReservations");
     const requestURL = "payment/ResHabAuto/" + this.userId + "/0";
     //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
     this.serv.getUrl(requestURL).then(
       response => {
-        console.log(response);
         this.reservaAuto = response;
       },
       error => {
-        console.log(error);
       }
     );
   }
 
   getHabservations() {
-    console.log("Estoy en getAutomobileReservations");
 
     const requestURL = "payment/ResHabAuto/" + this.userId + "/1";
     //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
     this.serv.getUrl(requestURL).then(
       response => {
-        console.log(response);
         this, this.reservaHab = response;
       },
       error => {
-        console.log(error);
       }
     );
   }
 
   getRestervations() {
-    //console.log("Estoy en getAutomobileReservations");
-
     const requestURL = "payment/ResHabAuto/" + this.userId + "/2";
     //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
     this.serv.getUrl(requestURL).then(
       response => {
-        console.log(response);
         this, this.reservaRes = response;
       },
       error => {
-        console.log(error);
       }
     );
   }
 
   getMyPayments() {
-    console.log("Estoy en getAutomobileReservations");
 
     const requestURL = "payment/mypayment/" + this.userId;
     //const requestURL = "reservationautomobiles/?user="+1; //Mientras se soluciona el peo
     this.serv.getUrl(requestURL).then(
       response => {
-        console.log(response);
         this, this.myPayments = response;
       },
       error => {
-        console.log(error);
       }
     );
   }
