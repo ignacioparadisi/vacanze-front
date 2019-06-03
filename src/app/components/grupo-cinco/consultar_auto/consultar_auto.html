@@ -6,6 +6,12 @@
                 <i class="fa fa-fw fa-plus "></i>
                 <label style="color: black" for=""><strong>Registrar automovil</strong></label> 
             </div>
+            <div class="card-body table-responsive" style="text-align: justify">
+                <p>
+                  En esta seccion se escogera primero la ciudad donde operará el vehiculo, seguido de los datos
+                  del mismo que se piden a continuación. por ultimo debera oprimir "Registrar automovil".
+                </p>
+              </div>
             <div class="card-body">
                 <form [formGroup]="form" (submit)="submit()">
                     <div>
@@ -83,8 +89,8 @@
                                                 formControlName="estatus"
                                                 [ngClass]="{'is-invalid':form.get('estatus').touched && !form.get('estatus').valid, 'is-valid':form.get('estatus').touched && form.get('estatus').valid}">
                                                 <option value="-1" disabled> Estatus del Automovil</option>
-                                                <option value="true" > activo</option>
-                                                <option value="false" > reservado</option>
+                                                <option value="true">Disponible</option>
+                                                <option value="false">Reservado</option>
                                               </select>
                                               <div *ngIf="form.get('estatus').touched && !form.get('estatus').valid" class="invalid-feedback">
                                                   Seleccione el status con el que desea registrar el automovil.
@@ -123,20 +129,6 @@
                                             </div>
                                           </div>
                                       </div>
-                                      <div class="col-md-3">
-                                          <div class="form-group">
-                                            <label for="">foto</label>
-                                            <input class="form-control" 
-                                            formControlName="foto"
-                                            [ngClass]="{'is-invalid': invalid('foto', form), 'is-valid': valid('foto', form)}">
-                                            <div *ngIf="invalid('foto', form)" class="invalid-feedback">
-                                              Seleccione una foto del automovil.
-                                            </div>
-                                            <div *ngIf="valid('foto', form)" class="valid-feedback">
-                                              ¡Excelente!
-                                            </div>
-                                          </div>
-                                       </div>
                                   </div>
                                  </div>
                            </div>

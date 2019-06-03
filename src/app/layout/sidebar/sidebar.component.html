@@ -18,18 +18,18 @@
     </a>
     <div class="nested-menu">
         <a class="list-group-item" (click)="addExpandClass('paginas')">
-            <i class="fa fa-plus"></i>&nbsp;
+            <i class="fa fa-dashboard"></i>&nbsp;
             <span>Automoviles</span>
         </a>
         <li class="nested" [class.expand]="showMenu === 'paginas'">
             <ul class="submenu">
                 <li>
-                    <a routerLink="/grupo-cinco/consultar" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <a routerLink="/grupo-cinco/registrar" [routerLinkActive]="['router-link-active']" class="list-group-item">
                       <span>Consultar Automovil</span>
                     </a>
                 </li>
                 <li>
-                    <a routerLink="/grupo-cinco/registrar" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <a routerLink="/grupo-cinco/consultar" [routerLinkActive]="['router-link-active']" class="list-group-item">
                       <span>Registrar automovil</span>
                     </a>
                 </li>

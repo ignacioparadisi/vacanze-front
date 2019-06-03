@@ -20,17 +20,15 @@ export class Registrar_AutoComponent implements OnInit {
     form: FormGroup;
     public countries=[];
     public respuesta=[];
-    public autos =[];
+    public autos=[];
     public nombreciudad:string ;
-    public  modificarauto  =[];
-    public x =[] ;
- 
+    public  modificarauto =[];
+    public x=[];
+    
     auto: Auto[] = [];
- 
-    constructor(  public fb: FormBuilder,private apiService: ApiService,private modalService: NgbModal) {
 
+    constructor(  public fb: FormBuilder,private apiService: ApiService,private modalService: NgbModal) {
       this.form = this.fb.group({
-     
         matricula: ['', [Validators.required,  Validators.minLength(1),
             Validators.maxLength(100)]],
         capacidad : ['', [Validators.required,  Validators.minLength(1),
@@ -44,7 +42,6 @@ export class Registrar_AutoComponent implements OnInit {
     }
   
     ngOnInit() {
-      
       this.formGroup = new FormGroup({
           ciudad: new FormControl("", [Validators.required]),
           estatus: new FormControl("", [Validators.required]),
@@ -53,11 +50,7 @@ export class Registrar_AutoComponent implements OnInit {
           matricula: new FormControl("", [Validators.required]),
           capacidad: new FormControl("", [Validators.required]),
           precio : new FormControl("", [Validators.required]),
-          foto: new FormControl(" " , [Validators.required]),
-          
        })
-  
-
     }
     openLg(content) {
       this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
@@ -66,13 +59,11 @@ export class Registrar_AutoComponent implements OnInit {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
     }
-    getciudad(){
-          
+    getciudad(){  
       const requestURL = 'Auto/getcity';
       this.apiService.getUrl(requestURL).then(
           response => {
               this.countries = response;
-              
               console.log(response);
           },
           error => {
@@ -93,7 +84,6 @@ export class Registrar_AutoComponent implements OnInit {
   
     deleteFile(auto) {
       this.modificarauto=auto;
-  
       var  v_id=this.modificarauto["_id"] ;
       const requestURL = 'Auto/eliminar/'+v_id;
       this.apiService.getUrl(requestURL).then(
@@ -105,7 +95,6 @@ export class Registrar_AutoComponent implements OnInit {
         }, error => {
             console.log(error);
         });
-      
       console.log('Registro eliminado');
     }
     openAddAutoModal(Auto?: Auto) {
@@ -133,10 +122,8 @@ export class Registrar_AutoComponent implements OnInit {
     public obtenervariables() {
     this.form.get('ciudad').markAsTouched();
     this.form.get('matricula').markAsTouched();
-  
     this.form.get('capacidad').markAsTouched();
     this.form.get('estatus').markAsTouched();
-
   }
  
 
@@ -148,8 +135,6 @@ export class Registrar_AutoComponent implements OnInit {
     this.formGroup.get('matricula').markAsTouched();
     this.formGroup.get('capacidad').markAsTouched();
     this.formGroup.get('precio').markAsTouched();
-    this.formGroup.get('foto').markAsTouched();
-
   }
  public consultarauto(){
   this.obtenervariables();
@@ -184,8 +169,6 @@ export class Registrar_AutoComponent implements OnInit {
       }, error => {
           console.log(error);
       });
-    
-
   }
  
  }
@@ -209,7 +192,6 @@ export class Registrar_AutoComponent implements OnInit {
   var v_matricula= this.formGroup.value.matricula;
   var v_capacidad= this.formGroup.value.capacidad;
   var v_precio= this.formGroup.value.precio;
-  var v_foto= this.formGroup.value.foto;
   if (v_ciudad== "" || v_ciudad== null || v_ciudad==" ")
   {
     v_ciudad=this.auto["_place"];
@@ -246,9 +228,8 @@ export class Registrar_AutoComponent implements OnInit {
     console.log(v_precio);
   }
   var  v_id=this.auto["_id"];
-   v_foto="hola";
 
-   const requestURL = 'Auto/modificar'+ '/'+ v_id + '/'+ v_marca+ '/' + v_modelo+ '/'+ v_capacidad + '/'+ v_estatus + '/'+  v_matricula + '/'+  v_precio + '/'+ v_foto + '/'+ v_ciudad; 
+   const requestURL = 'Auto/modificar'+ '/'+ v_id + '/'+ v_marca+ '/' + v_modelo+ '/'+ v_capacidad + '/'+ v_estatus + '/'+  v_matricula + '/'+  v_precio + '/'+ v_ciudad; 
    console.log(requestURL);
    this.apiService.getUrl(requestURL).then(
      response => {
@@ -259,9 +240,5 @@ export class Registrar_AutoComponent implements OnInit {
      }, error => {
          console.log(error);
      });
-   
-
-
- 
  }
   }

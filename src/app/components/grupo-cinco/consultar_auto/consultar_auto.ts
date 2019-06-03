@@ -13,9 +13,7 @@ import { transformImageToBase64 } from '../../../utils/global_functions';
   providers: [ApiService]
 })
 export class Consulta_autoComponent implements OnInit {
-  public transformImageToBase64;
   form: FormGroup;
-  public urlImage: string;
   closeResult: string;
   public auto = [];
   public countries=[];
@@ -24,8 +22,6 @@ export class Consulta_autoComponent implements OnInit {
   constructor(
     public fb: FormBuilder,private apiService: ApiService,private modalService: NgbModal
   ) {
-    this.urlImage = null
-    this.transformImageToBase64 = transformImageToBase64;
     this.form = this.fb.group({
       marca: ['', [Validators.required,  Validators.minLength(1),
           Validators.maxLength(100)]],
@@ -41,8 +37,6 @@ export class Consulta_autoComponent implements OnInit {
           Validators.maxLength(100)]],
        ciudad : ['', [Validators.required,  Validators.minLength(1),
              Validators.maxLength(100)]],
-       foto : ['', [Validators.required,  Validators.minLength(1),
-        Validators.maxLength(100)]]
     });
     this.getciudad();
   }
@@ -94,7 +88,7 @@ agregarcarro(){
   this.markAllAsTouched();
   console.log(this.form.value);
   console.log(this.form.value.ciudad);
-  const requestURL = 'Auto/agregar/' + this.form.value.marca + '/'+ this.form.value.modelo+'/'+this.form.value.capacidad + '/'+ this.form.value.estatus   + '/'+ this.form.value.matricula + '/' + this.form.value.precio + '/'+ this.form.value.foto + '/'+ this.form.value.ciudad  ;
+  const requestURL = 'Auto/agregar/' + this.form.value.marca + '/'+ this.form.value.modelo+'/'+this.form.value.capacidad + '/'+ this.form.value.estatus   + '/'+ this.form.value.matricula + '/' + this.form.value.precio + '/'+ this.form.value.ciudad  ;
   this.apiService.getUrl(requestURL).then(
     response => {
         this.respuesta = response;
@@ -113,11 +107,6 @@ public markAllAsTouched() {
   this.form.get('estatus').markAsTouched();
   this.form.get('capacidad').markAsTouched();
   this.form.get('precio').markAsTouched();
-}
-public getImage(event){
-  this.transformImageToBase64(event, image => {
-    this.urlImage = image;
-  });
 }
 
 }
