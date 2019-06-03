@@ -77,6 +77,7 @@ export class RegisterHotelComponent implements OnInit {
   public getCountry() {
     this.service.getUrl(url.endpoint.default._get.getCountry).then(
       response => {
+        this.countries = response;
       },
       error => console.error(error)
     );

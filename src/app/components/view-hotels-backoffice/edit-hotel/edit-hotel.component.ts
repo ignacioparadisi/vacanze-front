@@ -147,6 +147,7 @@ export class EditHotelComponent implements OnInit {
   public getCountry() {
     this.service.getUrl(url.endpoint.default._get.getCountry).then(
       response => {
+        this.countries = response;
         this.countries.forEach(location => {
           if (location.country == this.hotel.location['country']) {
             this.registrationForm.get('country').setValue(location.id);
