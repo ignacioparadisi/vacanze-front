@@ -13,24 +13,24 @@
             <h6>País</h6>
           </div>
           <div class="form-group">
-            <h6>Vuelo</h6>
+            <h6>Vuelo</h6> {{nombre}}
           </div>
           <div class="form-group">
-            <h6>Fecha de salida</h6>
+            <h6>Fecha de salida</h6>{{departure}}
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <h6>Origen</h6>
+            <h6>Origen</h6>{{origen}}
           </div>
           <div class="form-group">
-            <h6>Destino</h6>
+            <h6>Destino</h6>{{destino}}
           </div>
           <div class="form-group">
-            <h6>Fecha de regreso</h6>
+            <h6>Fecha de regreso</h6>{{arrival}}
           </div>
           <div class="form-group">
-            <h4>Precio total</h4>
+            <h4>Precio total</h4>{{precio}}
           </div>
         </div>
       </div>
@@ -47,6 +47,7 @@
       Lista de Vuelos
     </div>
 
+
     <div class="card-body table-responsive">
       <table class="table">
         <thead class="thead-dark">
@@ -61,11 +62,11 @@
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td>{{nombre}}</td>
+            <td>{{departure}}</td>
+            <td>{{arrival}}</td>
+            <td>{{asientos}}</td>
+            <td>{{precio}}</td>
             <td>
               <div>
                 <button (click)="openDetail(content)" class="btn btn-primary">Ver Detalle</button>

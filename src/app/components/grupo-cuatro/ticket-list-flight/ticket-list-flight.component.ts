@@ -11,7 +11,16 @@ import { Router } from '@angular/router';
 })
 
 export class TicketListFlightComponent implements OnInit {
-  //vuelos: [];
+  nombre: string;
+  asientos: string;
+  precio: string;
+  departure: string;
+  arrival: string;
+  origen: string;
+  destino: string;
+  pais: string;
+
+  vuelos: String[] = [];
   closeResult: string;
   constructor(private modalService: NgbModal,
     private api: ApiService) {
@@ -39,8 +48,16 @@ export class TicketListFlightComponent implements OnInit {
 
   ngOnInit() {
     this.api.getUrl(url.endpoint.default._get.getflights).then(Response => {
-      console.log("Respuesta:: " + JSON.stringify(Response));
-      // this.vuelos = Response;
+      console.log("Respuesta:: " + JSON.stringify(Response[0].plane.model));
+      this.nombre = JSON.stringify(Response[0].plane.model);
+      this.vuelos.push(this.nombre);
+      this.asientos = JSON.stringify(Response[0].plane.seats);
+      this.precio = JSON.stringify(Response[0].price);
+      this.departure = JSON.stringify(Response[0].departure);
+      this.arrival = JSON.stringify(Response[0].arrival);
+      this.origen = JSON.stringify(Response[0].loc_departure.city);
+      this.destino = JSON.stringify(Response[0].loc_arrival.city);
+      this.pais = JSON.stringify(Response[0].loc_arrival.country);
     }).catch(error => {
       console.log("eroorr :: ", error);
     });
