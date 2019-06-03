@@ -10,6 +10,7 @@
       "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
       "getCountry": "locations/countries",
       "getCity":"locations/countries/{id}/cities",
+      "getLocations": "locations",
       "cruisers": {
         "get_cruisers": "cruiser",
         "get_layovers": "cruiser/{cruiserId}/layover"
@@ -35,7 +36,8 @@
       "deleteHotel":"hotels/{id}",
       "deleteRestaurant":"restaurants/{id}",
       "cruisers": {
-        "delete_cruiser": "cruiser/{id}"
+        "delete_cruiser": "cruiser/{id}",
+        "delete_routes": "cruiser/layover/{id}"
       }
     }
 }

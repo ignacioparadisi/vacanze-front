@@ -8,8 +8,8 @@
     "declaration": false,
     "module": "es2015",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,    
     "importHelpers": true,
     "target": "es5",
     "typeRoots": [

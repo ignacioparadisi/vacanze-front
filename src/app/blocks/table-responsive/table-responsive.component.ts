@@ -52,24 +52,49 @@ export class TableResponsiveComponent implements OnChanges {
   **************************************************************************/
   public openModalActions(event, data: Object, type: string, deleted? : boolean){
     event.preventDefault();
-    let config: SweetAlertOptions = {
-      title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      type: 'question',
-      focusCancel: true
+
+    if(type === 'ruta'){
+      let config: SweetAlertOptions = {
+        title: '¿ Desea eliminar la ruta del crucero ?',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        type: 'question',
+        focusCancel: true
+      }
+      Swal.fire(config).then(result => {
+        if(result && ('value' in result)){
+          data['type'] = 'ruta';
+          data['confirmed'] = true;
+        }
+        else {
+          data['type'] = 'ruta';
+          data['confirmed'] = false;
+        }
+        this.messageAlert(data);
+      })
     }
-    Swal.fire(config).then(result => {
-      data['delete'] = deleted;
-      if(result && ('value' in result)){
-        data['confirmed'] = true;
+    else {
+      let config: SweetAlertOptions = {
+        title: '¿' + (deleted ? 'Desea eliminar el ':'Desea cambiar el status del ') + type + '?',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+        type: 'question',
+        focusCancel: true
       }
-      else {
-        data['confirmed'] = false;
-      }
-      this.messageAlert(data);
-    })
+      Swal.fire(config).then(result => {
+        data['delete'] = deleted;
+        if(result && ('value' in result)){
+          data['confirmed'] = true;
+        }
+        else {
+          data['confirmed'] = false;
+        }
+        this.messageAlert(data);
+      })
+    }
+    
   }
 
     /************************************************************
