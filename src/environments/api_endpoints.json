@@ -1,5 +1,7 @@
 {
   "_get": {
+    "getBaggage": "baggage/{id}",
+    "addbaggage": "baggage/agregar/{estatus}/{descripcion}",
     "getflights": "Flights",
     "getHotel": "hotels",
     "getHotelByLocation": "hotels/?location={id}",
