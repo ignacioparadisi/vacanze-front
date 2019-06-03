@@ -6,8 +6,10 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../utils/global_functions';
 import * as moment from 'moment';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { Timestamp } from 'rxjs';
+import { environment as url } from '../../../environments/environment';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { Location } from "@angular/common";
 
 @Component({
     selector: 'mis-reservas',
@@ -25,24 +27,42 @@ export class MisReservas implements OnInit {
     public totalcost : number = null;
     public roomreservation = [];
     public carreservation = [];
-    private userId:number;
-    private isDataLoaded: boolean = false
+
+    //Variables de restaurantes
+    private headerTitle: string;
+    private tableRestaurantReservationHeader: Array<String>;
+    private tableData: Array<Object>;
+    public userId: number
+    public isDataLoaded: boolean
+
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
-    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService,private localStorage: LocalStorageService) {
+    constructor(public fb: FormBuilder, 
+      private modalService: NgbModal, 
+      private apiService: ApiService,
+      private _location: Location,
+      private localStorage: LocalStorageService) {
+        
       this.compararFechas = compararFechas;  
       this.myForm = this.fb.group({
           fechaOne: ['', [Validators.required]],
             fechaTwo: ['', [Validators.required]]
         });
-        
+        this.headerTitle = "Reservas de restaurant.";
+        this.tableRestaurantReservationHeader = [
+          "Restaurante",
+          "Dirección",
+          "Comensales",
+          "Fecha reservada",
+          "Ubicación",
+          ""
+        ]
     }
 
     ngOnInit() {
-     this.getLocalStorage();
-    
-     
+      this.getLocalStorage()
+      this.getLocalStorageRes()
     }
 
     public getLocalStorage(){
@@ -55,7 +75,7 @@ export class MisReservas implements OnInit {
      this.getRoomReservations();
         }
       })
-  }
+   }
 
      /**************************************************************************
   * Metodo para enviar la confirmación de la alerta                         *
@@ -330,5 +350,78 @@ initializaDate(){
   document.getElementById("datefieldDev").setAttribute("min", todaye);
 }
 
+  //Funciones para restaurantes
+
+  // METODO PARA ACCEDER AL LOCAL STORAGE
+  public getLocalStorageRes(){
+    this.localStorage.getItem('id').subscribe(storedId =>{
+      if(storedId){
+        this.isDataLoaded = true
+        this.userId = storedId
+
+        console.log('User ID: ',this.userId)
+        this.getRestaurantReservation()
+      }
+    })
+  }
+
+  public getRestaurantReservation(){
+    console.log("Estoy en getRestaurantReservation");
+    this.apiService
+        .getUrl(url.endpoint.default._get.getResRestaurantById, [this.userId.toString()])
+        .then(response => {
+            this.tableData = response;
+    }, error => console.error(error));
+  }
+
+  public getAlertAction(reserva: Object) {
+    if(reserva['confirmed']){
+      if(reserva['delete']){
+        this.deleteReservation(reserva['id']);
+      }
+    }
+  }
+
+  public deleteReservation(id: number){
+    console.log("se esta borrando la reserva: ",id);
+    this.apiService
+        .deleteUrl(url.endpoint.default._delete.deleteResRestaurant, [id.toString()])
+        .then(response =>{
+
+          this.alertStatus(200,true)
+        }).catch( error => {
+          this.alertStatus(500, false),
+          console.log("Error en el delete de la reserva de restaurante", error)
+        });
+  }
+
+  private alertStatus(statusCode: number, deleted: boolean){
+    let config: SweetAlertOptions = {
+      title: (statusCode!=200 ? 'Se ha producido un error': (deleted ? 'Reservación eliminada': '')),
+      type:  (statusCode==200 ? 'success' : 'error'),
+      showConfirmButton: true
+    }
+    Swal.fire(config).then( result =>{
+      this.getRestaurantReservation()
+    });
+  }
+
+  public goBack(){
+    this._location.back()
+  }
+
+  //FUNCIONES PARA LLENAR LA TABLA TABLE-RESPONSIVE-RESERVAS
+
+  public getRestaurants() {
+    return this.tableData;
+  }
+
+  public getHeaderRestaurantReservation(){
+    return this.tableRestaurantReservationHeader;
+  }
+
+  public getHeaderTitle(){
+    return this.headerTitle;
+  }
 
 }
