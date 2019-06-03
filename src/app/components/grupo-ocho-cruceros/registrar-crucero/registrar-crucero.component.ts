@@ -197,7 +197,6 @@ export class RegistrarCruceroComponent implements OnInit {
       timer: 1500
     }
     Swal.fire(config).then( result =>{
-      //console.log(result);
     });
   }
 

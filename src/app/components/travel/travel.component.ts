@@ -60,6 +60,5 @@ export class TravelComponent implements OnInit {
   }
 
   private travelDelete(id: number) {
-    console.log(id);
   }
 }
