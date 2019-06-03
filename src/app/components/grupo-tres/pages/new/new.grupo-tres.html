@@ -9,13 +9,15 @@
                     <strong>Exito! </strong> {{mensaje?.message}}
                 </ngb-alert>
                 <ngb-alert type="danger" *ngIf="errores">
-                    <p><strong>¡ERROR! </strong>No se pudo crear el registro debido a distintos problemas, recuerde lo siguiente: </p>
+                    <p><strong>¡ERROR! </strong>No se pudo realizar el registro debido a distintos problemas, recuerde lo siguiente: </p>
                     <ul *ngIf="(fechas != 1 || ciudades != 1) && visible">
                         <li>Todos los campos son obligatorios</li>
                         <li>La fecha y hora de llegada al destino debe ser mayor que la fecha de salida del origen.</li>
                         <li>La ciudad de destino no puede ser igual a la ciudad de salida.</li>
+                        <li>Un vuelo no puede tener una duración mayor a la autonomía del avión.</li>
                     </ul>
                     <p *ngIf="messageDanger">{{mensaje?.message}}</p>
+                    <small class="smallcito">Por favor, corrija los errores para poder continuar con el registro.</small>
                 </ngb-alert>
                 
                 <form [formGroup]="form" (submit)="submit()">
