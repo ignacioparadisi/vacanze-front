@@ -338,7 +338,7 @@ initializaDate(){
 
           this.alertStatus(200,true)
         }).catch( error => {
-          this.alertStatus(500, false),
+          this.alertStatus(500, false);
         });
   }
 

@@ -125,7 +125,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
               //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
               this.alertStatus(200,true)
         }).catch( error => {
-              this.alertStatus(500, false),
+              this.alertStatus(500, false);
         });
   }
 
@@ -139,7 +139,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
               //TODO -> ENCONTRAR FORMA DE OBTENER EL STATUS HTTP
               this.alertStatus(200, false)
         }).catch( error => {
-              this.alertStatus(500, false),
+              this.alertStatus(500, false);
         });
   }
 
