@@ -13,12 +13,15 @@ import { RegisterRestaurantComponent } from './register-restaurant/register-rest
 // del componente tableresponsive y un componente no puede estar en dos declaraciones de modulo distintas
 import { TableResponsiveModule } from '../../blocks/table-responsive/table-responsive.module';
 import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
+import { FilterRestaurantComponent } from './filter-restaurant/filter-restaurant.component';
+
 
 @NgModule({
   declarations: [
     GrupoSieteRestaurantesComponent,
     RegisterRestaurantComponent,
-    EditRestaurantComponent
+    EditRestaurantComponent,
+    FilterRestaurantComponent
   ],
   imports: [
     CommonModule,
