@@ -158,7 +158,7 @@ export class Registrar_AutoComponent implements OnInit {
     estatus="null"
   }
   if (ciudad == "null" || ciudad ==""){
-    console.log('se necesita una ciudad para la busqueda ');
+    console.log('se necesita una ciudad para la busqueda');
   }else {
     const requestURL = 'Auto/getforall/'+ ciudad + '/'+ estatus + '/' + matricula + '/'+ capacidad; 
     this.apiService.getUrl(requestURL).then(
