@@ -1,3 +1,8 @@
+<app-filter-hotel
+  *ngIf="!isEditingHotel && !isCreatingHotel"
+  (locationIdEmiter) = "getLocationIdEmiter($event)"
+>
+</app-filter-hotel>
 <app-table-responsive
 *ngIf="!isEditingHotel && !isCreatingHotel"
 [headerTitle]="getHeaderTitle()"

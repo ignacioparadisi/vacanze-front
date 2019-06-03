@@ -172,7 +172,6 @@ export class GrupoOchoCrucerosComponent implements OnInit {
           })  
       }
     }
-   
   }
 
   /*******************************************
