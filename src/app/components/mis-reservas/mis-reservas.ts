@@ -174,10 +174,9 @@ public updateAutomobileReservation(car:object,id:number) {
         console.log("check:"+reservation.checkIn);
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
         console.log("check:"+reservation.checkOut);
-        reservation.fk_user_id = fk_user;
-      //  reservation.fk_user = 1;
+        reservation.fk_user = fk_user;
        reservation.automobile = car;
-       reservation.user="";
+     //  reservation.user="";
        reservation.id=id;
        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
         console.log(fechas);
@@ -212,8 +211,7 @@ public updateRoomReservation(hotel:object,id:number) {
         console.log("check:"+reservation.checkIn);
         reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
         console.log("check:"+reservation.checkOut);
-     reservation.fk_user_id = fk_user;
-      //  reservation.fk_user = 1;
+     reservation.fk_user = fk_user;
        reservation.hotel = hotel;
        reservation.user="";
        reservation.id=id;
