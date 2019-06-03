@@ -3,6 +3,7 @@ import { NgbModal, NgbDate, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import Swal from 'sweetalert2';
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'create-travel',
@@ -14,6 +15,7 @@ import Swal from 'sweetalert2';
 export class CreateTravelComponent {
 
   @Output() spread = new EventEmitter();
+  private userId: string;
   activeModal: NgbModalRef;
   public formGroup: FormGroup;
   travelForm: FormGroup;
@@ -22,18 +24,24 @@ export class CreateTravelComponent {
   toDate: NgbDate;
 
 
-  constructor(private modalService: NgbModal, private apiService: ApiService) {
+  constructor(private modalService: NgbModal, private apiService: ApiService, private localStorage: LocalStorageService) {
+    this.localStorage.getItem("id").subscribe(data => {
+      if (data) {
+        this.userId = data
+        this.travelForm = new FormGroup({
+          name: new FormControl('', Validators.required),
+          description: new FormControl(''),
+          userId: new FormControl(this.userId, Validators.required),
+          init: new FormControl('', Validators.required),
+          end: new FormControl('', Validators.required)
+        });
+      }
+    }) 
   }
 
-  open(content) {
+  open(content) {    
     this.activeModal = this.modalService.open(content);
-    this.travelForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      userId: new FormControl('5', Validators.required),
-      dateIni: new FormControl('', Validators.required),
-      dateEnd: new FormControl('', Validators.required)
-    });
+       
   }
 
   closeModal() {
@@ -41,8 +49,7 @@ export class CreateTravelComponent {
   }
 
   createTravel() {
-    console.log(this.travelForm.value)
-    /*this.apiService.postUrl('travels', this.travelForm.value).then(
+    this.apiService.postUrl('travels', this.travelForm.value).then(
       (resp) => {
         this.closeModal();
         Swal.fire({
@@ -59,21 +66,21 @@ export class CreateTravelComponent {
           type: 'error',
         })
       }
-    );*/
+    );
   }
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
-      this.travelForm.controls['dateIni'].setValue(this.fromDate);
+      this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
     } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
       this.toDate = date;
-      this.travelForm.controls['dateEnd'].setValue(this.toDate);
+      this.travelForm.controls['end'].setValue(this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day);
     } else {
       this.toDate = null;
       this.fromDate = date;
-      this.travelForm.controls['dateEnd'].setValue('');
-      this.travelForm.controls['dateIni'].setValue(this.fromDate);
+      this.travelForm.controls['end'].setValue('');
+      this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
     }
   }
 
