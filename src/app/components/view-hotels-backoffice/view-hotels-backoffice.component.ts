@@ -1,6 +1,6 @@
 import { ApiService } from '../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { Role } from '../../classes/role';
+//import { Role } from '../../classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
@@ -99,7 +99,7 @@ export class ViewHotelsBackofficeComponent implements OnInit {
         this.service
         .getUrl(url.endpoint.default._get.getHotel)
         .then(response => {
-              //console.log("Cargan los hoteles", response),
+              console.log("Cargan los hoteles", response),
               this.tableData = response
         }).catch( error => {
               this.alertStatus(500, false)
