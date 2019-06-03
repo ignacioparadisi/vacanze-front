@@ -11,39 +11,41 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                      <label style="color: black" for=""><strong>Matricula</strong></label>
-                    <input type="text" class="form-control" placeholder="matricula" formControlName="matricula">
+                      <label style="color: black" for=""><strong>Matricula ({{modificarauto._licence}} )</strong></label>
+                    <input type="text" class="form-control" placeholder="{{modificarauto._licence}}"   formControlName="matricula">
                   </div>
                   <div class="form-group">
-                      <label style="color: black" for=""><strong>Marca</strong></label>
-                    <input type="text" class="form-control" placeholder="Marca" formControlName="marca">
+                      <label style="color: black" for=""><strong>Marca  ({{modificarauto._make}})</strong></label>
+                    <input type="text" class="form-control"   placeholder="{{modificarauto._make}}" formControlName="marca">
                   </div>
                   <div class="form-group">
-                      <label style="color: black" for=""><strong>Modelo</strong></label>
-                    <input type="text" class="form-control" placeholder="Modelo" formControlName="modelo">
+                      <label style="color: black" for=""><strong>Modelo ({{modificarauto._model}})</strong></label>
+                    <input type="text" class="form-control"  placeholder="{{modificarauto._model}}" formControlName="modelo">
                   </div>
-                  <label style="color: black" for=""><strong>Ciudad</strong></label>
-                  <select class="form-control" formControlName="ciudad">
+                  <label style="color: black" for=""><strong>Ciudad ({{nombreciudad.country}})</strong></label>
+                  <select class="form-control"   formControlName="ciudad">
                     <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                   </select>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label style="color: black" for=""><strong>Capacidad</strong></label>
-                      <input type="number" class="form-control" placeholder="Capacidad" 
+                        <label style="color: black" for=""><strong>Capacidad ({{modificarauto._capacity}})</strong></label>
+                      <input type="number"   class="form-control" placeholder="{{modificarauto._capacity}}" 
                       formControlName="capacidad" min = "0">
                     </div>
                     <div class="form-group">
-                        <label style="color: black" for=""><strong>Estatus del auto</strong></label>
-                      <select class="form-control" formControlName="estatus">
+                        <label style="color: black" for="" *ngIf="modificarauto._isActive== true"><strong>Estatus del auto (disponible)</strong></label>
+                        <label style="color: black" for="" *ngIf="modificarauto._isActive== false"><strong>Estatus del auto (no disponible)</strong></label>
+                      <select class="form-control" 
+                       formControlName="estatus"   >
                         <option value="-1" disabled> Estado del automovil</option>
-                        <option value="0">Activo</option>
-                        <option value="1">Suspendido</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Suspendido</option>
                       </select>
                     </div>
                     <div class="form-group">
-                        <label style="color: black" for=""><strong>Precio</strong></label>
-                      <input type="number" class="form-control" placeholder="Precio" formControlName="precio" min = "0">
+                        <label style="color: black" for=""><strong>Precio ({{modificarauto._price}})</strong></label>
+                      <input type="number"  value="hola"  class="form-control" placeholder="{{modificarauto._price}}" formControlName="precio" min = "0">
                     </div>
                   </div>
               </div>
@@ -57,7 +59,7 @@
             showConfirmButton=false
             timer=2500>
           </swal>
-            <button type="button" class="btn btn-secondary" [swal]="editSwal" (click)="c('Close click')">Editar</button>
+            <button type="button" class="btn btn-secondary" [swal]="editSwal" (click)="modificar()" (click)="c('Close click') " >Editar</button>
         </div> 
       </ng-template>
 
@@ -69,7 +71,7 @@
               Buscar habitación
             </div>
             <div class="card-body roomcito">
-              <form [formGroup]="form" (ngSubmit)="buscador()">
+              <form [formGroup]="form" >
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
@@ -92,7 +94,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label style="color: black" for=""><strong>cantidad de pasajeros</strong></label>
-                      <input type="number" class="form-control" placeholder="# de pasajeros" min="0" >
+                      <input type="number" class="form-control" placeholder="# de pasajeros" min="0"  formControlName="capacidad" >
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -108,7 +110,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <button class="btn btn-success" type="submit">Buscar</button>
+                    <button class="btn btn-success" type="submit" (click)="consultarauto(modificarauto)">Buscar</button>
                   </div>
                 </div>
               </form>
@@ -124,6 +126,7 @@
                 <table class="table">
                   <thead class="thead-dark">
                     <tr>
+                      <th scope="col" aria-disabled>#</th>
                       <th scope="col">Matricula</th>
                       <th scope="col">Marca</th>
                       <th scope="col">Modelo</th>
@@ -132,33 +135,36 @@
                       <th scope="col">Precio ($)</th>
                       <th scope="col">Ciudad ubicada </th>
                       <th scope="col">Foto</th>
+                      <th scope="col">Opciones</th>
+
                     </tr>
                   </thead>
                   <tbody>
-                    <tr  >
-                      <td scope="col">hola</td>
-                      <td scope="col">hola</td>
-                      <td scope="col">hola</td>
-                      <td scope="col">hola</td>
-                      <td scope="col">hola</td>
-                      <td scope="col">hola</td>
-                      <td scope="col">hola</td>
-                      <td scope="col">aqui va la imagen</td>
-                      <td>
-                          <button (click)="open(content)"><i class="fa fa-edit"></i></button>
-                          <swal
-                            #deleteSwal
-                            title="Desea eliminar el registro?"
-                            type="question"
-                            [showCancelButton]="true"
-                            [focusCancel]="true"
-                            (confirm)="deleteFile()" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
-                          </swal>
-                          <button [swal]="deleteSwal"><i class="fa fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    
-                  </tbody>
+                      <tr *ngFor="let auto of autos let indice=index">
+                          <th scope="row">{{indice+1}}</th>
+                          <th >{{auto._licence}}</th>
+                          <td>{{auto._make}}</td>
+                          <td>{{auto._model}}</td>
+                          <td>{{auto._capacity}}</td>
+                          <td *ngIf="auto._isActive== true">disponible</td>
+                          <td *ngIf="auto._isActive== false"> no disponible</td>
+                          <td>{{auto._price}}</td>
+                          <td>{{nombreciudad.country}}</td>
+                          <td>{{auto._picture}}</td>
+                          <td>
+                              <button (click)="open(content , auto)"><i class="fa fa-edit"></i></button>
+                              <swal
+                                #deleteSwal
+                                title="Desea eliminar el registro?"
+                                type="question"
+                                [showCancelButton]="true"
+                                [focusCancel]="true"
+                                (confirm)="deleteFile(auto)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                              </swal>
+                              <button [swal]="deleteSwal"><i class="fa fa-trash"></i></button>
+                            </td>
+                      </tr>    
+                      </tbody>
                 </table>
               </div>
             </div>

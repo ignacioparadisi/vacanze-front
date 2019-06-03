@@ -4,7 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../../services/api.service';
 import { environment as url } from '../../../../environments/environment';
 import { Router } from '@angular/router';
-
+import { transformImageToBase64 } from '../../../utils/global_functions';
 
 @Component({
   selector: 'app-consultar-auto',
@@ -13,7 +13,9 @@ import { Router } from '@angular/router';
   providers: [ApiService]
 })
 export class Consulta_autoComponent implements OnInit {
+  public transformImageToBase64;
   form: FormGroup;
+  public urlImage: string;
   closeResult: string;
   public auto = [];
   public countries=[];
@@ -22,6 +24,8 @@ export class Consulta_autoComponent implements OnInit {
   constructor(
     public fb: FormBuilder,private apiService: ApiService,private modalService: NgbModal
   ) {
+    this.urlImage = null
+    this.transformImageToBase64 = transformImageToBase64;
     this.form = this.fb.group({
       marca: ['', [Validators.required,  Validators.minLength(1),
           Validators.maxLength(100)]],
@@ -97,10 +101,10 @@ agregarcarro(){
         console.log(response);
     }, error => {
         console.log(error);
-    }
-);
-
+    });
 }
+
+
 public markAllAsTouched() {
   this.form.get('ciudad').markAsTouched();
   this.form.get('matricula').markAsTouched();
@@ -109,6 +113,11 @@ public markAllAsTouched() {
   this.form.get('estatus').markAsTouched();
   this.form.get('capacidad').markAsTouched();
   this.form.get('precio').markAsTouched();
+}
+public getImage(event){
+  this.transformImageToBase64(event, image => {
+    this.urlImage = image;
+  });
 }
 
 }

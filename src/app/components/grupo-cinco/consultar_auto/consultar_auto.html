@@ -19,7 +19,7 @@
 
                                                 formControlName="ciudad"
                                                 [ngClass]="{'is-invalid':form.get('ciudad').touched && !form.get('ciudad').valid, 'is-valid':form.get('ciudad').touched && form.get('ciudad').valid}">
-                                                  <option *ngFor="let country  of countries let i = index;" [value]="country .id">{{country.country}}</option>
+                                                  <option *ngFor="let country  of countries let i = index;" [value]="country.id">{{country.country}}</option>
                                               </select>
                                               <div *ngIf="form.get('ciudad').touched && !form.get('ciudad').valid" class="invalid-feedback">
                                                   Por favor seleccione un país
