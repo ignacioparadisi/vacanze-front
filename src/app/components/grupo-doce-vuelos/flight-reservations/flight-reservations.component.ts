@@ -223,6 +223,7 @@ getListFlightByDateOutIn(i: number,j: number) {
   +i+'/'+j+'/'+this.form.get('fechaS').value+'/'+this.form.get('fechaE').value+'/'+this.form.get('adultFlights').value).then(
       response => {
         console.log(response);
+        this.listFlightResGoIn = response;
   },
       error => {
           console.log(error);
