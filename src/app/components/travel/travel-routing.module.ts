@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TravelComponent } from './travel.component';
 import { DetailTravelComponent } from './detail-travel/detail-travel.component';
 import { CitiesTravelComponent } from './cities-travel/cities-travel.component';
+import { DiaryTravelComponent } from './diary-travel/diary-travel.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: ':travelId/city/:cityId',
     component: DetailTravelComponent
+  },
+  {
+    path: ':travelId/city/:cityId/diary',
+    component: DiaryTravelComponent
   }
 ];
 
