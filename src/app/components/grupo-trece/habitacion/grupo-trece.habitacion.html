@@ -119,7 +119,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button class="btn btn-success" type="submit" (click)="getHotelsByCity()">Buscar</button>
+              <button class="btn btn-success" type="submit" (click)="getHotelsByCity();showTable()">Buscar</button>
             </div>
           </div>
         </form>
@@ -132,7 +132,7 @@
       </div>
       <div class="card-body table-responsive">
         <div class="row">
-          <table class="table">
+          <table class="table" *ngIf="show">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">Hotel</th>
@@ -147,7 +147,7 @@
                 <td>{{hotel.name}}</td>
                 <td>{{hotel.roomCapacity}}</td>
                 <td>{{hotel.pricePerRoom}}$</td>
-                <td>lorem ipsum</td>
+                <td>{{hotel.availableRooms}}</td>
                 <td>
                   <swal
                       #addSwal

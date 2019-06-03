@@ -36,12 +36,12 @@ export class CreateTravelComponent {
           end: new FormControl('', Validators.required)
         });
       }
-    }) 
+    })
   }
 
-  open(content) {    
+  open(content) {
     this.activeModal = this.modalService.open(content);
-       
+
   }
 
   closeModal() {
@@ -54,7 +54,7 @@ export class CreateTravelComponent {
         this.closeModal();
         Swal.fire({
           title: '!Éxito¡',
-          text: 'El viaje se creo satisfactoriamente.',
+          text: 'El viaje se creó satisfactoriamente.',
           type: 'success'
         });
         this.spread.emit();
@@ -70,17 +70,28 @@ export class CreateTravelComponent {
   }
 
   onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-      this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
-      this.travelForm.controls['end'].setValue(this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day);
+    const today = new Date;
+    today.setHours(0,0,0,0)
+    const selectedDate = new Date(date.year, date.month-1, date.day)
+    if (selectedDate >= today) {
+      if (!this.fromDate && !this.toDate) {
+        this.fromDate = date;
+        this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
+      } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+        this.toDate = date;
+        this.travelForm.controls['end'].setValue(this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day);
+      } else {
+        this.toDate = null;
+        this.fromDate = date;
+        this.travelForm.controls['end'].setValue('');
+        this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
+      }
     } else {
-      this.toDate = null;
-      this.fromDate = date;
-      this.travelForm.controls['end'].setValue('');
-      this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes seleccionar una fecha desde ' + today.getDate().valueOf() + '-' + (today.getMonth().valueOf() + 1) + '-' + today.getFullYear().valueOf() + ' en adelante',
+        type: 'error',
+      })
     }
   }
 

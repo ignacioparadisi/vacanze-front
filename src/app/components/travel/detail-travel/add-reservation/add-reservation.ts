@@ -70,8 +70,5 @@ export class AddReservationTravelComponent {
   }
 
   addReservation(id: number) {
-    console.log(id);
-    console.log(this.travelId);
-    console.log(this.cityId);
   }
 }

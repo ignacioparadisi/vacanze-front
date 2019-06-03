@@ -10,12 +10,13 @@
        <div class="form-group">
          <label>Fecha de salida</label>
          <input [ngClass]="{
-           'is-invalid': departureDate.invalid && departureDate.touched,
-           'is-valid': departureDate.valid
+           'is-invalid':(!validDepartureDate  || departureDate.invalid) && departureDate.touched,
+           'is-valid': (validDepartureDate || departureDate.valid) && departureDate.touched
          }"
-         [class.is-invalid]="departureDate.invalid && departureDate.touched" formControlName="departureDate" type="date" class="form-control" >
-         <div *ngIf="departureDate.invalid && departureDate.touched">
+         [class.is-invalid]="(!validDepartureDate  || departureDate.invalid) && departureDate.touched" formControlName="departureDate" type="date" class="form-control" (change)="validateDate($event, 'departure')">
+         <div *ngIf="(!validDepartureDate  || departureDate.invalid) && departureDate.touched">
            <small *ngIf="departureDate.errors?.required" class ="text-danger"> La fecha de salida es requerida. </small>
+           <small *ngIf="!validDepartureDate" class ="text-danger"> La fecha de salida no es válida. </small>
          </div>
        </div>
      </div>
@@ -24,12 +25,13 @@
        <div class="form-group">
          <label>Fecha de llegada</label>
          <input [ngClass]="{
-           'is-invalid': arrivalDate.invalid && arrivalDate.touched,
-           'is-valid': arrivalDate.valid
+           'is-invalid': (!validArrivalDate  || arrivalDate.invalid) && arrivalDate.touched,
+           'is-valid': (validArrivalDate || arrivalDate.valid) && arrivalDate.touched
          }"
-         [class.is-invalid]="arrivalDate.invalid && arrivalDate.touched" formControlName="arrivalDate" type="date" class="form-control" >
-         <div *ngIf="arrivalDate.invalid && arrivalDate.touched">
+         [class.is-invalid]="(!validArrivalDate || arrivalDate.invalid) && arrivalDate.touched" formControlName="arrivalDate" type="date" class="form-control" (change)="validateDate($event, 'arrival')" >
+         <div *ngIf="(!validArrivalDate  || arrivalDate.invalid) && arrivalDate.touched">
            <small *ngIf="arrivalDate.errors?.required" class ="text-danger"> La fecha de llegada es requerida. </small>
+           <small *ngIf="!validArrivalDate" class ="text-danger"> La fecha de llegada no es válida. </small>
          </div>
        </div>
      </div>
@@ -97,7 +99,7 @@
     </div>
  
     <div class="grupo-botones">
-      <button [disabled]="!routingForm.valid" class="btn btn-outline-info" type="submit" >Agregar ruta</button>&nbsp;
+      <button [disabled]="!routingForm.valid || !validDepartureDate || !validArrivalDate" class="btn btn-outline-info" type="submit" >Agregar ruta</button>&nbsp;
       <button class="btn btn-outline-danger" (click)="goToCruisers()" type="button">Cancelar</button>
     </div>
  

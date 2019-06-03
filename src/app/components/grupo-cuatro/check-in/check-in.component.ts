@@ -33,7 +33,7 @@ export class CheckInComponent implements OnInit {
 
   ngOnInit() {
     this.pagina = document.getElementById('paginaCliente');
-    this.service.getUrl(url.endpoint.default._get.getBaggage, ['0']).then(data => { this.baggage = data; console.log(data) })
+    this.service.getUrl(url.endpoint.default._get.getBaggage, ['0']).then(data => { this.baggage = data; })
 
     this.formGroup = new FormGroup({
       pasaporte: new FormControl(null, [Validators.required]),
@@ -69,12 +69,12 @@ export class CheckInComponent implements OnInit {
 
   postBaggege() {
     let descripcion = this.formGroup.get('descripcion');
-    console.log('momomomomo::::', descripcion.value);
+
     this.service.getUrl(url.endpoint.default._get.addbaggage, ['ACTIVO', descripcion.value.toString()]).then(Response => {
-      console.log('Respuesta:: ' + JSON.stringify(Response));
+
       var id = JSON.stringify(Response);
       this.service.getUrl(url.endpoint.default._get.getBaggage, [id.toString()]).then(Response => {
-        console.log('Respuesta2:: ' + JSON.stringify(Response));
+
         this.id = Response.id;
         this.passport = this.formGroup.get('pasaporte').value;
         this.descripcion = Response.descripcion;
@@ -102,7 +102,6 @@ export class CheckInComponent implements OnInit {
   deleteBaggage(id: any) {
     this.service.deleteUrl(url.endpoint.default._delete.deleteBaggage, [id])
       .then(response => {
-        console.log(response);
         this.getBaggage();
         this.baggageDeleteSuccessfully()
       });
@@ -148,7 +147,6 @@ export class CheckInComponent implements OnInit {
         description: this.descrPut
       }, [id]).then(
         response => {
-          console.log(response);
           this.putEquipajeStatus(id)
         });
   }
@@ -160,7 +158,6 @@ export class CheckInComponent implements OnInit {
         description: this.descrPut
       }, [id]).then(
         response => {
-          console.log(response);
           this.getBaggage();
           this.baggageUpdateSuccessfully()
         });
@@ -169,7 +166,6 @@ export class CheckInComponent implements OnInit {
   putEquipajeStatus(id: any) {
     this.service.putUrl(url.endpoint.default._put.putEquipajeStatus, { status: 'CERRADO' }, [id]).then(
       response => {
-        console.log(response);
         this.getBaggage();
         this.baggageUpdateSuccessfully()
       });
