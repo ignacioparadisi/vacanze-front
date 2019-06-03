@@ -1,6 +1,7 @@
 {
     "_get": {
       "getHotel":"hotels",
+      "getHotelByLocation":"hotels/?location={id}",
       "getRestaurant":"restaurants",
       "getClaim":"Claim/{id}",
       "getClaimAdminStatus":"Claim/admin/{status}",
@@ -34,7 +35,8 @@
       "deleteHotel":"hotels/{id}",
       "deleteRestaurant":"restaurants/{id}",
       "cruisers": {
-        "delete_cruiser": "cruiser/{id}"
+        "delete_cruiser": "cruiser/{id}",
+        "delete_routes": "cruiser/layover/{id}"
       }
     }
 }

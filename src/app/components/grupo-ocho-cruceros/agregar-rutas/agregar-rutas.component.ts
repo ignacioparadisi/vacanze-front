@@ -73,6 +73,7 @@ export class AgregarRutasComponent implements OnInit {
 
     this.api.postUrl(url.endpoint.default._post.cruisers.post_route, form, [this.boat['id'].toString()])
       .then(response => {
+        this.routingForm.reset();
         this.successfullyResponse();
       })
       .catch(error => {

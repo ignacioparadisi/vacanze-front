@@ -14,12 +14,14 @@ import { HotelsService} from './services/hotels.service';
 //del componente tableresponsive y un componente no puede estar en dos declaraciones de modulo distintas
 import { TableResponsiveModule } from '../../blocks/table-responsive/table-responsive.module';
 import { EditHotelComponent } from './edit-hotel/edit-hotel.component';
+import { FilterHotelComponent } from './filter-hotel/filter-hotel.component';
 
 @NgModule({
   declarations: [
     ViewHotelsBackofficeComponent,
     RegisterHotelComponent,
-    EditHotelComponent
+    EditHotelComponent,
+    FilterHotelComponent
   ],
   imports: [
     CommonModule,
