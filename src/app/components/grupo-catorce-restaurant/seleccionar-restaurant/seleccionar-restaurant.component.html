@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid text-center">
   <app-table-responsive-reservas
     [headerTitle]="getHeaderTitle()"
     [tableData]="getRestaurants()"
@@ -7,5 +7,5 @@
     >
   </app-table-responsive-reservas>
 
-  <button id="boton" class="btn btn-danger text-center " (click)="goBack()" type="button">Go Back.</button>
+  <button style="text-align: center;" class="btn btn-danger" (click)="goBack()" type="button">Regresar.</button>
 </div>
