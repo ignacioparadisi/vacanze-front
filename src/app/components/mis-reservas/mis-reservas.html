@@ -41,7 +41,7 @@
       
       <div class="col-md-3">
         <p><strong>Precio total: </strong></p>
-        <span [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?._price)">lorem ipsum</span>
+        <span [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?._price)">{{totalcost}}</span>
       </div>
     </div>
     <div class="row">
@@ -186,7 +186,7 @@
       
       <div class="col-md-3">
         <p><strong>Precio total: </strong></p>
-        <p>lorem ipsum</p>
+        <span [ngClass]="getDaysFrom2Dates(roomreservation?.checkIn, roomreservation?.checkOut,roomreservation?.hotel?.pricePerRoom)">{{totalcost}}</span>
       </div>
     </div>
     <div class="row">
