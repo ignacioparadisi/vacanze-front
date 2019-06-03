@@ -3,15 +3,18 @@
     line-height: 1.5;
     margin: 0 0 24px;
     text-align: center;
-    margin-top: 80px; 
 }
 
 #center-form{
-    margin-top: 100px;
+    margin-top: 100px!important;
+}
+
+#boton{
+    text-align: center!important;
 }
 
 #fondo{    
-    background-image: url("https://i.pinimg.com/564x/76/a6/00/76a6003e3443bb7fd3d97f466c389b2c.jpg");
+    background-image: url("src/assets/images/rest1.jpeg");
     align-items: center!important;
     text-align: center;
     background-repeat: no-repeat;

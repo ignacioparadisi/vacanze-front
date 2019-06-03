@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { compararFechas } from '../../../utils/global_functions';
+import { LocalStorageService } from '../../../services/local-storage.service';
 import * as moment from 'moment';
 
 @Component({
@@ -14,15 +15,17 @@ import * as moment from 'moment';
 })
 export class HabitacionGrupoTrece implements OnInit {
     myForm: FormGroup;
-    public compararFechas;
+    public compararFechas : any;
     public countries = [];
     public cities = [];
     public hotels = [];
     public closeResult: string;
+    private userId:number;
+    private isDataLoaded: boolean = false
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
-    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService) {
+    constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService,private localStorage: LocalStorageService) {
         this.compararFechas = compararFechas;
         this.myForm = this.fb.group({
             country: ['', [Validators.required]],
@@ -33,8 +36,18 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     ngOnInit() {
+        this.getLocalStorage();
         this.initializaDate();
         this.getCountries();
+    }
+
+    public getLocalStorage(){
+        this.localStorage.getItem('id').subscribe(storedId =>{
+          if(storedId){
+            this.isDataLoaded = true
+            this.userId = storedId
+          }
+        })
     }
 
     getHabitacion(id: number) {
@@ -79,6 +92,11 @@ export class HabitacionGrupoTrece implements OnInit {
     }
 
     getHotelsByCity(){
+        this.markAllAsTouched();
+        const reservation = this.myForm.value;
+        const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+        console.log(fechas);
+        if (this.myForm.valid && fechas === 1){
         const requestURL = "hotels/?location="+this.myForm.value.city;
         this.apiService.getUrl(requestURL).then(
             response => {
@@ -88,10 +106,11 @@ export class HabitacionGrupoTrece implements OnInit {
                 console.log(error);
             }
         );
+        }
     }
 
     public markAllAsTouched() {
-        //  this.myForm.get('country').markAsTouched();
+          this.myForm.get('country').markAsTouched();
           this.myForm.get('city').markAsTouched();
           this.myForm.get('fechaOne').markAsTouched();
           this.myForm.get('fechaTwo').markAsTouched();
@@ -105,7 +124,9 @@ export class HabitacionGrupoTrece implements OnInit {
 
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
             reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-           reservation.fk_user = 1;//localStorage.getItem.
+            var fk_user = this.userId;
+            console.log("fk_user="+fk_user);
+           reservation.fk_user = fk_user
            reservation.hotel = hotel;
            reservation.user="";
            reservation.id=0;
@@ -124,7 +145,7 @@ export class HabitacionGrupoTrece implements OnInit {
             );
         }
 
-
+/*
         if (fechas === 1) {
 
             
@@ -140,7 +161,7 @@ export class HabitacionGrupoTrece implements OnInit {
             }
         } else {
             console.log('La fecha de llegada no puede ser anterior a la de salida.');
-        }
+        }*/
     }
 
     buscador() {
@@ -207,5 +228,13 @@ export class HabitacionGrupoTrece implements OnInit {
           this.messageAlert(data);
         })
       }
+
+      public invalid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && !form.get(controlName).valid;
+    }
+
+    public valid(controlName: string, form: FormGroup) {
+        return form.get(controlName).touched && form.get(controlName).valid;
+    }
 
 }

@@ -104,8 +104,10 @@ export class EditRestaurantComponent implements OnInit {
             Validators.maxLength(50)
           ]),
           country: new FormControl(null, [
+            Validators.required
           ]),
           city: new FormControl(null, [
+            Validators.required
           ])
         });
       }
@@ -214,8 +216,10 @@ export class EditRestaurantComponent implements OnInit {
 
     public onSubmit(){
       let idRes;
+      let status;
       this.localStorage.getItem('restaurant').subscribe( data => {
         idRes = data['id'];
+        status = data['isActive'];
         this.registrationForm.value.picture = this.urlImage;
         this.service
         .putUrl(url.endpoint.default._put.putRestaurant,
@@ -223,7 +227,7 @@ export class EditRestaurantComponent implements OnInit {
             id: idRes,
             name: this.registrationForm.get('name').value,
             capacity: this.registrationForm.get('capacity').value,
-            isActive : true,
+            isActive : status,
             qualify: this.registrationForm.get('stars').value,
             specialty: this.registrationForm.get('type').value,
             price: this.registrationForm.get('price').value,
