@@ -32,6 +32,7 @@ export class SidebarComponent implements OnInit {
   isCruceros = true;
   isViajes = true;
   isAdmin = false;
+  isPagos = true;
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
   constructor(public router: Router, private localService: LocalStorageService) {
