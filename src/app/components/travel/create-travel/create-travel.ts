@@ -36,12 +36,12 @@ export class CreateTravelComponent {
           end: new FormControl('', Validators.required)
         });
       }
-    }) 
+    })
   }
 
-  open(content) {    
+  open(content) {
     this.activeModal = this.modalService.open(content);
-       
+
   }
 
   closeModal() {
@@ -70,17 +70,29 @@ export class CreateTravelComponent {
   }
 
   onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-      this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
-      this.travelForm.controls['end'].setValue(this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day);
+    const today = new Date;
+    const todayDay = today.getDate().valueOf();
+    const todayMonth = today.getMonth().valueOf() + 1;
+    const todayYear = today.getFullYear().valueOf();
+    if (date.year >= todayYear && date.month >= todayMonth && date.day >= todayDay) {
+      if (!this.fromDate && !this.toDate) {
+        this.fromDate = date;
+        this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
+      } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+        this.toDate = date;
+        this.travelForm.controls['end'].setValue(this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day);
+      } else {
+        this.toDate = null;
+        this.fromDate = date;
+        this.travelForm.controls['end'].setValue('');
+        this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
+      }
     } else {
-      this.toDate = null;
-      this.fromDate = date;
-      this.travelForm.controls['end'].setValue('');
-      this.travelForm.controls['init'].setValue(this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day);
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes seleccionar una fecha desde ' + todayDay + '-' + todayMonth + '-' + todayYear + ' en adelante',
+        type: 'error',
+      })
     }
   }
 
