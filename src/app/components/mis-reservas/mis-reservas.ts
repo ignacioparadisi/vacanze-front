@@ -244,8 +244,7 @@ getCarReservation(id: number) {
 }
 
 getDaysFrom2Dates(date1:any, date2:any,price:number){
-  //var prueba1 =new Date("01/05/2019");
- // var prueba2 =new Date("01/02/2019");
+
  var parseDate1 = new Date(date1);
  var parseDate2 = new Date(date2);
   this.totalcost = (parseDate2.getDate() - parseDate1.getDate());

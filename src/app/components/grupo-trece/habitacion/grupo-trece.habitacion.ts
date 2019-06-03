@@ -111,7 +111,6 @@ export class HabitacionGrupoTrece implements OnInit {
         const reservation = this.myForm.value;
         let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
 
-
         reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
             reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
             var fk_user = this.userId;
