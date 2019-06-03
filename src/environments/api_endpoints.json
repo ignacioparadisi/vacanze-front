@@ -1,43 +1,44 @@
 {
-    "_get": {
-      "getHotel":"hotels",
-      "getHotelByLocation":"hotels/?location={id}",
-      "getRestaurant":"restaurants",
-      "getClaim":"Claim/{id}",
-      "getClaimAdminStatus":"Claim/admin/{status}",
-      "getBaggageClientSerial":"Baggage/serial/{id}",
-      "getBaggageClientDocument":"Baggage/documentPasaport/{id}",
-      "getBaggageAdminStatus":"Baggage/admin/getStatus/{status}",
-      "getCountry": "locations/countries",
-      "getCity":"locations/countries/{id}/cities",
-      "getLocations": "locations",
-      "cruisers": {
-        "get_cruisers": "cruiser",
-        "get_layovers": "cruiser/{cruiserId}/layover"
-      }
-    },
-    "_post": {
-      "postClaim":"Claim/{id}",
-      "postHotel":"hotels",
-      "postRestaurant": "restaurants",
-      "cruisers": {
-        "post_cruiser": "cruiser",
-        "post_route": "cruiser/{cruiserId}/layover"
-      },
-      "postResRestaurant": "ResRestaurant"
-    },
-    "_put": {
-        "putClaimStatus":"Claim/{id}",
-        "putHotel":"hotels/{id}",
-        "putRestaurant":"restaurants"
-    },
-    "_delete": {
-      "deleteClaim":"Claim/{id}",
-      "deleteHotel":"hotels/{id}",
-      "deleteRestaurant":"restaurants/{id}",
-      "cruisers": {
-        "delete_cruiser": "cruiser/{id}",
-        "delete_routes": "cruiser/layover/{id}"
-      }
+  "_get": {
+    "getflights": "Flights",
+    "getHotel": "hotels",
+    "getHotelByLocation": "hotels/?location={id}",
+    "getRestaurant": "restaurants",
+    "getClaim": "Claim/{id}",
+    "getClaimAdminStatus": "Claim/admin/{status}",
+    "getBaggageClientSerial": "Baggage/serial/{id}",
+    "getBaggageClientDocument": "Baggage/documentPasaport/{id}",
+    "getBaggageAdminStatus": "Baggage/admin/getStatus/{status}",
+    "getCountry": "locations/countries",
+    "getCity": "locations/countries/{id}/cities",
+    "getLocations": "locations",
+    "cruisers": {
+      "get_cruisers": "cruiser",
+      "get_layovers": "cruiser/{cruiserId}/layover"
     }
+  },
+  "_post": {
+    "postClaim": "Claim/{id}",
+    "postHotel": "hotels",
+    "postRestaurant": "restaurants",
+    "cruisers": {
+      "post_cruiser": "cruiser",
+      "post_route": "cruiser/{cruiserId}/layover"
+    },
+    "postResRestaurant": "ResRestaurant"
+  },
+  "_put": {
+    "putClaimStatus": "Claim/{id}",
+    "putHotel": "hotels/{id}",
+    "putRestaurant": "restaurants"
+  },
+  "_delete": {
+    "deleteClaim": "Claim/{id}",
+    "deleteHotel": "hotels/{id}",
+    "deleteRestaurant": "restaurants/{id}",
+    "cruisers": {
+      "delete_cruiser": "cruiser/{id}",
+      "delete_routes": "cruiser/layover/{id}"
+    }
+  }
 }

@@ -1,9 +1,9 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Detalle de vuelo</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+    <h4 class="modal-title">Detalle de vuelo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
     <form action="">
@@ -13,73 +13,70 @@
             <h6>País</h6>
           </div>
           <div class="form-group">
-            <h6>Vuelo</h6> 
+            <h6>Vuelo</h6>
           </div>
           <div class="form-group">
-            <h6>Fecha de salida</h6> 
+            <h6>Fecha de salida</h6>
           </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
-              <h6>Origen</h6>
-            </div>
-            <div class="form-group">
-              <h6>Destino</h6>
-            </div>
-            <div class="form-group">
-              <h6>Fecha de regreso</h6>
-            </div>
-            <div class="form-group">
-              <h4>Precio total</h4>
-            </div>
+          <div class="form-group">
+            <h6>Origen</h6>
           </div>
+          <div class="form-group">
+            <h6>Destino</h6>
+          </div>
+          <div class="form-group">
+            <h6>Fecha de regreso</h6>
+          </div>
+          <div class="form-group">
+            <h4>Precio total</h4>
+          </div>
+        </div>
       </div>
     </form>
-</div>
-<div class="modal-footer">
+  </div>
+  <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="c('Close click')" [swal]="addSwal">Comprar</button>
-</div>
+  </div>
 </ng-template>
 
 <div class="col-lg-12">
   <div class="card mb-3">
-      <div class="card-header">
-          Lista de Vuelos
-      </div>
-  
-      <div class="card-body table-responsive">
-          <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                    <th>Avión</th>
-                    <th>Fecha de salida</th>
-                    <th>Fecha de regreso</th>
-                    <th>Asientos disponibles</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody >
-                <tr >
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td> <div >
-                    <button (click)="openDetail(content)" class="btn btn-primary" >Ver Detalle</button>
-                    <swal
-                        #addSwal
-                        title="Pago exitoso"
-                        type="success"
-                        showConfirmButton=false
-                        >
-                      </swal>
-                  </div></td> 
-                </tr>      
-              </tbody>
-          </table>
-      </div>
+    <div class="card-header">
+      Lista de Vuelos
+    </div>
+
+    <div class="card-body table-responsive">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>Avión</th>
+            <th>Fecha de salida</th>
+            <th>Fecha de regreso</th>
+            <th>Asientos disponibles</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>
+              <div>
+                <button (click)="openDetail(content)" class="btn btn-primary">Ver Detalle</button>
+                <swal #addSwal title="Pago exitoso" type="success" showConfirmButton=false>
+                </swal>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  
+
 </div>
