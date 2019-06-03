@@ -18,7 +18,7 @@ export class AddCityComponent {
   private travelId: string = this.activatedRoute.snapshot.paramMap.get("travelId");
   countries: Array<object>
   cities: Array<any>
-  travelCities: Array<any>
+  travelCities: Array<any> = [];
   selectedCities: Array<any> = [];
   hasSelectedCities: boolean = false
 
