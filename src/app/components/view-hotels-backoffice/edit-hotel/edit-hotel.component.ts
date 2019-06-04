@@ -30,6 +30,7 @@ export class EditHotelComponent implements OnInit {
   public isDataLoaded: boolean;
   public countries: any[];
   public cities: any[];
+  public urlImageBase64 :string;
 
   public selectedACountry: boolean;
 
@@ -50,6 +51,7 @@ export class EditHotelComponent implements OnInit {
         this.hotel = storedHotel;
         this.createNewFormGroup(storedHotel);
         this.getCountry();
+        this.getHotelImage();
       }
     });
   }
@@ -138,13 +140,14 @@ export class EditHotelComponent implements OnInit {
 
   public getImage(event) {
     this.transformImageToBase64(event, image => {
-      this.urlImage = image;
+      this.urlImageBase64 = image;
     });
   }
 
   public getCountry() {
     this.service.getUrl(url.endpoint.default._get.getCountry).then(
       response => {
+        this.countries = response;
         this.countries.forEach(location => {
           if (location.country == this.hotel.location['country']) {
             this.registrationForm.get('country').setValue(location.id);
@@ -170,6 +173,18 @@ export class EditHotelComponent implements OnInit {
         },
         error => console.error(error)
       );
+  }
+
+
+  public getHotelImage(){
+        this.service
+        .getUrl(url.endpoint.default._get.getHotelImage, [this.hotel['id'].toString()])
+        .then(response => {
+              console.log("respuesta", response),
+              this.urlImageBase64 = response
+        }).catch( error => {
+              console.log("Error al carga la foto del hotel", error);
+        });
   }
 
   public selectCountry(event) {
@@ -199,7 +214,7 @@ export class EditHotelComponent implements OnInit {
             pricePerRoom: this.registrationForm.get('pricePerRoom').value,
             phone: this.registrationForm.get('phone').value,
             website: this.registrationForm.get('website').value,
-            picture: this.urlImage,
+            picture: this.urlImageBase64,
             stars: this.registrationForm.get('stars').value,
             location: {
               id: this.registrationForm.get('city').value
@@ -236,5 +251,17 @@ export class EditHotelComponent implements OnInit {
     Swal.fire(config).then(result => {
       this.goToViewHotels();
     });
+  }
+
+  viewPicture(){
+    console.log(this.urlImageBase64);
+    Swal.fire({
+      title: 'Foto del hotel',
+      imageUrl: this.urlImageBase64,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+      animation: false
+    })
   }
 }

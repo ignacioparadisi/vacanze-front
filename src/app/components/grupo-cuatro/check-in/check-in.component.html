@@ -1,29 +1,30 @@
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Editar Equipaje</h4>
-        
-        <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    
-    <div class="modal-body">
-          <div class="col text-center">
-            <div class="form-group">
-              <input type="text" class="form-control input-lg" placeholder="Pasaporte" [(ngModel)]="pasaportePut">
-            </div>  
-            <div class="form-group">
-              <textarea type="text" class="form-control input-lg" placeholder="Descripción..." [(ngModel)]="descrPut" rows="3">
+  <div class="modal-header">
+    <h4 class="modal-title">Editar Equipaje</h4>
+
+    <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="col text-center">
+      <div class="form-group">
+        <input type="text" class="form-control input-lg" placeholder="Pasaporte" [(ngModel)]="pasaportePut">
+      </div>
+      <div class="form-group">
+        <textarea type="text" class="form-control input-lg" placeholder="Descripción..." [(ngModel)]="descrPut"
+          rows="3">
               </textarea>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-12">
-                <button class="btn btn-success" (click)="putEquipaje(idPut)" type="submit">Actualizar</button>
-              </div>
-            </div>
-          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-success" (click)="putEquipaje(idPut)" type="submit">Actualizar</button>
+        </div>
+      </div>
     </div>
+  </div>
 </ng-template>
 
 <!-- Primer box: Estan las dos opciones para elegir pantalla client y admin -->
@@ -42,8 +43,8 @@
 
 <!-- INTRODUCTION -->
 
-<div id = "paginaCliente" >
-<!-- <div class="row">
+<div id="paginaCliente">
+  <!-- <div class="row">
 <div class="col-md-12">
   <div class="card mb-3">
       <div class="card-header">
@@ -61,8 +62,8 @@
 </div>
 </div> -->
 
-<div class = "col" id="bloque-busqueda">
-<!-- <div class="row" id="bloque-busqueda-2">
+  <div class="col" id="bloque-busqueda">
+    <!-- <div class="row" id="bloque-busqueda-2">
     <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
@@ -77,181 +78,170 @@
     </div>
   </div> -->
 
-  <div id = "documento" class="row">
-    <div class="row" id="bloque-busqueda-2"></div> 
-    <div class="col-md-12">
+    <div id="documento" class="row">
+      <div class="row" id="bloque-busqueda-2"></div>
+      <div class="col-md-12">
         <div class="card mb-3">
-            <div class="card-header">
-                <i class="fa fa-search"></i>
-                Check In de Pasajero
-            </div>
-            <div class="card-body table-responsive carta-intro">
-              <p> Consultar pasajero :</p>
-            
-              <form [formGroup]="formGroup" >
-                <div class="col-lg-12 text-center">
-                    <div class="form-group">
-                        <select class="form-control">
-                          <option value="-1" disabled> Nacionalidad</option>
-                          <option value="0">V</option>
-                          <option value="1">E</option>
-                        </select>
-                    </div>
-                    
-                      <div class="form-group">
-                        <input type="text" class="form-control" 
-                        placeholder="Numero De Pasaporte">
-                      </div>
-                     
-                      <swal
-                        #addSwal2
-                        title="Buscado con los Campos Ingresados"
-                        type="success"
-                        showConfirmButton=false
-                        timer=2500>
-                       </swal>
-                       <button (click) = "listadoEquipaje()" class="btn btn-success float-right button-search">Buscar</button>
-                     
+          <div class="card-header">
+            <i class="fa fa-search"></i>
+            Check In de Pasajero
+          </div>
+          <div class="card-body table-responsive carta-intro">
+            <p> Consultar pasajero :</p>
+
+            <form [formGroup]="formGroup">
+              <div class="col-lg-12 text-center">
+                <div class="form-group">
+                  <select class="form-control">
+                    <option value="-1" disabled> Nacionalidad</option>
+                    <option value="0">V</option>
+                    <option value="1">E</option>
+                  </select>
                 </div>
-              </form>
-            
+
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Numero De Pasaporte">
+                </div>
+
+                <swal #addSwal2 title="Buscado con los Campos Ingresados" type="success" showConfirmButton=false
+                  timer=2500>
+                </swal>
+                <button (click)="listadoEquipaje()" class="btn btn-success float-right button-search">Buscar</button>
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="equipajeLista" class="row oculto" style="padding-top: 130px;">
+    <div class="col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-list"></i>
+          Datos del Pasajero
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Pasaporte</th>
+                <th>Nombre</th>
+                <th>Destino</th>
+                <th>Fecha y Hora</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>XSY-210</td>
+                <td>Moscú</td>
+                <td>Retirado</td>
+                <td>04-05-2019 00:00</td>
+                <button class="btn btn-success" type="submit">
+                  Check In</button>
+              </tr>
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-   
-  </div>
 
-    <div id = "equipajeLista" class="row oculto" style="padding-top: 130px;">
-    <div class="col-lg-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fa fa-list"></i>
-                Datos del Pasajero
-            </div>
-            <div class="card-body table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Pasaporte</th>
-                        <th>Nombre</th>
-                        <th>Destino</th>
-                        <th>Fecha y Hora</th>
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>XSY-210</td>
-                        <td>Moscú</td>
-                        <td>Retirado</td>
-                        <td>04-05-2019 00:00</td>
-                        <button class="btn btn-success"  type="submit" >
-                            Check In</button>
-                    </tr>
-                   
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    </div>
-
-<div class="row">
-  <div class="col-md-12" style="padding-top: 130px;">
+  <div class="row">
+    <div class="col-md-12" style="padding-top: 130px;">
       <div class="card mb-3">
-          <div class="card-header">
-              <i class="fa fa-plus"></i>
-             Registrar Equipaje
-          </div>     
-          <div class="card-body table-responsive">
-            <form novalidate [formGroup]="formGroup" (ngSubmit)="postBaggege()">       
-              <div class="col text-center">
-                <div class="form-group">
-                  <input type="text" class="form-control input-lg" placeholder="Numero de Pasaporte" 
-                  formControlName="pasaporte" 
-                  [ngClass]="{
+        <div class="card-header">
+          <i class="fa fa-plus"></i>
+          Registrar Equipaje
+        </div>
+        <div class="card-body table-responsive">
+          <form novalidate [formGroup]="formGroup" (ngSubmit)="postBaggege()">
+            <div class="col text-center">
+              <div class="form-group">
+                <input type="text" class="form-control input-lg" placeholder="Numero de Pasaporte"
+                  formControlName="pasaporte" [ngClass]="{
                     'is-invalid': false,
                     'is-valid': !formGroup.get('pasaporte').hasError('required')
                   }">
-                </div>  
-                <div class="form-group">
-                  <textarea type="text" class="form-control input-lg" placeholder="Descripción..." 
-                  formControlName="descripcion"
-                  [ngClass]="{
+              </div>
+              <div class="form-group">
+                <textarea type="text" class="form-control input-lg" placeholder="Descripción..."
+                  formControlName="descripcion" [ngClass]="{
                     'is-invalid': false,
                     'is-valid': !formGroup.get('descripcion').hasError('required')
                   }" rows="3"></textarea>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <button class="btn btn-success" *ngIf="formGroup.invalid" type="submit" disabled>
-                                  Registrar</button>
-                    <button class="btn btn-success" *ngIf="!formGroup.invalid" type="submit">
-                        Registrar</button>
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-success" *ngIf="formGroup.invalid" type="submit" disabled>
+                    Registrar</button>
+                  <button class="btn btn-success" *ngIf="!formGroup.invalid" type="submit">
+                    Registrar</button>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
+        </div>
       </div>
-  </div>
+    </div>
 
-  <div class="col-lg-12">
+    <div class="col-lg-12">
       <div class="card mb-3">
-          <div class="card-header">
-              <i class="fa fa-list"></i>
-              Listado de Equipaje del Pasajero
-          </div>
-          <div class="card-body table-responsive">
-              <table class="table">
-                  <thead>
-                  <tr>
-                      <th>#</th>
-                      <th>Serial</th>
-                      <th>Pasaporte</th>
-                      <th>Descripción</th>
-                      <th>Estatus</th>
-                      <th>Acciones</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                      
-                  <!-- <tr *ngFor="let baggage of baggages; let indice=index"> -->
-                      <!-- <th scope="row">{{indice+1}}</th>
+        <div class="card-header">
+          <i class="fa fa-list"></i>
+          Listado de Equipaje del Pasajero
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Serial</th>
+                <th>Pasaporte</th>
+                <th>Descripción</th>
+                <th>Estatus</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- <tr *ngFor="let baggage of baggages; let indice=index"> -->
+              <!-- <th scope="row">{{indice+1}}</th>
                       <td >{{baggage.id}}</td>
                       <td>{{baggage._pasaporte }}</td>
                       <td>{{baggage._description}}</td>
                       <td>{{baggage._status}}</td> -->
-                      <tr>
-                      <th scope="row">1</th>
-                      <td>XSY-219</td>
-                      <td>Aeropuerto</td>
-                      <td>002345678910</td>
-                      <td>Abierto</td>
-                      <td>
-                        <button (click)="open(content, 
+              <tr>
+                <th scope="row">1</th>
+                <td>XSY-219</td>
+                <td>Aeropuerto</td>
+                <td>002345678910</td>
+                <td>Abierto</td>
+                <td>
+                  <button (click)="open(content, 
                         baggage.id, baggage._pasaporte, baggage._description)"><i class="fa fa-edit"></i></button>
-                        <swal
-                          #deleteSwal
-                          title="¿Desea Eliminar el Equipaje?"
-                          type="question"
-                          [showCancelButton]="true"
-                          [focusCancel]="true"
-                          (confirm)="deleteBaggage(baggage.id)" [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
-                        </swal>
-                        <button class="button-delete" [swal]="deleteSwal"><i class="fa fa-trash" ></i></button>
-                      </td>
-                  </tr>
-                  </tbody>
-              </table>
-          </div>
+                  <swal #deleteSwal title="¿Desea Eliminar el Equipaje?" type="question" [showCancelButton]="true"
+                    [focusCancel]="true" (confirm)="deleteBaggage(baggage.id)"
+                    [options]="{ confirmButtonText: 'Si, estoy seguro', cancelButtonText: 'Cancelar'  }">
+                  </swal>
+                  <button class="button-delete" [swal]="deleteSwal"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-  </div>
+    </div>
 
-  <!-- <div class="col-md-12">
+    <!-- <div class="col-md-12">
       <div class="card mb-3">
           <div class="card-header">
               <i class="fa fa-envelope"></i>
@@ -286,7 +276,7 @@
           </div>
       </div>
   </div> -->
-</div>
+  </div>
 
 </div>
 
