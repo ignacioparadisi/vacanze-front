@@ -11,6 +11,7 @@ import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import {RegisterUserModule} from "../components/users/register-user/register-user.module";
 
 
+
 @NgModule({
   declarations: [
     LayoutComponent,

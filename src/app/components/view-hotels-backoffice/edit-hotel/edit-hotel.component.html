@@ -118,6 +118,7 @@
           formControlName="phone"
           type="text"
           class="form-control"
+          placeholder="No definido"
         />
         <div *ngIf="phone.invalid && phone.touched">
           <small *ngIf="phone.errors?.pattern" class="text-danger"
@@ -138,6 +139,7 @@
           formControlName="website"
           type="text"
           class="form-control"
+          placeholder="No definido"
         />
         <div *ngIf="website.invalid && website.touched">
           <small *ngIf="website.errors?.pattern" class="text-danger"
@@ -241,8 +243,8 @@
           <label class="custom-file-label" for="validatedCustomFile"
             >Cambiar foto del hotel...</label
           >
-          <small *ngIf="urlImage != null" class="text-success"
-            >Archivo seleccionado</small
+          <small *ngIf="urlImageBase64.length>0" class="text-success">
+           <a class="btn" (click)="viewPicture()">Ver foto seleccionada</a></small
           >
         </div>
       </div>

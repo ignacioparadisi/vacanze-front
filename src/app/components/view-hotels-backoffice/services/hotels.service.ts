@@ -16,8 +16,10 @@ export class HotelsService {
         "#",
         "Nombre",
         "Habitaciones",
-        "Teléfono",
-        "Sitio Web",
+        "Capacidad",
+        "País",
+        "Ciudad",
+        "Estrellas",
         "Estatus"
       ];
     }

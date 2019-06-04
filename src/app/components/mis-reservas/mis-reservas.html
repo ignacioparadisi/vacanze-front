@@ -41,7 +41,7 @@
       
       <div class="col-md-3">
         <p><strong>Precio total: </strong></p>
-        <span [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?._price)">lorem ipsum</span>
+        <span [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?._price)">{{totalcost}}</span>
       </div>
     </div>
     <div class="row">
@@ -102,7 +102,7 @@
                 (confirm)="deleteAutomobileReservation(carreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
                  seguro', cancelButtonText: 'Cancelar' }">
                  </swal>
-                <button [swal]="deleteSwal" class="btn btn-outline-danger">
+                <button [swal]="deleteSwal" class="btn btn-outline-danger" title="Eliminar {{type}}">
                   <i class="fa fa-trash"></i>
                 </button>&nbsp;&nbsp;
                 <button
@@ -115,16 +115,6 @@
                 >
                   <i class="fa fa-edit"></i>
                 </button>&nbsp;&nbsp;
-                <button
-                  class="btn btn-outline-info"
-                  style="cursor: pointer; width: 39px;"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Editar {{type}}"
-                  
-                >
-                  <i class="fa fa-credit-card"></i>
-                </button>
               </td>
               </tr>
             </tbody>
@@ -186,7 +176,7 @@
       
       <div class="col-md-3">
         <p><strong>Precio total: </strong></p>
-        <p>lorem ipsum</p>
+        <span [ngClass]="getDaysFrom2Dates(roomreservation?.checkIn, roomreservation?.checkOut,roomreservation?.hotel?.pricePerRoom)">{{totalcost}}</span>
       </div>
     </div>
     <div class="row">
@@ -226,7 +216,7 @@
             <th scope="col">Estrellas</th>
             <th scope="col">Capacidad Habitacion</th>
             <th scope="col">Precio por noche</th>
-            <th scope="col">Cantidad Disponible</th>
+            <th scope="col">Telefono</th>
             <th scope="col">CheckIn</th>
             <th scope="col">CheckOut</th>
             <th scope="col">Acción</th>
@@ -252,7 +242,7 @@
                 (confirm)="deleteRoomReservation(roomreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
                  seguro', cancelButtonText: 'Cancelar' }">
                  </swal>
-                <button [swal]="deleteSwal" class="btn btn-outline-danger">
+                <button [swal]="deleteSwal" class="btn btn-outline-danger" title="Eliminar {{type}}">
                   <i class="fa fa-trash"></i>
                 </button>&nbsp;&nbsp;
                 <button
@@ -265,16 +255,7 @@
                 >
                   <i class="fa fa-edit"></i>
                 </button>&nbsp;&nbsp;
-                <button
-                  class="btn btn-outline-info"
-                  style="cursor: pointer; width: 39px;"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Editar {{type}}"
-                  (click)="EditRestaurantModal()"
-                >
-                  <i class="fa fa-credit-card"></i>
-                </button>
+
               
               </td>
           </tr>

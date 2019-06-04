@@ -2,6 +2,7 @@
     "_get": {
       "getHotel":"hotels",
       "getHotelByLocation":"hotels/?location={id}",
+      "getHotelImage":"hotels/{id}/image",
       "getRestaurant":"restaurants",
       "getResFlight":"list-reservation-flight",
       "getListFlight":"flights/locations",
@@ -21,33 +22,37 @@
       "cruisers": {
         "get_cruisers": "cruiser",
         "get_layovers": "cruiser/{cruiserId}/layover"
-      }
-    },
-    "_post": {
-      "postResFlight": "flight-reservation",
-      "postClaim":"Claim/{id}",
-      "postHotel":"hotels",
-      "postRestaurant": "restaurants",
-      "cruisers": {
-        "post_cruiser": "cruiser",
-        "post_route": "cruiser/{cruiserId}/layover"
+
       },
-      "postResRestaurant": "ResRestaurant"
+      "Orders":"payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
+      "getPaymentMethod":"payment"
     },
-    "_put": {
-        "putClaimStatus":"Claim/{id}",
-        "putHotel":"hotels/{id}",
-        "putRestaurant":"restaurants"
+  "_post": {
+    "postResFlight": "flight-reservation",
+    "postClaim":"Claim/{id}",
+    "postHotel":"hotels",
+    "postRestaurant": "restaurants",
+    "cruisers": {
+      "post_cruiser": "cruiser",
+      "post_route": "cruiser/{cruiserId}/layover"
     },
-    "_delete": {
-      "deleteResRestaurant": "ResRestaurant/{id}",
-      "deleteClaim":"Claim/{id}",
-      "deleteHotel":"hotels/{id}",
-      "deleteRestaurant":"restaurants/{id}",
-      "cruisers": {
-        "delete_cruiser": "cruiser/{id}",
-        "delete_routes": "cruiser/layover/{id}"
-      }
+    "postResRestaurant": "ResRestaurant",
+    "addPayment":"payment"
+  },
+  "_put": {
+      "putClaimStatus":"Claim/{id}",
+      "putHotel":"hotels/{id}",
+      "putRestaurant":"restaurants"
+  },
+  "_delete": {
+    "deleteResRestaurant": "ResRestaurant/{id}",
+    "deleteClaim":"Claim/{id}",
+    "deleteHotel":"hotels/{id}",
+    "deleteRestaurant":"restaurants/{id}",
+    "cruisers": {
+      "delete_cruiser": "cruiser/{id}",
+      "delete_routes": "cruiser/layover/{id}"
     }
+  }
 }
 

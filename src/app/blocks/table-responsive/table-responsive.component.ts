@@ -118,7 +118,6 @@ export class TableResponsiveComponent implements OnChanges {
     *************************************************************/
    public goToEditRestaurant(restaurant: Object){
     this.localStorage.setItem('restaurant', restaurant).subscribe(data => {
-      // console.log(restaurant);
       this.emitRouting.emit('/editar-restaurant/' + restaurant['id']);
     });
   }

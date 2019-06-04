@@ -13,9 +13,9 @@
                 <div class="form-group">
                     <label for="mp1">Metodo de pago</label>
                     <select class="custom-select" (change)="selectOption($event.target.value)" ng-model="selected">
-                            <option [value]="0">
-                                    Seleccione..
-                            </option>
+                        <option [value]="0">
+                            Seleccione..
+                        </option>
                         <option *ngFor="let paymethod of payMethods" [value]="paymethod.id">
                             {{paymethod.name}}
                         </option>
@@ -59,7 +59,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Tarjeta</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default"
+                    <input type="number" class="form-control" aria-label="Default"
                         aria-describedby="inputGroup-sizing-default">
                 </div>
                 <div id="dettarj" class="row">
@@ -68,7 +68,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">MMYY</span>
                             </div>
-                            <input type="text" class="form-control" aria-label="Default"
+                            <input type="number" class="form-control" aria-label="Default"
                                 aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">CVV</span>
                             </div>
-                            <input type="text" class="form-control" aria-label="Default"
+                            <input type="number" class="form-control" aria-label="Default"
                                 aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
@@ -92,14 +92,117 @@
 
     </div>
     <div class="modal-footer">
-        <button id="btnpay" class="btn btn-info btn-lg btn-block">Pagar $ {{GetTotal()}}</button>
+        <button id="btnpay" (click)="postPayment()" class="btn btn-info btn-lg btn-block">Pagar $
+            {{GetTotal()}}</button>
     </div>
+</ng-template>
+
+<ng-template #content2 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4>Cargar reserva</h4>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="container-fluid">
+                <H4>Automoviles</H4>
+                <select class="custom-select" (change)="selectOptionResAuto($event.target.value)" ng-model="selected">
+                    <option [value]="0">
+                        Seleccione..
+                    </option>
+                    <option *ngFor="let det of reservaAuto" [value]="det.id">
+                        {{ '#'+det.id+' ' +det.name+ ' ' + det.dateR}}
+                    </option>
+                </select>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="container-fluid">
+                <H4>Habitaciones</H4>
+                <select class="custom-select" (change)="selectOptionResHab($event.target.value)" ng-model="selected">
+                    <option [value]="0">
+                        Seleccione..
+                    </option>
+                    <option *ngFor="let det of reservaHab" [value]="det.id">
+                        {{ '#'+det.id+' ' +det.name}}
+                    </option>
+                </select>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="container-fluid">
+                <H4>Restaurantes</H4>
+                <select class="custom-select" (change)="selectOptionResRes($event.target.value)" ng-model="selected">
+                    <option [value]="0">
+                        Seleccione..
+                    </option>
+                    <option *ngFor="let det of reservaRes" [value]="det.id">
+                        {{ '#'+det.id+' ' +det.name}}
+                    </option>
+                </select>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="container-fluid">
+                <H4>Cruceros</H4>
+                <select class="custom-select" (change)="selectOptionResCru($event.target.value)" ng-model="selected">
+                    <option [value]="0">
+                        Seleccione..
+                    </option>
+                    <option *ngFor="let det of reservaCru" [value]="det.id">
+                        {{ '#'+det.id+' ' +det.name}}
+                    </option>
+                </select>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <h1><a class="btn btn-info" (click)="getOrders()">
+                <i class="fa fa-fw fa-play"></i>
+                Cargar</a></h1>
+    </div>
+
 </ng-template>
 
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <div class="col-sm-4 col-md-4 col-md-offset-1">
+            <a class="btn btn-info" (click)="open(content2)">
+                <i class="fa fa-fw fa-edit"></i>
+                Cambiar Reserva</a>
+        </div>
+        <div class="col-sm-4 col-md-4 col-md-offset-1">
+
+        </div>
+        <div class="col-sm-4 col-md-4 col-md-offset-1">
+                <a class="btn btn-block" (click)="openMyPayment()">
+                        <i class="fa fa-fw fa-money"></i>
+                        Mis pagos</a>
+        </div>
+    </div>
+
+
+
+
+    <div id="orderframe" class="row">
+        <div class="col-sm-12 col-md-12 col-md-offset-1">
+            <h2 class="text-center">Reservas a pagar</h2>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -114,20 +217,20 @@
                         <td class="col-sm-8 col-md-6">
                             <div class="media">
                                 <a class="thumbnail pull-left" href="#"> <img class="media-object"
-                                        src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
+                                        src="assets/images/product-icon.png"
                                         style="width: 72px; height: 72px;"> </a>
                                 <div class="media-body">
-                                    <h6 class="media-heading"><a href="#">{{ord.name}}</a></h6>
-                                    <h6 class="media-heading"> by <a href="#">{{ord.brand}}</a></h6>
+                                    <h6 class="media-heading">{{ord.descrip}}</h6>
+                                    <h6 style="color:blue" class="media"> by {{ord.brand}}</h6>
                                     <span>Dias reservados: </span><span
-                                        class="text-success"><strong>{{ord.cantidad}}</strong></span>
+                                        class="text-success"><strong>{{ord.qty}}</strong></span>
                                 </div>
                             </div>
                         </td>
                         <td>   </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.precio}}</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.precio * ord.cantidad}}</strong></td>
-                            
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.price}}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ord.price * ord.qty}}</strong></td>
+
                     </tr>
                     <tr>
                         <td>   </td>
@@ -160,13 +263,49 @@
                         </td>
                     </tr>
                     <td>   </td>
-                    <td>   <button class="btn btn-lg btn-success" (click)="open(content)">CheckOut</button>  </td>
+                    <td>  
+                    </td>
                     <td>   </td>
-                    <td>   </td>
-                           
+                    <td> </td>
+
                 </tbody>
+                <div id="btncheck" class="row">
+                    <div class="col-sm-6 col-md-6 col-md-offset-1">
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-md-offset-1">
+                        <a class="btn btn-lg btn-success text-center" (click)="openPayment(content)">
+                            <i class="fa fa-fw fa-shopping-cart"></i>
+                            CheckOut
+                        </a>
+                    </div>
+                </div>
             </table>
-          
         </div>
     </div>
+    <div id="mypayment">  
+         
+            <h2 class="text-center">Mis últimos pagos</h2>
+            <table class="table table-hover">
+                    <thead>
+        
+                        <th class="text-center">Transacción</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Instrumento</th>
+                        <th class="text-center">Descrip</th>
+                        <th class="text-center">Monto</th>
+        
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let myp of myPayments">
+                            <td class="text-center">{{ myp?.id }}</td>
+                             <td class="text-center">{{formatDate(myp?.dateR)}}</td>
+                             <td class="text-center">{{ myp?.pm }}</td>
+                             <td class="text-center">{{ myp?.descrip }}</td>
+                            <td class="text-center"> $ {{ myp?.amount }}</td>
+                        </tr>
+                    </tbody>
+            </table>
+    </div>
+   
 </div>

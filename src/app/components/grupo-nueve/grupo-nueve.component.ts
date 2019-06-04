@@ -70,65 +70,66 @@ public role :any;
 
   getRole(){
     this.storage.getItem('rol').subscribe(data => {
-      console.log('id: ',data[0].id);
       if (data[0].id == '2' || data[0].id == '4'){
-      this.pantallaAdmin(); 
-      console.log('Este usuario es administrador o de reclamo');}
+      this.pantallaAdmin(); }
       else if (data[0].id == '1'){
       this.pantallaCliente();
-      console.log('Este usuario es cliente');}
+      }
+      else{
+      this.pantallaAcceso();
+      }
     });
-  
   }
+
   getClaim(){
     this.service.getUrl(url.endpoint.default._get.getClaim,['0'])
-    .then(data =>{this.claims=data; console.log(data)})
-    .catch(data =>{console.log(data)});
+    .then(data =>{this.claims=data; })
+    .catch(data =>{});
   }
 
   getAdminClaimStatusAbierto(){
     this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['ABIERTO'])
     .then(data => {this.claimsAbiertos = data;                                                                                             
-      console.log(data)})
-    .catch(data =>{console.log(data)});
+      })
+    .catch(data =>{});
   }
 
   getAdminClaimStatusCerrado(){
     this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['CERRADO'])
     .then(data => {this.claimsCerrados = data;                                                                                             
-      console.log(data)})
-    .catch(data =>{console.log(data)});
+      })
+    .catch(data =>{});
   }
 
   getClientBaggageSerial(id : string){    
     this.service.getUrl(url.endpoint.default._get.getBaggageClientSerial, [id])
-    .then(data => {this.baggages = data; console.log(data)})
+    .then(data => {this.baggages = data; })
   }
 
   getClientBaggageDocument(id : string){    
     this.service.getUrl(url.endpoint.default._get.getBaggageClientDocument, [id])
-    .then(data => {this.baggages = data; console.log(data)})
+    .then(data => {this.baggages = data; })
   }
 
   getAdminBaggageStatusExtraviado(){
     this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['EXTRAVIADO'])
     .then(data => {this.BaggageExtraviados = data;                                                                                             
-      console.log(data)})
-    .catch(data =>{console.log(data)});
+      })
+    .catch(data =>{});
   }
 
   getAdminBaggageStatusEntregado(){
-    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['ENTREGADO'])
+    this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['RECLAMADO'])
     .then(data => {this.BaggageEntregados = data;                                                                                             
-      console.log(data)})
-    .catch(data =>{console.log(data)});
+      })
+    .catch(data =>{});
   }
 
   getAdminBaggageStatusEncontrado(){
     this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['ENCONTRADO'])
     .then(data => {this.BaggageEncontrados = data;                                                                                             
-      console.log(data)})
-    .catch(data =>{console.log(data)});
+      })
+    .catch(data =>{});
   }
   
   postClaim(){  
@@ -137,10 +138,10 @@ public role :any;
              ,{title: this.formGroup.get('titulo').value,
                description: this.formGroup.get('descripcion').value}
              ,[this.formGroup.get('serial').value])
-    .then(response => {console.log(response); 
+    .then(response => {
                        this.claimCreatedSuccessfully(); 
                        this.getClaim()})
-    .catch(data =>{console.log(data.error); 
+    .catch(data =>{ 
                    this.claimCreatedFailed(data.error)});
   }
 
@@ -165,10 +166,10 @@ public role :any;
 
   deleteClaim(id : any){
     this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [id])
-    .then(response => {console.log(response);
+    .then(response => {
                        this.getClaim();
                        this.claimDeleteSuccessfully()})
-    .catch(data =>{console.log(data)});
+    .catch(data =>{});
   }
 
   private claimDeleteSuccessfully() {
@@ -179,6 +180,10 @@ public role :any;
       timer: 2500
     }
     Swal.fire(config);
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   putClaim(id : any){
@@ -192,7 +197,7 @@ public role :any;
     if(this.getCk_cambiar()){
       this.putClaimStatus(id);
     }
-  }
+  } 
 
   getCk_cambiar(){
     var ck_cambiar =<HTMLInputElement> document.getElementById("check_cambiar");
@@ -209,9 +214,9 @@ public role :any;
                         {title: this.titlePut,
                          description: this.descrPut},[id])
                          .then(
-                         response => {console.log(response); 
+                         response => { 
                          this.putClaimStatus(id)})
-                         .catch(data =>{console.log(data)});
+                         .catch(data =>{});
   }
 
   putClaimTD(id : any){
@@ -219,20 +224,20 @@ public role :any;
                         {title: this.titlePut,
                          description: this.descrPut},[id])
                         .then(
-                        response => {console.log(response); 
+                        response => {
                         this.getClaim();
                         this.claimUpdateSuccessfully()})
-                        .catch(data =>{console.log(data.error); 
+                        .catch(data =>{ 
                                        this.claimUpdateFailed(data.error)});
   }
 
   putClaimStatus(id: any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id])
     .then(
-      response => {console.log(response); 
+      response => { 
                    this.getClaim();
                    this.claimUpdateSuccessfully()})
-    .catch(data =>{console.log(data)});
+    .catch(data =>{});
   }
 
   private claimUpdateSuccessfully() {
@@ -252,6 +257,11 @@ public role :any;
       showConfirmButton: true
     }
     Swal.fire(config);
+  }
+
+  pantallaAcceso(){
+    var pagina = document.getElementById('paginaAcceso');
+    pagina.style.display = "block";
   }
   
   pantallaAdmin(){

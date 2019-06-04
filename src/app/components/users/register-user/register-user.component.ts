@@ -62,7 +62,7 @@ export class RegisterUserComponent implements OnInit {
   private createFormGroup() {
     this.formGroup = new FormGroup({
       // TODO: Validar que sean solo números
-      documentId: new FormControl(null, [Validators.required]),
+      documentId: new FormControl(null, [Validators.required, Validators.pattern(/[0-9]+/ )]),
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email])
@@ -74,6 +74,13 @@ export class RegisterUserComponent implements OnInit {
       this.formGroup.addControl('confirmPassword',
         new FormControl(null, [Validators.required, Validators.minLength(8)]))
     }
+  }
+
+  changeConfirmPasswordValidation() {
+    const password = this.formGroup.get('password').value;
+    this.formGroup.get('confirmPassword').clearValidators();
+    this.formGroup.get('confirmPassword').setValidators([Validators.required, Validators.minLength(8),
+      Validators.pattern(password)])
   }
 
   private addRolesToFormGroup() {
@@ -101,7 +108,6 @@ export class RegisterUserComponent implements OnInit {
   public onSubmit() {
     this.submitted = true;
     this.state = 'loading';
-    console.log("OnSubmit");
     if (this.formGroup.invalid) {
       this.state = 'error';
       return;
