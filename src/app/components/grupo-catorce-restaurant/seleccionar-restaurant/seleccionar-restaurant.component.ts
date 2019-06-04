@@ -39,13 +39,12 @@ export class SeleccionarRestaurantComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Auida")
     this.getLocalStorage()
   } 
 
   public getRestaurantById(){
     this.api
-        .getUrl(url.endpoint.default._get.getRestaurantById, [this.cityID.toString()])
+        .getUrl(url.endpoint.default._get.getRestaurantByLocation, [this.cityID.toString()])
         .then(response => {
             this.tableData = response;
     }, error => console.error(error));
@@ -66,7 +65,6 @@ export class SeleccionarRestaurantComponent implements OnInit {
         this.formData = storedRes
         this.cityID = this.formData.ciudad
 
-        console.log('cityID',this.cityID)
         this.getRestaurantById()
       }
     })

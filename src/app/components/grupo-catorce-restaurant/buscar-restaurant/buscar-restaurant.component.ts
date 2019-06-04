@@ -66,17 +66,14 @@ export class BuscarRestaurantComponent implements OnInit {
         cantPeople: this.formGroup.get('cantidadPersonas').value,
         ciudad:this.formGroup.get('ciudad').value
       }
-      console.log(datosReserva.ciudad)
       this.localStorage.setItem('formReserva', datosReserva).subscribe(datosReserva =>{
         
-        console.log('Datos de la reserva',datosReserva)
         this.router.navigate(['restaurant-reservation/list-restaurant']);
       })
       
     }
     else{
       this.subM =true
-      console.log('error')
     }
   }
  
@@ -157,7 +154,6 @@ export class BuscarRestaurantComponent implements OnInit {
   }
 
   public selectCountry(event) {
-    console.log(event.target.value);
     this.getCity(event.target.value);
   }
 }

@@ -62,7 +62,7 @@ export class RegisterHotelComponent implements OnInit {
       Validators.min(1),
       Validators.max(5)
     ]),
-    image: new FormControl(null, [Validators.required]),
+    image: new FormControl(null, []),
     country: new FormControl(null, [Validators.required]),
     city: new FormControl(null, [Validators.required])
   });
@@ -77,7 +77,7 @@ export class RegisterHotelComponent implements OnInit {
   public getCountry() {
     this.service.getUrl(url.endpoint.default._get.getCountry).then(
       response => {
-        console.log(response), (this.countries = response);
+        this.countries = response;
       },
       error => console.error(error)
     );
@@ -164,7 +164,6 @@ export class RegisterHotelComponent implements OnInit {
         this.hotelCreatedSuccessfully();
       })
       .catch(error => {
-        console.log('Hay un error');
         this.errorOcurred();
       });
   }
@@ -176,7 +175,6 @@ export class RegisterHotelComponent implements OnInit {
       showConfirmButton: true
     };
     Swal.fire(config).then(result => {
-      //console.log(result);
     });
   }
 
@@ -188,8 +186,19 @@ export class RegisterHotelComponent implements OnInit {
       timer: 1500
     };
     Swal.fire(config).then(result => {
-      //console.log(result);
       this.goToViewHotels();
     });
   }
+
+  viewPicture(){
+    Swal.fire({
+      title: 'Foto del hotel',
+      imageUrl: this.urlImage,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+      animation: false
+    })
+  }
+
 }
