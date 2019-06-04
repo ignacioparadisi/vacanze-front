@@ -1,34 +1,44 @@
 import { ApiService } from '../../../services/api.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { TypeFlight } from '../../../classes/type_flight';
-import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { PeopleFlight } from '../../../classes/people_flight';
 import { Router } from '@angular/router';
+import { environment as url } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-flight-reservations',
   templateUrl: './flight-reservations.component.html',
-  styleUrls: ['./flight-reservations.component.scss']
+  styleUrls: ['./flight-reservations.component.scss'],
+  
 })
 export class FlightReservationsComponent implements OnInit {
 
   public form: FormGroup;
-  public typeFlights: TypeFlight[] = [];
-  public adultFlights: PeopleFlight[] = [];
-  public active: boolean = false;
-  public cont: number = 3;
-  public arrayNumber: number[] = [1, 2];
-  public disabled: boolean = true;
-  public disabledOut: boolean = false;
-  public disabledPpl: boolean = false;
+  public typeFlights: TypeFlight[]=[];
+  public adultFlights:PeopleFlight[]=[];
+  public active:boolean=false;
+  public arrayNumber: number[];
+  public disabled:boolean=true;
+  public normalIn:boolean=false;
+  public GoIn:boolean=false;
+  public BackIn:boolean=false;
+  public disabledOut:boolean=false;
+  public disabledPpl:boolean=false;
   public isChecked;
-  public subM: boolean = false;
-  constructor(private api: ApiService, private router: Router) { }
+  public subM:boolean=false;
+  public listFlight = [];
+  public listFlightRes: Array<Object>;
+  public listFlightResGo: Array<Object>;
+  public listFlightResGoIn: Array<Object>;
+  public dateOut:Date;
+  public dateIn:Date;
+  public dateCompPass:string;
 
-  private selectedTyp: string = "";
-
+    constructor(private api: ApiService, private router: Router) { }
+        
+   private selectedTyp: string="";
+   
   ngOnInit() {
     this.typeFlight();
     this.adultFlight();
@@ -39,10 +49,18 @@ export class FlightReservationsComponent implements OnInit {
       fechaS: new FormControl(null, [Validators.required]),
       fechaE: new FormControl(null, [Validators.required])
     })
+    //////////////validacion de fechas////////////////////////////////////
     var today = new Date();
-    var dateComp = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
-    var getSelectedOut = <HTMLInputElement>document.getElementById("out_id");
-    var getSelectedEnt = <HTMLInputElement>document.getElementById("entry_id");
+    var day=today.getDate();
+    if (day<10) {
+      var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+"0"+today.getDate();
+    }else{
+      var dateComp=today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+today.getDate();
+    }
+    +"0"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    var getSelectedOut =<HTMLInputElement> document.getElementById("out_id");
+    var getSelectedEnt =<HTMLInputElement> document.getElementById("entry_id");
+    console.log(dateComp);
     document.getElementById("out_id").setAttribute("min", dateComp);
     document.getElementById("entry_id").setAttribute("min", dateComp);
     var dateRe = document.getElementById("out_id");
@@ -61,8 +79,7 @@ export class FlightReservationsComponent implements OnInit {
     ];
     return this.typeFlights;
   }
-
-
+  
   private adultFlight(): PeopleFlight[] {
     this.adultFlights = [
       new PeopleFlight(1, 'a'),
@@ -79,11 +96,12 @@ export class FlightReservationsComponent implements OnInit {
 
     return this.adultFlights;
   }
-  radioChangeHandler(event: any) {
-    this.selectedTyp = event.target.id;
-    var input = document.getElementById("entry_id");
-    var output = document.getElementById("out_id");
-    if (this.selectedTyp == "0") {
+  //validaciones para el radio button
+  radioChangeHandler(event: any){
+    this.selectedTyp = event.target.id ;
+    var input= document.getElementById("entry_id");
+    var output= document.getElementById("out_id");
+    if (this.selectedTyp=="0") {
       if (!this.isChecked) {
         input.setAttribute("disabled", "true");
         output.removeAttribute("disabled");
@@ -104,12 +122,13 @@ export class FlightReservationsComponent implements OnInit {
 
     }
   }
-  checkboxSelected(event: any) {
-    var element = <HTMLInputElement>document.getElementById("date_id");
-    this.isChecked = element.checked;
-    var input = document.getElementById("entry_id");
-    var output = document.getElementById("out_id");
-    var ppl = document.getElementById("peopleId");
+  ////////validaciones del checkbox///////////////
+  checkboxSelected(event: any){
+    var element =<HTMLInputElement> document.getElementById("date_id");
+    this.isChecked= element.checked;
+    var input= document.getElementById("entry_id");
+    var output= document.getElementById("out_id");
+    var ppl= document.getElementById("peopleId");
     if (this.isChecked) {
       input.setAttribute("disabled", "true");
       output.setAttribute("disabled", "true");
@@ -127,21 +146,117 @@ export class FlightReservationsComponent implements OnInit {
       this.disabledOut = false;
       this.disabledPpl = false;
     }
-
   }
+//metodo que devuelve el id del origen y destino
+ getIdCity() {
+  // API URL
+  if (this.normalIn==true) {
+    this.api.getUrl(url.endpoint.default._get.getIdCity+'/'
+    +this.form.get('origen').value+'/'+this.form.get('destino').value).then(
+        response => {
+            this.arrayNumber = response;
+            this.getListFlight(this.arrayNumber[0],this.arrayNumber[1]);
+            console.log(response);
+  
+        },
+        error => {
+            console.log(error);
+        }
+    );
+  }else if (this.GoIn==true) {
+    this.api.getUrl(url.endpoint.default._get.getIdCity+'/'
+    +this.form.get('origen').value+'/'+this.form.get('destino').value).then(
+        response => {
+            this.arrayNumber = response;
+            this.getListFlightByDateOut(this.arrayNumber[0],this.arrayNumber[1]);
+            console.log(response);
+           },
+        error => {
+            console.log(error);
+        }
+    );
+  }else if (this.BackIn==true) {
+    this.api.getUrl(url.endpoint.default._get.getIdCity+'/'
+    +this.form.get('origen').value+'/'+this.form.get('destino').value).then(
+        response => {
+            this.arrayNumber = response;
+            this.getListFlightByDateOutIn(this.arrayNumber[0],this.arrayNumber[1]);
+            console.log(response);
+          },
+        error => {
+            console.log(error);
+        }
+    );
+  }
+}
+//metodo que devuelve los vuelos sin fecha
+getListFlight(i: number,j: number) {
+  // API URL
+  this.api.getUrl(url.endpoint.default._get.getListFlight+'/'
+  +i+'/'+j).then(
+      response => {
+          this.listFlightRes = response;
+          console.log(response);
+        },
+      error => {
+         console.log(error);
+        }
+  );
+}
+///metodo que devuelve los vuelos de ida
+getListFlightByDateOut(i: number,j: number) {
+    // API URL
+    this.api.getUrl(url.endpoint.default._get.getListFlightGo+'/'
+    +i+'/'+j+'/'+this.form.get('fechaS').value+'/'+this.form.get('adultFlights').value).then(
+        response => {
+            this.listFlightResGo = response;
+    },
+        error => {
+            console.log(error);
+        }
+    );
+}
+//metodo que devuelve los vuelos de ida y vuelta
+getListFlightByDateOutIn(i: number,j: number) {
+  // API URL
+  this.api.getUrl(url.endpoint.default._get.getListFlightGo+'/'
+  +i+'/'+j+'/'+this.form.get('fechaS').value+'/'+this.form.get('fechaE').value+'/'+this.form.get('adultFlights').value).then(
+      response => {
+        console.log(response);
+        this.listFlightResGoIn = response;
+  },
+      error => {
+          console.log(error);
+      }
+  );
+}
+//Metodo que se activa cuando el usuario hace click en buscar.
   onSubmit() {
+    this.subM=true;
     if (this.form.get('origen').valid && this.form.get('destino').valid
-      && (this.form.get('adultFlights').value != -1 || this.disabledPpl == true) && (this.form.get('fechaE').valid || this.disabled == true)
-      && (this.form.get('fechaS').valid || this.disabledOut == true)) {
-      this.router.navigate(['flight-reservations/list-reservations']);
-    } else {
-      this.subM = true;
+     && (this.disabledPpl==true) && (this.disabled==true)
+     && (this.disabledOut==true)) {
+      this.normalIn=true;
+      this.GoIn=false;
+      this.BackIn=false;
+      this.listFlightResGo=null;
+      this.listFlightResGoIn=null;
+      this.getIdCity();
+    } else if  (this.form.get('origen').valid && this.form.get('destino').valid && this.form.get('fechaS').valid && this.disabled==true && this.form.get('adultFlights').value!=-1) {
+      this.normalIn=false;
+      this.BackIn=false;
+      this.listFlightRes=null;
+      this.listFlightResGoIn=null;
+      this.GoIn=true;
+      this.getIdCity();
+    } else if (this.form.get('origen').valid && this.form.get('destino').valid && (this.disabledOut==false)&&(this.disabled==false)&&this.form.get('fechaE').valid && this.form.get('adultFlights').value!=-1) {
+      this.normalIn=false;
+      this.GoIn=false;
+      this.BackIn=true;
+      this.listFlightResGo=null;
+      this.listFlightRes=null;
+      this.getIdCity();
     }
   }
-
-  public postResFlight() {
-    this.api.postUrl('', 'ssssssssssssssss');
-
-  }
-
+  
 }

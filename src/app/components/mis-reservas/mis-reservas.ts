@@ -5,6 +5,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { compararFechas } from '../../utils/global_functions';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Timestamp } from 'rxjs';
 import { environment as url } from '../../../environments/environment';
@@ -19,6 +20,7 @@ import { Location } from "@angular/common";
 })
 export class MisReservas implements OnInit {
     myForm: FormGroup;
+
     public compararFechas : any;
     public carreservations ="";
     public roomreservations="";
@@ -34,7 +36,7 @@ export class MisReservas implements OnInit {
     private tableData: Array<Object>;
     public userId: number
     public isDataLoaded: boolean
-
+    public flightReservations=[];
 
     @Output() public actionAlertEventEmitter = new EventEmitter();
 
@@ -42,7 +44,8 @@ export class MisReservas implements OnInit {
       private modalService: NgbModal, 
       private apiService: ApiService,
       private _location: Location,
-      private localStorage: LocalStorageService) {
+      private localStorage: LocalStorageService,
+      private router: Router) {
         
       this.compararFechas = compararFechas;  
       this.myForm = this.fb.group({
@@ -61,6 +64,8 @@ export class MisReservas implements OnInit {
     }
 
     ngOnInit() {
+     // this.getAutomobileReservations();
+     this.getRoomReservations();
       this.getLocalStorage()
       this.getLocalStorageRes()
     }
@@ -100,11 +105,12 @@ export class MisReservas implements OnInit {
       data['delete'] = deleted;
       if(result && ('value' in result)){
         data['confirmed'] = true;
-      }
+       }
       else {
         data['confirmed'] = false;
       }
       this.messageAlert(data);
+          
     })
   }
 
@@ -163,6 +169,58 @@ public deleteRoomReservation(id: number) {
     }, error => {
       console.error(error);
       this.getRoomReservations();
+    }
+  );
+}
+////////metodo para reserva de vuelos modal
+public openModalFlight(id:number){
+ 
+  Swal.fire({
+      title: 'Estas seguro?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteFlightReservation(id);
+        Swal.fire(
+          'Eliminado exitosamente!!',
+        )
+        this.ngOnInit();
+      }
+    })
+    
+  }
+//metodo para recibir reservas de vuelo
+getFlightReservations(){
+  console.log("Estoy en getFlightReservations");
+  console.log("ID"+this.userId);
+
+  const requestURL = `list-reservation-flight/${this.userId}`;  
+  this.apiService.getUrl(requestURL).then(
+      response => {
+        this.flightReservations=response;
+        console.log("mylistreeees:",response);
+          //this.flightReservations = response;
+      },
+      error => {
+          console.log(error);
+      }
+  );
+}
+//metodo para eliminar reservas de vuelo
+ deleteFlightReservation(id:number) {
+   console.log("id tiene:",this.userId);
+  const requestURL = `delete-reservation-flight/${id}`;
+  this.apiService.deleteUrl(requestURL).then(
+    response => {
+      console.log(response);
+     console.log('Reservacion con el id' + id + 'fue eliminada');
+    }, error => {
+      console.error(error);
     }
   );
 }
@@ -310,6 +368,7 @@ initializaDate(){
         this.isDataLoaded = true
         this.userId = storedId
         this.getRestaurantReservation()
+        this.getFlightReservations()
       }
     })
   }
