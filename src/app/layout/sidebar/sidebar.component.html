@@ -16,10 +16,26 @@
       <i class="fa fa-fw fa-briefcase"></i>&nbsp;
       <span>Reclamo de Equipajes</span>
     </a>
-    <a routerLink="/grupo-cinco" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-      <span>Automóvil</span>
-    </a>
+    <div class="nested-menu">
+        <a class="list-group-item" (click)="addExpandClass('paginas')">
+            <i class="fa fa-dashboard"></i>&nbsp;
+            <span>Automoviles</span>
+        </a>
+        <li class="nested" [class.expand]="showMenu === 'paginas'">
+            <ul class="submenu">
+                <li>
+                    <a routerLink="/grupo-cinco/consultar" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                      <span>Registrar nuevos autos</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/grupo-cinco/registrar" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                      <span>Lista y detalles de autos</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </div>
     <div class="nested-menu">
       <a class="list-group-item" (click)="addExpandClass('pages')">
         <i class="fa fa-plus"></i>&nbsp;
