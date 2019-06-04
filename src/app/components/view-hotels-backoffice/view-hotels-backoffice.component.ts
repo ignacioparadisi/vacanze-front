@@ -1,6 +1,6 @@
 import { ApiService } from '../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-//import { Role } from '../../classes/role';
+import { Role } from '../../classes/role';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SweetAlertOptions } from 'sweetalert2';
