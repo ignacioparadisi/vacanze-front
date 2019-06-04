@@ -5,6 +5,7 @@
     "getHotelImage": "hotels/{id}/image",
     "getRestaurant": "restaurants",
     "getRestaurantByLocation": "restaurants/location/{id}",
+    "getRestaurantById": "restaurants/{id}",
     "getResRestaurantById": "ResRestaurant/{id}",
     "getReservationNotPay": "ResRestaurant/Payment/{userId}",
     "getClaim": "Claim/{id}",
