@@ -2,7 +2,6 @@ import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { FlightReservationsComponent } from '../flight-reservations/flight-reservations.component';
 import { environment as url } from '../../../../environments/environment';
 import { ApiService } from '../../../services/api.service';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
@@ -16,13 +15,13 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 
 export class ListReservationsComponent implements OnInit {
   @Input() num: number;
-  @Input() longi: [];
-  @Input() longiGo: [];
-  @Input() longiGoIn: [];
+  @Input() longi;
+  @Input() longiGo;
+  @Input() longiGoIn;
   @Input() dateS: Date;
   @Input() dateE: Date;
   @Input() priceL: number;
-  @Input() normal: boolean=false;
+  @Input() normal: boolean = false;
   public listRes: string;
   public numeVal:number;
   public userId:number;

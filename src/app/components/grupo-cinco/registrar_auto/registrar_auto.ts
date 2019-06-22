@@ -22,7 +22,7 @@ export class Registrar_AutoComponent implements OnInit {
     public respuesta=[];
     public autos =[];
     public nombreciudad:string ;
-    public  modificarauto  =[];
+    public  modificarauto = [];
     public x =[] ;
  
     auto: Auto[] = [];

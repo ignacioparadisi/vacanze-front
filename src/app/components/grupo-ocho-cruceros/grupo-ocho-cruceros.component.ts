@@ -17,7 +17,7 @@ import { SweetAlertOptions } from 'sweetalert2';
 
 export class GrupoOchoCrucerosComponent implements OnInit {
 
-  public checks: Object; // Variable para saber si cambio a la vista de rutas
+  public checks: any; // Variable para saber si cambio a la vista de rutas
   private cruisers: Array<Cruiser>;
   private tableBoatsHeader: Array<string>;
   private tableRoutesHeader: Array<string>;

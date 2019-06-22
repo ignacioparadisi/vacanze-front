@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PeopleFlight } from '../../../classes/people_flight';
 import { Router } from '@angular/router';
 import { environment as url } from '../../../../environments/environment';
+import { ListReservationsComponent } from '../list-reservations/list-reservations.component';
 
 @Component({
   selector: 'app-flight-reservations',

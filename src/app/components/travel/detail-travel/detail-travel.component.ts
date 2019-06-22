@@ -23,6 +23,7 @@ export class DetailTravelComponent implements OnInit {
   hoteReservations: Array<object>
   fligReservations: Array<object>
   activeId: string;
+  selectedTab: any;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private modalService: NgbModal, private apiService: ApiService) { }
 

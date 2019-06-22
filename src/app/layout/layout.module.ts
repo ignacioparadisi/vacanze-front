@@ -8,15 +8,15 @@ import { LayoutComponent } from "./layout.component";
 import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
-import {RegisterUserModule} from "../components/users/register-user/register-user.module";
-
-
+import { RegisterUserModule } from "../components/users/register-user/register-user.module";
+import { CustomValidatorDirective } from '../directives/validations/custom-validations.directive';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    CustomValidatorDirective
   ],
   imports: [
     HttpClientModule,
@@ -28,7 +28,7 @@ import {RegisterUserModule} from "../components/users/register-user/register-use
     FormsModule,
     ReactiveFormsModule,
     SweetAlert2Module.forRoot()
-
-  ]
+  ],
+  providers: [CustomValidatorDirective]
 })
 export class LayoutModule { }

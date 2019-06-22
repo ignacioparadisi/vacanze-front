@@ -12,8 +12,8 @@ import { Travel } from '../../../classes/travel';
 })
 export class CitiesTravelComponent implements OnInit {
 
-  private cities: any;
-  private travel: Travel = JSON.parse(localStorage.getItem("travel"));
+  public cities: any;
+  public travel: Travel = JSON.parse(localStorage.getItem("travel"));
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService) { }
 

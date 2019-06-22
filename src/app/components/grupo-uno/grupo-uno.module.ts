@@ -5,13 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { GrupoUnoRoutingModule } from './grupo-uno-routing.module';
 import { GrupoUnoComponent } from './grupo-uno.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LandingComponent } from './landing/landing.component';
-import {RegisterUserModule} from "../users/register-user/register-user.module";
+import { RegisterUserModule } from "../users/register-user/register-user.module";
+import { LoginModule } from './login/login.module';
+import { LandingModule } from './landing/landing.module';
 
 @NgModule({
-  declarations: [GrupoUnoComponent, LoginComponent, LandingComponent],
+  declarations: [GrupoUnoComponent],
   imports: [
     CommonModule,
     RegisterUserModule,
@@ -19,8 +19,9 @@ import {RegisterUserModule} from "../users/register-user/register-user.module";
     HttpClientModule,
     SweetAlert2Module.forRoot(),
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    LoginModule,
+    LandingModule
   ],
   providers: []
 })

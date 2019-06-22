@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FlightReservationsComponent } from './flight-reservations.component';
-import {ListReservationsComponent} from '../list-reservations/list-reservations.component';
+import { ListReservationsComponent} from '../list-reservations/list-reservations.component';
 
 const routes: Routes = [
   
   {path: '',component: FlightReservationsComponent},
-  {path:'list-reservations',component:ListReservationsComponent }
+  {path:'list-reservations', component:ListReservationsComponent }
 
 ];
 

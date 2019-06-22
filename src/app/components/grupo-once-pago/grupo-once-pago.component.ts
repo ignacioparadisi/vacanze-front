@@ -16,8 +16,6 @@ import { LocalStorageService } from '../../services/local-storage.service';
   templateUrl: './grupo-once-pago.component.html',
   styleUrls: ['./grupo-once-pago.component.scss'],
   providers: [ApiService]
-
-
 })
 
 export class GrupoOncePagoComponent implements OnInit {
@@ -26,8 +24,12 @@ export class GrupoOncePagoComponent implements OnInit {
   selected: number = 0;
   @ViewChild('content2') content2: ElementRef
 
-  constructor(private modalService: NgbModal, public fb: FormBuilder,
-    private router: Router, private serv: ApiService, private localStorage: LocalStorageService) { }
+  constructor(
+    private modalService: NgbModal, 
+    public fb: FormBuilder,
+    private router: Router, 
+    private serv: ApiService, 
+    private localStorage: LocalStorageService) { }
 
   open(content) {
 
@@ -106,7 +108,7 @@ export class GrupoOncePagoComponent implements OnInit {
   public idSelectRes: string;
   public idSelectCru: string;
 
-  private orderList: Array<Order>;
+  public orderList: Array<Order>;
   public payMethods: Array<PayMethods>;
   public bill: Bill;
   public idMethod: string;

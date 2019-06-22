@@ -26,7 +26,8 @@ export class AddReservationTravelComponent {
   hoveredDate: NgbDate;
   fromDate: NgbDate;
   toDate: NgbDate;
-  elementId: number
+  elementId: number;
+  type: any;
 
   constructor(private modalService: NgbModal, private apiService: ApiService, private activatedRoute: ActivatedRoute, private localStorage: LocalStorageService) {
     this.localStorage.getItem("id").subscribe(data => {

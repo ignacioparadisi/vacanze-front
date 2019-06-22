@@ -2,18 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../services/api.service';
 import { HttpClientModule } from '@angular/common/http';
-import {FlightReservationsModule} from '../flight-reservations/flight-reservations.module'
-import {ListReservationsComponent} from '../list-reservations/list-reservations.component'
-import {FlightReservationsComponent} from '../flight-reservations/flight-reservations.component';
+import { ListReservationsComponent } from '../list-reservations/list-reservations.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [ListReservationsComponent],
   imports: [
     CommonModule,
     HttpClientModule,
-    FlightReservationsModule,
-    FlightReservationsComponent
+    SweetAlert2Module.forRoot()
   ],
-  providers: [ApiService]
+  providers: [ApiService],
+  exports: [ListReservationsComponent]
 })
 export class ListReservationsModule { }
