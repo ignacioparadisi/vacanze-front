@@ -7,9 +7,12 @@ import { Consulta_autoComponent } from '../grupo-cinco/consultar_auto/consultar_
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { Registrar_AutoComponent} from '../grupo-cinco/registrar_auto/registrar_auto'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrandComponent } from './brand/brand.component';
+import { ModelComponent } from './model/model.component';
+import { FleetComponent } from './fleet/fleet.component';
 
 @NgModule({
-    declarations: [Consulta_autoComponent,Registrar_AutoComponent],
+    declarations: [Consulta_autoComponent,Registrar_AutoComponent, BrandComponent, ModelComponent, FleetComponent],
     imports: [
       CommonModule,
       GrupoCincoRoutingModule,
