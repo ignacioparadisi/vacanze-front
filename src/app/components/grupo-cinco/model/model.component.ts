@@ -5,11 +5,46 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './model.component.html',
   styleUrls: ['./model.component.scss']
 })
-export class ModelComponent implements OnInit {
+export class ModelComponent {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+  	this.getBrands();
   }
 
+  models: Array<object>
+
+  getBrands(){
+  	this.models = [
+  		{
+  			id: 1,
+  			name: 'Meru',
+  			capacity: 5,
+  			photo: '',
+  			brand: {
+  				id: 1,
+  				name: 'Toyota'
+  			}
+  		},
+  		{
+  			id: 2,
+  			name: 'Corolla',
+  			capacity: 4,
+  			photo: '',
+  			brand: {
+  				id: 1,
+  				name: 'Toyota'
+  			}
+  		},
+  		{
+  			id: 3,
+  			name: 'Civic',
+  			capacity: 4,
+  			photo: '',
+  			brand: {
+  				id: 1,
+  				name: 'Honda'
+  			}
+  		}
+  	]
+  }
 }

@@ -5,11 +5,29 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './brand.component.html',
   styleUrls: ['./brand.component.scss']
 })
-export class BrandComponent implements OnInit {
+export class BrandComponent {
 
-  constructor() { }
+  constructor() { 
+  	this.getBrands();
+  }
 
-  ngOnInit() {
+  brands: Array<object>
+
+  getBrands(){
+  	this.brands = [
+  		{
+  			id: 1,
+  			name: "Toyota"
+  		},
+  		{
+  			id: 2,
+  			name: "Chevrolet"
+  		},
+  		{
+  			id: 3,
+  			name: "Honda"
+  		},
+  	]
   }
 
 }

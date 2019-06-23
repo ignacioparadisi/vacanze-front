@@ -8,13 +8,14 @@
   <table class="table table-bordered table-hover">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Matricula</th>
-        <th scope="col">Modelo</th>
-        <th scope="col">Marca</th>
-        <th scope="col">Precio</th>
-        <th scope="col">Status</th>
-        <th scope="col">Ciudad</th>
-        <th scope="col">Opciones</th>
+        <th scope="col" class="text-center">Matricula</th>
+        <th scope="col" class="text-center">Capacidad</th>
+        <th scope="col" class="text-center">Modelo</th>
+        <th scope="col" class="text-center">Marca</th>
+        <th scope="col" class="text-center">Precio</th>
+        <th scope="col" class="text-center">Status</th>
+        <th scope="col" class="text-center">Ciudad</th>
+        <th scope="col" class="text-center">Opciones</th>
       </tr>
     </thead>
     <tbody>
@@ -23,8 +24,11 @@
         	{{vehicle.license}}
         </td>
         <td class="text-center">
+          {{vehicle.model.capacity}}
+        </td>
+        <td class="text-center">
         	{{vehicle.model.name}}
-    	</td>
+        </td>
         <td class="text-center">
         	{{vehicle.model.brand.name}}
         </td>
@@ -43,7 +47,7 @@
         	{{vehicle.location.city}}
         </td>
         <td class="text-center">
-          	<button class="btn btn-sm btn-outline-info" title="Editar viaje" (click)="open(content)">
+          	<button class="btn btn-sm btn-outline-info" title="Editar vehiculo" (click)="open(content)">
     		<i class=" fa fa-xs fa-edit"></i>
     	</button>
         </td>
