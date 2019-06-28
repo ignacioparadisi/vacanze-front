@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GrupoCincoComponent } from './grupo-cinco.component';
-
+import{Consulta_autoComponent} from '../grupo-cinco/consultar_auto/consultar_auto';
+import{Registrar_AutoComponent} from '../grupo-cinco/registrar_auto/registrar_auto';
+ 
 const routes: Routes = [
-  {
-      path: '',
-      component: GrupoCincoComponent
-  }
+  { path: 'consultar', component: Consulta_autoComponent },
+  { path: 'registrar', component: Registrar_AutoComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

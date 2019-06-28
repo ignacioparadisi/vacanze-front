@@ -1,5 +1,4 @@
 export function compararFechas(ini: Date, fin: Date) {
-    console.log( fin.getTime() - ini.getTime() );
     if ( ( fin.getTime() - ini.getTime() ) > 0  && ini.getTime() >= Date.now() ) {
         return 1;
     } else {
@@ -8,7 +7,6 @@ export function compararFechas(ini: Date, fin: Date) {
 }
 
 export function compararCiudades(salida: number, destino: number) {
-    console.log(salida, destino);
     if ( salida != destino ) {
         return 1;
     } else {

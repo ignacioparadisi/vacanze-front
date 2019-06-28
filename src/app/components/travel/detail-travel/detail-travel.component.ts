@@ -3,6 +3,8 @@ import { NgbTabChangeEvent, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-boots
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { Travel } from '../../../classes/travel';
 
 @Component({
   selector: 'app-detail-travel',
@@ -12,7 +14,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class DetailTravelComponent implements OnInit {
 
-  private travel = JSON.parse(localStorage.getItem("travel"));
+  private travel: Travel = JSON.parse(localStorage.getItem("travel"));
   private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");
   activeModal: NgbModalRef;
   commentForm: FormGroup;
@@ -37,7 +39,7 @@ export class DetailTravelComponent implements OnInit {
         break;
       case 'hotel':
         this.activeId = event.nextId
-        this.getHoteReservations();
+        this.getHoteReservations(this.activeId);
         break;
       case 'vehicle':
         this.activeId = event.nextId
@@ -124,39 +126,24 @@ export class DetailTravelComponent implements OnInit {
     ]
   }
 
-  getHoteReservations() {
-    this.hoteReservations = [
-      {
-        id: 13,
-        checkInDate: '2019-08-01',
-        checkOutDate: '2019-07-31',
-        num_ppl: 4,
-        hotel: {
-          id: 45,
-          name: 'Ambassador Suites Hotel Caracas',
-          capacity: 250,
-          tlf: '+582122764200',
-          price: 1450,
-          address_specs: 'Avenida Francisco de Miranda',
-          room_capacity: 4
-        }
-      },
-      {
-        id: 13,
-        checkInDate: '2019-07-22',
-        checkOutDate: '2019-08-14',
-        num_ppl: 4,
-        hotel: {
-          id: 57,
-          name: 'Renaissance Caracas',
-          capacity: 300,
-          tlf: '+582123188130',
-          price: 925,
-          address_specs: 'Ave Eugenio Mendoza, Con Calle Urdaneta',
-          room_capacity: 5
+  getHoteReservations(type: string) {
+    this.apiService.getUrl('travels/{travelId}/?locationId={locationId}&type={type}', [String(this.travel.id), this.cityId, type]).then(
+      (resp) => this.hoteReservations = resp,
+      (fail) => {
+        if (fail.error) {
+          Swal.fire({
+            title: fail.error,
+            type: 'info',
+          })
+        } else {
+          Swal.fire({
+            title: 'Error: ' + fail.status,
+            text: fail.name + '. ' + fail.statusText,
+            type: 'error',
+          })
         }
       }
-    ]
+    )
   }
 
   getFligReservations() {
@@ -236,24 +223,5 @@ export class DetailTravelComponent implements OnInit {
   }
 
   addComment() {
-    console.log(this.commentForm.value)
-    /*this.apiService.postUrl('travels/{travelId}/locations', this.selectedCities, [String(this.travel.id)]).then(
-      (resp) => {
-        this.closeModal();
-        Swal.fire({
-          title: '!Éxito¡',
-          text: 'Las ciudades se añadieron satisfactoriamente.',
-          type: 'success'
-        });
-        this.spread.emit();
-      },
-      (fail) => {
-        Swal.fire({
-          title: 'Error: ' + fail.status,
-          text: fail.name + '. ' + fail.statusText,
-          type: 'error',
-        })
-      }
-    );*/
   }
 }

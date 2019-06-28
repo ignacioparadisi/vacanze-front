@@ -175,10 +175,8 @@ public registrationForm: FormGroup = new FormGroup({
         //SI NO MOSTRAR MENSAJE DE ERROR
             //this.hotelNotCreatedSuccessfully();
         //TODO -> VALIDAR LA RESPUESTA
-        console.log(response);
       }).catch(
         error => {
-          console.log("Hay un error");
           this.errorOcurred();
         }
       );
@@ -192,7 +190,6 @@ public registrationForm: FormGroup = new FormGroup({
        showConfirmButton: true
      }
      Swal.fire(config).then( result =>{
-       //console.log(result);
      });
    }
 
@@ -204,13 +201,11 @@ public registrationForm: FormGroup = new FormGroup({
        timer: 1500
      }
      Swal.fire(config).then( result =>{
-       //console.log(result);
        this.goToViewRestaurants();
      });
    }
 
    public selectCountry(event) {
-    console.log(event.target.value);
     this.getCity(event.target.value);
   }
 

@@ -18,7 +18,7 @@ export class AddCityComponent {
   private travelId: string = this.activatedRoute.snapshot.paramMap.get("travelId");
   countries: Array<object>
   cities: Array<any>
-  travelCities: Array<any>
+  travelCities: Array<any> = [];
   selectedCities: Array<any> = [];
   hasSelectedCities: boolean = false
 
@@ -121,8 +121,6 @@ export class AddCityComponent {
         this.spread.emit();
       },
       (fail) => {
-        console.log(this.selectedCities)
-        console.log(fail)
         Swal.fire({
           title: 'Error: ' + fail.status,
           text: fail.name + '. ' + fail.statusText,

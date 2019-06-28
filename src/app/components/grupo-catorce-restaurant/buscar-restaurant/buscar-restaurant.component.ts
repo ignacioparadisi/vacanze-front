@@ -5,6 +5,7 @@ import { reservationHour } from '../../../classes/reservation-hours' //class
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/local-storage.service';
+import { environment as url } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-buscar-restaurant',
@@ -18,15 +19,21 @@ export class BuscarRestaurantComponent implements OnInit {
   public horaReserva: reservationHour[] = []
   public subM: boolean = false
   public formGroup: FormGroup
-  private isDataLoaded: boolean = false
+  public isDataLoaded: boolean = false
   private userId:number
+  public countries: any[];
+  public cities: any[];
 
-  constructor(private api: ApiService, private router: Router,private localStorage: LocalStorageService) { }
+  constructor(private api: ApiService, private router: Router,private localStorage: LocalStorageService) {
+    this.countries = [];
+    this.getCountry();
+   }
 
   ngOnInit() {
     this.peopleDinner()
     this.hourDinner()
     this.getLocalStorage()
+
     var date = this.actualDate()
     this.formGroup = new FormGroup({
       cantidadPersonas: new FormControl(-1, [
@@ -38,7 +45,10 @@ export class BuscarRestaurantComponent implements OnInit {
       horaReserva: new FormControl(-1, [
         Validators.required
       ]),
-      ciudad: new FormControl(null, [
+      pais: new FormControl(-1, [
+        Validators.required
+      ]),
+      ciudad: new FormControl(-1, [
         Validators.required
       ])
     })
@@ -46,8 +56,9 @@ export class BuscarRestaurantComponent implements OnInit {
   }
 
   public onSubmit() {
-    if(this.formGroup.get('horaReserva').value != -1 && this.formGroup.get('ciudad').valid
-      && this.formGroup.get('cantidadPersonas').value != -1 && this.formGroup.get('fechaReserva').valid){
+    if(this.formGroup.get('horaReserva').value != -1 && this.formGroup.get('ciudad').value != -1 && 
+      this.formGroup.get('pais').value != -1 && this.formGroup.get('cantidadPersonas').value != -1 && 
+      this.formGroup.get('fechaReserva').valid){
       
       var datosReserva ={
         userID:this.userId,
@@ -55,28 +66,25 @@ export class BuscarRestaurantComponent implements OnInit {
         cantPeople: this.formGroup.get('cantidadPersonas').value,
         ciudad:this.formGroup.get('ciudad').value
       }
-      console.log(this.userId)
       this.localStorage.setItem('formReserva', datosReserva).subscribe(datosReserva =>{
         
-        console.log('Datos de la reserva',datosReserva)
         this.router.navigate(['restaurant-reservation/list-restaurant']);
       })
       
     }
     else{
       this.subM =true
-      console.log('error')
     }
   }
  
   private peopleDinner(): reservationRestaurant[]{
     this.cantidadPersonas = [
-      new reservationRestaurant(1, '1 people'),
-      new reservationRestaurant(2, '2 people'),
-      new reservationRestaurant(3, '3 people'),
-      new reservationRestaurant(4, '4 people'),
-      new reservationRestaurant(5, '5 people'),
-      new reservationRestaurant(6, '6 people')
+      new reservationRestaurant(1, '1 persona'),
+      new reservationRestaurant(2, '2 personas'),
+      new reservationRestaurant(3, '3 personas'),
+      new reservationRestaurant(4, '4 personas'),
+      new reservationRestaurant(5, '5 personas'),
+      new reservationRestaurant(6, '6 personas')
     ]
     return this.cantidadPersonas
   }
@@ -128,4 +136,24 @@ export class BuscarRestaurantComponent implements OnInit {
       }
     })
   }  
+
+  public getCity(id: number) {
+    this.api
+        .getUrl(url.endpoint.default._get.getCity, [id.toString()])
+        .then(response => {
+            this.cities = response;
+    }, error => console.error(error));
+  }
+
+  public getCountry() {
+    this.api
+        .getUrl(url.endpoint.default._get.getCountry)
+        .then(response => {
+            this.countries = response;
+    }, error => console.error(error));
+  }
+
+  public selectCountry(event) {
+    this.getCity(event.target.value);
+  }
 }

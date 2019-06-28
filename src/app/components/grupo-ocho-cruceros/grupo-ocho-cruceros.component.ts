@@ -146,7 +146,7 @@ export class GrupoOchoCrucerosComponent implements OnInit {
             this.alertStatus(200, true, data);  
           })
           .catch(error => {
-            
+            this.alertStatus(500, true, error);
           })
       }
     }
@@ -168,7 +168,7 @@ export class GrupoOchoCrucerosComponent implements OnInit {
             this.alertStatus(200, false, data);
           })  
           .catch(error => {
-            console.log("error", error);
+            this.alertStatus(500, true, error);
           })  
       }
     }
@@ -183,7 +183,7 @@ export class GrupoOchoCrucerosComponent implements OnInit {
         this.setCruisers(response);
       })
       .catch(error => {
-
+        this.alertStatus(500, true, error);
       })
   }
 
@@ -228,7 +228,6 @@ export class GrupoOchoCrucerosComponent implements OnInit {
       })
       .catch(er => {
         if(er['error'] === "No se encontraron rutas para este crucero"){
-          console.log("errr", er);
         }
       })
   }

@@ -3,7 +3,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../services/api.service';
-
+import { environment as url } from '../../../environments/environment';
 //** Import de components **//
 import { LocalStorageService } from '../../services/local-storage.service';
 
@@ -27,7 +27,10 @@ export class TableResponsiveReservasComponent implements OnChanges {
   public isDataLoaded: boolean = false //Variable para saber si se cargaron los datos del LocalStorage
   public formData //Variable a la cual le asigno los datos que me traje del formulario
 
-  constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) { // Agregando tooltip en boton de agregar
+  constructor(private api: ApiService,
+    private router: Router, 
+    private modalService: NgbModal, 
+    private localStorage: LocalStorageService) { 
   }
  
   ngOnChanges(){
@@ -55,28 +58,34 @@ export class TableResponsiveReservasComponent implements OnChanges {
   /************************************************************************
   * Metodo para lanzar la alerta de confirmacion , de eliminacion o estatus*
   **************************************************************************/
-  public openModalActions(event, data: Object, type: string, resgister? : boolean){
-    event.preventDefault();
-    let config: SweetAlertOptions = {
-      title: '¿' + (resgister ? 'Desea '+ type +' una mesa del restaurant ':'Desea cambiar el status del ') + data + '?',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Confirmar',
-        showCancelButton: true,
-        type: 'question',
-        focusCancel: true
-    }
-    Swal.fire(config).then(result => {
-      this.messageAlert(data);
-    })
+ public openModalActions(event, data: Object, type: string, deleted? : boolean){
+  event.preventDefault();
+  let config: SweetAlertOptions = {
+    title: '¿' + (deleted ? 'Desea eliminar la reserva del restaurante ':'Desea cambiar el status del ') + data['restaurantName'] + '?',
+    confirmButtonText: 'Confirmar',
+    cancelButtonText: 'Cancelar',
+    showCancelButton: true,
+    type: 'question',
+    focusCancel: true
   }
+  Swal.fire(config).then(result => {
+    data['delete'] = deleted;
+    if(result && ('value' in result)){
+      data['confirmed'] = true;
+    }
+    else {
+      data['confirmed'] = false;
+    }
+    this.messageAlert(data);
+  })
+}
 
   /************************************************************
   * Metodo para redireccionar a la vista de añadir listar el 
   * restaurant que quiere reservar *
   *************************************************************/
   public goToDetailView(reserva: Object){
-    //console.log('Datos del restaurant',reserva)
-    //console.log('estoy en el detail view')
+    
     this.localStorage.getItem('formReserva').subscribe(storedRes =>{
       if(storedRes){
         this.isDataLoaded = true
@@ -85,7 +94,6 @@ export class TableResponsiveReservasComponent implements OnChanges {
     })
     
     if(this.isDataLoaded === true){
-
       var datos ={
         reservation: reserva,
         userDatos: this.formData

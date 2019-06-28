@@ -60,10 +60,8 @@ export class NewGrupoTres implements OnInit {
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.airplanes = response;
-                console.log(response);
             },
             error => {
-                console.log(error);
             }
         );
     }
@@ -73,9 +71,7 @@ export class NewGrupoTres implements OnInit {
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.countries = response;
-                console.log(response);
             }, error => {
-                console.log(error);
             }
         );
     }
@@ -85,9 +81,7 @@ export class NewGrupoTres implements OnInit {
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.citiesDeparture = response;
-                console.log(response);
             }, error => {
-                console.log(error);
             }
         );
     }
@@ -97,9 +91,7 @@ export class NewGrupoTres implements OnInit {
         this.apiService.getUrl(requestURL).then(
             response => {
                 this.citiesArrival = response;
-                console.log(response);
             }, error => {
-                console.log(error);
             }
         );
     }
@@ -118,7 +110,6 @@ export class NewGrupoTres implements OnInit {
 
     submit() {
         this.markAllAsTouched();
-        console.log(this.form.value);
         const payload = this.form.value;
         let fechas = this.compararFechas(new Date(payload.departure), new Date(payload.arrival));
         let ciudades = this.compararCiudades(parseInt(payload.locDeparture, 10),parseInt(payload.locArrival, 10) );
@@ -144,16 +135,14 @@ export class NewGrupoTres implements OnInit {
                         setTimeout(()=>{
                             this.messageSuccess = false;
                        }, 3000);
-                        console.log(response);
                     }, error => {
-                        this.mensaje = error;
+                        this.mensaje = error.error.message;
                         this.errores = true;
                         this.messageDanger = true;
                         setTimeout(()=>{
                             this.errores = false;
                             this.messageDanger = false;
                        }, 5000);
-                        console.log(error);
                     }
                 );
             }

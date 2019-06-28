@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { NgForm, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterOutlet } from '@angular/router';
@@ -46,12 +46,24 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private landing: GrupoUnoComponent,
     private modalService: NgbModal,
-    private sideBar: SidebarComponent) {
+    private sideBar: SidebarComponent,
+    private local: LocalStorageService,
+    private cdRef: ChangeDetectorRef) {
 
+  }
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
   }
 
   ngOnInit() {
 
+
+    //localStorage.setItem('flag', '1');
+    this.storage.setItem('flag', '1').subscribe(flag => {
+    });
+    this.local.removeItem('id');
+    this.local.removeItem('Email');
+    this.local.removeItem('rol');
   }
   onSubmit(form: NgForm) {
     this.isPushed = false;
@@ -61,39 +73,41 @@ export class LoginComponent implements OnInit {
       (res: any) => {
 
         this.storage.setItem('id', res.id).subscribe(id => {
-          console.log('Id del usuario por bdd', id)
         });
         this.storage.setItem('rol', res.roles).subscribe(roles => {
-          console.log('Roles del usuario', roles)
         });
 
         this.storage.setItem('Email', res.email).subscribe(email => {
-          console.log('Emai del usuario', email)
         });
-        if (res.roles[0].id == 1) {
-          this.StatusLogin = false;
-          this.father.StatusHeader = true;
-          this.isPushed = true;
-          this.isShow = false;
-          this.isShowLogin = true;
-          this.router.navigateByUrl('/landing');
-        } else if (res.roles[0].id != 1) {
-          /* for (var i = 0; i < res.roles.length; i++) {
-             if (res.roles[i].name == 3) {
-               this.sideBar.isLanding = false;
-             }
-           }*/
-          this.father.StatusHeader = true;
-          this.father.StatusSideBar = true;
-          this.StatusLogin = false;
-          this.isPushed = true;
-          this.isShow = false;
-          this.isShowLogin = true;
-          this.router.navigateByUrl('/landing');
+        if (res.roles.length != 0) {
+          if (res.roles[0].id == 1) {
+
+
+            this.StatusLogin = false;
+            this.father.StatusHeader = true;
+            this.isPushed = true;
+            this.isShow = false;
+            this.isShowLogin = true;
+            this.router.navigateByUrl('/landing');
+          }
+          else if (res.roles[0].id != 1) {
+
+            this.father.StatusHeader = true;
+            this.father.StatusSideBar = true;
+            this.StatusLogin = false;
+            this.isPushed = true;
+            this.isShow = false;
+            this.isShowLogin = true;
+            this.router.navigateByUrl('/landing');
+          }
         }
       }, error => {
-        if (error.status == 400 || error.status != 200)
-          alert("Ha ocurrido un error")
+        if (error.status == 0) {
+          alert("problemas por parte del cliente o servidor")
+        } else if (error.status == 400 || error.status != 200) {
+          alert("contraseña y/o correo incorrecto")
+        }
+
         this.isPushed = true;
         this.isShow = false;
         this.isShowLogin = true;
@@ -106,7 +120,6 @@ export class LoginComponent implements OnInit {
     this.service.postUrl('Email/Email', recoveryForm.value).then(
       (res: any) => {
         this.storage.setItem('Email', res.email).subscribe(email => {
-          console.log('Email del usuario', email)
         });
         if (res.email) {
           this.StatusLogin = false;
@@ -118,11 +131,12 @@ export class LoginComponent implements OnInit {
         }
       },
       error => {
-        if (error.status == 400 || error.status != 200) {
-          alert("Ups....There is a trouble")
-          this.isShowPmodal = false;
+        if (error.status == 0) {
+          alert("problemas por parte del cliente o servidor")
+        } else if (error.status == 400 || error.status != 200) {
+          alert("Este correo no se encuentra en nuestra Base De Datos")
         } else if (error.status == 200)
-          alert("New password have sent to your email")
+          alert("Se le ha enviado su nueva contraseña al correo")
         this.isShowPmodal = false;
       }
     );
