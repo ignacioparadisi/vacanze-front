@@ -1,0 +1,109 @@
+<div class="container-fluid">
+  <div class="jumbotron">
+    <h3 class="text-center title">Seleccionar Vuelo</h3>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <br>
+      </div>
+    </div>
+
+ <!-- ORIGEN Y DESTINO ROW -->
+    <div class="row">
+        <div class="col-sm-1"> </div>
+      <div class="col-sm-4">
+        <p>Origen <i class="fa fa-fw fa-plane"></i>
+
+        </p>
+        <div>
+          <input class="form-control" 
+          input-autocomplete 
+          [config]="config2" 
+          [items]="items2"
+          (inputChangedEvent)="onInputChangedEvent($event)" 
+          (selectEvent)="onSelect($event)">
+        </div>
+      </div>
+      <div class="col-sm-2"> </div>
+      <div class="col-sm-4">
+        <p>Destino <i class="fa fa-fw fa-plane"></i>
+
+        </p>
+        <div>
+          <input 
+          class="form-control" 
+          input-autocomplete [config]="config2" 
+          [items]="items2"
+          (inputChangedEvent)="onInputChangedEvent($event)"
+          (selectEvent)="onSelect($event)">
+        </div>
+      </div>
+      <div class="col-sm-1"> </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+          <br>
+        </div>
+      </div>
+
+     <!-- IDA Y VUELTA  ROW -->
+     <div class="row">
+      <div class="col-sm-4">
+       <p class="text-center">
+        Ida <i class="fa fa-fw fa-calendar"></i>
+       </p>      
+        <div class="form-group">
+            <div class='input-group date'>
+                <input type='date' class="form-control" />   
+            </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+          <p class="text-center">
+           Vuelta <i class="fa fa-fw fa-calendar"></i>
+          </p>      
+           <div class="form-group">
+               <div class='input-group date'>
+                   <input type='date' class="form-control" />   
+               </div>
+           </div>
+         </div>
+
+      <div class="col-sm-4">
+          <p class="text-center">
+            Pasajeros <i class="fa fa-fw fa-user"></i>
+          </p>
+          <div>
+              <input class="form-control" type="number">
+          </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+          <br>
+        </div>
+      </div>
+    
+ <!-- BUSCAR  ROW -->
+    <div class="row">
+        <div class="col-sm-5">
+        </div>
+
+        <div class="col-sm-2">
+            <a class="btn btn-lg btn-success text-center btnsearch">
+                <i class="fa fa-fw fa-search"></i>
+              Buscar
+            </a>
+        </div>
+        <div class="col-sm-5">
+           
+        </div>
+
+    </div>
+
+  </div>
+</div>
