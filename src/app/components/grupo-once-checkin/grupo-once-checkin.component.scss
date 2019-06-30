@@ -1,0 +1,39 @@
+.jumbotron {
+    padding-top: 10px; 
+    background-image: url("https://images.unsplash.com/photo-1468530986413-2c93495ed020?ixlib=rb-1.2.1&auto=format&fit=crop&w=749&q=80");
+    background-size: cover;
+    padding-bottom: 10px; 
+}
+.title {
+   color:  hsla(248, 26%, 11%, 0.904); 
+}
+.btnsearch {
+    background-color:  hsla(240, 4%, 78%, 0.904); 
+    border: none;
+    color: white;
+    cursor: pointer;
+ }
+ .btnbuy {
+    background-color:  hsla(4, 85%, 62%, 0.904); 
+    border: none;
+    color: white;
+    cursor: pointer;
+ }
+ .clickable tr {
+    cursor: pointer;
+}
+.mybutton {
+   background-color: #4CAF50;
+   border: none;
+   color: white;
+   padding: 5px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+ }
+ .button5 {border-radius: 50%;}
+
+ .table { background-color: #dfe1e9ec !important; }
+ .enc { background-color: #0e2b8593 !important; }

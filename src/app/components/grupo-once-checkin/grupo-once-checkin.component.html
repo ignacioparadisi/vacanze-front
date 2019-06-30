@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <div class="jumbotron">
+ <!-- CHECK -IN -->
+ <div class="row">    
+    <!--  margin -->
+    <div class="col-md-12">
+      <br>
+      <br>
+      <h3>CHECK-IN</h3>
+      <br>
+    </div>     
+  </div>
+
+    <div class="row"> 
+     
+      <!-- TICKET NUMBER -->
+      <div class="col-md-6">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-ticket" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" placeholder="Ticket number" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+
+      </div>
+      
+      <!-- Departure -->
+      <div class="col-md-6">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  Departure 
+                  <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="date" class="form-control" placeholder="Ticket number" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+      </div>
+      
+    </div>
+
+    <!-- Equipaje -->
+    <div class="row">    
+        <!--  margin -->
+        <div class="col-md-12">
+          <br>
+          <br>
+          <h3>Equipaje</h3>
+          <br>
+        </div>     
+      </div>
+
+  <!-- ADDING TO LIST -->
+  <div class="row"> 
+     
+      <!-- TICKET NUMBER -->
+      <div class="col-md-3">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-ticket" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="text" (focusout) = "getValuereference($event)"  [value]= "bagdet.reference" class="form-control" placeholder="Reference" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+      </div>
+      <div class="col-md-3">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-suitcase" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="text" (focusout) = "getValueweigth($event)" [value]= "bagdet.weigth" class="form-control" placeholder="Weigth" aria-label="Username" aria-describedby="basic-addon1">
+            </div>   
+      </div>
+      <div class="col-md-3">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-ticket" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="text" (focusout) = "getValuedescrip($event)" [value]= "bagdet.descrip" class="form-control" placeholder="Descrip" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+      </div>
+      <div class="col-md-3">
+          <button type="button"  (click)="addFieldValue(bagdet)" class="btn btn-success">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+      </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="row">
+    <div class="col-md-12"> 
+        <table class="table table-bordered">
+            <thead class="enc">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Reference</th>
+                <th scope="col">Weigth</th>
+                <th scope="col">Descrip</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor=" let bag of bagList; let reg = index">
+              <td class="text-center" >{{reg+1}}</td>
+              <td class="text-center">{{bag.reference}}</td>
+              <td class="text-center">{{bag.weigth}}</td>
+              <td class="text-center">{{bag.descrip}}</td>
+              <td class="text-center">
+              <button type="button"  (click)="deleteFieldValue(reg)" class="btn btn-danger">
+                      <i class="fa fa-remove" aria-hidden="true"></i>
+             </button>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+   </div>
+  </div>
+</div>
+</div>

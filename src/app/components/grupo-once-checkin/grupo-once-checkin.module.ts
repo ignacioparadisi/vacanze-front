@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { GrupoOnceVentaVuelosRoutingModule } from './grupo-once-venta-vuelos-routing.module';
-import { GrupoOnceVentaVuelosComponent } from './grupo-once-venta-vuelos.component';
+import { GrupoOnceCheckinRoutingModule } from './grupo-once-checkin-routing.module';
+import { GrupoOnceCheckinComponent } from './grupo-once-checkin.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AutocompleteModule } from 'ng2-input-autocomplete';
 @NgModule({
   declarations: [
-    GrupoOnceVentaVuelosComponent
+    GrupoOnceCheckinComponent
   ],
   imports: [
     CommonModule,
     AutocompleteModule.forRoot(),
-    GrupoOnceVentaVuelosRoutingModule,
+    GrupoOnceCheckinRoutingModule,
     HttpClientModule,
     SweetAlert2Module.forRoot()
   ],
   providers: []
 })
-export class GrupoOnceVentaVuelosModule {}
+export class GrupoOnceCheckinModule {}
