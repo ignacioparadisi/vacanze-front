@@ -36,21 +36,21 @@ export class GrupoNueveComponent implements OnInit {
   public idPut : any;
   public titlePut : any;
   public descrPut : any;
-public role :any;
+  public role :any;
+
+
   constructor(private modalService: NgbModal, private storage: LocalStorageService,
      private service: ApiService)
   {}
 
+
   ngOnInit() {
-
-    this.getClaim()
     this.getRole()
-
     this.formGroup = new FormGroup({
       serial: new FormControl(null, [Validators.required]),
       titulo: new FormControl(null, [Validators.required]),
       descripcion: new FormControl(null, [Validators.required])
-    })    
+    })
 
     this.formSearch = new FormGroup({
       id: new FormControl(null, [Validators.required])
@@ -81,73 +81,104 @@ public role :any;
     });
   }
 
-  getClaim(){
-    this.service.getUrl(url.endpoint.default._get.getClaim,['0'])
-    .then(data =>{this.claims=data; })
-    .catch(data =>{});
-  }
-
   getAdminClaimStatusAbierto(){
     this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['ABIERTO'])
-    .then(data => {this.claimsAbiertos = data;                                                                                             
+    .then(data => {this.claimsAbiertos = data;
       })
     .catch(data =>{});
   }
 
   getAdminClaimStatusCerrado(){
     this.service.getUrl(url.endpoint.default._get.getClaimAdminStatus,['CERRADO'])
-    .then(data => {this.claimsCerrados = data;                                                                                             
+    .then(data => {this.claimsCerrados = data;
       })
     .catch(data =>{});
   }
 
-  getClientBaggageSerial(id : string){    
+  getClientBaggageSerial(id : string){
     this.service.getUrl(url.endpoint.default._get.getBaggageClientSerial, [id])
-    .then(data => {this.baggages = data; })
+    .then(data => {
+      this.baggages.length = 0;
+      this.baggages.push(data);
+    })
   }
 
-  getClientBaggageDocument(id : string){    
+  getClientBaggageDocument(id : string){
     this.service.getUrl(url.endpoint.default._get.getBaggageClientDocument, [id])
-    .then(data => {this.baggages = data; })
+    .then(data => {
+      this.baggages.length = 0;
+      this.baggages = data;
+    })
+  }
+
+  getClientClaimsByDocument(){
+    this.service.getUrl(url.endpoint.default._get.getClaimsByDocument, [
+      this.formSearch.get('id').value
+    ])
+    .then(data => {
+      this.claims.length = 0;
+      this.claims = data;
+    })
   }
 
   getAdminBaggageStatusExtraviado(){
     this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['EXTRAVIADO'])
-    .then(data => {this.BaggageExtraviados = data;                                                                                             
+    .then(data => {this.BaggageExtraviados = data;
       })
     .catch(data =>{});
   }
 
   getAdminBaggageStatusEntregado(){
     this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['RECLAMADO'])
-    .then(data => {this.BaggageEntregados = data;                                                                                             
+    .then(data => {this.BaggageEntregados = data;
       })
     .catch(data =>{});
   }
 
   getAdminBaggageStatusEncontrado(){
     this.service.getUrl(url.endpoint.default._get.getBaggageAdminStatus,['ENCONTRADO'])
-    .then(data => {this.BaggageEncontrados = data;                                                                                             
+    .then(data => {this.BaggageEncontrados = data;
       })
     .catch(data =>{});
   }
-  
-  postClaim(){  
+
+
+  postClaim(){
     this.service
     .postUrl(url.endpoint.default._post.postClaim
-             ,{title: this.formGroup.get('titulo').value,
-               description: this.formGroup.get('descripcion').value}
-             ,[this.formGroup.get('serial').value])
+             ,{
+               title: this.formGroup.get('titulo').value,
+               description: this.formGroup.get('descripcion').value,
+               baggageId: this.formGroup.get('serial').value
+             })
     .then(response => {
-                       this.claimCreatedSuccessfully(); 
-                       this.getClaim()})
-    .catch(data =>{ 
+                       this.claimCreatedSuccessfully();
+                       this.resetFormAfterClaimUser();
+                     /*this.getClaim()*/
+          })
+    .catch(data =>{
                    this.claimCreatedFailed(data.error)});
   }
 
+
+  resetFormAfterClaimUser(){
+    this.formGroup = new FormGroup({
+      serial: new FormControl(null, [Validators.required]),
+      titulo: new FormControl(null, [Validators.required]),
+      descripcion: new FormControl(null, [Validators.required])
+    })
+    var serialBaggageInput = <HTMLInputElement> document.getElementById("serialBaggageInput");
+    var titleClaimInput = <HTMLInputElement> document.getElementById("titleClaimInput");
+    var descriptionClaimInput = <HTMLInputElement> document.getElementById("descriptionClaimInput");
+    serialBaggageInput.value="";
+    titleClaimInput.value="";
+    descriptionClaimInput.value="";
+  }
+
+
   private claimCreatedSuccessfully() {
     let config: SweetAlertOptions = {
-      title: 'Claim has been created successfully',
+      title: 'El reclamo se ha registrado de manera exitosa',
       type: 'success',
       showConfirmButton: true,
       timer: 2500
@@ -157,7 +188,7 @@ public role :any;
 
   private claimCreatedFailed(error : string) {
     let config: SweetAlertOptions = {
-      title: error,
+      title: 'Se ha producido un error inesperado',
       type: 'error',
       showConfirmButton: true
     }
@@ -167,7 +198,7 @@ public role :any;
   deleteClaim(id : any){
     this.service.deleteUrl(url.endpoint.default._delete.deleteClaim, [id])
     .then(response => {
-                       this.getClaim();
+                       /*this.getClaim();*/
                        this.claimDeleteSuccessfully()})
     .catch(data =>{});
   }
@@ -193,11 +224,11 @@ public role :any;
     else
     if(this.titlePut != null || this.descrPut != null){
       this.putClaimTD(id);
-    }else 
+    }else
     if(this.getCk_cambiar()){
       this.putClaimStatus(id);
     }
-  } 
+  }
 
   getCk_cambiar(){
     var ck_cambiar =<HTMLInputElement> document.getElementById("check_cambiar");
@@ -214,7 +245,7 @@ public role :any;
                         {title: this.titlePut,
                          description: this.descrPut},[id])
                          .then(
-                         response => { 
+                         response => {
                          this.putClaimStatus(id)})
                          .catch(data =>{});
   }
@@ -225,17 +256,17 @@ public role :any;
                          description: this.descrPut},[id])
                         .then(
                         response => {
-                        this.getClaim();
+                        /*this.getClaim();*/
                         this.claimUpdateSuccessfully()})
-                        .catch(data =>{ 
+                        .catch(data =>{
                                        this.claimUpdateFailed(data.error)});
   }
 
   putClaimStatus(id: any){
     this.service.putUrl(url.endpoint.default._put.putClaimStatus,{status: 'CERRADO'},[id])
     .then(
-      response => { 
-                   this.getClaim();
+      response => {
+                   /*this.getClaim();*/
                    this.claimUpdateSuccessfully()})
     .catch(data =>{});
   }
@@ -263,17 +294,21 @@ public role :any;
     var pagina = document.getElementById('paginaAcceso');
     pagina.style.display = "block";
   }
-  
+
   pantallaAdmin(){
     var pagina;
     pagina = document.getElementById('paginaAdmin');
-    pagina.style.display = "block";
+    if(pagina!=null){
+      pagina.style.display = "block";
+    }
   }
 
   pantallaCliente(){
     var pagina;
     pagina = document.getElementById('paginaCliente');
+    if(pagina!=null){
     pagina.style.display = "block";
+  }
   }
 
   private getDismissReason(reason: any): string {
@@ -287,7 +322,8 @@ public role :any;
   }
 
   checkeadoDocumento(event: any){
-
+    var input_serial = <HTMLInputElement> document.getElementById("searchBaggageBySerial");
+    input_serial.value="";
     var ck_documento =<HTMLInputElement> document.getElementById("check_documento");
     var ck_serial =<HTMLInputElement> document.getElementById("check_serial");
 
@@ -295,10 +331,10 @@ public role :any;
     var isCheckedSerial = ck_serial.checked;
     var primeraopcion= document.getElementById("documento");
     var segundaopcion= document.getElementById("serial");
-    
+
     if (isCheckedDocumento) {
        primeraopcion.style.display = 'flex';
-      
+
        if(isCheckedSerial){
         segundaopcion.style.display = 'none';
         ck_serial.click()
@@ -310,18 +346,18 @@ public role :any;
   }
 
   checkeadoSerial(event: any){
-
+    var input_documento = <HTMLInputElement> document.getElementById("searchBaggageByDocument");
+    input_documento.value="";
     var ck_documento =<HTMLInputElement> document.getElementById("check_documento");
     var ck_serial =<HTMLInputElement> document.getElementById("check_serial");
-
     var isCheckedDocumento = ck_documento.checked;
     var isCheckedSerial = ck_serial.checked;
     var primeraopcion= document.getElementById("documento");
     var segundaopcion= document.getElementById("serial");
-    
+
     if (isCheckedSerial) {
       segundaopcion.style.display = 'flex';
-      
+
        if(isCheckedDocumento){
         primeraopcion.style.display = 'none';
         ck_documento.click()
@@ -333,11 +369,9 @@ public role :any;
   }
 
   checkeadoEncontrado(event: any){
-
     var ck_extraviado =<HTMLInputElement> document.getElementById("check_extraviado");
     var ck_entregado =<HTMLInputElement> document.getElementById("check_entregado");
     var ck_encontrado =<HTMLInputElement> document.getElementById("check_encontrado");
-
     var isCheckedExtrav = ck_extraviado.checked;
     var isCheckedEntrega = ck_entregado.checked;
     var isCheckedEncont = ck_encontrado.checked;
@@ -364,7 +398,7 @@ public role :any;
     var isCheckedExtrav = ck_extraviado.checked;
     var isCheckedEntrega = ck_entregado.checked;
     var isCheckedEncont = ck_encontrado.checked;
-    
+
     if (isCheckedExtrav) {
        if(isCheckedEntrega && isCheckedEncont){
         ck_entregado.click()
@@ -406,7 +440,7 @@ public role :any;
     var pagina = document.getElementById('equipajeLista');
     var ck_documento =<HTMLInputElement> document.getElementById("check_documento");
     var ck_serial =<HTMLInputElement> document.getElementById("check_serial");
-    
+
     var isCheckedDocumento = ck_documento.checked;
     var isCheckedSerial = ck_serial.checked;
 
