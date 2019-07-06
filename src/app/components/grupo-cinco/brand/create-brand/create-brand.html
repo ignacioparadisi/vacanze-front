@@ -1,30 +1,29 @@
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Crear una nueva marca</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="brandForm">
-            <div class="row">
-                <div class="form-group col">
-                    <input type="text" class="form-control" placeholder="Nombre" formControlName="brandName" maxlength="40">
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" [disabled]="!brandForm.valid" class="btn btn-success"
-            (click)="createBrand()">Crear</button>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Crear una nueva marca</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="brandForm">
+      <div class="row">
+        <div class="form-group col">
+          <input type="text" class="form-control" placeholder="Nombre" formControlName="brandName" maxlength="40">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" [disabled]="!brandForm.valid" class="btn btn-success" (click)="createBrand()">Crear</button>
+  </div>
 </ng-template>
 
 <div class="d-flex justify-content-end align-items-end w-100" style="height: 295px;">
-    <div class="kreep">
-        <button (click)="open(content)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip"
-            data-placement="top" title="Crear un viaje">
-            <i class="fa fa-plus"></i>
-        </button>
-    </div>
+  <div class="kreep">
+    <button (click)="open(content)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip"
+      data-placement="top" title="Crear un viaje">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
 </div>

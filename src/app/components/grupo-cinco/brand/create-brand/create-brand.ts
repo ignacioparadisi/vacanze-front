@@ -20,13 +20,12 @@ export class CreateBrandComponent {
 
 
     constructor(private modalService: NgbModal, private apiService: ApiService) {
-
-        this.brandForm = new FormGroup({
-            brandName: new FormControl('', Validators.required)
-        });
     }
 
     open(content) {
+        this.brandForm = new FormGroup({
+            brandName: new FormControl('', Validators.required)
+        });
         this.activeModal = this.modalService.open(content);
     }
 
@@ -46,7 +45,6 @@ export class CreateBrandComponent {
                 this.spread.emit();
             },
             (fail) => {
-                console.log(fail);
                 Swal.fire({
                     title: 'Codigo: ' + fail.status,
                     text: fail.error,
