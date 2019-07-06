@@ -1,36 +1,40 @@
 <div class="col-lg-12">
   <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa fa-dashboard"></i>
-        <span> Lista de modelos</span>
-      </div>
-<div class="card-body table-responsive">
-  <table class="table table-bordered table-hover">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col" class="text-center">Nombre</th>
-        <th scope="col" class="text-center">Capacidad</th>
-        <th scope="col" class="text-center">Opciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let model of models">
-        <td class="text-center">
-        	{{model.name}}
-    	</td>
-    	<td class="text-center">
-        	{{model.capacity}}
-    	</td>
-        <td class="text-center">
-          	<button class="btn btn-sm btn-outline-info" title="Editar modelo" (click)="open(content)">
-    		<i class=" fa fa-xs fa-edit"></i>
-    		</button>
-    		&nbsp;
-    		<button class="btn btn-sm btn-outline-info" title="Ver modelo" (click)="open(content)">
-    		<i class=" fa fa-xs fa-eye"></i>
-    		</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="card-header">
+      <i class="fa fa-dashboard"></i>
+      <span> Lista de modelos</span>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" class="text-center">Nombre</th>
+            <th scope="col" class="text-center">Capacidad</th>
+            <th scope="col" class="text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let model of models">
+            <td class="text-center">
+              {{model.modelName}}
+            </td>
+            <td class="text-center">
+              {{model.capacity}}
+            </td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-info" title="Editar modelo" (click)="open(content)">
+                <i class=" fa fa-xs fa-edit"></i>
+              </button>
+              &nbsp;
+              <button class="btn btn-sm btn-outline-info" title="Ver modelo" (click)="open(content)">
+                <i class=" fa fa-xs fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+
+<create-model (spread)="getModels()"></create-model>

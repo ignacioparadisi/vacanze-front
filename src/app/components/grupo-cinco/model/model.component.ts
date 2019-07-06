@@ -1,50 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ApiService } from '../../../services/api.service';
+import Swal from 'sweetalert2';
+import { Veh_Model } from '../../../classes/veh_model';
 
 @Component({
-  selector: 'app-model',
-  templateUrl: './model.component.html',
-  styleUrls: ['./model.component.scss']
+	selector: 'app-model',
+	templateUrl: './model.component.html',
+	styleUrls: ['./model.component.scss']
 })
 export class ModelComponent {
 
-  constructor() {
-  	this.getBrands();
-  }
+	models: Array<Veh_Model>;
 
-  models: Array<object>
+	constructor(private apiService: ApiService) { }
 
-  getBrands(){
-  	this.models = [
-  		{
-  			id: 1,
-  			name: 'Meru',
-  			capacity: 5,
-  			photo: '',
-  			brand: {
-  				id: 1,
-  				name: 'Toyota'
-  			}
-  		},
-  		{
-  			id: 2,
-  			name: 'Corolla',
-  			capacity: 4,
-  			photo: '',
-  			brand: {
-  				id: 1,
-  				name: 'Toyota'
-  			}
-  		},
-  		{
-  			id: 3,
-  			name: 'Civic',
-  			capacity: 4,
-  			photo: '',
-  			brand: {
-  				id: 1,
-  				name: 'Honda'
-  			}
-  		}
-  	]
-  }
+	ngOnInit() {
+		this.getModels();
+	}
+
+	getModels() {
+		this.apiService.getUrl('models').then(
+			(resp) => {
+				this.models = resp;
+			},
+			(fail) => {
+				if (fail.error) {
+					Swal.fire({
+						title: fail.error,
+						type: 'error',
+					})
+				} else {
+					Swal.fire({
+						title: 'Error: ' + fail.status,
+						text: fail.name + '. ' + fail.statusText,
+						type: 'error',
+					})
+				}
+			}
+		);
+	}
 }
