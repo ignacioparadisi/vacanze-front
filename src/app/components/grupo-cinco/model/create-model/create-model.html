@@ -13,7 +13,7 @@
             <option value="" hidden> Marca </option>
             <option *ngFor="let brand of brands" [value]="brand.id">
               <p>
-                {{brand.brandName}}
+                {{brand?.brandName}}
               </p>
             </option>
           </select>

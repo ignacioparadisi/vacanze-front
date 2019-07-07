@@ -61,7 +61,6 @@ export class CreateModelComponent {
     }
 
     createModel() {
-        console.log(this.modelForm.value);
         this.apiService.postUrl('models', this.modelForm.value).then(
             (resp) => {
                 this.closeModal();
@@ -73,7 +72,6 @@ export class CreateModelComponent {
                 this.spread.emit();
             },
             (fail) => {
-                console.log(fail);
                 Swal.fire({
                     title: 'Codigo: ' + fail.status,
                     text: fail.error,

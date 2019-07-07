@@ -16,15 +16,15 @@
         <tbody>
           <tr *ngFor="let model of models">
             <td class="text-center">
-              {{model.modelName}}
+              {{model?.modelName}}
             </td>
             <td class="text-center">
-              {{model.capacity}}
+              {{model?.capacity}}
             </td>
             <td class="text-center">
-              <button class="btn btn-sm btn-outline-info" title="Editar modelo" (click)="open(content)">
-                <i class=" fa fa-xs fa-edit"></i>
-              </button>
+              <modify-model [modelId]="model.id" [modelName]="model.modelName" [brandId]="model.brandId"
+                [capacity]="model.capacity" [picture]="model.picture" (spread)="getModels()">
+              </modify-model>
               &nbsp;
               <button class="btn btn-sm btn-outline-info" title="Ver modelo" (click)="open(content)">
                 <i class=" fa fa-xs fa-eye"></i>

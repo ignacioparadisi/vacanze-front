@@ -15,7 +15,7 @@
         <tbody>
           <tr *ngFor="let brand of brands">
             <td class="text-center">
-              {{brand.brandName}}
+              {{brand?.brandName}}
             </td>
             <td class="text-center">
               <modify-brand [brandId]="brand.id" [brandName]="brand.brandName" (spread)="getBrands()"></modify-brand>

@@ -36,7 +36,7 @@ export class ModifyBrandComponent {
         this.activeModal.close();
     }
 
-    createBrand() {
+    modifyBrand() {
         this.apiService.putUrl('brands', this.brandForm.value).then(
             (resp) => {
                 this.closeModal();

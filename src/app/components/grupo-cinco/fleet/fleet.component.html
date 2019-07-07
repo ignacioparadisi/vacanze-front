@@ -21,19 +21,19 @@
     <tbody>
       <tr *ngFor="let vehicle of vehicles">
         <td class="text-center" >
-        	{{vehicle.license}}
+        	{{vehicle?.license}}
         </td>
         <td class="text-center">
-          {{vehicle.model.capacity}}
+          {{vehicle?.model.capacity}}
         </td>
         <td class="text-center">
-        	{{vehicle.model.name}}
+        	{{vehicle?.model.name}}
         </td>
         <td class="text-center">
-        	{{vehicle.model.brand.name}}
+        	{{vehicle?.model.brand.name}}
         </td>
         <td class="text-center">
-        	{{vehicle.price}}
+        	{{vehicle?.price}}
         </td>
         <td class="text-center" *ngIf="vehicle.status; else elseBlock">
         	<span class="badge badge-success clickable" (click)="changeStatus(vehicle.id)">Diponible</span>
@@ -44,7 +44,7 @@
         	</td>
         </ng-template>
         <td class="text-center">
-        	{{vehicle.location.city}}
+        	{{vehicle?.location.city}}
         </td>
         <td class="text-center">
           	<button class="btn btn-sm btn-outline-info" title="Editar vehiculo" (click)="open(content)">
