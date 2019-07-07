@@ -43,23 +43,19 @@ export class TableResponsiveComponent implements OnChanges {
   }
 
   ngOnChanges(){
-    if(this.tableData!= null){
+    
+    if(this.tableData){
       if(this.tableData.length !== 0){
-        for (let i = 0; i <= Math.floor(this.tableData.length / 5); i++){
-          this.arregloPaginas[i] = i + 1;
-        }
+        this.arregloPaginas = [];
+        this.resizePagination();
         this.tableData.forEach(b => {
           b.status ? b['active'] = true : b['active'] = false;
         })
-        for (let i = 0; i < this.tableData.length; i++){
-          if (i <= 4){
-            this.filterDatabyPage.push(this.tableData[i]);
-          } else {
-            break;
-          }
-        }
+        this.addObjectsToTable();
+        this.changePage(1);
       }
     }
+
   }
 
   /**********************************************************************
@@ -230,6 +226,23 @@ export class TableResponsiveComponent implements OnChanges {
 
     public goToCruiserTable(){
       this.emitRouting.emit('/cruceros');
+    }
+
+    public resizePagination(){
+      // Se redonde hacia arriba (ceil) ya que el numero nuevo de pagina es menor al actual
+      for (let i = 0; i < Math.ceil(this.tableData.length / 5); i++){
+        this.arregloPaginas[i] = i + 1;
+      }
+    }
+
+    public addObjectsToTable(){
+      for (let i = 0; i < this.tableData.length; i++){
+        if (i <= 4){
+          this.filterDatabyPage.push(this.tableData[i]);
+        } else {
+          break;
+        }
+      }
     }
 
 }

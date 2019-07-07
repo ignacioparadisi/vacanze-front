@@ -190,13 +190,13 @@
   <div class="pagination-b">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-end">
-        <li [ngClass]="verifyButtons['previous'] ? 'page-item disabled': 'page-item' ">
+        <!-- <li [ngClass]="verifyButtons['previous'] ? 'page-item disabled': 'page-item' ">
           <span class="page-link" (click)="changePage(actualPage - 1)" tabindex="-1">Previous</span>
-        </li>
+        </li> -->
         <li *ngFor="let page of arregloPaginas" class="page-item"><a class="page-link" (click)="changePage(page)">{{page}}</a></li>
-        <li [ngClass]="verifyButtons['next'] ? 'page-item disabled': 'page-item' ">
+        <!-- <li [ngClass]="verifyButtons['next'] ? 'page-item disabled': 'page-item' ">
           <span class="page-link"  (click)="changePage(actualPage + 1)">Next</span>
-        </li>
+        </li> -->
       </ul>
     </nav>
   </div>
