@@ -85,8 +85,12 @@ const routes: Routes = [
         loadChildren: '../components/grupo-cinco/grupo-cinco.module#GrupoCincoModule'
       },
       {
-        path: 'grupo-cuatro',
-        loadChildren: '../components/grupo-cuatro/grupo-cuatro.module#GrupoCuatroModule'
+        path: 'venta-vuelo',
+        loadChildren: '../components/grupo-once-venta-vuelos/grupo-once-venta-vuelos.module#GrupoOnceVentaVuelosModule'
+      },
+      {
+        path: 'checkin',
+        loadChildren: '../components/grupo-once-checkin/grupo-once-checkin.module#GrupoOnceCheckinModule'
       }
     ]
   }
