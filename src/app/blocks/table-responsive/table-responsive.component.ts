@@ -7,6 +7,7 @@ import { Cruiser } from '../../interfaces/cruiser';
 import { ApiService } from '../../services/api.service';
 //** Import de components **//
 import { LocalStorageService } from '../../services/local-storage.service';
+import { last } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -20,23 +21,78 @@ export class TableResponsiveComponent implements OnChanges {
 
   /* @ViewChild('restauranteModal') restauranteModal: RegisterRestaurantComponent; */
   @Input() headerTitle: string; // Nombre de la tabla ej: Listado de registros
-  @Input() tableData: Array<Cruiser>; // Array con la data a mostrar en cada fila de la tabla
+  @Input() tableData: Array<any>; // Array con la data a mostrar en cada fila de la tabla
   @Input() tableHeaders: Array<String>; // Array con los nombres de cada columna en la tabla
   @Input() type: string;
-
+  public arregloPaginas: number[];
+  public filterDatabyPage: any[];
+  public actualPage: number;
+  public verifyButtons: Object;
+  
   @Output() public actionAlertEventEmitter = new EventEmitter();
   @Output() public emitRouting = new EventEmitter();
 
   constructor(private router: Router, private modalService: NgbModal, private localStorage: LocalStorageService) {
+    this.arregloPaginas = [];
+    this.filterDatabyPage = [];
+    this.actualPage = 1;
+    this.verifyButtons = {
+      previous: true,
+      next: false
+    }
   }
 
   ngOnChanges(){
     if(this.tableData!= null){
       if(this.tableData.length !== 0){
+        for (let i = 0; i <= Math.floor(this.tableData.length / 5); i++){
+          this.arregloPaginas[i] = i + 1;
+        }
         this.tableData.forEach(b => {
           b.status ? b['active'] = true : b['active'] = false;
         })
+        for (let i = 0; i < this.tableData.length; i++){
+          if (i <= 4){
+            this.filterDatabyPage.push(this.tableData[i]);
+          } else {
+            break;
+          }
+        }
       }
+    }
+  }
+
+  /**********************************************************************
+    * Metodo para cambiar de pagina                         *
+  ***********************************************************************/
+
+  public changePage(page){
+    let lastPage = Math.ceil(this.tableData.length / 5);
+    this.actualPage = page;
+    console.log(lastPage);
+
+    if (this.actualPage == lastPage){
+      this.verifyButtons['next'] = true;
+      this.verifyButtons['previous'] = false;
+    } else {
+      this.verifyButtons['next'] = false;
+    }
+
+    if (this.actualPage == 1){
+      this.verifyButtons['previous'] = true;
+      this.verifyButtons['next'] = false;
+    } else {
+      this.verifyButtons['previous'] = false;
+    }
+    
+    let inicio = (page * 5) - 5;
+    let fin = page * 5;
+    this.filterDatabyPage = [];
+    if (fin > this.tableData.length){
+      fin = this.tableData.length;
+    }
+    for (let i = inicio; i < fin; i++){
+        this.filterDatabyPage.push(this.tableData[i]);
     }
   }
 
