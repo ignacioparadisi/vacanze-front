@@ -1,100 +1,96 @@
 <!-- MODAL DE PAGO -->
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <div class="panel-heading">
-          <h3 class="panel-title">
-              Payment Details
-          </h3>
-      </div>
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        Payment Details
+      </h3>
+    </div>
   </div>
   <div class="modal-body">
-      <div class="panel panel-default">
+    <div class="panel panel-default">
 
-          <div class="panel-body">
-              <div class="form-group">
-                  <label for="mp1">Metodo de pago</label>
-                  <select class="custom-select" (change)="selectOption($event.target.value)" ng-model="selected">
-                      <option [value]="0">
-                          Seleccione..
-                      </option>
-                      <option *ngFor="let paymethod of payMethods" [value]="paymethod.id">
-                          {{paymethod.name}}
-                      </option>
-                  </select>
-              </div>
-              <div id="refere" class="input-group mb-3">
-                  <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Refere</span>
-                  </div>
-                  <input type="text" class="form-control" aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default">
-              </div>
-              <div id="bank" class="input-group mb-3">
-                  <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Banco</span>
-                  </div>
-                  <input type="text" class="form-control" aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default">
-              </div>
-              <div id="detbank" class="row">
-                  <div class="col-md-6">
-                      <div id="user" class="input-group mb-3">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
-                          </div>
-                          <input type="text" class="form-control" aria-label="Default"
-                              aria-describedby="inputGroup-sizing-default">
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div id="pass" class="input-group mb-3">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroup-sizing-default">Clave</span>
-                          </div>
-                          <input type="password" class="form-control" aria-label="Default"
-                              aria-describedby="inputGroup-sizing-default">
-                      </div>
-                  </div>
-              </div>
-              <div id="tarj" class="input-group mb-3">
-                  <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Tarjeta</span>
-                  </div>
-                  <input type="number" class="form-control" aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default">
-              </div>
-              <div id="dettarj" class="row">
-                  <div class="col-md-6">
-                      <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroup-sizing-default">MMYY</span>
-                          </div>
-                          <input type="number" class="form-control" aria-label="Default"
-                              aria-describedby="inputGroup-sizing-default">
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroup-sizing-default">CVV</span>
-                          </div>
-                          <input type="number" class="form-control" aria-label="Default"
-                              aria-describedby="inputGroup-sizing-default">
-                      </div>
-                  </div>
-              </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="mp1">Metodo de pago</label>
+          <select class="custom-select" (change)="selectOption($event.target.value)" ng-model="selected">
+            <option [value]="0">
+              Seleccione..
+            </option>
+            <option *ngFor="let paymethod of payMethods" [value]="paymethod.id">
+              {{paymethod.name}}
+            </option>
+          </select>
+        </div>
+        <div id="refere" class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Refere</span>
           </div>
+          <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div id="bank" class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Banco</span>
+          </div>
+          <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div id="detbank" class="row">
+          <div class="col-md-6">
+            <div id="user" class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div id="pass" class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Clave</span>
+              </div>
+              <input type="password" class="form-control" aria-label="Default"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+        </div>
+        <div id="tarj" class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Tarjeta</span>
+          </div>
+          <input type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div id="dettarj" class="row">
+          <div class="col-md-6">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">MMYY</span>
+              </div>
+              <input type="number" class="form-control" aria-label="Default"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">CVV</span>
+              </div>
+              <input type="number" class="form-control" aria-label="Default"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+        </div>
       </div>
-      <ul class="nav nav-pills nav-stacked">
-          <li class="active">
-          </li>
-      </ul>
-      <br />
+    </div>
+    <ul class="nav nav-pills nav-stacked">
+      <li class="active">
+      </li>
+    </ul>
+    <br />
 
   </div>
   <div class="modal-footer">
-      <button id="btnpay" (click)="postPayment()" class="btn btn-info btn-lg btn-block">Pagar $
-          {{GetTotal()}}</button>
+    <button id="btnpay" (click)="postPayment()" class="btn btn-info btn-lg btn-block">Pagar $
+      {{GetTotal()}}</button>
   </div>
 </ng-template>
 
@@ -109,20 +105,16 @@
       </div>
     </div>
 
- <!-- ORIGEN Y DESTINO ROW -->
+    <!-- ORIGEN Y DESTINO ROW -->
     <div class="row">
-        <div class="col-sm-1"> </div>
+      <div class="col-sm-1"> </div>
       <div class="col-sm-4">
         <p>Origen <i class="fa fa-fw fa-plane"></i>
 
         </p>
         <div>
-          <input class="form-control" 
-          input-autocomplete 
-          [config]="config2" 
-          [items]="items2"
-          (inputChangedEvent)="onInputChangedEvent($event)" 
-          (selectEvent)="onSelect($event)">
+          <input class="form-control" input-autocomplete [config]="config2" [items]="items2"
+            (inputChangedEvent)="onInputChangedEvent($event)" (selectEvent)="onSelectOrigin($event)">
         </div>
       </div>
       <div class="col-sm-2"> </div>
@@ -131,78 +123,75 @@
 
         </p>
         <div>
-          <input 
-          class="form-control" 
-          input-autocomplete [config]="config2" 
-          [items]="items2"
-          (inputChangedEvent)="onInputChangedEvent($event)"
-          (selectEvent)="onSelect($event)">
+          <input class="form-control" input-autocomplete [config]="config2" [items]="items2"
+            (inputChangedEvent)="onInputChangedEvent($event)" (selectEvent)="onSelectedDestination($event)">
         </div>
       </div>
       <div class="col-sm-1"> </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
-          <br>
-        </div>
+      <div class="col-sm-12">
+        <br>
       </div>
+    </div>
 
-     <!-- IDA Y VUELTA  ROW -->
-     <div class="row">
+    <!-- IDA Y VUELTA  ROW -->
+    <div class="row">
       <div class="col-sm-4">
-       <p class="text-center">
-        Ida <i class="fa fa-fw fa-calendar"></i>
-       </p>      
+        <p class="text-center">
+          Ida <i class="fa fa-fw fa-calendar"></i>
+        </p>
         <div class="form-group">
-            <div class='input-group date'>
-                <input type='date' class="form-control" />   
-            </div>
+          <div class='input-group date'>
+            <input type='date' class="form-control" ng-model="ida" (change)="onSelectedIda($event.target.value)">
+          </div>
         </div>
       </div>
 
       <div class="col-sm-4">
-          <p class="text-center">
-           Vuelta <i class="fa fa-fw fa-calendar"></i>
-          </p>      
-           <div class="form-group">
-               <div class='input-group date'>
-                   <input type='date' class="form-control" />   
-               </div>
-           </div>
-         </div>
+        <p class="text-center">
+          Vuelta <i class="fa fa-fw fa-calendar"></i>
+        </p>
+        <div class="form-group">
+          <div class='input-group date'>
+            <input type='date' class="form-control" ng-model="vuelta" (change)="onSelectedVuelta($event.target.value)">
+          </div>
+        </div>
+      </div>
 
       <div class="col-sm-4">
-          <p class="text-center">
-            Pasajeros <i class="fa fa-fw fa-user"></i>
-          </p>
-          <div>
-              <input class="form-control" type="number">
-          </div>
+        <p class="text-center">
+          Pasajeros <i class="fa fa-fw fa-user"></i>
+        </p>
+        <div>
+          <input class="form-control" type="number"
+          (change)="onSelectedPassennger($event.target.value)">
+        </div>
       </div>
 
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
-          <br>
-        </div>
+      <div class="col-sm-12">
+        <br>
       </div>
-    
- <!-- BUSCAR  ROW -->
-    <div class="row">
-        <div class="col-sm-5">
-        </div>
+    </div>
 
-        <div class="col-sm-2">
-            <a class="btn btn-lg btn-success text-center btnsearch">
-                <i class="fa fa-fw fa-search"></i>
-              Buscar
-            </a>
-        </div>
-        <div class="col-sm-5">
-           
-        </div>
+    <!-- BUSCAR  ROW -->
+    <div class="row">
+      <div class="col-sm-5">
+      </div>
+
+      <div class="col-sm-2">
+        <a class="btn btn-lg btn-success text-center btnsearch" (click)="SearchFlight()">
+          <i class="fa fa-fw fa-search"></i>
+          Buscar
+        </a>
+      </div>
+      <div class="col-sm-5">
+
+      </div>
 
     </div>
 
@@ -210,49 +199,60 @@
   <!-- RESULTADOS  -->
   <div class="container">
     <h2 class="text-center">Mejores resultados</h2>
-    <p>Selecciona de esta lista el que mas te convenga</p>            
+    <p>Selecciona de esta lista el que mas te convenga</p>
     <table class="table table-dark table-hover clickable">
       <thead>
         <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Email</th>
+          <th>Asientos disponibles</th>
+          <th>Avion</th>
+          <th>Fecha Llegada</th>
+          <th>Precio Unitario</th>
+          <th>Precio Total</th>
+          <th>Salida</th>
+          <th>Llegada</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>John</td>
-          <td>Doe</td>
-          <td>john@example.com</td>
-        </tr>
-        <tr>
-          <td>Mary</td>
-          <td>Moe</td>
-          <td>mary@example.com</td>
-        </tr>
-        <tr>
-          <td>July</td>
-          <td>Dooley</td>
-          <td>july@example.com</td>
-        </tr>
+        <tr *ngFor=" let det of resultFlight">
+          <td>
+            {{det.ileft}}
+          </td>
+          <td>
+            {{det.descrip}}
+          </td>
+          <td>
+            {{det.dateArrival}}
+          </td>
+          <td>
+            {{det.price}}
+          </td>
+          <td>
+            {{det.price * selectedPassennger}}
+          </td>
+          <td>
+            {{det.origin}}
+          </td>
+          <td>
+            {{det.destination}}
+          </td>
       </tbody>
     </table>
   </div>
 
-   <!-- BUSCAR  ROW -->
-   <div class="row">
+  <!-- BUSCAR  ROW -->
+  <div class="row">
     <div class="col-sm-5">
     </div>
 
     <div class="col-sm-2">
-        <a class="btn btn-lg btn-danger text-center btnbuy">
-         Comprar
-        </a>
+      <a class="btn btn-lg btn-danger text-center btnbuy">
+        Comprar
+      </a>
     </div>
     <div class="col-sm-5">
-       
+
     </div>
 
-</div>
+  </div>
 
 </div>

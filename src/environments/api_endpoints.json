@@ -27,7 +27,8 @@
       "get_layovers": "cruiser/{cruiserId}/layover"
     },
     "Orders": "payment/id/{idAuto}/{idRoo}/{idRes}/{idCru}",
-    "getPaymentMethod": "payment"
+    "getPaymentMethod": "payment",
+    "getListFlightSale": "SaleFlight"
   },
   "_post": {
     "postResFlight": "flight-reservation",
