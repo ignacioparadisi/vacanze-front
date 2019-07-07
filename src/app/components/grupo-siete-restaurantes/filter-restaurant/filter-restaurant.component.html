@@ -7,7 +7,7 @@
        <label>Selecione un país</label>
        <select type="text" class="form-control" (change)="selectCountry($event)" formControlName="country">
          <option value="-1" selected>
-             Todos los hoteles
+             Todos los restaurantes
          </option>
          <option *ngFor="let country of countries" value={{country.id}}>
              {{country.country}}
