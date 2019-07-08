@@ -89,8 +89,7 @@
 
   </div>
   <div class="modal-footer">
-    <button id="btnpay" (click)="postPayment()" class="btn btn-info btn-lg btn-block">Pagar $
-      {{GetTotal()}}</button>
+    <button id="btnpay" (click)="postPayment(passengers)" class="btn btn-info btn-lg btn-block">Pagar $</button>
   </div>
 </ng-template>
 
@@ -165,7 +164,10 @@
           Pasajeros <i class="fa fa-fw fa-user"></i>
         </p>
         <div>
-          <input class="form-control" type="number"
+          <input class="form-control" 
+          type="number" 
+          min="1" max="10"
+          value={{this.selectedPassennger}}
           (change)="onSelectedPassennger($event.target.value)">
         </div>
       </div>
@@ -213,7 +215,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor=" let det of resultFlight">
+        <tr *ngFor=" let det of resultFlight" (click)="SelectFlightTobuy(det)">
           <td>
             {{det.ileft}}
           </td>
@@ -239,20 +241,100 @@
     </table>
   </div>
 
-  <!-- BUSCAR  ROW -->
   <div class="row">
-    <div class="col-sm-5">
+      <div class="col-sm-12">
+        <br>
+      </div>
+  </div>
+
+
+<!-- SELECCIONAR ASIENTOS -->
+<li *ngFor="let pass of passengers;index as i">
+  Pasajero #{{i+1}}  
+  <div class="row">
+    <div class="col-sm-3">
+  <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+          </div>
+          <input type="text" 
+          class="form-control" 
+          placeholder="Identificacion" 
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          value={{pass.name}}
+          (focusout)="GetIdField($event.target.value)"
+          >
+        </div>
     </div>
 
-    <div class="col-sm-2">
-      <a class="btn btn-lg btn-danger text-center btnbuy">
-        Comprar
-      </a>
+    <div class="col-sm-3">
+  <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa fa-text" aria-hidden="true"></i>
+            </span>
+          </div>
+          <input type="text" 
+          class="form-control" 
+          placeholder="Nombre" 
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          value={{pass.id}}
+          (focusout)="GetNombreField($event.target.value)"
+          >
+        </div>
     </div>
-    <div class="col-sm-5">
-
+    <div class="col-sm-3">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <i class="fa fa-seat" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input type="text" 
+            class="form-control" 
+            placeholder="Asiento" 
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            value={{pass.seat}}
+            (focusout)="GetSeatField($event.target.value)"
+            >
+          </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <i class="fa fa-ticket" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Observaciones" aria-label="Username"
+              aria-describedby="basic-addon1"
+              value={{pass.observ}}
+              (focusout)="GetObsField($event.target.value)"
+              >
+          </div>
     </div>
 
   </div>
-
+</li>
+  <!-- COMPRAR  ROW -->
+  <div class="row">
+      <div class="col-sm-5">
+      </div>
+  
+      <div class="col-sm-2">
+        <a  id="BtnComprar" (click)="open(content)" 
+        class="btn btn-lg btn-danger text-center btnbuy">
+          Comprar
+        </a>
+      </div>
+      <div class="col-sm-5">
+  
+      </div>
+  
+    </div>
 </div>
