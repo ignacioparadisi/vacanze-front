@@ -21,7 +21,9 @@
               <i class="fa fa-ticket" aria-hidden="true"></i>
             </span>
           </div>
-          <input type="text" class="form-control" placeholder="Ticket number" aria-label="Username"
+          <input type="text" 
+          (focusout)="getTicketId($event)"
+          class="form-control" placeholder="Ticket number" aria-label="Username"
             aria-describedby="basic-addon1">
         </div>
 
@@ -140,5 +142,23 @@
         </table>
       </div>
     </div>
-  </div>
+        <!-- COMPRAR  ROW -->
+  <div class="row">
+      <div class="col-sm-5">
+      </div>
+  
+      <div class="col-sm-2">
+        <a  id="BtnComprar" (click)="Registrar()" 
+        class="btn btn-lg btn-danger text-center btnbuy">
+          Registrar
+        </a>
+      </div>
+      <div class="col-sm-5">
+  
+      </div>
+  
+    </div>
+
+        
+      </div>
 </div>
