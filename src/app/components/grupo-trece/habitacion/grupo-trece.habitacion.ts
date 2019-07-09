@@ -23,6 +23,10 @@ export class HabitacionGrupoTrece implements OnInit {
   private userId: number;
   private isDataLoaded: boolean = false;
   public show: boolean = false;
+  public roomreservation = [];
+  public roomreservations = "";
+  public totalcost = 0;
+  public id: number = null;
 
   @Output() public actionAlertEventEmitter = new EventEmitter();
 
@@ -45,10 +49,11 @@ export class HabitacionGrupoTrece implements OnInit {
   public getLocalStorage() {
     this.localStorage.getItem('id').subscribe(storedId => {
       if (storedId) {
-        this.isDataLoaded = true
-        this.userId = storedId
+        this.isDataLoaded = true;
+        this.userId = storedId;
+        this.getRoomReservations();
       }
-    })
+    });
   }
 
   getHabitacion(id: number) {
@@ -221,4 +226,85 @@ export class HabitacionGrupoTrece implements OnInit {
     return form.get(controlName).touched && form.get(controlName).valid;
   }
 
+  getRoomReservations() {
+    var user_id = this.userId;
+    // const requestURL = "reservationrooms/?user="+user_id;
+    const requestURL = "reservationrooms/?user=" + user_id;
+    this.apiService.getUrl(requestURL).then(
+      response => {
+        this.roomreservations = response;
+      },
+      error => {
+      }
+    );
+  }
+
+  getDaysFrom2Dates(date1: any, date2: any, price: number) {
+    const parseDate1 = new Date(date1);
+    const parseDate2 = new Date(date2);
+    this.totalcost = (parseDate2.getDate() - parseDate1.getDate());
+    this.totalcost = Math.round(this.totalcost);
+    this.totalcost = price * this.totalcost;
+  }
+
+  public updateRoomReservation(hotel: object, id: number) {
+    const requestURL = 'reservationrooms';
+    const reservation = this.myForm.value;
+    var fk_user = this.userId;
+    reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
+    reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
+    reservation.fk_user = fk_user;
+    reservation.hotel = hotel;
+    reservation.user = "";
+    reservation.id = id;
+    const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+    delete reservation.city;
+    delete reservation.fechaOne;
+    delete reservation.fechaTwo;
+    delete reservation.country;
+    if (fechas === 1) {
+      this.apiService.putUrl(requestURL, reservation).then(
+        response => {
+          this.getRoomReservations();
+        }, error => {
+          console.error(error);
+          this.getRoomReservations();
+        }
+      );
+    }
+  }
+
+  public deleteRoomReservation(id: number) {
+    const requestURL = `reservationrooms/${id}`;
+    this.apiService.deleteUrl(requestURL).then(
+      response => {
+        this.getRoomReservations()
+      }, error => {
+        console.error(error);
+        this.getRoomReservations();
+      }
+    );
+  }
+
+  openRoom(content, id: number) {
+    this.getRoomReservation(id);
+
+    this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  getRoomReservation(id: number) {
+    const requestURL = `reservationrooms/${id}`;
+    this.apiService.getUrl(requestURL).then(
+      response => {
+        this.id = response.id;
+        this.roomreservation = response;
+      },
+      error => {
+      }
+    );
+  }
 }

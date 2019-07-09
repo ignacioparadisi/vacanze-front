@@ -48,7 +48,7 @@
   </div>
 </ng-template> -->
 
-<ng-template #content2 let-modal>
+<ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Modificar Reserva de habitación</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -266,7 +266,7 @@
                       </button>&nbsp;&nbsp;
                       <button class="btn btn-outline-info" style="cursor: pointer; width: 39px;" data-toggle="tooltip"
                         data-placement="top" title="Editar {{type}}"
-                        (click)="openCar(content2,carreservation.id);initializaDate();">
+                        (click)="openCar(content,carreservation.id);initializaDate();">
                         <i class="fa fa-edit"></i>
                       </button>&nbsp;&nbsp;
                     </td>
