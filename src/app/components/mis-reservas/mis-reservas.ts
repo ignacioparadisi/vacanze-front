@@ -23,7 +23,7 @@ export class MisReservas implements OnInit {
 
   public compararFechas: any;
   public carreservations = "";
-  public roomreservations = "";
+  public roomreservations = [];
   public closeResult: string;
   public id: number = null;
   public totalcost: number = null;
@@ -64,8 +64,6 @@ export class MisReservas implements OnInit {
   }
 
   ngOnInit() {
-    // this.getAutomobileReservations();
-    this.getRoomReservations();
     this.getLocalStorage();
     this.getLocalStorageRes();
   }
@@ -144,8 +142,17 @@ export class MisReservas implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
         this.roomreservations = response;
+
+        this.roomreservations.forEach(reservation => {
+          this.getHotelForReservation(reservation);
+        });
       },
       error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error obteniendo las reservaciones");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
@@ -165,13 +172,18 @@ export class MisReservas implements OnInit {
     const requestURL = `reservationrooms/${id}`;
     this.apiService.deleteUrl(requestURL).then(
       response => {
-        this.getRoomReservations()
-      }, error => {
-        console.error(error);
         this.getRoomReservations();
+        this.showSuccessMessage("Se ha eliminado la reservación satisfactoriamente");
+      }, error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error eliminando la reservación");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
+
   ////////metodo para reserva de vuelos modal
   public openModalFlight(id: number) {
 
@@ -258,24 +270,28 @@ export class MisReservas implements OnInit {
     var fk_user = this.userId;
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
     reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-    reservation.fk_user = fk_user;
-    reservation.hotel = hotel;
-    reservation.user = "";
+    reservation.userId = fk_user;
+    reservation.hotelId = hotel.id;
     reservation.id = id;
     const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
     delete reservation.city;
     delete reservation.fechaOne;
     delete reservation.fechaTwo;
     delete reservation.country;
-    if (fechas === 1)
+    if (fechas === 1) {
       this.apiService.putUrl(requestURL, reservation).then(
         response => {
           this.getRoomReservations();
+          this.showSuccessMessage("Se ha actualizado la reservación satisfactoriamente.")
         }, error => {
-          console.error(error);
-          this.getRoomReservations();
+          if (error.status === 0) {
+            this.showErrorAlert("Error actualizando la reservación");
+          } else {
+            this.showErrorAlert(error.error);
+          }
         }
       );
+    }
   }
 
   getRoomReservation(id: number) {
@@ -286,8 +302,26 @@ export class MisReservas implements OnInit {
         this.roomreservation = response;
       },
       error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error obteniendo la reservación");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
+  }
+
+  getHotelForReservation(reservation: RoomReservation) {
+    const requestURL = `hotels/${reservation.hotelId}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      reservation.hotel = response;
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo hotel para reservaciones");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
   }
 
   getCarReservation(id: number) {
@@ -428,6 +462,26 @@ export class MisReservas implements OnInit {
 
   public getHeaderTitle() {
     return this.headerTitle;
+  }
+
+  private showSuccessMessage(title: string) {
+    let config: SweetAlertOptions = {
+      title: title,
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
+  }
+
+  private showErrorAlert(error: string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
   }
 
 }

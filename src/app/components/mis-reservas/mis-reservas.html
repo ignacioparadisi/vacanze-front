@@ -88,10 +88,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let carreservation of carreservations">
-                <td>{{carreservation.automobile._make}}</td>
-                <td>{{carreservation.automobile._model}}</td>
-                <td>{{carreservation.automobile._capacity}}</td>
-                <td>{{carreservation.automobile._price}}$</td>
+                <td>{{carreservation.automobile?._make}}</td>
+                <td>{{carreservation.automobile?._model}}</td>
+                <td>{{carreservation.automobile?._capacity}}</td>
+                <td>{{carreservation.automobile?._price}}$</td>
                 <td>{{carreservation.checkIn}}</td>
                 <td>{{carreservation.checkOut}}</td>
                 <td>
@@ -218,12 +218,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let roomreservation of roomreservations">
-                <td>{{roomreservation.hotel.name}}</td>
-                <td align="center">{{roomreservation.hotel.stars}}<i class="fa fa-star" aria-hidden="true"></i>
+                <td>{{roomreservation.hotel?.name}}</td>
+                <td align="center">{{roomreservation.hotel?.stars}}<i class="fa fa-star" aria-hidden="true"></i>
                 </td>
-                <td align="center">{{roomreservation.hotel.roomCapacity}}</td>
-                <td>{{roomreservation.hotel.pricePerRoom}}$</td>
-                <td>{{roomreservation.hotel.phone}}</td>
+                <td align="center">{{roomreservation.hotel?.roomCapacity}}</td>
+                <td>{{roomreservation.hotel?.pricePerRoom}}$</td>
+                <td>{{roomreservation.hotel?.phone}}</td>
                 <td>{{roomreservation.checkIn}}</td>
                 <td>{{roomreservation.checkOut}}</td>
                 <td>

@@ -1,3 +1,4 @@
+import { Hotel } from './../../../interfaces/hotel';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -24,7 +25,7 @@ export class HabitacionGrupoTrece implements OnInit {
   private isDataLoaded: boolean = false;
   public show: boolean = false;
   public roomreservation = [];
-  public roomreservations = "";
+  public roomreservations = [];
   public totalcost = 0;
   public id: number = null;
 
@@ -73,6 +74,11 @@ export class HabitacionGrupoTrece implements OnInit {
         this.countries = response;
       },
       error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error obteniendo paises");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
@@ -84,11 +90,17 @@ export class HabitacionGrupoTrece implements OnInit {
         this.cities = response;
       },
       error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error obteniendo ciudades");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
 
   getHotelsByCity() {
+    console.log("Touched");
     this.markAllAsTouched();
     const reservation = this.myForm.value;
     const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
@@ -96,11 +108,20 @@ export class HabitacionGrupoTrece implements OnInit {
       const requestURL = "hotels/?location=" + this.myForm.value.city;
       this.apiService.getUrl(requestURL).then(
         response => {
+          console.log(response);
           this.hotels = response;
+          this.showTable();
         },
         error => {
+          if (error.status === 0) {
+            this.showErrorAlert("Error obteniendo hoteles");
+          } else {
+            this.showErrorAlert(error.error);
+          }
         }
       );
+    } else {
+      this.showErrorAlert("Las fechas no son válidas. Intente con una fecha más lejana.");
     }
   }
 
@@ -119,9 +140,8 @@ export class HabitacionGrupoTrece implements OnInit {
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
     reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
     var fk_user = this.userId;
-    reservation.fk_user = fk_user
-    reservation.hotel = hotel;
-    reservation.user = "";
+    reservation.userId = fk_user
+    reservation.hotelId = hotel.id;
     reservation.id = 0;
     delete reservation.city;
     delete reservation.fechaOne;
@@ -130,7 +150,15 @@ export class HabitacionGrupoTrece implements OnInit {
     if (this.myForm.valid) {
       this.apiService.postUrl('reservationrooms', reservation).then(
         response => {
+          this.getRoomReservations();
+          this.getHotelsByCity();
+          this.showSuccessMessage("Se ha agregado la reservacion satisfactoriamente.");
         }, error => {
+          if (error.status === 0) {
+            this.showErrorAlert("Error creando reservación.");
+          } else {
+            this.showErrorAlert(error.error);
+          }
         }
       );
     }
@@ -233,8 +261,17 @@ export class HabitacionGrupoTrece implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
         this.roomreservations = response;
+
+        this.roomreservations.forEach(reservation => {
+          this.getHotelForReservation(reservation);
+        });
       },
       error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error obteniendo las reservaciones");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
@@ -253,9 +290,8 @@ export class HabitacionGrupoTrece implements OnInit {
     var fk_user = this.userId;
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
     reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-    reservation.fk_user = fk_user;
-    reservation.hotel = hotel;
-    reservation.user = "";
+    reservation.userId = fk_user;
+    reservation.hotelId = hotel.id;
     reservation.id = id;
     const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
     delete reservation.city;
@@ -266,9 +302,13 @@ export class HabitacionGrupoTrece implements OnInit {
       this.apiService.putUrl(requestURL, reservation).then(
         response => {
           this.getRoomReservations();
+          this.showSuccessMessage("Se ha actualizado la reservación satisfactoriamente.")
         }, error => {
-          console.error(error);
-          this.getRoomReservations();
+          if (error.status === 0) {
+            this.showErrorAlert("Error actualizando la reservación");
+          } else {
+            this.showErrorAlert(error.error);
+          }
         }
       );
     }
@@ -278,10 +318,14 @@ export class HabitacionGrupoTrece implements OnInit {
     const requestURL = `reservationrooms/${id}`;
     this.apiService.deleteUrl(requestURL).then(
       response => {
-        this.getRoomReservations()
-      }, error => {
-        console.error(error);
         this.getRoomReservations();
+        this.showSuccessMessage("Se ha eliminado la reservación satisfactoriamente");
+      }, error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error eliminando la reservación");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
@@ -304,7 +348,45 @@ export class HabitacionGrupoTrece implements OnInit {
         this.roomreservation = response;
       },
       error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error obteniendo la reservación");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
+  }
+
+  getHotelForReservation(reservation: RoomReservation) {
+    const requestURL = `hotels/${reservation.hotelId}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      reservation.hotel = response;
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo hotel para reservaciones");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
+  private showSuccessMessage(title: string) {
+    let config: SweetAlertOptions = {
+      title: title,
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
+  }
+
+  private showErrorAlert(error: string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
   }
 }
