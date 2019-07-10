@@ -1,10 +1,10 @@
 <p>
-  Filtrar Hoteles por ubicación
+  <b>Filtrar Hoteles por ubicación</b>
 </p>
 
 <form [formGroup]="searchForm" (ngSubmit) = "onSubmit()" class="form-inline">
     <div class="form-group mb-2">
-       <label>Selecione un país</label>
+       <label>Seleccione un país</label>
        <select type="text" class="form-control" (change)="selectCountry($event)" formControlName="country">
          <option value="-1" selected>
              Todos los hoteles
@@ -16,7 +16,7 @@
    </div>
 
    <div class="form-group mx-sm-3 mb-2">
-       <label>Selecione la ciudad</label>
+       <label>Seleccione la ciudad</label>
        <select type="text" class="form-control" formControlName="city">
          <option *ngFor="let city of cities" value={{city.id}}>
              {{city.city}}
