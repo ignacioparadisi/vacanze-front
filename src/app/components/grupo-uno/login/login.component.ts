@@ -9,10 +9,7 @@ import { User } from "../../../classes/user";
 import { RegisterUserComponent } from "../../users/register-user/register-user.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
-
-
-
-
+import { environment as url } from '../../../../environments/environment';
 
 
 @Component({
@@ -39,7 +36,7 @@ export class LoginComponent implements OnInit {
     Password: ''
   }
 
-  constructor(private service: ApiService,
+  constructor(private api: ApiService,
     private storage: LocalStorageService,
     private localStorage: LocalStorageService,
     private father: LayoutComponent,
@@ -69,19 +66,19 @@ export class LoginComponent implements OnInit {
     this.isPushed = false;
     this.isShow = true;
     this.isShowLogin = false;
-    this.service.postUrl('Login/Login', form.value).then(
-      (res: any) => {
+    this.api.postUrl(url.endpoint.default._post.login, 
+      form.value).then(response => {
 
-        this.storage.setItem('id', res.id).subscribe(id => {
+        this.storage.setItem('id', response.id).subscribe(id => {
         });
-        this.storage.setItem('rol', res.roles).subscribe(roles => {
+        this.storage.setItem('rol', response.roles).subscribe(roles => {
         });
 
-        this.storage.setItem('Email', res.email).subscribe(email => {
+        this.storage.setItem('Email', response.email).subscribe(email => {
         });
-        if (res.roles.length != 0) {
-          if (res.roles[0].id == 1) {
-
+        
+        if (response.roles.length != 0) {
+          if (response.roles[0].id == 1) {
 
             this.StatusLogin = false;
             this.father.StatusHeader = true;
@@ -90,7 +87,7 @@ export class LoginComponent implements OnInit {
             this.isShowLogin = true;
             this.router.navigateByUrl('/landing');
           }
-          else if (res.roles[0].id != 1) {
+          else if (response.roles[0].id != 1) {
 
             this.father.StatusHeader = true;
             this.father.StatusSideBar = true;
@@ -101,7 +98,7 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl('/landing');
           }
         }
-      }, error => {
+      }).catch(error => {
         if (error.status == 0) {
           alert("problemas por parte del cliente o servidor")
         } else if (error.status == 400 || error.status != 200) {
@@ -111,17 +108,16 @@ export class LoginComponent implements OnInit {
         this.isPushed = true;
         this.isShow = false;
         this.isShowLogin = true;
-      }
-    );
-
+      })
   }
+
   RecoverySubmit(recoveryForm: NgForm) {
     this.isShowPmodal = true
-    this.service.postUrl('Email/Email', recoveryForm.value).then(
-      (res: any) => {
-        this.storage.setItem('Email', res.email).subscribe(email => {
+    this.api.postUrl(url.endpoint.default._post.email, 
+      recoveryForm.value).then(response => {
+        this.storage.setItem('Email', response.email).subscribe(email => {
         });
-        if (res.email) {
+        if (response.email) {
           this.StatusLogin = false;
           this.father.StatusHeader = true;
           this.father.StatusMain = false;
@@ -129,8 +125,7 @@ export class LoginComponent implements OnInit {
           this.isShowPmodal = false;
           this.router.navigateByUrl('/home');
         }
-      },
-      error => {
+      }).catch(error => {
         if (error.status == 0) {
           alert("problemas por parte del cliente o servidor")
         } else if (error.status == 400 || error.status != 200) {
@@ -138,8 +133,7 @@ export class LoginComponent implements OnInit {
         } else if (error.status == 200)
           alert("Se le ha enviado su nueva contraseña al correo")
         this.isShowPmodal = false;
-      }
-    );
+      })
   }
 
   openAddUserModal() {
