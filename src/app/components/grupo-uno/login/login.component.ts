@@ -76,11 +76,7 @@ export class LoginComponent implements OnInit {
 
         this.storage.setItem('Email', response.email).subscribe(email => {
         });
-
-        console.log('ID del usuario: ',response.id)
-        console.log('ROL del id: ', response.roles[0].id)
-        console.log('ROL nombre: ', response.roles[0].name)
-        console.log('EMAIL del usuario: ', response.email)
+        
         if (response.roles.length != 0) {
           if (response.roles[0].id == 1) {
 
