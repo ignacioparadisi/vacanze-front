@@ -284,7 +284,7 @@ export class HabitacionGrupoTrece implements OnInit {
     this.totalcost = price * this.totalcost;
   }
 
-  public updateRoomReservation(hotel: object, id: number) {
+  public updateRoomReservation(hotel: any, id: number) {
     const requestURL = 'reservationrooms';
     const reservation = this.myForm.value;
     var fk_user = this.userId;
