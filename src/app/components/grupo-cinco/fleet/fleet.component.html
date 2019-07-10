@@ -47,9 +47,8 @@
               {{vehicle?.location.city}}
             </td>
             <td class="text-center">
-              <button class="btn btn-sm btn-outline-info" title="Editar vehiculo" (click)="open(content)">
-                <i class=" fa fa-xs fa-edit"></i>
-              </button>
+              <modify-vehicle [modelId]="vehicle.model.id" [brandId]="vehicle.model.brand.id" [cityId]="vehicle.location.city" [countryId]="vehicle.location.country"
+                [licenseV]="vehicle.license" [priceV]="vehicle.price" [statusV]="vehicle.status"></modify-vehicle>
             </td>
           </tr>
         </tbody>

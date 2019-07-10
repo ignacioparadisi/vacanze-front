@@ -14,6 +14,7 @@ import { CreateModelComponent } from './model/create-model/create-model';
 import { ModifyModelComponent } from './model/modify-model/modify-model';
 import { CreateVehicleComponent } from './fleet/create-vehicle/create-vehicle';
 import { FilterData } from './FilterData.pipe';
+import { ModifyVehicleComponent } from './fleet/modify-vehicle/modify-vehicle';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FilterData } from './FilterData.pipe';
     CreateModelComponent,
     ModifyModelComponent,
     CreateVehicleComponent,
+    ModifyVehicleComponent,
     FilterData
   ],
   imports: [

@@ -25,7 +25,8 @@ export class FleetComponent implements OnInit {
                 location:
                 {
                     id: 35,
-                    city: 'Caracas'
+                    city: 'Caracas',
+                    country: 'Venezuela'
                 },
                 model:
                 {
@@ -48,11 +49,12 @@ export class FleetComponent implements OnInit {
                 location:
                 {
                     id: 35,
-                    city: 'Caracas'
+                    city: 'Caracas',
+                    country: 'Venezuela'
                 },
                 model:
                 {
-                    id: 1,
+                    id: 3,
                     capacity: 4,
                     name: 'Corolla',
                     photo: '',
