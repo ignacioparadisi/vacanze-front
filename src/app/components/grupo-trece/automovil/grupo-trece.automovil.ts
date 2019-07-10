@@ -24,7 +24,7 @@ export class AutomovilGrupoTrece implements OnInit {
   private isDataLoaded: boolean = false;
   public show: boolean = false;
   public carreservation = [];
-  public carreservations = '';
+  public carreservations = [];
   public totalcost: number = 0;
   public id: number = null;
 
@@ -60,11 +60,14 @@ export class AutomovilGrupoTrece implements OnInit {
   getAutomobileReservations() {
     var user_id = this.userId;
     //  const requestURL = "reservationautomobiles/?user="+user_id;
-    const requestURL = 'reservationautomobiles/?user=' + this.userId; // Mientras se soluciona el peo
+    const requestURL = 'reservationvehicles/?user=' + this.userId; // Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
       response => {
-        console.log(response);
         this.carreservations = response;
+        this.carreservations.forEach(reservation => {
+          this.getVehicleForReservation(reservation);
+        });
+
       },
       error => {
       }
@@ -263,7 +266,7 @@ export class AutomovilGrupoTrece implements OnInit {
   }
 
   public updateAutomobileReservation(car: object, id: number) {
-    const requestURL = 'reservationautomobiles';
+    const requestURL = 'reservationvehicles';
     const reservation = this.myForm.value;
     const fk_user = this.userId;
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
@@ -300,11 +303,13 @@ export class AutomovilGrupoTrece implements OnInit {
   }
 
   getCarReservation(id: number) {
-    const requestURL = `reservationautomobiles/${id}`;
+    const requestURL = `reservationvehicles/${id}`;
     this.apiService.getUrl(requestURL).then(
       response => {
+        console.log(response);
         this.id = response.id;
         this.carreservation = response;
+        this.getVehicleForReservation(this.carreservation);
       },
       error => {
       }
@@ -312,7 +317,7 @@ export class AutomovilGrupoTrece implements OnInit {
   }
 
   public deleteAutomobileReservation(id: number) {
-    const requestURL = `reservationautomobiles/${id}`;
+    const requestURL = `reservationvehicles/${id}`;
     this.apiService.deleteUrl(requestURL).then(
       response => {
         this.getAutomobileReservations();
@@ -320,5 +325,67 @@ export class AutomovilGrupoTrece implements OnInit {
         this.getAutomobileReservations();
       }
     );
+  }
+
+  getVehicleForReservation(reservation) {
+    const requestURL = `vehicles/${reservation.vehicleId}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      reservation.automobile = response;
+      this.getVehicleModel(reservation.automobile);
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo vehiculos para reservaciones");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
+  getVehicleModel(vehicle) {
+    const requestURL = `models/${vehicle.id}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      vehicle._model = response.modelName;
+      vehicle._capacity = response.capacity;
+      this.getVehicleMake(vehicle, response.brandId);
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo modelo de vehiculo");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
+  getVehicleMake(vehicle, makeId) {
+    const requestURL = `brands/${makeId}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      vehicle._make = response.brandName;
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo marca de vehiculo");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
+  private showSuccessMessage(title: string) {
+    let config: SweetAlertOptions = {
+      title: title,
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
+  }
+
+  private showErrorAlert(error: string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
   }
 }

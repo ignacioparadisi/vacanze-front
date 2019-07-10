@@ -72,7 +72,7 @@
         </div>
         <div class="col-md-3">
           <p><strong>Precio por dia: </strong></p>
-          <p>{{carreservation?.automobile?._price}}$</p>
+          <p>{{carreservation?.automobile?.price}}$</p>
         </div>
       </div>
       <div class="row">
@@ -92,7 +92,7 @@
         <div class="col-md-3">
           <p><strong>Precio total: </strong></p>
           <span
-            [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?._price)">{{totalcost}}</span>
+            [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?.price)">{{totalcost}}</span>
         </div>
       </div>
       <div class="row">
@@ -249,10 +249,10 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let carreservation of carreservations">
-                    <td>{{carreservation.automobile._make}}</td>
-                    <td>{{carreservation.automobile._model}}</td>
-                    <td>{{carreservation.automobile._capacity}}</td>
-                    <td>{{carreservation.automobile._price}}$</td>
+                    <td>{{carreservation.automobile?._make}}</td>
+                    <td>{{carreservation.automobile?._model}}</td>
+                    <td>{{carreservation.automobile?._capacity}}</td>
+                    <td>{{carreservation.automobile?.price}}$</td>
                     <td>{{carreservation.checkIn}}</td>
                     <td>{{carreservation.checkOut}}</td>
                     <td>
