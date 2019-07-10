@@ -117,11 +117,11 @@ export class LoginComponent implements OnInit {
 
   RecoverySubmit(recoveryForm: NgForm) {
     this.isShowPmodal = true
-    this.api.postUrl('Email/Email', recoveryForm.value).then(
-      (res: any) => {
-        this.storage.setItem('Email', res.email).subscribe(email => {
+    this.api.postUrl(url.endpoint.default._post.email, 
+      recoveryForm.value).then(response => {
+        this.storage.setItem('Email', response.email).subscribe(email => {
         });
-        if (res.email) {
+        if (response.email) {
           this.StatusLogin = false;
           this.father.StatusHeader = true;
           this.father.StatusMain = false;
@@ -129,8 +129,7 @@ export class LoginComponent implements OnInit {
           this.isShowPmodal = false;
           this.router.navigateByUrl('/home');
         }
-      },
-      error => {
+      }).catch(error => {
         if (error.status == 0) {
           alert("problemas por parte del cliente o servidor")
         } else if (error.status == 400 || error.status != 200) {
@@ -138,8 +137,7 @@ export class LoginComponent implements OnInit {
         } else if (error.status == 200)
           alert("Se le ha enviado su nueva contraseña al correo")
         this.isShowPmodal = false;
-      }
-    );
+      })
   }
 
   openAddUserModal() {
