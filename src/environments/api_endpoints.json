@@ -40,7 +40,8 @@
     },
     "postResRestaurant": "ResRestaurant",
     "addPayment": "payment",
-    "login": "Login"
+    "login": "Login",
+    "email": "Email"
   },
   "_put": {
     "putClaimStatus": "Claim/{id}",

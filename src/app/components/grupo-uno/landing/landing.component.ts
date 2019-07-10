@@ -19,7 +19,7 @@ export class LandingComponent implements OnInit {
       }
       this.local.getItem('rol').subscribe(roles => {
         if (roles.length != 0) {
-          if (roles[0]._Id != 1) {
+          if (roles[0].id != 1) {
             this.father.StatusSideBar = true;
           }
         }

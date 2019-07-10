@@ -78,11 +78,11 @@ export class LoginComponent implements OnInit {
         });
 
         console.log('ID del usuario: ',response.id)
-        console.log('ROL del id: ', response.roles[0]._Id)
-        console.log('ROL del id: ', response.roles[0]._Name)
+        console.log('ROL del id: ', response.roles[0].id)
+        console.log('ROL nombre: ', response.roles[0].name)
         console.log('EMAIL del usuario: ', response.email)
         if (response.roles.length != 0) {
-          if (response.roles[0]._Id == 1) {
+          if (response.roles[0].id == 1) {
 
             this.StatusLogin = false;
             this.father.StatusHeader = true;
@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
             this.isShowLogin = true;
             this.router.navigateByUrl('/landing');
           }
-          else if (response.roles[0]._Id != 1) {
+          else if (response.roles[0].id != 1) {
 
             this.father.StatusHeader = true;
             this.father.StatusSideBar = true;
