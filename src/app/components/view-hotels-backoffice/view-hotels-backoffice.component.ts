@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { environment as url } from '../../../environments/environment';
 import { TableResponsiveComponent  } from "../../blocks/table-responsive/table-responsive.component";
 import { HotelsService} from './services/hotels.service';
-
+import { LocalStorageService } from '../../services/local-storage.service';
 
 
 @Component({
@@ -31,7 +31,8 @@ export class ViewHotelsBackofficeComponent implements OnInit {
   constructor(
     private router: Router,
     private service: ApiService,
-    private _hotelservice: HotelsService
+    private _hotelservice: HotelsService,
+    private storage: LocalStorageService
   ) {
     this.headerTitle = _hotelservice.getHeaderTitle();
     this.tableHotelsHeader = _hotelservice.getHotelsHeaders();
@@ -42,10 +43,34 @@ export class ViewHotelsBackofficeComponent implements OnInit {
     this.loadHotelsByLocation(parseInt(id));
   }
 
+  getRole(){
+    this.storage.getItem('rol').subscribe(data => {
+      if (data[0].id == '2' || data[0].id == '5'){
+      this.pantallaPrincipal(); }
+      else{
+      this.pantallaAcceso();
+      }
+    });
+  }
+
+  pantallaPrincipal(){
+    var pagina;
+    pagina = document.getElementById('principal');
+    if(pagina!=null){
+      pagina.style.display = "block";
+    }
+  }
+
+  pantallaAcceso(){
+    var pagina = document.getElementById('paginaAcceso');
+    pagina.style.display = "block";
+  }
+
   ngOnChanges(){
   }
 
   ngOnInit() {
+    this.getRole();
     if(this.router.url === '/administrar-hoteles/agregar-hotel' || this.router.url.indexOf('editar-hotel') !== -1){
       this.isEditingHotel = true;
       this.isCreatingHotel = true;

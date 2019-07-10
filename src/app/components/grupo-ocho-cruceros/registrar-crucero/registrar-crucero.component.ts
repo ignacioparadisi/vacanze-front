@@ -25,11 +25,16 @@ export class RegistrarCruceroComponent implements OnInit {
   public formReady: boolean;
   public isButtonToAdd: boolean;
   public cruiser: Cruiser;
+  public verifyButtons: Object;
 
   constructor(private location: Location, private api: ApiService, private localStorage: LocalStorageService, private router: Router){ 
     this.transformImageToBase64 = transformImageToBase64;
     this.formReady = false;
     this.buttonText = "";
+    this.verifyButtons = {
+      add: false,
+      edit: false
+    }
   }
 
   ngOnInit() { 
@@ -41,12 +46,16 @@ export class RegistrarCruceroComponent implements OnInit {
         this.formReady = true;
         this.isButtonToAdd = false;
         this.buttonText = 'Editar';
+        this.verifyButtons['add'] = false;
+        this.verifyButtons['edit'] = true;
       }
       else {
         this.createNewFormGroup(undefined);
         this.formReady = true;
         this.buttonText = 'Agregar';
         this.isButtonToAdd = true;
+        this.verifyButtons['add'] = true;
+        this.verifyButtons['edit'] = false;
       }
     }) 
   }
@@ -81,9 +90,7 @@ export class RegistrarCruceroComponent implements OnInit {
           Validators.minLength(5),
           Validators.maxLength(100)
         ]),
-        picture: new FormControl(this.urlImage, [
-          Validators.required
-        ])
+        picture: new FormControl(this.urlImage, [])
       });
     }
     else {

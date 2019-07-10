@@ -1,24 +1,24 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">Editar reclamo</h4>
-        
+
         <button type="button" class="close" aria-label="Close" (click)="d('Cerrar')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    
+
     <div class="modal-body">
           <div class="col text-center">
             <div class="form-group">
               <input type="text" class="form-control input-lg" placeholder="Titulo" [(ngModel)]="titlePut">
-            </div>  
+            </div>
             <div class="form-group">
               <textarea type="text" class="form-control input-lg" placeholder="Descripción..." [(ngModel)]="descrPut" rows="3">
               </textarea>
             </div>
             <div class="form-group">
-            <input id="check_cambiar" 
-                   type="checkbox" 
+            <input id="check_cambiar"
+                   type="checkbox"
                    value="checkedValue"> Cambiar (Cerrado/Abierto) estado de este reclamo.
             </div>
             <div class="row">
@@ -37,7 +37,7 @@
         <img id="imagen-error" class="text-center" src="assets/images/error.png">
         <div class="card-body table-responsive carta-intro">
           <h3>
-            Usted no tiene permitido el acceso al modulo de reclamo, por 
+            Usted no tiene permitido el acceso al modulo de reclamo, por
             favor, comuniquese con el administrador tecnico para que le
             pueda otorgar el permiso.
           </h3>
@@ -59,7 +59,7 @@
       </div>
       <div class="card-body table-responsive carta-intro">
         <p>
-          En este modulo vamos a ayudarte a obtener algun equipaje que se te haya 
+          En este modulo vamos a ayudarte a obtener algun equipaje que se te haya
           extraviado y registrado en los viajes o cruceros, tu puedes simplemente
           buscar el equipaje por numero de serial o pasaporte en el bloque con el
           logo <i class="fa fa-search"></i>
@@ -80,14 +80,14 @@
           <div class="card-body table-responsive carta-intro">
             <p> Obtener equipajes por:</p>
             <label>
-                <input id="check_documento" type="checkbox" 
-                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Documento 
+                <input id="check_documento" type="checkbox"
+                value="checkedValue" (change)="checkeadoDocumento($event)" checked="checked"> Documento
             </label>
             <br>
             <label>
               <input id="check_serial" value="checkedValue" type="checkbox"
               (change)="checkeadoSerial($event)"> Serial de Equipaje
-            </label>       
+            </label>
           </div>
       </div>
     </div>
@@ -100,7 +100,7 @@
               <form [formGroup]="formSearch" (ngSubmit)="listadoEquipaje()">
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
-                        <input formControlName="id" type="text" class="form-control" 
+                        <input id="searchBaggageByDocument" formControlName="id" type="text" class="form-control"
                         placeholder="Numero de Pasaporte">
                       </div>
                        <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
@@ -113,7 +113,7 @@
         </div>
       </div>
     </div>
-   
+
     <div id = "serial" class="row">
       <div class="col-md-12">
         <div class="card mb-3">
@@ -121,7 +121,7 @@
               <form [formGroup]="formSearch" (ngSubmit)="listadoEquipaje()">
                 <div class="col-lg-12 text-center">
                       <div class="form-group">
-                          <input formControlName="id" type="text" class="form-control" 
+                          <input id="searchBaggageBySerial" formControlName="id" type="text" class="form-control"
                           placeholder="Numero de Serial">
                       </div>
                       <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
@@ -136,7 +136,8 @@
     </div>
   </div>
 
-    <div id = "equipajeLista" class="row oculto">
+
+<div id = "equipajeLista" class="row oculto">
     <div class="col-lg-12">
         <div class="card mb-3">
             <div class="card-header color-card">
@@ -151,23 +152,22 @@
                         <th>Serial</th>
                         <th>Descripción</th>
                         <th>Estatus</th>
-                        <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let baggage of baggages; let indice=index">
                         <th scope="row">{{indice+1}}</th>
-                        <td>{{baggage._id}}</td>
-                        <td>{{baggage._description}}</td>
-                        <td>{{baggage._status}}</td>
-                        <a href ="/grupo-nueve"><td>Ver</td></a>
-                    </tr>    
+                        <td>{{baggage.id}}</td>
+                        <td>{{baggage.description}}</td>
+                        <td>{{baggage.status}}</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    </div>
+</div>
+
 
 <div class="row">
   <div class="col-md-12">
@@ -175,28 +175,28 @@
           <div class="card-header color-card">
               <i class="fa fa-plus"></i>
              Crear Reclamo
-          </div>     
+          </div>
           <div class="card-body table-responsive">
-            <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">       
+            <form novalidate [formGroup]="formGroup" (ngSubmit)="postClaim()">
               <div class="col text-center">
-                <div class="form-group">                 
-                  <input type="text" formControlName="serial" class="form-control input-lg" placeholder="Serial de Equipaje" 
+                <div class="form-group">
+                  <input id="serialBaggageInput" type="text" formControlName="serial" class="form-control input-lg" placeholder="Serial de Equipaje"
                   [ngClass]="{
                     'is-invalid': false,
                     'is-valid': !formGroup.get('serial').hasError('required')
-                  }"/> 
+                  }"/>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" class="form-control input-lg" placeholder="Titulo" 
-                  formControlName="titulo" 
+                  <input id="titleClaimInput" type="text" class="form-control input-lg" placeholder="Titulo"
+                  formControlName="titulo"
                   [ngClass]="{
                     'is-invalid': false,
                     'is-valid': !formGroup.get('titulo').hasError('required')
                   }">
-                </div>  
+                </div>
                 <div class="form-group">
-                  <textarea type="text" class="form-control input-lg" placeholder="Descripción..." 
+                  <textarea id="descriptionClaimInput" type="text" class="form-control input-lg" placeholder="Descripción..."
                   formControlName="descripcion"
                   [ngClass]="{
                     'is-invalid': false,
@@ -217,6 +217,28 @@
       </div>
   </div>
 
+
+  <div id = "documento" class="row" style="margin-left:0px;">
+      <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-body table-responsive carta-intro">
+              <form [formGroup]="formSearch" (ngSubmit)="getClientClaimsByDocument()">
+                <div class="col-lg-12 text-center">
+                      <div class="form-group">
+                        <input id="searchBaggageByDocument" formControlName="id" type="text" class="form-control"
+                        placeholder="Buscar reclamos por pasaporte">
+                      </div>
+                       <button class="btn btn-success" *ngIf="formSearch.invalid" type="submit" disabled>
+                          Buscar</button>
+                       <button class="btn btn-success" *ngIf="!formSearch.invalid" type="submit">
+                          Buscar</button>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+
   <div class="col-lg-12">
       <div class="card mb-3">
           <div class="card-header color-card">
@@ -236,15 +258,15 @@
                   </tr>
                   </thead>
                   <tbody>
-                      
+
                   <tr *ngFor="let claim of claims; let indice=index">
                       <th scope="row">{{indice+1}}</th>
                       <td >{{claim.id}}</td>
-                      <td>{{claim._title }}</td>
-                      <td>{{claim._description}}</td>
-                      <td>{{claim._status}}</td>
+                      <td>{{claim.title }}</td>
+                      <td>{{claim.description}}</td>
+                      <td>{{claim.status}}</td>
                       <td>
-                        <button (click)="open(content, 
+                        <button (click)="open(content,
                         claim.id, claim._title, claim._description)"><i class="fa fa-edit"></i></button>
                         <swal
                           #deleteSwal
@@ -262,44 +284,7 @@
           </div>
       </div>
   </div>
-
-  <div class="col-md-12">
-      <div class="card mb-3">
-          <div class="card-header color-card">
-              <i class="fa fa-envelope"></i>
-              Escribenos!
-          </div>
-          
-          <div class="card-body table-responsive">
-            <form action="">
-              <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nombre">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Apellido">
-                    </div>
-                    <swal
-                    #mensaje
-                    title="Mensaje enviado al administrador"
-                    type="success"
-                    showConfirmButton=false
-                    timer=2500>
-                   </swal>
-                   <button class="btn btn-success float-left" [swal]="mensaje">Enviar</button>
-                </div>
-
-                <div class="form-group" class="mensaje">
-                    <textarea placeholder="Mensaje..." class="form-control" rows="5"></textarea>
-                </div>
-              </div>
-            </form>
-          </div>
-      </div>
-  </div>
 </div>
-
 </div>
 
 
@@ -314,17 +299,17 @@
           <div class="card-body table-responsive carta-intro">
             <p> Obtener lista de equipajes por:</p>
             <label>
-              <input id = "check_extraviado" type="checkbox" 
-                value="checkedValue" (change)="checkeadoExtraviado($event)"> Extraviado 
+              <input id = "check_extraviado" type="checkbox"
+                value="checkedValue" (change)="checkeadoExtraviado($event)"> Extraviado
             </label>
             <br>
             <label>
-              <input id = "check_encontrado" value="checkedValue" 
+              <input id = "check_encontrado" value="checkedValue"
               type="checkbox" (change)="checkeadoEncontrado($event)"> Encontrado
             </label>
             <br>
             <label>
-              <input id = "check_entregado" value="checkedValue" 
+              <input id = "check_entregado" value="checkedValue"
               type="checkbox" (change)="checkeadoEntregado($event)"> Reclamado
             </label>
 
@@ -335,7 +320,7 @@
                 </button>
                 </div>
             </div>
-            
+
           </div>
       </div>
     </div>
@@ -356,18 +341,14 @@
                           <th>Serial</th>
                           <th>Descripcion</th>
                           <th>Estatus</th>
-                          <th>Acciones</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr *ngFor="let BaggageAdmin of BaggageEncontrados; let indiceEncontrado=index">
                           <th scope="row">{{indiceEncontrado+1}}</th>
-                          <td>{{BaggageAdmin._id}}</td>
-                          <td>{{BaggageAdmin._description}}</td>
-                          <td>{{BaggageAdmin._status}}</td>
-                          <td>
-                            <button class= "ver"><i class="fa fa-edit"></i></button>
-                          </td>
+                          <td>{{BaggageAdmin.id}}</td>
+                          <td>{{BaggageAdmin.description}}</td>
+                          <td>{{BaggageAdmin.status}}</td>
                       </tr>
                       </tbody>
                   </table>
@@ -391,18 +372,14 @@
                               <th>Serial</th>
                               <th>Descripcion</th>
                               <th>Estatus</th>
-                              <th>Acciones</th>
                           </tr>
                           </thead>
                           <tbody>
                           <tr *ngFor="let BaggageAdmin of BaggageExtraviados; let indiceExtraviado=index">
                               <th scope="row">{{indiceExtraviado+1}}</th>
-                              <td>{{BaggageAdmin._id}}</td>
-                              <td>{{BaggageAdmin._description}}</td>
-                              <td>{{BaggageAdmin._status}}</td>
-                              <td>
-                                <button class="ver"><i class="fa fa-edit"></i></button>
-                              </td>
+                              <td>{{BaggageAdmin.id}}</td>
+                              <td>{{BaggageAdmin.description}}</td>
+                              <td>{{BaggageAdmin.status}}</td>
                           </tr>
                           </tbody>
                       </table>
@@ -426,18 +403,14 @@
                                   <th>Serial</th>
                                   <th>Descripcion</th>
                                   <th>Estatus</th>
-                                  <th>Acciones</th>
                               </tr>
                               </thead>
                               <tbody>
                               <tr *ngFor="let BaggageAdmin of BaggageEntregados; let indiceEntregado=index">
                                   <th scope="row">{{indiceEntregado+1}}</th>
-                                  <td>{{BaggageAdmin._id}}</td>
-                                  <td>{{BaggageAdmin._description}}</td>
-                                  <td>{{BaggageAdmin._status}}</td>
-                                  <td>
-                                    <button class="ver"><i class="fa fa-edit"></i></button>
-                                  </td>
+                                  <td>{{BaggageAdmin.id}}</td>
+                                  <td>{{BaggageAdmin.description}}</td>
+                                  <td>{{BaggageAdmin.status}}</td>
                               </tr>
                               </tbody>
                           </table>
@@ -456,18 +429,18 @@
                         <div class="card-body table-responsive carta-intro">
                           <p> Obtener lista de reclamos por caso:</p>
                           <label>
-                              <input id="check_abierto" type="checkbox" 
-                              (change)="checkeadoAbierto($event)" value="checkedValue"> Abierto 
+                              <input id="check_abierto" type="checkbox"
+                              (change)="checkeadoAbierto($event)" value="checkedValue"> Abierto
                           </label>
                           <br>
                           <label>
                             <input id="check_cerrado"
                             (change)="checkeadoCerrado($event)" value="checkedValue" type="checkbox"> Cerrado
                           </label>
-              
+
                           <div class="row">
                               <div class="col-md-12">
-                              <button class="btn btn-success float-right button-search" (click)="BusqEquipajeClaim()">Search</button>
+                              <button class="btn btn-success float-right button-search" (click)="BusqEquipajeClaim()">Buscar</button>
                               </div>
                           </div>
                         </div>
@@ -495,14 +468,14 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let claimAdmin of claimsAbiertos; let indiceAbierto=index">
-                            
+
                             <th scope="row">{{indiceAbierto+1}}</th>
                             <td>{{claimAdmin.id}}</td>
-                            <td>{{claimAdmin._title }}</td>
-                            <td>{{claimAdmin._description}}</td>
-                            <td>{{claimAdmin._status}}</td>
+                            <td>{{claimAdmin.title }}</td>
+                            <td>{{claimAdmin.description}}</td>
+                            <td>{{claimAdmin.status}}</td>
                             <td>
-                              <button (click)="open(content, 
+                              <button (click)="open(content,
                               claimAdmin.id, claimAdmin._title, claimAdmin._description)"><i class="fa fa-edit"></i></button>
                               <swal
                                 #deleteSwal1
@@ -541,14 +514,14 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let claimAdmin of claimsCerrados; let indiceCerrado=index">
-                            
+
                             <th scope="row">{{indiceCerrado+1}}</th>
                             <td>{{claimAdmin.id}}</td>
-                            <td>{{claimAdmin._title }}</td>
-                            <td>{{claimAdmin._description}}</td>
-                            <td>{{claimAdmin._status}}</td>
+                            <td>{{claimAdmin.title }}</td>
+                            <td>{{claimAdmin.description}}</td>
+                            <td>{{claimAdmin.status}}</td>
                             <td>
-                              <button (click)="open(content, 
+                              <button (click)="open(content,
                               claimAdmin.id, claimAdmin._title, claimAdmin._description)"><i class="fa fa-edit"></i>
                               </button>
                               <swal
@@ -567,38 +540,4 @@
                 </div>
             </div>
         </div>
-
-            <div class="card mb-3">
-                <div class="card-header color-card">
-                    <i class="fa fa-envelope"></i>
-                    Escribir al usuario
-                </div>
-                
-                <div class="card-body table-responsive">
-                  <form action="">
-                    <div class="row">
-                      <div class="col-md-4">
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Pasaporte">
-                          </div>
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Nombre">
-                          </div>
-                          <swal
-                          #mensaje
-                          title="Mensaje enviado al usuario"
-                          type="success"
-                          showConfirmButton=false
-                          timer=2500>
-                         </swal>
-                         <button class="btn btn-success float-left" [swal]="mensaje">Enviar</button>
-                      </div>
-      
-                      <div class="form-group" class = "mensaje">
-                          <textarea placeholder="Mensaje..." class="form-control" rows="5"></textarea>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-            </div>
 </div>

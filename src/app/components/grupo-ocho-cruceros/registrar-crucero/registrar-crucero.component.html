@@ -104,6 +104,17 @@
       <!-- Botones para agregar un crucero e ir a la tabla de los cruceros -->
       <div class="d-flex justify-content-end mr-3">
         <button 
+          *ngIf="verifyButtons['add']"
+          class="btn btn-outline-info" 
+          type="submit" 
+          [disabled]="!registrationForm.value.name || !registrationForm.value.line || 
+          !registrationForm.value.model || !registrationForm.value.capacity || !registrationForm.value.loadingShipCap || !this.urlImage "
+          (click)="onSubmit()"
+        >
+          {{ buttonText }}
+        </button>
+        <button 
+          *ngIf="verifyButtons['edit']"
           class="btn btn-outline-info" 
           type="submit" 
           [disabled]="!this.registrationForm.valid || !registrationForm.value.name || !registrationForm.value.line || 
