@@ -208,7 +208,7 @@
                 <td>{{car._make}}</td>
                 <td>{{car._model}}</td>
                 <td>{{car._capacity}}</td>
-                <td>{{car._price}}$</td>
+                <td>{{car.price}}$</td>
                 <td>
                   <swal #addSwal title="¿Desea Reservar?" type="question" [showCancelButton]="true" [focusCancel]="true"
                     (confirm)="submit(car)" [options]="{ confirmButtonText: 'Si, estoy
