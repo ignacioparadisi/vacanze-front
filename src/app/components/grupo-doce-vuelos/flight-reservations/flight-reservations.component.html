@@ -1,89 +1,89 @@
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa fa-safari" aria-hidden="true"></i>
-        Reservas
-      </div>
-      <div class="card-body table-responsive" id="fondo">
-        <form [formGroup]="form">
-            <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 0px;"  >
-                <div *ngFor="let type of typeFlights" style="margin-right:15px">
-                  <ng-container *ngIf="type.id==0; then first else other">
-                    </ng-container>
-                      <ng-template #first>
-                  <input  id="{{type.id}}"  name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)" 
-                 checked >
-                </ng-template>
-                   <ng-template #other>
-                   
-                      <input  id="{{type.id}}"  name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)" 
-                         >
-                        </ng-template>
-                   
-                  <label class="form-check-label" for="type">{{type.name}}</label>
-                </div> 
-            </div> 
-           
-          <div class="row" >
-            <div class="col-md-3">
-              <label for="" class="control-label" >Ciudad de Origen</label>
-              <div class="">
-                <input  type="text" class="form-control" [class.alert-danger]="form.get('origen').invalid && subM"  name="origin" placeholder="Origen" formControlName="origen" >
+    <div class="col-md-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-plane" aria-hidden="true"></i>
+          Reservacion de vuelo
+        </div>
+        <div class="card-body table-responsive" id="fondo">
+          <form [formGroup]="form">
+              <div class=" form-check-inline col-md-12" style="padding: 0px 0px 10px 0px;"  >
+                  <div *ngFor="let type of typeFlights" style="margin-right:15px">
+                    <ng-container *ngIf="type.id==0; then first else other">
+                      </ng-container>
+                        <ng-template #first>
+                    <input  id="{{type.id}}"  name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)" 
+                   checked >
+                  </ng-template>
+                     <ng-template #other>
+                     
+                        <input  id="{{type.id}}"  name="paymentMethod" type="radio" class="form-check-input" (change)="radioChangeHandler($event)" 
+                           >
+                          </ng-template>
+                     
+                    <label class="form-check-label" for="type">{{type.name}}</label>
+                  </div> 
+              </div> 
+             
+            <div class="row" >
+              <div class="col-md-3">
+                <label for="" class="control-label" >Ciudad de Origen</label>
+                <div class="">
+                  <input  type="text" class="form-control" [class.alert-danger]="form.get('origen').invalid && subM"  name="origin" placeholder="Origen" formControlName="origen" >
+                </div>
+                <small>Ejemplo: Caracas</small>
+                <span *ngIf="form.get('origen').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
               </div>
-              <small>Ejemplo: Caracas</small>
-              <span *ngIf="form.get('origen').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
-            </div>
-            <div class="col-md-3">
-                <label for="">Ciudad de Destino</label>
-                <div class="input-group-prepend">
-                  <input type="text" class="form-control" [class.alert-danger]="form.get('destino').invalid && subM"  placeholder="Destino" formControlName="destino">
-                </div>
-                <small>Ejemplo: Lisboa</small>
-                <span *ngIf="form.get('destino').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
-            </div>
-            <div class="col-md-3">
-               <label for="">Fecha de Salida</label>
-               <div class="input-group-prepend"  >
-                  <input id="out_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaS').invalid && subM && !disabledOut" placeholder="FechaS" formControlName="fechaS" >
-               </div>
-                <span *ngIf="form.get('fechaS').invalid && subM && !disabledOut" style="color: #ed1b24">Campo Obligatorio</span>
-                <div class="form-check">
-                  <label class="form-check-label" style="font-size: 14px; margin: 10px 0;">
-                    <input class="form-check-input" name="" id="date_id" type="checkbox" value="checkedValue" aria-label="Text for screen reader" (change)="checkboxSelected($event)" >
-                    Todavía no he decidido la fecha
-                  </label>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label for="">Fecha de Regreso</label>
-                <div class="input-group-prepend"  >
-                    <input  id="entry_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaE').invalid && subM && !disabled" placeholder="FechaE" formControlName="fechaE" [attr.disabled]="disabled ? '' : null">    
+              <div class="col-md-3">
+                  <label for="">Ciudad de Destino</label>
+                  <div class="input-group-prepend">
+                    <input type="text" class="form-control" [class.alert-danger]="form.get('destino').invalid && subM"  placeholder="Destino" formControlName="destino">
                   </div>
-                  <span *ngIf="form.get('fechaE').invalid && subM && !disabled" style="color: #ed1b24">Campo obligatorio</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <label for="">Pasajeros</label>
-              <div class="input-group-prepend">
-                <select id="peopleId" class="form-control" formControlName="adultFlights" [class.alert-danger]="form.get('adultFlights').value==-1 && subM && !disabledPpl"  >
-                   <option value="-1" disabled>Adulto</option>
-                   <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
-                </select>
+                  <small>Ejemplo: Lisboa</small>
+                  <span *ngIf="form.get('destino').invalid && subM" style="color: #ed1b24">Campo Obligatorio</span>
               </div>
-              <span *ngIf="form.get('adultFlights').value==-1 && subM && !disabledPpl" style="color: #ed1b24">Campo Obligatorio</span>
+              <div class="col-md-3">
+                 <label for="">Fecha de Salida</label>
+                 <div class="input-group-prepend"  >
+                    <input id="out_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaS').invalid && subM && !disabledOut" placeholder="FechaS" formControlName="fechaS" >
+                 </div>
+                  <span *ngIf="form.get('fechaS').invalid && subM && !disabledOut" style="color: #ed1b24">Campo Obligatorio</span>
+                  <div class="form-check">
+                    <label class="form-check-label" style="font-size: 14px; margin: 10px 0;">
+                      <input class="form-check-input" name="" id="date_id" type="checkbox" value="checkedValue" aria-label="Text for screen reader" (change)="checkboxSelected($event)" >
+                      Todavía no he decidido la fecha
+                    </label>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <label for="">Fecha de Regreso</label>
+                  <div class="input-group-prepend"  >
+                      <input  id="entry_id" type="date" class="form-control" [class.alert-danger]="form.get('fechaE').invalid && subM && !disabled" placeholder="FechaE" formControlName="fechaE" [attr.disabled]="disabled ? '' : null">    
+                    </div>
+                    <span *ngIf="form.get('fechaE').invalid && subM && !disabled" style="color: #ed1b24">Campo obligatorio</span>
+              </div>
             </div>
-            <div class="col-md-3 offset-md-6" >
-                <button (click)="onSubmit()"  class="btn btn-danger mt-4 w-100"  data-toggle="button" aria-pressed="false" autocomplete="off"  >
-                    <i class="fa fa-search" aria-hidden="true"></i> Buscar
-                </button>
+            <div class="row">
+              <div class="col-md-3">
+                <label for="">Pasajeros</label>
+                <div class="input-group-prepend">
+                  <select id="peopleId" class="form-control" formControlName="adultFlights" [class.alert-danger]="form.get('adultFlights').value==-1 && subM && !disabledPpl"  >
+                     <option value="-1" disabled>Adulto</option>
+                     <option *ngFor="let adult of adultFlights" value="{{ adult.id }}">{{ adult.id }}</option>
+                  </select>
+                </div>
+                <span *ngIf="form.get('adultFlights').value==-1 && subM && !disabledPpl" style="color: #ed1b24">Campo Obligatorio</span>
+              </div>
+              <div class="col-md-3 offset-md-6" >
+                  <button (click)="onSubmit()"  class="btn btn-danger mt-4 w-100"  data-toggle="button" aria-pressed="false" autocomplete="off"  >
+                      <i class="fa fa-search" aria-hidden="true"></i> Buscar
+                  </button>
+              </div>
             </div>
-          </div>
-         </form>
+           </form>
+         </div>
        </div>
      </div>
-   </div>
-</div>
-<app-list-reservations  [longiGo]="listFlightResGo" [longi]="listFlightRes" [normal]="normalIn" [longiGoIn]="listFlightResGoIn" [num]="form.get('adultFlights').value"></app-list-reservations>
+  </div>
+  <app-list-reservations  [longiGo]="listFlightResGo" [longi]="listFlightRes" [normal]="normalIn" [longiGoIn]="listFlightResGoIn" [num]="form.get('adultFlights').value"></app-list-reservations>
