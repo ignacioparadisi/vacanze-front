@@ -11,6 +11,7 @@ import { Veh_Model } from '../../../classes/veh_model';
 export class ModelComponent {
 
 	models: Array<Veh_Model>;
+	public searchText : string;
 
 	constructor(private apiService: ApiService) { }
 

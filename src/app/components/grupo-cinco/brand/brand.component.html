@@ -5,6 +5,8 @@
       <span> Lista de marcas</span>
     </div>
     <div class="card-body table-responsive">
+      <input [(ngModel)]="searchText" placeholder="Buscar.." class="form-control">
+      <br>
       <table class="table table-bordered table-hover">
         <thead class="thead-dark">
           <tr>
@@ -13,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let brand of brands">
+          <tr *ngFor="let brand of brands | FilterData: {brandName: searchText}">
             <td class="text-center">
               {{brand?.brandName}}
             </td>

@@ -13,7 +13,8 @@ import { Veh_Brand } from '../../../classes/veh_brand';
 export class BrandComponent {
 
     brands: Array<Veh_Brand>
-
+    public searchText : string;
+    
     constructor(private apiService: ApiService) { }
 
     ngOnInit() {
