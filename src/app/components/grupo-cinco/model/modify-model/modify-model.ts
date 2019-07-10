@@ -75,7 +75,7 @@ export class ModifyModelComponent {
                     this.closeModal();
                     Swal.fire({
                         title: '!Éxito¡',
-                        text: 'La marca se modificó satisfactoriamente.',
+                        text: 'El modelo se modificó satisfactoriamente.',
                         type: 'success'
                     });
                     this.spread.emit();
@@ -94,7 +94,7 @@ export class ModifyModelComponent {
                     this.closeModal();
                     Swal.fire({
                         title: '!Éxito¡',
-                        text: 'La marca se modificó satisfactoriamente.',
+                        text: 'El modelo se modificó satisfactoriamente.',
                         type: 'success'
                     });
                     this.spread.emit();
