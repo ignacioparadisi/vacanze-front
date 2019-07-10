@@ -85,14 +85,14 @@
         </div>
         <div class="col-md-3">
           <p><strong>CheckIn: </strong></p>
-          <p>{{roomreservation?.checkIn}}</p>
+          <p>{{roomreservation?.checkIn | date: 'mediumDate'}}</p>
 
 
 
         </div>
         <div class="col-md-3">
           <p><strong>CheckOut:</strong></p>
-          <p>{{roomreservation?.checkOut}}</p>
+          <p>{{roomreservation?.checkOut | date: 'mediumDate'}}</p>
 
         </div>
 
@@ -265,8 +265,8 @@
                     <td align="center">{{roomreservation.hotel?.roomCapacity}}</td>
                     <td>{{roomreservation.hotel?.pricePerRoom}}$</td>
                     <td>{{roomreservation.hotel?.phone}}</td>
-                    <td>{{roomreservation.checkIn}}</td>
-                    <td>{{roomreservation.checkOut}}</td>
+                    <td>{{roomreservation.checkIn | date: 'mediumDate'}}</td>
+                    <td>{{roomreservation.checkOut | date: 'mediumDate'}}</td>
                     <td>
                       <swal #deleteSwal title="¿Desea eliminar la reservacion?" type="question"
                         [showCancelButton]="true" [focusCancel]="true"

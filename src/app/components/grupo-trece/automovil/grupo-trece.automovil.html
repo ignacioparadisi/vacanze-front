@@ -78,14 +78,14 @@
       <div class="row">
         <div class="col-md-3">
           <p><strong>CheckIn: </strong></p>
-          <p>{{carreservation?.checkIn}}</p>
+          <p>{{carreservation?.checkIn | date: 'mediumDate'}}</p>
 
 
 
         </div>
         <div class="col-md-3">
           <p><strong>CheckOut:</strong></p>
-          <p>{{carreservation?.checkOut}}</p>
+          <p>{{carreservation?.checkOut | date: 'mediumDate'}}</p>
 
         </div>
 
@@ -253,8 +253,8 @@
                     <td>{{carreservation.automobile?._model}}</td>
                     <td>{{carreservation.automobile?._capacity}}</td>
                     <td>{{carreservation.automobile?.price}}$</td>
-                    <td>{{carreservation.checkIn}}</td>
-                    <td>{{carreservation.checkOut}}</td>
+                    <td>{{carreservation.checkIn | date: 'mediumDate'}}</td>
+                    <td>{{carreservation.checkOut | date: 'mediumDate'}}</td>
                     <td>
                       <swal #deleteSwal title="¿Desea eliminar la reservacion?" type="question"
                         [showCancelButton]="true" [focusCancel]="true"

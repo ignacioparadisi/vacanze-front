@@ -3,7 +3,6 @@ import { ApiService } from '../../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { compararFechas } from '../../../utils/global_functions';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import * as moment from 'moment';
 
@@ -15,13 +14,11 @@ import * as moment from 'moment';
 })
 export class AutomovilGrupoTrece implements OnInit {
   myForm: FormGroup;
-  public compararFechas: any;
   public cars = [];
   public countries = [];
   public cities = [];
   public closeResult: string;
   private userId: number;
-  private isDataLoaded: boolean = false;
   public show: boolean = false;
   public carreservation = [];
   public carreservations = [];
@@ -32,7 +29,6 @@ export class AutomovilGrupoTrece implements OnInit {
 
   constructor(public fb: FormBuilder, private modalService: NgbModal,
     private apiService: ApiService, private localStorage: LocalStorageService) {
-    this.compararFechas = compararFechas;
     this.myForm = this.fb.group({
       country: ['', [Validators.required]],
       city: ['', [Validators.required]],
@@ -50,7 +46,6 @@ export class AutomovilGrupoTrece implements OnInit {
   public getLocalStorage() {
     this.localStorage.getItem('id').subscribe(storedId => {
       if (storedId) {
-        this.isDataLoaded = true;
         this.userId = storedId;
         this.getAutomobileReservations();
       }
@@ -119,9 +114,8 @@ export class AutomovilGrupoTrece implements OnInit {
   getCarsByCity() {
     this.markAllAsTouched();
     const reservation = this.myForm.value;
-    const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-
-    if (this.myForm.valid && fechas === 1) {
+    const fechas = this.compararFechas(reservation.fechaOne, reservation.fechaTwo);
+    if (this.myForm.valid && fechas) {
       const requestURL = "locations/" + this.myForm.value.city + "/vehicles";
       this.apiService.getUrl(requestURL).then(
         response => {
@@ -143,46 +137,32 @@ export class AutomovilGrupoTrece implements OnInit {
     this.myForm.get('fechaTwo').markAsTouched();
   }
 
-  submit(car: Object) {
+  submit(car: any) {
     this.markAllAsTouched();
     const reservation = this.myForm.value;
-    let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
 
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
     reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-    var fk_user = this.userId;
-    reservation.fk_user = fk_user; // esto cuando se solucione el put
-    reservation.automobile = car;
-    reservation.user = "";
+    reservation.userId = this.userId
+    reservation.vehicleId = car.id;
     reservation.id = 0;
     delete reservation.city;
     delete reservation.fechaOne;
     delete reservation.fechaTwo;
     delete reservation.country;
 
-    this.apiService.postUrl('reservationautomobiles', reservation).then(
+    this.apiService.postUrl('reservationvehicles', reservation).then(
       response => {
+        this.showSuccessMessage("Se ha agregado la reservación.");
+        this.getAutomobileReservations();
       }, error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error en el servidor");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
-    /*
-           if (fechas === 1) {
-
-
-
-                if (this.myForm.valid) {
-                    this.apiService.postUrl('reservationautomobiles', reservation).then(
-                        response => {
-                            console.log(response);
-                        }, error => {
-                            console.log(error);
-                        }
-                    );
-                }
-            } else {
-                console.log('La fecha de llegada no puede ser anterior a la de salida.');
-            }
-            */
   }
 
   buscador() {
@@ -268,28 +248,30 @@ export class AutomovilGrupoTrece implements OnInit {
     this.totalcost = price * this.totalcost;
   }
 
-  public updateAutomobileReservation(car: object, id: number) {
+  public updateAutomobileReservation(car: any, id: number) {
     const requestURL = 'reservationvehicles';
     const reservation = this.myForm.value;
-    const fk_user = this.userId;
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
     reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-    reservation.fk_user = fk_user;
-    reservation.automobile = car;
-    //  reservation.user="";
+    reservation.userId = this.userId;
+    reservation.vehicleId = car.id;
     reservation.id = id;
-    const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+    const datesAreValid = this.compararFechas(reservation.fechaOne, reservation.fechaTwo);
     delete reservation.city;
     delete reservation.fechaOne;
     delete reservation.fechaTwo;
     delete reservation.country;
-    if (fechas === 1) {
+    if (datesAreValid) {
       this.apiService.putUrl(requestURL, reservation).then(
         response => {
+          this.showSuccessMessage("La reservación ha sido actualizada satisfactoriamente.");
           this.getAutomobileReservations();
         }, error => {
-          console.error(error);
-          this.getAutomobileReservations();
+          if (error.status === 0) {
+            this.showErrorAlert("Error de servidor");
+          } else {
+            this.showErrorAlert(error.error);
+          }
         }
       );
     }
@@ -323,9 +305,14 @@ export class AutomovilGrupoTrece implements OnInit {
     const requestURL = `reservationvehicles/${id}`;
     this.apiService.deleteUrl(requestURL).then(
       response => {
+        this.showSuccessMessage("La reservación ha sido eliminada de manera exitosa");
         this.getAutomobileReservations();
       }, error => {
-        this.getAutomobileReservations();
+        if (error.status === 0) {
+          this.showErrorAlert("Error de servidor");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
@@ -390,5 +377,13 @@ export class AutomovilGrupoTrece implements OnInit {
       timer: 1800
     }
     Swal.fire(config);
+  }
+
+  private compararFechas(fecha1str: Date, fecha2str: Date): boolean {
+    const fecha1 = new Date(fecha1str);
+    fecha1.setDate(fecha1.getDate() + 1);
+    const fecha2 = new Date(fecha2str);
+    fecha2.setDate(fecha2.getDate() + 1);
+    return ((fecha1 < fecha2) && (fecha1 >= new Date()));
   }
 }
