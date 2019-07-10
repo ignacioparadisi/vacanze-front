@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbTabChangeEvent, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
@@ -18,6 +18,7 @@ export class DetailTravelComponent implements OnInit {
   private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");
   activeModal: NgbModalRef;
   commentForm: FormGroup;
+  @Input('travelId') id: number;
   restReservations: Array<object>
   autoReservations: Array<object>
   hoteReservations: Array<object>
@@ -210,11 +211,15 @@ export class DetailTravelComponent implements OnInit {
   }
 
   open(content, id: number) {
+    const today = new Date;
+    today.setHours(0,0,0,0)
     this.activeModal = this.modalService.open(content);
     this.commentForm = new FormGroup({
-      travelId: new FormControl(this.travel.id),
-      reservationId: new FormControl(id),
-      comment: new FormControl('', Validators.required)
+      
+      description: new FormControl('', Validators.required),
+      datetime: new FormControl(today,Validators.required),
+      idforanea: new FormControl(id,Validators.required),
+
     })
   }
 
@@ -223,5 +228,49 @@ export class DetailTravelComponent implements OnInit {
   }
 
   addComment() {
+    this.apiService.postUrl ('Comment' ,this.commentForm.value).then(
+      async (resp) => {
+        
+        
+        Swal.fire({
+          title: '!Éxito¡',
+          text: 'SE agregro el comentario.',
+          type: 'success'
+        });
+    
+      },
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );
   }
-}
+
+  CommentDelete(id ){
+    this.apiService.deleteUrl('Comment/',[id]).then(
+      async (resp) => {
+        
+        
+        Swal.fire({
+          title: '!Éxito¡',
+          text: 'se elimino .',
+          type: 'success'
+        });
+    
+      },
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );
+
+  }
+
+  }
+

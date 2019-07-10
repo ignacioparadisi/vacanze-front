@@ -1,0 +1,30 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Crear un nuevo viaje</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="CommentForm">
+      <div class="d-flex flex-row-reverse required">
+        <p>*campo requerido</p>
+      </div>
+      <div class="row">
+
+        <div class="form-group col">
+          <input type="text" class="form-control" placeholder="Nombre" formControlName="name"
+            maxlength="40">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <textarea class="form-control" placeholder="Descripción" formControlName="description" cols="15" rows="10"
+            maxlength="500"></textarea>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+</ng-template>

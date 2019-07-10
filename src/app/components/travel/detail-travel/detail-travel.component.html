@@ -7,7 +7,7 @@
     <form [formGroup]="commentForm">
       <div class="row">
         <div class="form-group col">
-          <textarea class="form-control" placeholder="Comentario" formControlName="comment" cols="15" rows="10"
+          <textarea class="form-control" placeholder="Comentario" formControlName="description" cols="15" rows="10"
             maxlength="200"></textarea>
         </div>
       </div>
@@ -47,6 +47,17 @@
               <br>
               Monto: {{fligReservation.flight.price}}
             </p>
+          </div>
+          <div class="col-1">
+            <button class="btn btn-sm btn-outline-danger" title="eliminar comentario" (click)="CommentDelete(fligReservation.id)">
+              <i class="fa fa-xs fa-trash"></i>
+            </button>
+          </div>
+
+          <div class="col-1">
+            <button class="btn btn-sm btn-outline-danger" title="Modificar comentarioo" (click)="Modificarcomentario(fligReservation.id)">
+              <i class="fa fa-xs fa-trash"></i>
+            </button>
           </div>
         </div>
       </ng-template>

@@ -110,7 +110,7 @@ export class AddCityComponent {
   }
 
   addCities() {
-    this.apiService.postUrl('travels/{travelId}/locations', this.selectedCities, [this.travelId]).then(
+    this.apiService.postUrl('locationtravel/{travelId}', [this.travelId],this.selectedCities).then(
       (resp) => {
         this.closeModal();
         Swal.fire({
