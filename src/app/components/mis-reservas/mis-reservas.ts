@@ -264,7 +264,7 @@ export class MisReservas implements OnInit {
     }
   }
 
-  public updateRoomReservation(hotel: object, id: number) {
+  public updateRoomReservation(hotel: any, id: number) {
     const requestURL = 'reservationrooms';
     const reservation = this.myForm.value;
     var fk_user = this.userId;
@@ -311,7 +311,7 @@ export class MisReservas implements OnInit {
     );
   }
 
-  getHotelForReservation(reservation: RoomReservation) {
+  getHotelForReservation(reservation) {
     const requestURL = `hotels/${reservation.hotelId}`;
     this.apiService.getUrl(requestURL).then(response => {
       reservation.hotel = response;

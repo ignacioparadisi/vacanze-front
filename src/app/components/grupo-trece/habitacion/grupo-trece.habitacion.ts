@@ -132,7 +132,7 @@ export class HabitacionGrupoTrece implements OnInit {
     this.myForm.get('fechaTwo').markAsTouched();
   }
 
-  submit(hotel: Object) {
+  submit(hotel: any) {
     this.markAllAsTouched();
     const reservation = this.myForm.value;
     let fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
@@ -357,7 +357,7 @@ export class HabitacionGrupoTrece implements OnInit {
     );
   }
 
-  getHotelForReservation(reservation: RoomReservation) {
+  getHotelForReservation(reservation) {
     const requestURL = `hotels/${reservation.hotelId}`;
     this.apiService.getUrl(requestURL).then(response => {
       reservation.hotel = response;
