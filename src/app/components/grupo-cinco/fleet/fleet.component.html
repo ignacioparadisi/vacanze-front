@@ -53,8 +53,9 @@
             </td>
             <td class="text-center">
               <modify-vehicle [modelId]="vehicle.vehicleModel.id" [brandId]="vehicle.vehicleModel.modelBrand.id"
-                [cityId]="vehicle.vehicleLocation.city" [countryId]="vehicle.vehicleLocation.country"
-                [licenseV]="vehicle.license" [priceV]="vehicle.price" [statusV]="vehicle.status"></modify-vehicle>
+                [cityId]="vehicle.vehicleLocationId" [licenseV]="vehicle.license" [priceV]="vehicle.price"
+                [statusV]="vehicle.status" [idV]="vehicle.id" [vehicles]="vehicles" (spread)="getVehicles()">
+              </modify-vehicle>
             </td>
           </tr>
         </tbody>
@@ -63,4 +64,4 @@
   </div>
 </div>
 
-<create-vehicle></create-vehicle>
+<create-vehicle (spread)="getVehicles()"></create-vehicle>
