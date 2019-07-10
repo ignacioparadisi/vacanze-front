@@ -1,8 +1,26 @@
+<div id = "paginaAcceso" style="display:none" class="row col">
+  <div class="col-md-12">
+    <div class="card mb-3 text-center">
+        <br>
+        <img id="imagen-error" style="width: 200px; height:200px; margin-left: 40%" class="text-center" src="assets/images/error.png">
+        <div class="card-body table-responsive carta-intro">
+          <h3>
+            Usted no tiene permitido el acceso al modulo de reclamo, por
+            favor, comuniquese con el administrador tecnico para que le
+            pueda otorgar el permiso.
+          </h3>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div id = "principal" style = "display:none">
 <app-filter-hotel
   *ngIf="!isEditingHotel && !isCreatingHotel"
   (locationIdEmiter) = "getLocationIdEmiter($event)"
 >
 </app-filter-hotel>
+
 <app-table-responsive
 *ngIf="!isEditingHotel && !isCreatingHotel"
 [headerTitle]="getHeaderTitle()"
@@ -14,3 +32,4 @@
 >
 </app-table-responsive>
 <router-outlet (deactivate)="getDeactivatedComponent($event)"></router-outlet>
+</div>
