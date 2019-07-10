@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
     selector: 'create-model',
     templateUrl: './create-model.html',
     styleUrls: ['./create-model.scss'],
-    providers: [NgbModal]
+    providers: [NgbModal, ApiService]
 })
 
 export class CreateModelComponent {

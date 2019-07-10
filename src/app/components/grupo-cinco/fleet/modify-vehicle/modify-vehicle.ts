@@ -10,7 +10,7 @@ import { Veh_Model } from '../../../../classes/veh_model';
     selector: 'modify-vehicle',
     templateUrl: './modify-vehicle.html',
     styleUrls: ['./modify-vehicle.scss'],
-    providers: [NgbModal]
+    providers: [NgbModal, ApiService]
 })
 
 export class ModifyVehicleComponent {

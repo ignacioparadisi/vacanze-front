@@ -9,12 +9,13 @@ import { Veh_Brand } from '../../../../classes/veh_brand';
     selector: 'modify-model',
     templateUrl: './modify-model.html',
     styleUrls: ['./modify-model.scss'],
-    providers: [NgbModal]
+    providers: [NgbModal, ApiService]
 })
 
 export class ModifyModelComponent {
 
     @Output() spread = new EventEmitter();
+    @Input('models') models: string;
     @Input('modelName') modelName: string;
     @Input('modelId') modelId: number;
     @Input('capacity') capacity: number;
