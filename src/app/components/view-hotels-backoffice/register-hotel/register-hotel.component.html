@@ -1,5 +1,5 @@
 <p>
-  Registrar Hotel
+  <b>Registrar Hotel</b>
 </p>
 
 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
@@ -213,7 +213,7 @@
 
     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
       <div class="form-group">
-        <label>Selecione un país</label>
+        <label>Seleccione un país</label>
         <select
           type="text"
           class="form-control"
@@ -229,7 +229,7 @@
 
     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
       <div class="form-group">
-        <label>Selecione la ciudad</label>
+        <label>Seleccione la ciudad</label>
         <select type="text" class="form-control" formControlName="city">
           <option *ngFor="let city of cities" value="{{ city.id }}">
             {{ city.city }}
