@@ -12,9 +12,6 @@
 
 #fondo{    
     background-image: url("src/assets/images/avion.jpg");
-    align-items: center!important;
-    text-align: center;
     background-repeat: no-repeat;
-    background-size: 100%;
-    background-position-y: 20%;
+    background-size: cover;
 }

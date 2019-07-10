@@ -465,7 +465,7 @@ export class MisReservas implements OnInit {
   public getAlertAction(reserva: Object) {
     if (reserva['confirmed']) {
       if (reserva['delete']) {
-        this.deleteReservation(reserva['id']);
+        this.deleteReservation(reserva['rest_id']);
       }
     }
   }

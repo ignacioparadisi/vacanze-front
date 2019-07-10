@@ -4,6 +4,7 @@ import { TypeFlight } from '../../../classes/type_flight';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PeopleFlight } from '../../../classes/people_flight';
 import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { environment as url } from '../../../../environments/environment';
 
 @Component({
@@ -17,6 +18,7 @@ export class FlightReservationsComponent implements OnInit {
   public form: FormGroup;
   public typeFlights: TypeFlight[]=[];
   public adultFlights:PeopleFlight[]=[];
+  public countries = [];
   public active:boolean=false;
   public arrayNumber: number[];
   public disabled:boolean=true;
@@ -34,14 +36,16 @@ export class FlightReservationsComponent implements OnInit {
   public dateOut:Date;
   public dateIn:Date;
   public dateCompPass:string;
+  public closeResult: string;
 
-    constructor(private api: ApiService, private router: Router) { }
+    constructor(private api: ApiService, private router: Router, private modalService: NgbModal) { }
         
    private selectedTyp: string="";
    
   ngOnInit() {
     this.typeFlight();
     this.adultFlight();
+    //this.getCountries();
     this.form = new FormGroup({
       adultFlights: new FormControl(-1, Validators.required),
       origen: new FormControl(null, [Validators.required]),
@@ -72,9 +76,30 @@ export class FlightReservationsComponent implements OnInit {
       document.getElementById("out_id").setAttribute("max", getSelectedEnt.value.toString());
     })
   }
+
+  public open(content) {
+    this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  public getCountries() {
+    const requestURL = 'locations/countries';
+    this.api.getUrl(requestURL).then(
+        response => {
+          console.log(response);
+            this.countries = response;
+        }, error => {
+          console.log(error);
+        }
+    );
+  }
+
   private typeFlight(): TypeFlight[] {
     this.typeFlights = [
-      new TypeFlight(0, 'Ida'),
+      new TypeFlight(0, 'Sólo Ida'),
       new TypeFlight(1, 'Ida y Vuelta ')
     ];
     return this.typeFlights;
@@ -230,6 +255,15 @@ getListFlightByDateOutIn(i: number,j: number) {
       }
   );
 }
+
+public invalid(controlName: string, form: FormGroup) {
+  return form.get(controlName).touched && !form.get(controlName).valid;
+}
+
+public valid(controlName: string, form: FormGroup) {
+  return form.get(controlName).touched && form.get(controlName).valid;
+}
+
 //Metodo que se activa cuando el usuario hace click en buscar.
   onSubmit() {
     this.subM=true;

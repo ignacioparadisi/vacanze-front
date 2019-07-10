@@ -1,0 +1,51 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Crear un nuevo modelo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="modelForm">
+      <div class="row">
+        <div class="form-group col">
+          <select name="brand" placeholder="Marca" class="form-control" id="brandId" formControlName="brandId">
+            <option value="" hidden> Marca </option>
+            <option *ngFor="let brand of brands" [value]="brand.id">
+              <p>
+                {{brand?.brandName}}
+              </p>
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <input type="text" class="form-control" placeholder="Nombre" formControlName="modelName" maxlength="40">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <input type="number" class="form-control" placeholder="Capacidad" formControlName="capacity" min="1" max="10">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <input type="file" class="form-control" placeholder="Imagen" formControlName="picture">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" [disabled]="!modelForm.valid" class="btn btn-success" (click)="createModel()">Crear</button>
+  </div>
+</ng-template>
+
+<div class="d-flex justify-content-end align-items-end w-100" style="height: 295px;">
+  <div class="kreep">
+    <button (click)="open(content)" type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip"
+      data-placement="top" title="Crear un viaje">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+</div>
