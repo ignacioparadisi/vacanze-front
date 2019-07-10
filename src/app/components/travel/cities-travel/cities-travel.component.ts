@@ -13,6 +13,7 @@ import { Travel } from '../../../classes/travel';
 export class CitiesTravelComponent implements OnInit {
 
   private cities: any;
+  aux:string;
   private travel: Travel = JSON.parse(localStorage.getItem("travel"));
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService: ApiService) { }
@@ -22,7 +23,9 @@ export class CitiesTravelComponent implements OnInit {
   }
 
   getCities() {
-    this.apiService.postUrl('locationtravel/{travelId}', [String(this.travel.id)]).then(
+  this.aux='Travel/gettravellocation/' + this.travel.id;
+  
+    this.apiService.getUrl(this.aux ).then(
       (resp) => this.cities = resp,
       (fail) => {
         if (fail.error) {
@@ -42,7 +45,8 @@ export class CitiesTravelComponent implements OnInit {
   }
 
   deleteCity(cityId: number) {
-    this.apiService.deleteUrl('locationtravel/', [String(cityId)]).then(
+    this.aux= 'Travel/locationtravel/'+ cityId;
+    this.apiService.deleteUrl(this.aux).then(
       (resp) => this.cities = resp,
       (fail) => {
         if (fail.error) {

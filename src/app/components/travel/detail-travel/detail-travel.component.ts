@@ -24,6 +24,7 @@ export class DetailTravelComponent implements OnInit {
   hoteReservations: Array<object>
   fligReservations: Array<object>
   activeId: string;
+  aux:string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private modalService: NgbModal, private apiService: ApiService) { }
 
@@ -250,7 +251,8 @@ export class DetailTravelComponent implements OnInit {
   }
 
   CommentDelete(id ){
-    this.apiService.deleteUrl('Comment/',[id]).then(
+    this.aux= 'Comment/'+id;
+    this.apiService.deleteUrl(this.aux).then(
       async (resp) => {
         
         

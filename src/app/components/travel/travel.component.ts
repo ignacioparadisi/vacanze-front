@@ -16,7 +16,7 @@ export class TravelComponent implements OnInit {
 
   private userId: string;
   private travels: Array<Travel>;
-
+  aux:string ;
   constructor(private router: Router, private apiService: ApiService, private localStorage: LocalStorageService) {
   }
 
@@ -60,9 +60,12 @@ export class TravelComponent implements OnInit {
     this.router.navigate(['travel', travel.id, 'cities'])
   }
 
-  private travelDelete(travel) {
-     
-    this.apiService.deleteUrl('Travel/delete/',String [travel.id]).then(
+
+  public travelDelete ( travel ) {
+  
+       
+       this.aux ='Travel/delete/'+ travel.id;
+    this.apiService.deleteUrl(this.aux).then(
       async (resp) => {
         
         
