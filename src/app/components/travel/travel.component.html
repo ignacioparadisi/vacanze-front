@@ -12,13 +12,9 @@
               <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description" [travelinit]="travel.init"
               [travelend]="travel.end"
                 (spread)="getTravels()"></modify-travel>
-
-                <div class="col-1">
-              
-                    <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje" (click)="travelDelete(travel)">
-                      <i class="fa fa-xs fa-trash"></i>
-                    </button>
-                  </div>
+                <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje" (click)="travelDelete(travel)">
+                  <i class="fa fa-xs fa-trash"></i>
+                </button>
             </div>
      
             
