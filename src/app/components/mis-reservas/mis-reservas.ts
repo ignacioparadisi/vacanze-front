@@ -20,9 +20,10 @@ import { Location } from "@angular/common";
 })
 export class MisReservas implements OnInit {
   myForm: FormGroup;
+
   public compararFechas: any;
-  public carreservations = "";
-  public roomreservations = "";
+  public carreservations = [];
+  public roomreservations = [];
   public closeResult: string;
   public id: number = null;
   public totalcost: number = null;
@@ -35,7 +36,7 @@ export class MisReservas implements OnInit {
   private tableData: Array<Object>;
   public userId: number
   public isDataLoaded: boolean
-
+  public flightReservations = [];
 
   @Output() public actionAlertEventEmitter = new EventEmitter();
 
@@ -43,7 +44,8 @@ export class MisReservas implements OnInit {
     private modalService: NgbModal,
     private apiService: ApiService,
     private _location: Location,
-    private localStorage: LocalStorageService) {
+    private localStorage: LocalStorageService,
+    private router: Router) {
 
     this.compararFechas = compararFechas;
     this.myForm = this.fb.group({
@@ -62,19 +64,19 @@ export class MisReservas implements OnInit {
   }
 
   ngOnInit() {
-    this.getLocalStorage()
-    this.getLocalStorageRes()
+    this.getLocalStorage();
+    this.getLocalStorageRes();
   }
 
   public getLocalStorage() {
     this.localStorage.getItem('id').subscribe(storedId => {
       if (storedId) {
-        this.isDataLoaded = true
-        this.userId = storedId
+        this.isDataLoaded = true;
+        this.userId = storedId;
         this.getAutomobileReservations();
         this.getRoomReservations();
       }
-    })
+    });
   }
 
   /**************************************************************************
@@ -101,12 +103,12 @@ export class MisReservas implements OnInit {
       data['delete'] = deleted;
       if (result && ('value' in result)) {
         data['confirmed'] = true;
-       }
+      }
       else {
         data['confirmed'] = false;
       }
       this.messageAlert(data);
-          
+
     })
   }
 
@@ -122,11 +124,14 @@ export class MisReservas implements OnInit {
     ***********************************************************************/
   getAutomobileReservations() {
     var user_id = this.userId;
-    //  const requestURL = "reservationautomobiles/?user="+user_id; 
-    const requestURL = "reservationautomobiles/?user=" + this.userId; //Mientras se soluciona el peo
+    //  const requestURL = "reservationautomobiles/?user="+user_id;
+    const requestURL = "reservationvehicles/?user=" + this.userId; //Mientras se soluciona el peo
     this.apiService.getUrl(requestURL).then(
       response => {
         this.carreservations = response;
+        this.carreservations.forEach(reservation => {
+          this.getVehicleForReservation(reservation);
+        });
       },
       error => {
       }
@@ -140,14 +145,23 @@ export class MisReservas implements OnInit {
     this.apiService.getUrl(requestURL).then(
       response => {
         this.roomreservations = response;
+
+        this.roomreservations.forEach(reservation => {
+          this.getHotelForReservation(reservation);
+        });
       },
       error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error obteniendo las reservaciones");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
 
   public deleteAutomobileReservation(id: number) {
-    const requestURL = `reservationautomobiles/${id}`;
+    const requestURL = `reservationvehicles/${id}`;
     this.apiService.deleteUrl(requestURL).then(
       response => {
         this.getAutomobileReservations();
@@ -161,16 +175,73 @@ export class MisReservas implements OnInit {
     const requestURL = `reservationrooms/${id}`;
     this.apiService.deleteUrl(requestURL).then(
       response => {
-        this.getRoomReservations()
+        this.getRoomReservations();
+        this.showSuccessMessage("Se ha eliminado la reservación satisfactoriamente");
+      }, error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error eliminando la reservación");
+        } else {
+          this.showErrorAlert(error.error);
+        }
+      }
+    );
+  }
+
+  ////////metodo para reserva de vuelos modal
+  public openModalFlight(id: number) {
+
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteFlightReservation(id);
+        Swal.fire(
+          'Eliminado exitosamente!!',
+        )
+        this.ngOnInit();
+      }
+    })
+
+  }
+  //metodo para recibir reservas de vuelo
+  getFlightReservations() {
+    console.log("Estoy en getFlightReservations");
+    console.log("ID" + this.userId);
+
+    const requestURL = `list-reservation-flight/${this.userId}`;
+    this.apiService.getUrl(requestURL).then(
+      response => {
+        this.flightReservations = response;
+        console.log("mylistreeees:", response);
+        //this.flightReservations = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  //metodo para eliminar reservas de vuelo
+  deleteFlightReservation(id: number) {
+    console.log("id tiene:", this.userId);
+    const requestURL = `delete-reservation-flight/${id}`;
+    this.apiService.deleteUrl(requestURL).then(
+      response => {
+        console.log(response);
+        console.log('Reservacion con el id' + id + 'fue eliminada');
       }, error => {
         console.error(error);
-        this.getRoomReservations();
       }
     );
   }
 
   public updateAutomobileReservation(car: object, id: number) {
-    const requestURL = 'reservationautomobiles';
+    const requestURL = 'reservationvehicles';
     const reservation = this.myForm.value;
     var fk_user = this.userId;
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
@@ -184,7 +255,7 @@ export class MisReservas implements OnInit {
     delete reservation.fechaOne;
     delete reservation.fechaTwo;
     delete reservation.country;
-    if (fechas === 1)
+    if (fechas === 1) {
       this.apiService.putUrl(requestURL, reservation).then(
         response => {
           this.getAutomobileReservations();
@@ -193,32 +264,37 @@ export class MisReservas implements OnInit {
           this.getAutomobileReservations();
         }
       );
+    }
   }
 
-  public updateRoomReservation(hotel: object, id: number) {
+  public updateRoomReservation(hotel: any, id: number) {
     const requestURL = 'reservationrooms';
     const reservation = this.myForm.value;
     var fk_user = this.userId;
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
     reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-    reservation.fk_user = fk_user;
-    reservation.hotel = hotel;
-    reservation.user = "";
+    reservation.userId = fk_user;
+    reservation.hotelId = hotel.id;
     reservation.id = id;
     const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
     delete reservation.city;
     delete reservation.fechaOne;
     delete reservation.fechaTwo;
     delete reservation.country;
-    if (fechas === 1)
+    if (fechas === 1) {
       this.apiService.putUrl(requestURL, reservation).then(
         response => {
           this.getRoomReservations();
+          this.showSuccessMessage("Se ha actualizado la reservación satisfactoriamente.")
         }, error => {
-          console.error(error);
-          this.getRoomReservations();
+          if (error.status === 0) {
+            this.showErrorAlert("Error actualizando la reservación");
+          } else {
+            this.showErrorAlert(error.error);
+          }
         }
       );
+    }
   }
 
   getRoomReservation(id: number) {
@@ -229,20 +305,81 @@ export class MisReservas implements OnInit {
         this.roomreservation = response;
       },
       error => {
+        if (error.status === 0) {
+          this.showErrorAlert("Error obteniendo la reservación");
+        } else {
+          this.showErrorAlert(error.error);
+        }
       }
     );
   }
 
+  getHotelForReservation(reservation) {
+    const requestURL = `hotels/${reservation.hotelId}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      reservation.hotel = response;
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo hotel para reservaciones");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
   getCarReservation(id: number) {
-    const requestURL = `reservationautomobiles/${id}`;
+    const requestURL = `reservationvehicles/${id}`;
     this.apiService.getUrl(requestURL).then(
       response => {
         this.id = response.id;
         this.carreservation = response;
+        this.getVehicleForReservation(this.carreservation);
       },
       error => {
       }
     );
+  }
+
+  getVehicleForReservation(reservation) {
+    const requestURL = `vehicles/${reservation.vehicleId}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      reservation.automobile = response;
+      this.getVehicleModel(reservation.automobile);
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo vehiculos para reservaciones");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
+  getVehicleModel(vehicle) {
+    const requestURL = `models/${vehicle.id}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      vehicle._model = response.modelName;
+      vehicle._capacity = response.capacity;
+      this.getVehicleMake(vehicle, response.brandId);
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo modelo de vehiculo");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
+  }
+
+  getVehicleMake(vehicle, makeId) {
+    const requestURL = `brands/${makeId}`;
+    this.apiService.getUrl(requestURL).then(response => {
+      vehicle._make = response.brandName;
+    }, error => {
+      if (error.status === 0) {
+        this.showErrorAlert("Error obteniendo marca de vehiculo");
+      } else {
+        this.showErrorAlert(error.error);
+      }
+    });
   }
 
   getDaysFrom2Dates(date1: any, date2: any, price: number) {
@@ -328,7 +465,7 @@ export class MisReservas implements OnInit {
   public getAlertAction(reserva: Object) {
     if (reserva['confirmed']) {
       if (reserva['delete']) {
-        this.deleteReservation(reserva['rest_id']);
+        this.deleteReservation(reserva['id']);
       }
     }
   }
@@ -371,6 +508,26 @@ export class MisReservas implements OnInit {
 
   public getHeaderTitle() {
     return this.headerTitle;
+  }
+
+  private showSuccessMessage(title: string) {
+    let config: SweetAlertOptions = {
+      title: title,
+      type: 'success',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
+  }
+
+  private showErrorAlert(error: string) {
+    let config: SweetAlertOptions = {
+      title: error,
+      type: 'error',
+      showConfirmButton: false,
+      timer: 1800
+    }
+    Swal.fire(config);
   }
 
 }
