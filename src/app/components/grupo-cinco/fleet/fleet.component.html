@@ -1,57 +1,61 @@
 <div class="col-lg-12">
   <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa fa-dashboard"></i>
-        <span> Lista de automoviles</span>
-      </div>
-<div class="card-body table-responsive">
-  <table class="table table-bordered table-hover">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col" class="text-center">Matricula</th>
-        <th scope="col" class="text-center">Capacidad</th>
-        <th scope="col" class="text-center">Modelo</th>
-        <th scope="col" class="text-center">Marca</th>
-        <th scope="col" class="text-center">Precio</th>
-        <th scope="col" class="text-center">Status</th>
-        <th scope="col" class="text-center">Ciudad</th>
-        <th scope="col" class="text-center">Opciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let vehicle of vehicles">
-        <td class="text-center" >
-        	{{vehicle?.license}}
-        </td>
-        <td class="text-center">
-          {{vehicle?.model.capacity}}
-        </td>
-        <td class="text-center">
-        	{{vehicle?.model.name}}
-        </td>
-        <td class="text-center">
-        	{{vehicle?.model.brand.name}}
-        </td>
-        <td class="text-center">
-        	{{vehicle?.price}}
-        </td>
-        <td class="text-center" *ngIf="vehicle.status; else elseBlock">
-        	<span class="badge badge-success clickable" (click)="changeStatus(vehicle.id)">Diponible</span>
-        </td>
-        <ng-template #elseBlock>
-          	<td class="text-center">
-            	<span class="badge badge-danger clickable" (click)="changeStatus(vehicle.id)">No disponible</span>
-        	</td>
-        </ng-template>
-        <td class="text-center">
-        	{{vehicle?.location.city}}
-        </td>
-        <td class="text-center">
-          	<button class="btn btn-sm btn-outline-info" title="Editar vehiculo" (click)="open(content)">
-    		<i class=" fa fa-xs fa-edit"></i>
-    	</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="card-header">
+      <i class="fa fa-dashboard"></i>
+      <span> Lista de autómoviles</span>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" class="text-center">Matrícula</th>
+            <th scope="col" class="text-center">Capacidad</th>
+            <th scope="col" class="text-center">Modelo</th>
+            <th scope="col" class="text-center">Marca</th>
+            <th scope="col" class="text-center">Precio</th>
+            <th scope="col" class="text-center">Status</th>
+            <th scope="col" class="text-center">Ciudad</th>
+            <th scope="col" class="text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vehicle of vehicles">
+            <td class="text-center">
+              {{vehicle?.license}}
+            </td>
+            <td class="text-center">
+              {{vehicle?.model.capacity}}
+            </td>
+            <td class="text-center">
+              {{vehicle?.model.name}}
+            </td>
+            <td class="text-center">
+              {{vehicle?.model.brand.name}}
+            </td>
+            <td class="text-center">
+              {{vehicle?.price}}
+            </td>
+            <td class="text-center" *ngIf="vehicle.status; else elseBlock">
+              <span class="badge badge-success clickable" (click)="changeStatus(vehicle.id)">Diponible</span>
+            </td>
+            <ng-template #elseBlock>
+              <td class="text-center">
+                <span class="badge badge-danger clickable" (click)="changeStatus(vehicle.id)">No disponible</span>
+              </td>
+            </ng-template>
+            <td class="text-center">
+              {{vehicle?.location.city}}
+            </td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-info" title="Editar vehiculo" (click)="open(content)">
+                <i class=" fa fa-xs fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+
+<create-vehicle></create-vehicle>

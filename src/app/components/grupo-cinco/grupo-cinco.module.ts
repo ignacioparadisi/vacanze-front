@@ -12,6 +12,7 @@ import { CreateBrandComponent } from './brand/create-brand/create-brand';
 import { ModifyBrandComponent } from './brand/modify-brand/modify-brand';
 import { CreateModelComponent } from './model/create-model/create-model';
 import { ModifyModelComponent } from './model/modify-model/modify-model';
+import { CreateVehicleComponent } from './fleet/create-vehicle/create-vehicle';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ModifyModelComponent } from './model/modify-model/modify-model';
     CreateBrandComponent,
     ModifyBrandComponent,
     CreateModelComponent,
-    ModifyModelComponent
+    ModifyModelComponent,
+    CreateVehicleComponent
   ],
   imports: [
     CommonModule,
