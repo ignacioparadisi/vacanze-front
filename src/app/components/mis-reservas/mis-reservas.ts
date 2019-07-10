@@ -303,6 +303,7 @@ export class MisReservas implements OnInit {
       response => {
         this.id = response.id;
         this.roomreservation = response;
+        this.getHotelForReservation(this.roomreservation);
       },
       error => {
         if (error.status === 0) {
