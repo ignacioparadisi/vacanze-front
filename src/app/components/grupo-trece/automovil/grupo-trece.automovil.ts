@@ -119,7 +119,7 @@ export class AutomovilGrupoTrece implements OnInit {
     const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
 
     if (this.myForm.valid && fechas === 1) {
-      const requestURL = "Auto/consultplaceStatus/" + this.myForm.value.city + "/true/";
+      const requestURL = "locations/" + this.myForm.value.city + "/vehicles";
       this.apiService.getUrl(requestURL).then(
         response => {
           this.cars = response;
