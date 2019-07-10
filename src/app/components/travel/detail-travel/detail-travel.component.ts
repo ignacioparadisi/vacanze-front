@@ -18,7 +18,8 @@ export class DetailTravelComponent implements OnInit {
   private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");
   activeModal: NgbModalRef;
   commentForm: FormGroup;
-  @Input('travelId') id: number;
+  @Input('travelId') travelId: number;
+  @Input('cityId') idcity:number;
   restReservations: Array<object>
   autoReservations: Array<object>
   hoteReservations: Array<object>
@@ -34,6 +35,7 @@ export class DetailTravelComponent implements OnInit {
   }
 
   onTabChange(event: NgbTabChangeEvent) {
+
     switch (event.nextId) {
       case 'flight':
         this.activeId = event.nextId
@@ -55,6 +57,26 @@ export class DetailTravelComponent implements OnInit {
   }
 
   getRestReservations() {
+
+    this.aux= 'Travel/reservation/' + this.travel.id+'/'+ this.cityId +'/HOTEL';
+    
+    
+    this.apiService.getUrl (this.aux ).then(
+      async (resp) => {
+        
+   
+      
+    
+      },
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );
+
     this.restReservations = [
       {
         id: 1,
@@ -129,7 +151,8 @@ export class DetailTravelComponent implements OnInit {
   }
 
   getHoteReservations(type: string) {
-    this.apiService.getUrl('travels/{travelId}/?locationId={locationId}&type={type}', [String(this.travel.id), this.cityId, type]).then(
+    this.aux= 'Travel/reservation/' + this.travel.id+'/'+ this.cityId +'/HOTEL';
+    this.apiService.getUrl(this.aux).then(
       (resp) => this.hoteReservations = resp,
       (fail) => {
         if (fail.error) {
