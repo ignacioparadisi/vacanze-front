@@ -28,14 +28,14 @@
       <div class="row">
         <div class="col-md-3">
           <p><strong>CheckIn: </strong></p>
-          <p>{{carreservation?.checkIn}}</p>
+          <p>{{carreservation?.checkIn | date: 'mediumDate'}}</p>
 
 
 
         </div>
         <div class="col-md-3">
           <p><strong>CheckOut:</strong></p>
-          <p>{{carreservation?.checkOut}}</p>
+          <p>{{carreservation?.checkOut | date: 'mediumDate'}}</p>
 
         </div>
 
@@ -92,8 +92,8 @@
                 <td>{{carreservation.automobile?._model}}</td>
                 <td>{{carreservation.automobile?._capacity}}</td>
                 <td>{{carreservation.automobile?.price}}$</td>
-                <td>{{carreservation.checkIn}}</td>
-                <td>{{carreservation.checkOut}}</td>
+                <td>{{carreservation.checkIn | date: 'mediumDate'}}</td>
+                <td>{{carreservation.checkOut | date: 'mediumDate'}}</td>
                 <td>
                   <swal #deleteSwal title="¿Desea eliminar la reservacion?" type="question" [showCancelButton]="true"
                     [focusCancel]="true" (confirm)="deleteAutomobileReservation(carreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
@@ -155,14 +155,14 @@
         </div>
         <div class="col-md-3">
           <p><strong>CheckIn: </strong></p>
-          <p>{{roomreservation?.checkIn}}</p>
+          <p>{{roomreservation?.checkIn | date: 'mediumDate'}}</p>
 
 
 
         </div>
         <div class="col-md-3">
           <p><strong>CheckOut:</strong></p>
-          <p>{{roomreservation?.checkOut}}</p>
+          <p>{{roomreservation?.checkOut | date: 'mediumDate'}}</p>
 
         </div>
 
@@ -224,8 +224,8 @@
                 <td align="center">{{roomreservation.hotel?.roomCapacity}}</td>
                 <td>{{roomreservation.hotel?.pricePerRoom}}$</td>
                 <td>{{roomreservation.hotel?.phone}}</td>
-                <td>{{roomreservation.checkIn}}</td>
-                <td>{{roomreservation.checkOut}}</td>
+                <td>{{roomreservation.checkIn | date: 'mediumDate'}}</td>
+                <td>{{roomreservation.checkOut | date: 'mediumDate'}}</td>
                 <td>
                   <swal #deleteSwal title="¿Desea eliminar la reservacion?" type="question" [showCancelButton]="true"
                     [focusCancel]="true" (confirm)="deleteRoomReservation(roomreservation.id)" [options]="{ confirmButtonText: 'Si, estoy

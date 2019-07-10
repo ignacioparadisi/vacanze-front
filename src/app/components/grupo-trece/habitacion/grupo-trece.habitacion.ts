@@ -4,7 +4,6 @@ import { ApiService } from '../../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { compararFechas } from '../../../utils/global_functions';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import * as moment from 'moment';
 
@@ -16,7 +15,6 @@ import * as moment from 'moment';
 })
 export class HabitacionGrupoTrece implements OnInit {
   myForm: FormGroup;
-  public compararFechas: any;
   public countries = [];
   public cities = [];
   public hotels = [];
@@ -32,7 +30,6 @@ export class HabitacionGrupoTrece implements OnInit {
   @Output() public actionAlertEventEmitter = new EventEmitter();
 
   constructor(public fb: FormBuilder, private modalService: NgbModal, private apiService: ApiService, private localStorage: LocalStorageService) {
-    this.compararFechas = compararFechas;
     this.myForm = this.fb.group({
       country: ['', [Validators.required]],
       city: ['', [Validators.required]],
@@ -103,8 +100,8 @@ export class HabitacionGrupoTrece implements OnInit {
     console.log("Touched");
     this.markAllAsTouched();
     const reservation = this.myForm.value;
-    const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
-    if (this.myForm.valid && fechas === 1) {
+    const datesAreValid = this.compararFechas(reservation.fechaOne, reservation.fechaTwo);
+    if (this.myForm.valid && datesAreValid) {
       const requestURL = "hotels/?location=" + this.myForm.value.city;
       this.apiService.getUrl(requestURL).then(
         response => {
@@ -287,18 +284,17 @@ export class HabitacionGrupoTrece implements OnInit {
   public updateRoomReservation(hotel: any, id: number) {
     const requestURL = 'reservationrooms';
     const reservation = this.myForm.value;
-    var fk_user = this.userId;
     reservation.checkIn = moment(reservation.fechaOne).format('MM-DD-YYYY HH:mm:ss');
     reservation.checkOut = moment(reservation.fechaTwo).format('MM-DD-YYYY HH:mm:ss');
-    reservation.userId = fk_user;
+    reservation.userId = this.userId;
     reservation.hotelId = hotel.id;
     reservation.id = id;
-    const fechas = this.compararFechas(new Date(reservation.fechaOne), new Date(reservation.fechaTwo));
+    const datesAreValid = this.compararFechas(reservation.fechaOne, reservation.fechaTwo);
     delete reservation.city;
     delete reservation.fechaOne;
     delete reservation.fechaTwo;
     delete reservation.country;
-    if (fechas === 1) {
+    if (datesAreValid) {
       this.apiService.putUrl(requestURL, reservation).then(
         response => {
           this.getRoomReservations();
@@ -389,5 +385,13 @@ export class HabitacionGrupoTrece implements OnInit {
       timer: 1800
     }
     Swal.fire(config);
+  }
+
+  private compararFechas(fecha1str: Date, fecha2str: Date): boolean {
+    const fecha1 = new Date(fecha1str);
+    fecha1.setDate(fecha1.getDate() + 1);
+    const fecha2 = new Date(fecha2str);
+    fecha2.setDate(fecha2.getDate() + 1);
+    return ((fecha1 < fecha2) && (fecha1 >= new Date()));
   }
 }
