@@ -1,0 +1,25 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modificar una marca</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="brandForm">
+      <div class="row">
+        <div class="form-group col">
+          <input type="text" class="form-control" placeholder="Nombre" formControlName="brandName" maxlength="40">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" [disabled]="!brandForm.valid" class="btn btn-success"
+      (click)="modifyBrand()">Modificar</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-sm btn-outline-info" title="Editar marca" (click)="open(content)">
+  <i class=" fa fa-xs fa-edit"></i>
+</button>
