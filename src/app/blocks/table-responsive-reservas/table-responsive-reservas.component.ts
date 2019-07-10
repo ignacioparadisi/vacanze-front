@@ -90,19 +90,17 @@ export class TableResponsiveReservasComponent implements OnChanges {
       if(storedRes){
         this.isDataLoaded = true
         this.formData = storedRes
+        var datos ={
+          reservation: reserva,
+          userDatos: this.formData
+        }
+        //Significa que el usuario hizo todos los pasos para llegar a la ventana
+        this.localStorage.setItem('resRestaurant', datos).subscribe(datos =>{
+          this.router.navigate(['restaurant-reservation/list-restaurant/detail-view']);      
+        })
       }
     })
     
-    if(this.isDataLoaded === true){
-      var datos ={
-        reservation: reserva,
-        userDatos: this.formData
-      }
-      //Significa que el usuario hizo todos los pasos para llegar a la ventana
-      this.localStorage.setItem('resRestaurant', datos).subscribe(datos =>{
-        this.router.navigate(['restaurant-reservation/list-restaurant/detail-view']);      
-      })
-    }
   }
   
 }

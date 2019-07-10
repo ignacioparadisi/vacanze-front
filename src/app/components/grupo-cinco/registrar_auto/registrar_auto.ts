@@ -235,7 +235,7 @@ export class Registrar_AutoComponent implements OnInit {
    if (v_precio < 0 || v_capacidad <0 ){
     console.log("no se aceptan numeros negativos ");
 } else {
-  const requestURL = 'Auto/modificar'+ '/'+ v_id + '/'+ v_marca+ '/' + v_modelo+ '/'+ v_capacidad + '/'+ v_estatus + '/'+  v_matricula + '/'+  v_precio + '/'+ v_ciudad; 
+  const requestURL = 'Auto/modificar'+ '/'+ v_id + '/'+ v_marca+ '/' + v_modelo+ '/'+ v_capacidad + '/'+ v_estatus + '/'+  v_matricula + '/'+  v_precio + '/'+ v_foto + '/'+ v_ciudad; 
   this.apiService.getUrl(requestURL).then(
     response => {
         this.respuesta = response;

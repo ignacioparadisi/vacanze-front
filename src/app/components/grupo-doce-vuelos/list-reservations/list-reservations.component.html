@@ -1,108 +1,99 @@
-
-<div class="col-lg-12">
-  <div class="card mb-3">
-      <div class="card-header">
-          Lista de Vuelos
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                Lista de Vuelos
+            </div>
+        
+            <div class="card-body table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                          <th>Origen</th>
+                          <th>Fecha de salida</th>
+                          <th>Destino</th>
+                          <th>Fecha de regreso</th>
+                          <th>Asientos disponibles</th>
+                          <th>Precio</th>
+                          <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr  *ngFor="let item of longi" >
+                          <td>{{item.loc_departure.country}}, {{item.loc_departure.city}}</td>
+                          <td>{{item.departure}}</td>
+                          <td>{{item.loc_arrival.country}}, {{item.loc_arrival.city}}</td>
+                          <td>{{item.arrival}}</td>
+                          <td>{{item.plane.seats}}</td>
+                          <td>{{item.price}}</td>
+                          <td>
+                            <div>
+                            <button class="btn btn-outline-dark" style="cursor: pointer;" (click)="openModal(item.id)" 
+                            data-toggle="tooltip" data-placement="top" title="Reservar {{type}}">
+                            <i class="fa fa-cart-plus"></i>
+                            </button>&nbsp;&nbsp;
+                            <swal #addSwal title="Reserva exitosa" type="success" showConfirmButton=false></swal>
+                            </div>
+                          </td>
+                      </tr>
+                      <tr  *ngFor="let item of longiGo" >
+                        <td>{{item._name_country_i}}, {{item._name_city_i}}</td>
+                        <td>{{item._dateI}}</td>
+                        <td>{{item._name_country_V}}, {{item._name_city_V}}</td>
+                        <td>{{item._dateV}}</td>
+                        <td>{{item._seatavailable}}</td>
+                        <td>{{item._priceupdate}}</td>
+                        <td> <div >
+                          <button 
+                          class="btn btn-outline-dark"
+                          style="cursor: pointer;" 
+                          (click)="openModal(item.id)" 
+                          data-toggle="tooltip" 
+                          data-placement="top" 
+                          title="Reservar {{type}}"
+                        >
+                          <i class="fa fa-cart-plus"></i>
+                        </button>&nbsp;&nbsp;
+                          <swal
+                              #addSwal
+                              title="Reserva exitosa"
+                              type="success"
+                              showConfirmButton=false
+                              >
+                            </swal>
+                        </div></td> 
+                      </tr>   
+                      <tr  *ngFor="let item of longiGoIn" >
+                        <td>{{item._name_country_i}}, {{item._name_city_i}}</td>
+                        <td>{{item._dateI}}</td>
+                        <td>{{item._name_country_V}}, {{item._name_city_V}}</td>
+                        <td>{{item._dateV}}</td>
+                        <td>{{item._seatavailable}}</td>
+                        <td>{{item._priceupdate}}</td>
+                        <td> <div >
+                          <button 
+                          class="btn btn-outline-dark"
+                          style="cursor: pointer;" 
+                          (click)="openModal(item.id)" 
+                          data-toggle="tooltip" 
+                          data-placement="top" 
+                          title="Reservar {{type}}"
+                        >
+                          <i class="fa fa-cart-plus"></i>
+                        </button>&nbsp;&nbsp;
+                          <swal
+                              #addSwal
+                              title="Reserva exitosa"
+                              type="success"
+                              showConfirmButton=false
+                              >
+                            </swal>
+                        </div></td> 
+                      </tr>         
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
       </div>
-  
-      <div class="card-body table-responsive">
-          <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                    <th>Pais-Ciudad</th>
-                    <th>Fecha de salida</th>
-                    <th>Pais-Ciudad</th>
-                    <th>Fecha de regreso</th>
-                    <th>Asientos disponibles</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody >
-                <tr  *ngFor="let item of longi" >
-                  <td>{{item.loc_departure.country}}, {{item.loc_departure.city}}</td>
-                  <td>{{item.departure}}</td>
-                  <td>{{item.loc_arrival.country}}, {{item.loc_arrival.city}}</td>
-                  <td>{{item.arrival}}</td>
-                  <td>{{item.plane.seats}}</td>
-                  <td>{{item.price}}</td>
-                  <td> <div >
-                    <button 
-                    class="btn btn-outline-dark"
-                    style="cursor: pointer;" 
-                    (click)="openModal(item.id)" 
-                    data-toggle="tooltip" 
-                    data-placement="top" 
-                    title="Reservar {{type}}"
-                  >
-                    <i class="fa fa-cart-plus"></i>
-                  </button>&nbsp;&nbsp;
-                    <swal
-                        #addSwal
-                        title="Reserva exitosa"
-                        type="success"
-                        showConfirmButton=false
-                        >
-                      </swal>
-                  </div></td> 
-                </tr>      
-                <tr  *ngFor="let item of longiGo" >
-                  <td>{{item._name_country_i}}, {{item._name_city_i}}</td>
-                  <td>{{item._dateI}}</td>
-                  <td>{{item._name_country_V}}, {{item._name_city_V}}</td>
-                  <td>{{item._dateV}}</td>
-                  <td>{{item._seatavailable}}</td>
-                  <td>{{item._priceupdate}}</td>
-                  <td> <div >
-                    <button 
-                    class="btn btn-outline-dark"
-                    style="cursor: pointer;" 
-                    (click)="openModal(item.id)" 
-                    data-toggle="tooltip" 
-                    data-placement="top" 
-                    title="Reservar {{type}}"
-                  >
-                    <i class="fa fa-cart-plus"></i>
-                  </button>&nbsp;&nbsp;
-                    <swal
-                        #addSwal
-                        title="Reserva exitosa"
-                        type="success"
-                        showConfirmButton=false
-                        >
-                      </swal>
-                  </div></td> 
-                </tr>   
-                <tr  *ngFor="let item of longiGoIn" >
-                  <td>{{item._name_country_i}}, {{item._name_city_i}}</td>
-                  <td>{{item._dateI}}</td>
-                  <td>{{item._name_country_V}}, {{item._name_city_V}}</td>
-                  <td>{{item._dateV}}</td>
-                  <td>{{item._seatavailable}}</td>
-                  <td>{{item._priceupdate}}</td>
-                  <td> <div >
-                    <button 
-                    class="btn btn-outline-dark"
-                    style="cursor: pointer;" 
-                    (click)="openModal(item.id)" 
-                    data-toggle="tooltip" 
-                    data-placement="top" 
-                    title="Reservar {{type}}"
-                  >
-                    <i class="fa fa-cart-plus"></i>
-                  </button>&nbsp;&nbsp;
-                    <swal
-                        #addSwal
-                        title="Reserva exitosa"
-                        type="success"
-                        showConfirmButton=false
-                        >
-                      </swal>
-                  </div></td> 
-                </tr>         
-              </tbody>
-          </table>
-      </div>
-  </div>
-  
 </div>

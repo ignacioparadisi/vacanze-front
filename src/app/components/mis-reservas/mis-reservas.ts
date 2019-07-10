@@ -303,6 +303,7 @@ export class MisReservas implements OnInit {
       response => {
         this.id = response.id;
         this.roomreservation = response;
+        this.getHotelForReservation(this.roomreservation);
       },
       error => {
         if (error.status === 0) {
@@ -465,7 +466,7 @@ export class MisReservas implements OnInit {
   public getAlertAction(reserva: Object) {
     if (reserva['confirmed']) {
       if (reserva['delete']) {
-        this.deleteReservation(reserva['id']);
+        this.deleteReservation(reserva['rest_id']);
       }
     }
   }

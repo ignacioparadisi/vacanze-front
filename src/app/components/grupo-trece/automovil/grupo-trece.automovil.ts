@@ -126,6 +126,9 @@ export class AutomovilGrupoTrece implements OnInit {
       this.apiService.getUrl(requestURL).then(
         response => {
           this.cars = response;
+          this.cars.forEach(car => {
+            this.getVehicleModel(car);
+          })
         },
         error => {
         }
@@ -342,7 +345,7 @@ export class AutomovilGrupoTrece implements OnInit {
   }
 
   getVehicleModel(vehicle) {
-    const requestURL = `models/${vehicle.id}`;
+    const requestURL = `models/${vehicle.vehicleModelId}`;
     this.apiService.getUrl(requestURL).then(response => {
       vehicle._model = response.modelName;
       vehicle._capacity = response.capacity;

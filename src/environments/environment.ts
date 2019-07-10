@@ -4,6 +4,7 @@
 import * as api_endpoints from './api_endpoints.json';
 export const environment = {
   production: false,
+  //baseApiUrl: "https://localhost:44362/api/",
   baseApiUrl: "https://localhost:5001/api/",
   endpoint: api_endpoints
 };
