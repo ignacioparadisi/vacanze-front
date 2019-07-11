@@ -9,15 +9,15 @@
               <h5>{{travel.name}}</h5>
             </div>
             <div class="col-1 mr-1">
-              <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description"
+              <modify-travel [travelId]="travel.id" [travelName]="travel.name" [travelDescription]="travel.description" [travelinit]="travel.init"
+              [travelend]="travel.end"
                 (spread)="getTravels()"></modify-travel>
+                <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje" (click)="travelDelete(travel)">
+                  <i class="fa fa-xs fa-trash"></i>
+                </button>
             </div>
-            <!--<div class="col-1">
-              <button class="btn btn-sm btn-outline-danger" title="Eliminar viaje" (click)="travelDelete(travel.id)">
-                <i class="fa fa-xs fa-trash"></i>
-              </button>
-            </div>
-            -->
+     
+            
           </div>
         </div>
         <div class="card-body" (click)="travelCities(travel)">

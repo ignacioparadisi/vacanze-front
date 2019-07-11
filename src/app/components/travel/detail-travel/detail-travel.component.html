@@ -7,7 +7,7 @@
     <form [formGroup]="commentForm">
       <div class="row">
         <div class="form-group col">
-          <textarea class="form-control" placeholder="Comentario" formControlName="comment" cols="15" rows="10"
+          <textarea class="form-control" placeholder="Comentario" formControlName="description" cols="15" rows="10"
             maxlength="200"></textarea>
         </div>
       </div>
@@ -48,6 +48,17 @@
               Monto: {{fligReservation.flight.price}}
             </p>
           </div>
+          <div class="col-1">
+            <button class="btn btn-sm btn-outline-danger" title="eliminar comentario" (click)="CommentDelete(fligReservation.id)">
+              <i class="fa fa-xs fa-trash"></i>
+            </button>
+          </div>
+
+          <div class="col-1">
+            <button class="btn btn-sm btn-outline-danger" title="Modificar comentarioo" (click)="Modificarcomentario(fligReservation.id)">
+              <i class="fa fa-xs fa-trash"></i>
+            </button>
+          </div>
         </div>
       </ng-template>
     </ngb-tab>
@@ -56,23 +67,17 @@
         <div class="card mt-3" *ngFor="let hoteReservation of hoteReservations" style="max-width: 55rem;"
           (click)="open(content, hoteReservation.id)">
           <div class="card-title mt-3 mb-n2">
-            <h5 style="text-align: center">{{hoteReservation.hotel.name}}</h5>
+            <h5 style="text-align: center">{{hoteReservation.hotelId}}</h5>
           </div>
           <hr>
           <div class="row">
             <p class="col d-flex justify-content-center ml-3">
               Entrada: {{hoteReservation.checkIn}}
-              <br>
-              Dirección: {{hoteReservation.hotel.addressSpecification}}
-              <br>
-              Teléfono: {{hoteReservation.hotel.phone}}
+              
             </p>
             <p class="col d-flex justify-content-center ml-3">
               Salida: {{hoteReservation.checkOut}}
-              <br>
-              Capacidad: {{hoteReservation.hotel.roomCapacity}} Personas
-              <br>
-              Monto: {{hoteReservation.hotel.pricePerRoom}} bs.S
+    
             </p>
           </div>
         </div>

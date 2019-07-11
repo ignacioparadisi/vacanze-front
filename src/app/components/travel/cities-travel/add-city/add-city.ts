@@ -21,7 +21,7 @@ export class AddCityComponent {
   travelCities: Array<any> = [];
   selectedCities: Array<any> = [];
   hasSelectedCities: boolean = false
-
+aux:String;
   constructor(private modalService: NgbModal, private apiService: ApiService, private activatedRoute: ActivatedRoute) {
   }
 
@@ -110,7 +110,9 @@ export class AddCityComponent {
   }
 
   addCities() {
-    this.apiService.postUrl('travels/{travelId}/locations', this.selectedCities, [this.travelId]).then(
+    this.aux= 'Travel/locationtravel/'+this.travelId;
+
+    this.apiService.postUrl(this.aux,this.selectedCities).then(
       (resp) => {
         this.closeModal();
         Swal.fire({

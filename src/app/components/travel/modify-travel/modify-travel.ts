@@ -19,6 +19,8 @@ export class ModifyTravelComponent {
   @Input('travelId') travelId: number;
   @Input('travelName') travelName: string;
   @Input('travelDescription') travelDescription: string;
+  @Input('travelinit') travelini: string;
+  @Input('travelend') travelend: string;
   @Output() spread = new EventEmitter();
   
   hoveredDate: NgbDate;
@@ -46,7 +48,7 @@ export class ModifyTravelComponent {
   }
 
   modifyTravel() {
-    this.apiService.putUrl('travels', this.travelForm.value).then(
+    this.apiService.putUrl('Travel', this.travelForm.value).then(
       (resp) => {
         this.closeModal();
         Swal.fire({

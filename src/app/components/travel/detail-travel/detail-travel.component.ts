@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbTabChangeEvent, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
@@ -18,11 +18,14 @@ export class DetailTravelComponent implements OnInit {
   private cityId: string = this.activatedRoute.snapshot.paramMap.get("cityId");
   activeModal: NgbModalRef;
   commentForm: FormGroup;
+  @Input('travelId') travelId: number;
+  @Input('cityId') idcity:number;
   restReservations: Array<object>
   autoReservations: Array<object>
   hoteReservations: Array<object>
   fligReservations: Array<object>
   activeId: string;
+  aux:string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private modalService: NgbModal, private apiService: ApiService) { }
 
@@ -32,6 +35,7 @@ export class DetailTravelComponent implements OnInit {
   }
 
   onTabChange(event: NgbTabChangeEvent) {
+
     switch (event.nextId) {
       case 'flight':
         this.activeId = event.nextId
@@ -53,6 +57,26 @@ export class DetailTravelComponent implements OnInit {
   }
 
   getRestReservations() {
+
+    this.aux= 'Travel/reservation/' + this.travel.id+'/'+ this.cityId +'/HOTEL';
+    
+    
+    this.apiService.getUrl (this.aux ).then(
+      async (resp) => {
+        
+   
+      
+    
+      },
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );
+
     this.restReservations = [
       {
         id: 1,
@@ -127,7 +151,8 @@ export class DetailTravelComponent implements OnInit {
   }
 
   getHoteReservations(type: string) {
-    this.apiService.getUrl('travels/{travelId}/?locationId={locationId}&type={type}', [String(this.travel.id), this.cityId, type]).then(
+    this.aux= 'Travel/reservation/' + this.travel.id+'/'+ this.cityId +'/HOTEL';
+    this.apiService.getUrl(this.aux).then(
       (resp) => this.hoteReservations = resp,
       (fail) => {
         if (fail.error) {
@@ -210,11 +235,15 @@ export class DetailTravelComponent implements OnInit {
   }
 
   open(content, id: number) {
+    const today = new Date;
+    today.setHours(0,0,0,0)
     this.activeModal = this.modalService.open(content);
     this.commentForm = new FormGroup({
-      travelId: new FormControl(this.travel.id),
-      reservationId: new FormControl(id),
-      comment: new FormControl('', Validators.required)
+      
+      description: new FormControl('', Validators.required),
+      datetime: new FormControl(today,Validators.required),
+      idforanea: new FormControl(id,Validators.required),
+
     })
   }
 
@@ -223,5 +252,50 @@ export class DetailTravelComponent implements OnInit {
   }
 
   addComment() {
+    this.apiService.postUrl ('Comment' ,this.commentForm.value).then(
+      async (resp) => {
+        
+        
+        Swal.fire({
+          title: '!Éxito¡',
+          text: 'SE agregro el comentario.',
+          type: 'success'
+        });
+    
+      },
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );
   }
-}
+
+  CommentDelete(id ){
+    this.aux= 'Comment/'+id;
+    this.apiService.deleteUrl(this.aux).then(
+      async (resp) => {
+        
+        
+        Swal.fire({
+          title: '!Éxito¡',
+          text: 'se elimino .',
+          type: 'success'
+        });
+    
+      },
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );
+
+  }
+
+  }
+

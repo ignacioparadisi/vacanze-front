@@ -49,7 +49,7 @@ export class CreateTravelComponent {
   }
 
   createTravel() {
-    this.apiService.postUrl('travels', this.travelForm.value).then(
+    this.apiService.postUrl('Travel', this.travelForm.value).then(
       (resp) => {
         this.closeModal();
         Swal.fire({

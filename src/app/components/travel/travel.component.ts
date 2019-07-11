@@ -4,6 +4,7 @@ import { ApiService } from '../../services/api.service';
 import Swal from 'sweetalert2';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Travel } from '../../classes/travel';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-travel',
@@ -15,7 +16,7 @@ export class TravelComponent implements OnInit {
 
   private userId: string;
   private travels: Array<Travel>;
-
+  aux:string ;
   constructor(private router: Router, private apiService: ApiService, private localStorage: LocalStorageService) {
   }
 
@@ -59,6 +60,31 @@ export class TravelComponent implements OnInit {
     this.router.navigate(['travel', travel.id, 'cities'])
   }
 
-  private travelDelete(id: number) {
+
+  public travelDelete ( travel ) {
+  
+       
+       this.aux ='Travel/delete/'+ travel.id;
+    this.apiService.deleteUrl(this.aux).then(
+      async (resp) => {
+        
+        
+        Swal.fire({
+          title: '!Éxito¡',
+          text: 'El viaje se modificó satisfactoriamente.',
+          type: 'success'
+        });
+        await delay(1000);
+        window.location.reload()
+      },
+      (fail) => {
+        Swal.fire({
+          title: 'Error: ' + fail.status,
+          text: fail.name + '. ' + fail.statusText,
+          type: 'error',
+        })
+      }
+    );
+
   }
 }
