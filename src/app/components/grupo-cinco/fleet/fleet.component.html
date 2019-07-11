@@ -5,6 +5,8 @@
       <span> Lista de autómoviles</span>
     </div>
     <div class="card-body table-responsive">
+      <input [(ngModel)]="searchText" placeholder="Buscar por matrícula..." class="form-control">
+      <br>
       <table class="table table-bordered table-hover">
         <thead class="thead-dark">
           <tr>
@@ -19,36 +21,41 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let vehicle of vehicles">
+          <tr *ngFor="let vehicle of vehicles | FilterData: {license: searchText}">
             <td class="text-center">
               {{vehicle?.license}}
             </td>
             <td class="text-center">
-              {{vehicle?.model.capacity}}
+              {{vehicle?.vehicleModel?.capacity}}
             </td>
             <td class="text-center">
-              {{vehicle?.model.name}}
+              {{vehicle?.vehicleModel?.modelName}}
             </td>
             <td class="text-center">
-              {{vehicle?.model.brand.name}}
+              {{vehicle?.vehicleModel?.modelBrand?.brandName}}
             </td>
             <td class="text-center">
               {{vehicle?.price}}
             </td>
             <td class="text-center" *ngIf="vehicle.status; else elseBlock">
-              <span class="badge badge-success clickable" (click)="changeStatus(vehicle.id)">Diponible</span>
+              <span class="badge badge-success clickable"
+                (click)="changeStatus(vehicle.id, vehicle.license, vehicle.status)">Diponible</span>
             </td>
             <ng-template #elseBlock>
               <td class="text-center">
-                <span class="badge badge-danger clickable" (click)="changeStatus(vehicle.id)">No disponible</span>
+                <span class="badge badge-danger clickable"
+                  (click)="changeStatus(vehicle.id, vehicle.license, vehicle.status)">No
+                  disponible</span>
               </td>
             </ng-template>
             <td class="text-center">
-              {{vehicle?.location.city}}
+              {{vehicle?.vehicleLocation?.city}}
             </td>
             <td class="text-center">
-              <modify-vehicle [modelId]="vehicle.model.id" [brandId]="vehicle.model.brand.id" [cityId]="vehicle.location.city" [countryId]="vehicle.location.country"
-                [licenseV]="vehicle.license" [priceV]="vehicle.price" [statusV]="vehicle.status"></modify-vehicle>
+              <modify-vehicle [modelId]="vehicle.vehicleModel.id" [brandId]="vehicle.vehicleModel.modelBrand.id"
+                [cityId]="vehicle.vehicleLocationId" [licenseV]="vehicle.license" [priceV]="vehicle.price"
+                [statusV]="vehicle.status" [idV]="vehicle.id" [vehicles]="vehicles" (spread)="getVehicles()">
+              </modify-vehicle>
             </td>
           </tr>
         </tbody>
@@ -57,4 +64,4 @@
   </div>
 </div>
 
-<create-vehicle></create-vehicle>
+<create-vehicle (spread)="getVehicles()"></create-vehicle>

@@ -10,7 +10,7 @@
       <div class="row">
         <div class="form-group col">
           <form [formGroup]="perolForm">
-            <select name="country" placeholder="Pais" class="form-control" id="country" formControlName="countryId"
+            <select name="country" placeholder="Pais" class="form-control" id="country"
               (change)="getCities($event.target.value)">
               <option value="" hidden> País </option>
               <option *ngFor="let country of countries" [value]="country.id">

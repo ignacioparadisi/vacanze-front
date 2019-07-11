@@ -10,7 +10,7 @@ import { Veh_Model } from '../../../../classes/veh_model';
     selector: 'create-vehicle',
     templateUrl: './create-vehicle.html',
     styleUrls: ['./create-vehicle.scss'],
-    providers: [NgbModal]
+    providers: [NgbModal, ApiService]
 })
 
 export class CreateVehicleComponent {

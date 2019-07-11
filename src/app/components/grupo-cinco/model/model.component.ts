@@ -6,12 +6,13 @@ import { Veh_Model } from '../../../classes/veh_model';
 @Component({
 	selector: 'app-model',
 	templateUrl: './model.component.html',
-	styleUrls: ['./model.component.scss']
+	styleUrls: ['./model.component.scss'],
+    providers: [ApiService]
 })
 export class ModelComponent {
 
 	models: Array<Veh_Model>;
-	public searchText : string;
+	searchText : string;
 
 	constructor(private apiService: ApiService) { }
 

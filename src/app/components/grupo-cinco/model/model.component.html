@@ -25,12 +25,8 @@
             </td>
             <td class="text-center">
               <modify-model [modelId]="model.id" [modelName]="model.modelName" [brandId]="model.brandId"
-                [capacity]="model.capacity" [picture]="model.picture" (spread)="getModels()">
+                [capacity]="model.capacity" [picture]="model.picture" [models]="models" (spread)="getModels()">
               </modify-model>
-              &nbsp;
-              <button class="btn btn-sm btn-outline-info" title="Ver modelo" (click)="open(content)">
-                <i class=" fa fa-xs fa-eye"></i>
-              </button>
             </td>
           </tr>
         </tbody>

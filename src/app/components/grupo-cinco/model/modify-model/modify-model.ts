@@ -4,17 +4,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
 import Swal from 'sweetalert2';
 import { Veh_Brand } from '../../../../classes/veh_brand';
+import { Veh_Model } from '../../../../classes/veh_model';
 
 @Component({
     selector: 'modify-model',
     templateUrl: './modify-model.html',
     styleUrls: ['./modify-model.scss'],
-    providers: [NgbModal]
+    providers: [NgbModal, ApiService]
 })
 
 export class ModifyModelComponent {
 
     @Output() spread = new EventEmitter();
+    @Input('models') models: Array<Veh_Model>;
     @Input('modelName') modelName: string;
     @Input('modelId') modelId: number;
     @Input('capacity') capacity: number;
@@ -67,24 +69,50 @@ export class ModifyModelComponent {
     }
 
     modifyModel() {
-        this.apiService.putUrl('models', this.modelForm.value).then(
-            (resp) => {
-                this.closeModal();
-                Swal.fire({
-                    title: '!Éxito¡',
-                    text: 'La marca se modificó satisfactoriamente.',
-                    type: 'success'
-                });
-                this.spread.emit();
-            },
-            (fail) => {
-                Swal.fire({
-                    title: 'Codigo: ' + fail.status,
-                    text: fail.error.title,
-                    type: 'error',
-                })
-            }
-        );
+        if (!this.models.find(x => this.modelName == this.modelForm.get("modelName").value))
+            this.apiService.putUrl('models', this.modelForm.value).then(
+                (resp) => {
+                    this.closeModal();
+                    Swal.fire({
+                        title: '!Éxito¡',
+                        text: 'El modelo se modificó satisfactoriamente.',
+                        type: 'success'
+                    });
+                    this.spread.emit();
+                },
+                (fail) => {
+                    Swal.fire({
+                        title: 'Codigo: ' + fail.status,
+                        text: fail.error.title,
+                        type: 'error',
+                    })
+                }
+            );
+        if (this.models.find(x => this.modelName == this.modelForm.get("modelName").value) && this.modelForm.dirty)
+            this.apiService.putUrl('models', this.modelForm.value).then(
+                (resp) => {
+                    this.closeModal();
+                    Swal.fire({
+                        title: '!Éxito¡',
+                        text: 'El modelo se modificó satisfactoriamente.',
+                        type: 'success'
+                    });
+                    this.spread.emit();
+                },
+                (fail) => {
+                    Swal.fire({
+                        title: 'Codigo: ' + fail.status,
+                        text: fail.error.title,
+                        type: 'error',
+                    })
+                }
+            );
+        else
+            Swal.fire({
+                title: 'Codigo: 405',
+                html: 'El modelo <b>' + this.modelName + '</b> con esas especificaciones ya existe.',
+                type: 'error',
+            })
     }
 
 }
