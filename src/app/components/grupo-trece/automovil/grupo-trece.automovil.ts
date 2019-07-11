@@ -127,6 +127,8 @@ export class AutomovilGrupoTrece implements OnInit {
         error => {
         }
       );
+    } else {
+      this.showErrorAlert("Las fechas no son válidas.");
     }
   }
 
@@ -274,6 +276,8 @@ export class AutomovilGrupoTrece implements OnInit {
           }
         }
       );
+    } else {
+      this.showErrorAlert("Las fechas no son válidas.");
     }
   }
 

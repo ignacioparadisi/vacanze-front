@@ -118,7 +118,7 @@ export class HabitacionGrupoTrece implements OnInit {
         }
       );
     } else {
-      this.showErrorAlert("Las fechas no son válidas. Intente con una fecha más lejana.");
+      this.showErrorAlert("Las fechas no son válidas.");
     }
   }
 
@@ -307,6 +307,8 @@ export class HabitacionGrupoTrece implements OnInit {
           }
         }
       );
+    } else {
+      this.showErrorAlert("Las fechas no son válidas.");
     }
   }
 

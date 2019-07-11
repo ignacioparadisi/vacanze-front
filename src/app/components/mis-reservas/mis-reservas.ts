@@ -263,6 +263,8 @@ export class MisReservas implements OnInit {
           }
         }
       );
+    } else {
+      this.showErrorAlert("Las fechas no son válidas.");
     }
   }
 
@@ -292,6 +294,8 @@ export class MisReservas implements OnInit {
           }
         }
       );
+    } else {
+      this.showErrorAlert("Las fechas no son válidas.");
     }
   }
 
