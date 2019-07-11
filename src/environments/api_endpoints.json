@@ -40,7 +40,9 @@
       "post_route": "cruiser/{cruiserId}/layover"
     },
     "postResRestaurant": "ResRestaurant",
-    "addPayment": "payment"
+    "addPayment": "payment",
+    "login": "Login",
+    "email": "Email"
   },
   "_put": {
     "putClaimStatus": "Claim/{id}",
