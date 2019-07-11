@@ -16,7 +16,7 @@
                 </tr>
               </thead>
               <tbody *ngIf="type === 'cruceros'; else hotelesElseBlock">
-                <tr *ngFor="let boat of tableData">
+                <tr *ngFor="let boat of filterDatabyPage">
                   <td>{{ boat?.name }}</td>
                   <td>{{ boat?.capacity }}</td>
                   <td>{{ boat?.loadingShipCap }} Kg.</td>
@@ -75,7 +75,7 @@
               </tbody>
               <ng-template #hotelesElseBlock>
                 <tbody *ngIf="type === 'hotel'; else restaurantesElseBlock">
-                  <tr *ngFor="let hotel of tableData">
+                  <tr *ngFor="let hotel of filterDatabyPage">
                     <td>{{ hotel?.id }}</td>
                     <td>{{ hotel?.name }}</td>
                     <td>{{ hotel?.amountOfRooms }}</td>
@@ -116,7 +116,7 @@
               </ng-template>
               <ng-template #restaurantesElseBlock>
                 <tbody *ngIf="type === 'restaurantes'; else cruiserRoutesElseBlock">
-                  <tr *ngFor="let restaurante of tableData">
+                  <tr *ngFor="let restaurante of filterDatabyPage">
                     <td>{{ restaurante?.name }}</td>
                     <td>{{ restaurante?.capacity }}</td>
                     <td>{{ restaurante?.qualify }}</td>
@@ -162,7 +162,7 @@
               <!--Tabla de rutas de un crucero-->
               <ng-template #cruiserRoutesElseBlock>
                 <tbody *ngIf="type === 'rutas'">
-                  <tr *ngFor="let ruta of tableData">
+                  <tr *ngFor="let ruta of filterDatabyPage; let i = index">
                     <td>{{ ruta?.departureDate.split(' ')[0] }}</td>
                     <td>{{ ruta?.arrivalDate.split(' ')[0] }}</td>
                     <td>{{ ruta?.price }} $</td>
@@ -175,6 +175,7 @@
                         data-toggle="tooltip"
                         data-placement="top"
                         title="Eliminar ruta"
+                        [disabled]="((i > 0) && (i < tableData.length-1))"
                       >
                         <i class="fa fa-trash"></i>
                       </button>&nbsp;
@@ -185,6 +186,21 @@
           </table>
       </div>
   </div>
+
+  <div class="pagination-b">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-end">
+        <!-- <li [ngClass]="verifyButtons['previous'] ? 'page-item disabled': 'page-item' ">
+          <span class="page-link" (click)="changePage(actualPage - 1)" tabindex="-1">Previous</span>
+        </li> -->
+        <li *ngFor="let page of arregloPaginas" class="page-item"><a class="page-link" (click)="changePage(page)">{{page}}</a></li>
+        <!-- <li [ngClass]="verifyButtons['next'] ? 'page-item disabled': 'page-item' ">
+          <span class="page-link"  (click)="changePage(actualPage + 1)">Next</span>
+        </li> -->
+      </ul>
+    </nav>
+  </div>
+  
   <div class="d-flex justify-content-end w-100">
     <div class="kreep" style="bottom: 14px; right: 14px; position: fixed;" *ngIf="type !== 'rutas'">
       <button (click)="gotoAdd(type)" type="button" class="btn btn-success"  data-toggle="tooltip" data-placement="top" title="Agregar {{type}}">

@@ -11,7 +11,7 @@ import { environment as url } from '../../../../environments/environment';
   selector: 'app-flight-reservations',
   templateUrl: './flight-reservations.component.html',
   styleUrls: ['./flight-reservations.component.scss'],
-  
+
 })
 export class FlightReservationsComponent implements OnInit {
 
@@ -39,9 +39,9 @@ export class FlightReservationsComponent implements OnInit {
   public closeResult: string;
 
     constructor(private api: ApiService, private router: Router, private modalService: NgbModal) { }
-        
+
    private selectedTyp: string="";
-   
+
   ngOnInit() {
     this.typeFlight();
     this.adultFlight();
@@ -76,7 +76,6 @@ export class FlightReservationsComponent implements OnInit {
       document.getElementById("out_id").setAttribute("max", getSelectedEnt.value.toString());
     })
   }
-
   public getCountries() {
     const requestURL = 'locations/countries';
     this.api.getUrl(requestURL).then(
@@ -96,7 +95,7 @@ export class FlightReservationsComponent implements OnInit {
     ];
     return this.typeFlights;
   }
-  
+
   private adultFlight(): PeopleFlight[] {
     this.adultFlights = [
       new PeopleFlight(1, 'a'),
@@ -174,7 +173,7 @@ export class FlightReservationsComponent implements OnInit {
             this.arrayNumber = response;
             this.getListFlight(this.arrayNumber[0],this.arrayNumber[1]);
             console.log(response);
-  
+
         },
         error => {
             console.log(error);
@@ -284,5 +283,5 @@ public valid(controlName: string, form: FormGroup) {
       this.getIdCity();
     }
   }
-  
+
 }

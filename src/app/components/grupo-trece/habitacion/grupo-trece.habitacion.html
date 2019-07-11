@@ -1,4 +1,4 @@
-<ng-template #content let-modal>
+<!-- <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Reserva de habitación</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -46,6 +46,80 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
   </div>
+</ng-template> -->
+
+<!--
+  Modal de Reserva de Habitaciones
+-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reserva de habitación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="myForm">
+      <div class="row">
+        <div class="col-md-3">
+          <p><strong>Hotel: </strong></p>
+          <p>{{roomreservation?.hotel?.name}}</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>Estrellas: </strong></p>
+          <p>{{roomreservation?.hotel?.stars}}</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>Capacidad Habitacion: </strong></p>
+          <p>{{roomreservation?.hotel?.roomCapacity}}</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>Precio por noche: </strong></p>
+          <p>{{roomreservation?.hotel?.pricePerRoom}}$</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <p><strong>Ciudad: </strong></p>
+          <p>{{roomreservation?.hotel?.location?.city}}</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>CheckIn: </strong></p>
+          <p>{{roomreservation?.checkIn | date: 'mediumDate'}}</p>
+
+
+
+        </div>
+        <div class="col-md-3">
+          <p><strong>CheckOut:</strong></p>
+          <p>{{roomreservation?.checkOut | date: 'mediumDate'}}</p>
+
+        </div>
+
+        <div class="col-md-3">
+          <p><strong>Precio total: </strong></p>
+          <span
+            [ngClass]="getDaysFrom2Dates(roomreservation?.checkIn, roomreservation?.checkOut,roomreservation?.hotel?.pricePerRoom)">{{totalcost}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-3">
+          <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
+        </div>
+        <div class="col-md-3">
+          <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+      (click)="updateRoomReservation(roomreservation?.hotel,roomreservation.id);modal.close('Save click')">Actualizar</button>
+  </div>
 </ng-template>
 
 <div class="row">
@@ -60,10 +134,8 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label style="color: white" for=""><strong>Pais</strong></label>
-                <select class="form-control" formControlName="country"
-                (ngModelChange)="getCities()"
-                [ngClass]="{'is-invalid': invalid('country', myForm), 'is-valid': valid('country', myForm)}"
-                >
+                <select class="form-control" formControlName="country" (ngModelChange)="getCities()"
+                  [ngClass]="{'is-invalid': invalid('country', myForm), 'is-valid': valid('country', myForm)}">
                   <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
                 </select>
                 <div *ngIf="invalid('country', myForm)" class="invalid-feedback">
@@ -78,8 +150,7 @@
               <div class="form-group">
                 <label style="color: white" for=""><strong>Ciudad</strong></label>
                 <select class="form-control" formControlName="city"
-                [ngClass]="{'is-invalid': invalid('city', myForm), 'is-valid': valid('city', myForm)}"
-                >
+                  [ngClass]="{'is-invalid': invalid('city', myForm), 'is-valid': valid('city', myForm)}">
                   <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
                 </select>
                 <div *ngIf="invalid('city', myForm)" class="invalid-feedback">
@@ -94,32 +165,32 @@
               <div class="form-group">
                 <label style="color: white" for=""><strong>Fecha de Checkin</strong></label>
                 <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq"
-                [ngClass]="{'is-invalid': invalid('fechaOne', myForm), 'is-valid': valid('fechaOne', myForm)}">
-                        <div *ngIf="invalid('fechaOne', myForm)" class="invalid-feedback">
-                          Por favor seleccione la fecha de checkin.
-                        </div>
-                        <div *ngIf="valid('fechaOne', myForm)" class="valid-feedback">
-                          ¡Excelente!
-                        </div>
+                  [ngClass]="{'is-invalid': invalid('fechaOne', myForm), 'is-valid': valid('fechaOne', myForm)}">
+                <div *ngIf="invalid('fechaOne', myForm)" class="invalid-feedback">
+                  Por favor seleccione la fecha de checkin.
+                </div>
+                <div *ngIf="valid('fechaOne', myForm)" class="valid-feedback">
+                  ¡Excelente!
+                </div>
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label style="color: white" for=""><strong>Fecha de Checkout</strong></label>
                 <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev"
-                [ngClass]="{'is-invalid': invalid('fechaTwo', myForm), 'is-valid': valid('fechaTwo', myForm)}">
-                        <div *ngIf="invalid('fechaTwo', myForm)" class="invalid-feedback">
-                          Por favor seleccione la fecha de checkout.
-                        </div>
-                        <div *ngIf="valid('fechaTwo', myForm)" class="valid-feedback">
-                          ¡Excelente!
-                        </div>
+                  [ngClass]="{'is-invalid': invalid('fechaTwo', myForm), 'is-valid': valid('fechaTwo', myForm)}">
+                <div *ngIf="invalid('fechaTwo', myForm)" class="invalid-feedback">
+                  Por favor seleccione la fecha de checkout.
+                </div>
+                <div *ngIf="valid('fechaTwo', myForm)" class="valid-feedback">
+                  ¡Excelente!
+                </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button class="btn btn-success" type="submit" (click)="getHotelsByCity();showTable()">Buscar</button>
+              <button class="btn btn-success" type="submit" (click)="getHotelsByCity()">Buscar</button>
             </div>
           </div>
         </form>
@@ -143,25 +214,79 @@
               </tr>
             </thead>
             <tbody>
-              <tr  *ngFor="let hotel of hotels">
+              <tr *ngFor="let hotel of hotels">
                 <td>{{hotel.name}}</td>
                 <td>{{hotel.roomCapacity}}</td>
                 <td>{{hotel.pricePerRoom}}$</td>
                 <td>{{hotel.availableRooms}}</td>
                 <td>
-                  <swal
-                      #addSwal
-                      title="¿Desea Reservar?"
-                      type="question"
-                      [showCancelButton]="true"
-                      [focusCancel]="true"
-                      (confirm)="submit(hotel)" [options]="{ confirmButtonText: 'Si, estoy
+                  <swal #addSwal title="¿Desea Reservar?" type="question" [showCancelButton]="true" [focusCancel]="true"
+                    (confirm)="submit(hotel)" [options]="{ confirmButtonText: 'Si, estoy
                       seguro', cancelButtonText: 'Cancelar' }">
                   </swal>
-                  <button [swal]="addSwal" class="btn btn-outline-dark"><i class="fa fa-cart-plus"></i></button></td>
+                  <button [swal]="addSwal" class="btn btn-outline-dark"><i class="fa fa-cart-plus"></i></button>
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!--
+  Listado de Reserva de Habitaciones
+-->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-3">
+          <div class="card-header">
+            Reservas de habitaciones
+          </div>
+          <div class="card-body table-responsive">
+            <div class="row">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Hotel</th>
+                    <th scope="col">Estrellas</th>
+                    <th scope="col">Capacidad Habitacion</th>
+                    <th scope="col">Precio por noche</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">CheckIn</th>
+                    <th scope="col">CheckOut</th>
+                    <th scope="col">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let roomreservation of roomreservations">
+                    <td>{{roomreservation.hotel?.name}}</td>
+                    <td align="center">{{roomreservation.hotel?.stars}}<i class="fa fa-star" aria-hidden="true"></i>
+                    </td>
+                    <td align="center">{{roomreservation.hotel?.roomCapacity}}</td>
+                    <td>{{roomreservation.hotel?.pricePerRoom}}$</td>
+                    <td>{{roomreservation.hotel?.phone}}</td>
+                    <td>{{roomreservation.checkIn | date: 'mediumDate'}}</td>
+                    <td>{{roomreservation.checkOut | date: 'mediumDate'}}</td>
+                    <td>
+                      <swal #deleteSwal title="¿Desea eliminar la reservacion?" type="question"
+                        [showCancelButton]="true" [focusCancel]="true"
+                        (confirm)="deleteRoomReservation(roomreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
+                 seguro', cancelButtonText: 'Cancelar' }">
+                      </swal>
+                      <button [swal]="deleteSwal" class="btn btn-outline-danger" title="Eliminar {{type}}">
+                        <i class="fa fa-trash"></i>
+                      </button>&nbsp;&nbsp;
+                      <button class="btn btn-outline-info" style="cursor: pointer; width: 39px;" data-toggle="tooltip"
+                        data-placement="top" title="Editar {{type}}"
+                        (click)="openRoom(content,roomreservation.id);initializaDate();">
+                        <i class="fa fa-edit"></i>
+                      </button>&nbsp;&nbsp;
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-<ng-template #content let-modal>
+<!-- <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Reserva de automóvil</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -7,22 +7,22 @@
   </div>
   <div class="modal-body">
     <div class="row">
-        <div class="col-md-3">
-            <p><strong>Marca: </strong></p>
-            <p>lorem ipsum</p>
-        </div>
-        <div class="col-md-3">
-            <p><strong>Modelo: </strong></p>
-            <p>lorem ipsum</p>
-        </div>
-        <div class="col-md-3">
-          <p><strong>Capacidad: </strong></p>
-          <p>lorem ipsum</p>
-        </div>
-        <div class="col-md-3">
-          <p><strong>Precio por día: </strong></p>
-          <p>lorem ipsum</p>
-        </div>
+      <div class="col-md-3">
+        <p><strong>Marca: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Modelo: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Capacidad: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
+      <div class="col-md-3">
+        <p><strong>Precio por día: </strong></p>
+        <p>lorem ipsum</p>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-3">
@@ -46,6 +46,70 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
   </div>
+</ng-template> -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modificar Reserva de habitación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="myForm">
+      <div class="row">
+        <div class="col-md-3">
+          <p><strong>Marca: </strong></p>
+          <p>{{carreservation?.automobile?._make}}</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>Modelo: </strong></p>
+          <p>{{carreservation?.automobile?._model}}</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>Capacidad: </strong></p>
+          <p>{{carreservation?.automobile?._capacity}}</p>
+        </div>
+        <div class="col-md-3">
+          <p><strong>Precio por dia: </strong></p>
+          <p>{{carreservation?.automobile?.price}}$</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <p><strong>CheckIn: </strong></p>
+          <p>{{carreservation?.checkIn | date: 'mediumDate'}}</p>
+
+
+
+        </div>
+        <div class="col-md-3">
+          <p><strong>CheckOut:</strong></p>
+          <p>{{carreservation?.checkOut | date: 'mediumDate'}}</p>
+
+        </div>
+
+        <div class="col-md-3">
+          <p><strong>Precio total: </strong></p>
+          <span
+            [ngClass]="getDaysFrom2Dates(carreservation?.checkIn, carreservation?.checkOut,carreservation?.automobile?.price)">{{totalcost}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq">
+        </div>
+        <div class="col-md-3">
+          <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+      (click)="updateAutomobileReservation(carreservation?.automobile,carreservation.id);modal.close('Save click')">Actualizar</button>
+  </div>
 </ng-template>
 
 <div class="row">
@@ -55,74 +119,71 @@
         Buscar automóvil
       </div>
       <div class="card-body carrito">
-          <form [formGroup]="myForm" (ngSubmit)="buscador()">
-              <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                        <label style="color: white" for=""><strong>Pais</strong></label>
-                        <select class="form-control" formControlName="country"
-                        (ngModelChange)="getCities()"
-                        [ngClass]="{'is-invalid': invalid('country', myForm), 'is-valid': valid('country', myForm)}"
-                        >
-                          <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
-                        </select>
-                        <div *ngIf="invalid('country', myForm)" class="invalid-feedback">
-                          Por favor seleccione un pais
-                        </div>
-                        <div *ngIf="valid('country', myForm)" class="valid-feedback">
-                          ¡Excelente!
-                        </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="form-group">
-                        <label style="color: white" for=""><strong>Ciudad</strong></label>
-                        <select class="form-control" formControlName="city"
-                        [ngClass]="{'is-invalid': invalid('city', myForm), 'is-valid': valid('city', myForm)}"
-                        >
-                          <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
-                        </select>
-                        <div *ngIf="invalid('city', myForm)" class="invalid-feedback">
-                          Por favor seleccione una ciudad
-                        </div>
-                        <div *ngIf="valid('city', myForm)" class="valid-feedback">
-                          ¡Excelente!
-                        </div>
-                      </div>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="form-group">
-                        <label style="color: white" for=""><strong>Fecha de Alquiler</strong></label>
-                        <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq"
-                        [ngClass]="{'is-invalid': invalid('fechaOne', myForm), 'is-valid': valid('fechaOne', myForm)}">
-                        <div *ngIf="invalid('fechaOne', myForm)" class="invalid-feedback">
-                          Por favor seleccione la fecha de alquiler del vehiculo.
-                        </div>
-                        <div *ngIf="valid('fechaOne', myForm)" class="valid-feedback">
-                          ¡Excelente!
-                        </div>
-                      </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label style="color: white" for=""><strong>Fecha de devolución</strong></label>
-                      <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev"
-                      [ngClass]="{'is-invalid': invalid('fechaTwo', myForm), 'is-valid': valid('fechaTwo', myForm)}">
-                        <div *ngIf="invalid('fechaTwo', myForm)" class="invalid-feedback">
-                          Por favor seleccione la fecha de devolucion del vehiculo.
-                        </div>
-                        <div *ngIf="valid('fechaTwo', myForm)" class="valid-feedback">
-                          ¡Excelente!
-                        </div>
-                    </div>
-                  </div>
+        <form [formGroup]="myForm" (ngSubmit)="buscador()">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label style="color: white" for=""><strong>Pais</strong></label>
+                <select class="form-control" formControlName="country" (ngModelChange)="getCities()"
+                  [ngClass]="{'is-invalid': invalid('country', myForm), 'is-valid': valid('country', myForm)}">
+                  <option *ngFor="let country of countries" [value]="country.id">{{country.country}}</option>
+                </select>
+                <div *ngIf="invalid('country', myForm)" class="invalid-feedback">
+                  Por favor seleccione un pais
+                </div>
+                <div *ngIf="valid('country', myForm)" class="valid-feedback">
+                  ¡Excelente!
+                </div>
               </div>
-              <div class="row">
-                  <div class="col-md-12">
-                    <button class="btn btn-success" type="submit" (click)="getCarsByCity();showTable()">Buscar</button>
-                  </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label style="color: white" for=""><strong>Ciudad</strong></label>
+                <select class="form-control" formControlName="city"
+                  [ngClass]="{'is-invalid': invalid('city', myForm), 'is-valid': valid('city', myForm)}">
+                  <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
+                </select>
+                <div *ngIf="invalid('city', myForm)" class="invalid-feedback">
+                  Por favor seleccione una ciudad
+                </div>
+                <div *ngIf="valid('city', myForm)" class="valid-feedback">
+                  ¡Excelente!
+                </div>
               </div>
-          </form>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label style="color: white" for=""><strong>Fecha de Alquiler</strong></label>
+                <input type="date" class="form-control" formControlName="fechaOne" id="datefieldAlq"
+                  [ngClass]="{'is-invalid': invalid('fechaOne', myForm), 'is-valid': valid('fechaOne', myForm)}">
+                <div *ngIf="invalid('fechaOne', myForm)" class="invalid-feedback">
+                  Por favor seleccione la fecha de alquiler del vehiculo.
+                </div>
+                <div *ngIf="valid('fechaOne', myForm)" class="valid-feedback">
+                  ¡Excelente!
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label style="color: white" for=""><strong>Fecha de devolución</strong></label>
+                <input type="date" class="form-control" formControlName="fechaTwo" id="datefieldDev"
+                  [ngClass]="{'is-invalid': invalid('fechaTwo', myForm), 'is-valid': valid('fechaTwo', myForm)}">
+                <div *ngIf="invalid('fechaTwo', myForm)" class="invalid-feedback">
+                  Por favor seleccione la fecha de devolucion del vehiculo.
+                </div>
+                <div *ngIf="valid('fechaTwo', myForm)" class="valid-feedback">
+                  ¡Excelente!
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-success" type="submit" (click)="getCarsByCity();showTable()">Buscar</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 
@@ -147,24 +208,76 @@
                 <td>{{car._make}}</td>
                 <td>{{car._model}}</td>
                 <td>{{car._capacity}}</td>
-                <td>{{car._price}}$</td>
+                <td>{{car.price}}$</td>
                 <td>
-                  <swal
-                      #addSwal
-                      title="¿Desea Reservar?"
-                      type="question"
-                      [showCancelButton]="true"
-                      [focusCancel]="true"
-                      (confirm)="submit(car)" [options]="{ confirmButtonText: 'Si, estoy
+                  <swal #addSwal title="¿Desea Reservar?" type="question" [showCancelButton]="true" [focusCancel]="true"
+                    (confirm)="submit(car)" [options]="{ confirmButtonText: 'Si, estoy
                       seguro', cancelButtonText: 'Cancelar' }">
                   </swal>
                   <button [swal]="addSwal" class="btn btn-outline-dark"><i class="fa fa-cart-plus"></i></button>
-              </td>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
+
+    <!--
+      Listado de Reserva de Automoviles
+    -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-3">
+          <div class="card-header">
+            Reservas de automoviles
+          </div>
+          <div class="card-body table-responsive">
+            <div class="row">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Puestos</th>
+                    <th scope="col">Precio por dia</th>
+                    <th scope="col">Fecha de Alquiler</th>
+                    <th scope="col">Fecha de Devolucion</th>
+                    <th scope="col">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let carreservation of carreservations">
+                    <td>{{carreservation.automobile?._make}}</td>
+                    <td>{{carreservation.automobile?._model}}</td>
+                    <td>{{carreservation.automobile?._capacity}}</td>
+                    <td>{{carreservation.automobile?.price}}$</td>
+                    <td>{{carreservation.checkIn | date: 'mediumDate'}}</td>
+                    <td>{{carreservation.checkOut | date: 'mediumDate'}}</td>
+                    <td>
+                      <swal #deleteSwal title="¿Desea eliminar la reservacion?" type="question"
+                        [showCancelButton]="true" [focusCancel]="true"
+                        (confirm)="deleteAutomobileReservation(carreservation.id)" [options]="{ confirmButtonText: 'Si, estoy
+                     seguro', cancelButtonText: 'Cancelar' }">
+                      </swal>
+                      <button [swal]="deleteSwal" class="btn btn-outline-danger" title="Eliminar {{type}}">
+                        <i class="fa fa-trash"></i>
+                      </button>&nbsp;&nbsp;
+                      <button class="btn btn-outline-info" style="cursor: pointer; width: 39px;" data-toggle="tooltip"
+                        data-placement="top" title="Editar {{type}}"
+                        (click)="openCar(content,carreservation.id);initializaDate();">
+                        <i class="fa fa-edit"></i>
+                      </button>&nbsp;&nbsp;
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
