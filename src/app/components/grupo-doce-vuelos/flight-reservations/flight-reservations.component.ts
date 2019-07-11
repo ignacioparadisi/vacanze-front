@@ -76,15 +76,6 @@ export class FlightReservationsComponent implements OnInit {
       document.getElementById("out_id").setAttribute("max", getSelectedEnt.value.toString());
     })
   }
-
-  public open(content) {
-    this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
   public getCountries() {
     const requestURL = 'locations/countries';
     this.api.getUrl(requestURL).then(
