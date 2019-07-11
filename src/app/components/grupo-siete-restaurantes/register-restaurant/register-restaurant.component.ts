@@ -162,7 +162,7 @@ public registrationForm: FormGroup = new FormGroup({
         specialty: this.registrationForm.get('type').value,
         price: this.registrationForm.get('price').value,
         businessName: this.registrationForm.get('businessName').value,
-        picture: this.urlImage,
+        picture: this.urlImage || "",
         description: this.registrationForm.get('description').value,
         phone: this.registrationForm.get('phone').value,
         location: this.registrationForm.get('city').value,

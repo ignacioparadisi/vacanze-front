@@ -51,7 +51,7 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
 
   ngOnInit() {
     if(this.router.url === '/administrar-restaurantes/agregar-restaurant' ||
-        this.router.url.indexOf('editar-restaurant') !== -1){
+      this.router.url.indexOf('editar-restaurant') !== -1){
       this.isEditingRestaurant = true;
       this.isCreatingRestaurant = true;
     }
@@ -208,24 +208,24 @@ export class GrupoSieteRestaurantesComponent implements OnInit {
     return this.headerTitle;
   }
 
-  /*********************************************
+  /*************************************************
   * Metodo para setear la variable de restaurantes *
-  **********************************************/
+  **************************************************/
  public setRestaurants(restaurants: Array<Object>) {
   this.tableData = restaurants;
 }
 
-/************************************************
+/****************************************************
 * Metodo para retornar la variable de restaurantes  *
-*************************************************/
+*****************************************************/
 public getVariableRestaurants(): Array<Object> {
   return this.tableData;
 }
 
-  /***************************************************************
+  /*******************************************************************
   * Metodo que se ejecuta para actualizar el arreglo de restaurantes *
   * debido a la elminacion del restaurante por el id                 *
-  ****************************************************************/
+  ********************************************************************/
 
  public deleteRestaurantById(id: number) {
   let restaurants = this.getVariableRestaurants();
